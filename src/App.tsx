@@ -1,15 +1,24 @@
-import React from "react";
-
+import React, { FC } from "react";
 import "./App.css";
+import { Routes, Route, Link } from "react-router-dom";
 
-let name = "Eath";
-let age = 15;
-function App() {
+import HomeHeader from "./components/headers/HomeHeader";
+import HomeFooter from "./components/footers/HomeFooter";
+import { testitems } from "./components/footers/data/testItem";
+import Login from "./pages/LandingPages/Login/Login";
+import Register from "./pages/LandingPages/Register/Register";
+//rfec
+
+const App = () => {
   return (
-    <div className="App">
-      Hello {name} + {age}
-    </div>
+    <>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/Login" element={<Login />} />
+        <Route path="/Register" element={<Register />} />
+      </Routes>
+    </>
   );
-}
+};
 
 export default App;
