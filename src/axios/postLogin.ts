@@ -1,17 +1,18 @@
 import axios from "axios";
+import { API } from "./swr/endpoint";
 
 const postLogin = async (username?: string, password?: string) => {
   //console.log("username = " + username + " password = " + password);
 
   try {
     var data = JSON.stringify({
-      username: "15120a",
-      password: "qfzxcs",
+      username: username,
+      password: password,
     });
 
     var config = {
       method: "post",
-      url: "http://localhost:3500/api/loginUser",
+      url: API.login,
       headers: {
         "Content-Type": "application/json",
       },
