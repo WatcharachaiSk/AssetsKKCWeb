@@ -10,10 +10,14 @@ import {
   Col,
 } from "react-bootstrap";
 import NavbarTop from "../../components/navbar/NavbarTop";
+
 function Faculty() {
+  const [clickPage, setClickPage] = useState<string>("setting");
+
   return (
     <>
-      <NavbarTop />
+      <NavbarTop clickPage={clickPage} />
+      <div>Faculty</div>
     </>
   );
 }
