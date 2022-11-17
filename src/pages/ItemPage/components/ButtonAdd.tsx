@@ -1,7 +1,11 @@
 import Button from "react-bootstrap/Button";
 import styled from "styled-components";
 import { IoAdd } from "react-icons/io5";
-function BottonAdd(props: any) {
+import { useNavigate } from "react-router-dom";
+function ButtonAdd(props: any) {
+  const { titleButton, pageAdd } = props;
+  const navigate = useNavigate();
+
   const BoxFlex = styled.div`
     display: flex;
     /* border: 1px solid; */
@@ -9,21 +13,21 @@ function BottonAdd(props: any) {
     margin-top: 50px;
     margin: 50px;
   `;
-  const { navigatePage } = props;
+
   return (
     <>
       <BoxFlex>
         <div>
           <Button
             onClick={() => {
-              navigatePage("/items/newitem");
+              navigate(pageAdd);
             }}
             style={{ padding: 10, fontSize: 25 }}
             variant="success"
             size="lg"
           >
             <IoAdd size={30} style={{ margin: 5 }} />
-            <span>เพิ่มครุภัณฑ์</span>
+            <span>{titleButton}</span>
           </Button>
         </div>
       </BoxFlex>
@@ -31,4 +35,4 @@ function BottonAdd(props: any) {
   );
 }
 
-export default BottonAdd;
+export default ButtonAdd;

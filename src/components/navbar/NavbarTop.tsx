@@ -16,10 +16,17 @@ import {
 import styled from "styled-components";
 import colors from "../../config/colors";
 import { BsSearch } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
 
 function NavbarTop(props: any) {
+  const navigate = useNavigate();
+
+  const navigatePage = (page: string, idItem?: any) => {
+    navigate(page);
+  };
+
   const { clickPage } = props;
-  console.log(clickPage);
+  // console.log(clickPage);
 
   const TitleHome = styled.span`
     color: ${(props: any) => (props.color === "home" ? colors.black : "dark")};
@@ -32,14 +39,14 @@ function NavbarTop(props: any) {
       props.color === "setting" ? colors.black : "dark"};
   `;
   const TitleAdmin = styled.span`
-    color: ${(props: any) => (props.color === "admin" ? colors.black : "dark")};
+    color: ${(props: any) => (props.color === "admin" ? colors.goldFC : "dark")};
   `;
   const styles = {
     fontNavBrand: {
       fontSize: 35,
     },
     fontNavLink: {
-      fontSize: 22,
+      fontSize: 20,
     },
     fontNavDropdown: {
       fontSize: 22,
@@ -60,11 +67,21 @@ function NavbarTop(props: any) {
               style={{ maxHeight: "100px" }}
               navbarScroll
             >
-              <Nav.Link style={styles.fontNavLink} href="home">
+              <Nav.Link
+                onClick={() => {
+                  navigatePage("/home");
+                }}
+                style={styles.fontNavLink}
+              >
                 <TitleHome color={clickPage}>ครุภัณฑ์</TitleHome>
               </Nav.Link>
-              <Nav.Link style={styles.fontNavLink} href="items">
-                <TitleItem color={clickPage}>รายการครุภัณฑ์</TitleItem>
+              <Nav.Link
+                onClick={() => {
+                  navigatePage("/items");
+                }}
+                style={styles.fontNavLink}
+              >
+                <TitleItem color={clickPage}>รายการครุภัณฑ์ทั้งหมด</TitleItem>
               </Nav.Link>
               <NavDropdown
                 style={styles.fontNavDropdown}
@@ -72,16 +89,36 @@ function NavbarTop(props: any) {
                 id="navbarScrollingDropdown"
                 // style={{ marginRight: 150 }}
               >
-                <NavDropdown.Item style={styles.fontNavLink} href="faculty">
+                <NavDropdown.Item
+                  style={styles.fontNavLink}
+                  onClick={() => {
+                    navigatePage("/faculty");
+                  }}
+                >
                   Faculty
                 </NavDropdown.Item>
-                <NavDropdown.Item style={styles.fontNavLink} href="#action4">
+                <NavDropdown.Item
+                  style={styles.fontNavLink}
+                  onClick={() => {
+                    navigatePage("/department");
+                  }}
+                >
                   Department
                 </NavDropdown.Item>
-                <NavDropdown.Item style={styles.fontNavLink} href="#action4">
+                <NavDropdown.Item
+                  style={styles.fontNavLink}
+                  onClick={() => {
+                    navigatePage("/building");
+                  }}
+                >
                   Building
                 </NavDropdown.Item>
-                <NavDropdown.Item style={styles.fontNavLink} href="#action4">
+                <NavDropdown.Item
+                  style={styles.fontNavLink}
+                  onClick={() => {
+                    navigatePage("/location");
+                  }}
+                >
                   Location
                 </NavDropdown.Item>
               </NavDropdown>
@@ -99,15 +136,26 @@ function NavbarTop(props: any) {
 
             <NavDropdown
               style={styles.fontNavLink}
-              title={<TitleAdmin>Admin</TitleAdmin>}
-              id="navbarScrollingDropdown"
-              // style={{ marginRight: 150 }}
+              title={<TitleAdmin color={clickPage}>Admin</TitleAdmin>}
             >
-              <NavDropdown.Item style={styles.fontNavLink} href="#action3">
-                Action
+              <NavDropdown.Item
+                style={styles.fontNavLink}
+                onClick={() => {
+                  navigatePage("/profile");
+                }}
+              >
+                Profile
+              </NavDropdown.Item>
+              <NavDropdown.Item
+                style={styles.fontNavLink}
+                onClick={() => {
+                  navigatePage("/users");
+                }}
+              >
+                User
               </NavDropdown.Item>
               <NavDropdown.Item style={styles.fontNavLink} href="#action4">
-                Another action
+                Log Out
               </NavDropdown.Item>
             </NavDropdown>
           </Navbar.Collapse>
