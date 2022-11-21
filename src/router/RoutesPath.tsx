@@ -1,6 +1,9 @@
 import { Routes, Route, Link } from "react-router-dom";
+// HOME
 import Home from "../pages/HomePage/Home";
+import CategoryItem from "../pages/HomePage/CategoryItem";
 import Items from "../pages/ItemPage/Items";
+
 import Login from "../pages/LandingPages/Login/Login";
 import Register from "../pages/LandingPages/Register/Register";
 import Faculty from "../pages/LocationsPages/Faculty";
@@ -31,9 +34,11 @@ function RoutesPath() {
         <Route path="/" element={<Login />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-
+        {/* Home */}
         <Route path="/home" element={<Home />} />
         <Route path="/items" element={<Items />} />
+        <Route path="/home/category_item" element={<CategoryItem />} />
+
         {/* Setting */}
         <Route path="/faculty" element={<Faculty />} />
         <Route path="/department" element={<Department />} />
@@ -45,14 +50,14 @@ function RoutesPath() {
         <Route path="/department/newdepartment" element={<NewDepartment />} />
         <Route path="/building/newbuilding" element={<NewBuilding />} />
         <Route path="/location/newlocation" element={<NewLocation />} />
-        
+
         {/* Edit */}
         <Route path="/items/editItem" element={<EditItem />} />
         <Route path="/faculty/editfaculty" element={<EditFaculty />} />
         <Route path="/departmen/editdepartmen" element={<EditDepartment />} />
         <Route path="/building/editbuilding" element={<EditBuilding />} />
         <Route path="/location/editlocation" element={<EditLocation />} />
-        
+
         {/* User */}
         <Route path="/profile" element={<Profile />} />
         <Route path="/users" element={<Users />} />

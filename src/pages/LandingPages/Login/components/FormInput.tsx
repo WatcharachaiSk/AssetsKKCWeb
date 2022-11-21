@@ -41,6 +41,7 @@ function FormInput(props: any) {
         icon: "success",
       }).then((value: any) => {
         setlocalStorage(res.data.web_token);
+        
         navigate("/home");
       });
     } else {
