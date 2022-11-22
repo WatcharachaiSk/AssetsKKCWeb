@@ -1,14 +1,28 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import NavbarTop from "../../components/navbar/NavbarTop";
 import ButtonAdd from "../ItemPage/components/ButtonAdd";
-import TableList from "../../components/table/TableList";
-import {
-  testDataDepartment,
-  thDepartment,
-} from "./components/datatest/DataDepartment";
+import TableListLocat from "../../components/table/TableListLocat";
+
+import axios from "axios";
+import configAxios from "../../axios/configAxios";
+import { API } from "../../axios/swr/endpoint";
+import checkToken from "../../config/checkToken";
+import { useNavigate } from "react-router-dom";
 
 function Department() {
+  const navigate = useNavigate();
   const [clickPage, setClickPage] = useState<string>("setting");
+  const [getDepartment, setGetDepartment] = useState<{}>({});
+
+  useMemo(async () => {
+    try {
+      const res = await axios(configAxios("get", API.getDepartment));
+      setGetDepartment(res.data);
+    } catch (error: any) {
+      // console.log("err = ", error.request.status);
+      checkToken(error.response.data.status, error.request.status, navigate);
+    }
+  }, []);
   return (
     <>
       <NavbarTop clickPage={clickPage} />
@@ -17,11 +31,7 @@ function Department() {
         titleButton={"เพิ่มสาขา"}
         pageAdd={"/department/newdepartment"}
       />
-      <TableList
-        thTable={thDepartment}
-        itemList={testDataDepartment}
-        editPage={"/departmen/editdepartmen"}
-      />
+      <TableListLocat itemList={getDepartment} isPage={"d"} />
     </>
   );
 }

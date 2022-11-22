@@ -1,7 +1,11 @@
 import { baseURL } from "../config";
 export const API = {
-  login: baseURL + `/api/loginUser`,
-  getCategory: baseURL + `/api/getCategory`,
+  login: baseURL + `/loginUser`,
+  getItem: baseURL + `/getItem`,
+  getCategory: baseURL + `/getCategory`,
+  getItemCategory: baseURL + `/getItemCategory/`,
+  getFaculty: baseURL + `/getFaculty`,
+  getDepartment: baseURL + `/getDepartment`,
 };
 
 /*

@@ -39,7 +39,8 @@ function NavbarTop(props: any) {
       props.color === "setting" ? colors.black : "dark"};
   `;
   const TitleAdmin = styled.span`
-    color: ${(props: any) => (props.color === "admin" ? colors.goldFC : "dark")};
+    color: ${(props: any) =>
+      props.color === "admin" ? colors.goldFC : "dark"};
   `;
   const styles = {
     fontNavBrand: {
@@ -123,7 +124,7 @@ function NavbarTop(props: any) {
                 </NavDropdown.Item>
               </NavDropdown>
 
-              <Form className="d-flex" style={{}}>
+              {/* <Form className="d-flex" style={{}}>
                 <Form.Control
                   type="search"
                   placeholder="Search"
@@ -131,7 +132,7 @@ function NavbarTop(props: any) {
                   aria-label="Search"
                 />
                 <Button variant="btn btn-outline-secondary">Search</Button>
-              </Form>
+              </Form> */}
             </Nav>
 
             <NavDropdown
@@ -166,42 +167,3 @@ function NavbarTop(props: any) {
 }
 
 export default NavbarTop;
-/*
-
- <Row style={{ padding: 30 }}>
-          <Col
-            style={{
-              alignItems: "center",
-              justifyItems: "center",
-
-              // backgroundColor: "#fdfd",
-            }}
-          >
-            <span style={{ fontSize: 25 }}>RMUTI kkc</span>
-          </Col>
-          <Col style={{}}>
-            <div
-              style={{
-                backgroundColor: colors.black,
-                height: 60,
-                borderRadius: 30,
-              }}
-            >
-              <InputGroup className="mb-3" style={{marginLeft:20, width: "95%"}}>
-                <Form.Control
-                  style={{ marginTop: 10, }}
-                  placeholder="Recipient's username"
-                  aria-label="Recipient's username"
-                  aria-describedby="basic-addon2"
-                />
-                <BsSearch
-                  size={25}
-                  style={{ marginLeft: 15, marginTop: 15 ,marginRight:15}}
-                  color={colors.white}
-                />
-              </InputGroup>
-            </div>
-          </Col>
-          <Col style={{ textAlign: "center" }}>3 of 3</Col>
-        </Row>
-*/

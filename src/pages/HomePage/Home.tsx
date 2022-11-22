@@ -1,31 +1,30 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useMemo } from "react";
 import NavbarTop from "../../components/navbar/NavbarTop";
 import styled from "styled-components";
-import GridList from "./components/GridList";
+import CardList from "./components/CardList";
+import { useNavigate } from "react-router-dom";
 import colors from "../../config/colors";
 import axios from "axios";
 import configAxios from "../../axios/configAxios";
 import { API } from "../../axios/swr/endpoint";
+import checkToken from "../../config/checkToken";
 
 function Home() {
   const [clickPage, setClickPage] = useState<string>("home");
   const [category, setCategory] = useState<{}>({});
+  const navigate = useNavigate();
 
   useMemo(async () => {
     try {
       const res = await axios(configAxios("get", API.getCategory));
       setCategory(res.data);
-    } catch (error) {
-      console.log("err = ", error);
+    } catch (error: any) {
+      // console.log("err = ", error.request.status);
+      checkToken(error.response.data.status, error.request.status, navigate);
     }
   }, []);
   console.log(category);
 
-  const BgHome = styled.body`
-    background-color: #f5f5f5;
-    width: 100%;
-    height: 100%;
-  `;
   const testData = [
     { type: "ครุภัณฑ์สำนักงาน", value: "158" },
     { type: "ครุภัณฑ์ไฟฟ้าเเละวิทยุ", value: "79" },
@@ -34,12 +33,23 @@ function Home() {
     { type: "ครุภัณฑ์โฆษณาและเผยแพร่", value: "198" },
     { type: "ครุภัณฑ์โฆษณาและเผยแพร่", value: "250" },
   ];
+
+  const Fullscreen = styled.div`
+    background: #FCFCFC no-repeat;
+    -webkit-background-size: cover;
+    background-size: cover;
+  `;
+
   return (
-    <BgHome>
-      <NavbarTop clickPage={clickPage} setClickPage={setClickPage} />
-      <div style={{ backgroundColor: colors.greyD9 }}>-</div>
-      <GridList listItem={category} />
-    </BgHome>
+    <>
+      <Fullscreen>
+        <NavbarTop clickPage={clickPage} setClickPage={setClickPage} />
+        <div className="d-flex justify-content-center mt-5 mb-2">
+          <h3>หมวดหมู่ครุภัณฑ์</h3>
+        </div>
+        <CardList listItem={category} />
+      </Fullscreen>
+    </>
   );
 }
 
