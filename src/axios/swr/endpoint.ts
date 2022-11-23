@@ -6,6 +6,11 @@ export const API = {
   getItemCategory: baseURL + `/getItemCategory/`,
   getFaculty: baseURL + `/getFaculty`,
   getDepartment: baseURL + `/getDepartment`,
+  getDepartmentByFtyId: baseURL + `/getDepartmentByFtyId/`,
+  getBuilding: baseURL + `/getBuilding`,
+  getBuildingByDpmId: baseURL + `/getBuildingByDpmId/`,
+  getLocation: baseURL + `/getLocation`,
+  getLocationByBudId: baseURL + `/getLocationByBudId/`,
 };
 
 /*

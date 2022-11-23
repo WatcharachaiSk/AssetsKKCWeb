@@ -1,24 +1,35 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import NavbarTop from "../../components/navbar/NavbarTop";
-import TableList from "../../components/table/TableList";
+
+import TableListLocat from "../../components/table/TableListLocat";
 import ButtonAdd from "../ItemPage/components/ButtonAdd";
-import {
-  testDataBuilding,
-  thBuilding,
-} from "./components/datatest/DataBuilding";
+import { useNavigate } from "react-router-dom";
+
+import axios from "axios";
+import configAxios from "../../axios/configAxios";
+import { API } from "../../axios/swr/endpoint";
+import checkToken from "../../config/checkToken";
 
 function Building() {
+  const navigate = useNavigate();
   const [clickPage, setClickPage] = useState<string>("setting");
+  const [getBuilding, setGetBuilding] = useState<{}>({});
+
+  useMemo(async () => {
+    try {
+      const res = await axios(configAxios("get", API.getLocation));
+      setGetBuilding(res.data);
+    } catch (error: any) {
+      // console.log("err = ", error.request.status);
+      checkToken(error.response.data.status, error.request.status, navigate);
+    }
+  }, []);
   return (
     <>
       <NavbarTop clickPage={clickPage} />
       <div>Building</div>
       <ButtonAdd titleButton={"เพิ่มอาคาร"} pageAdd={"/building/newbuilding"} />
-      <TableList
-        thTable={thBuilding}
-        itemList={testDataBuilding}
-        editPage={"/building/editbuilding"}
-      />
+      <TableListLocat isPage={"b"} itemList={getBuilding} />
     </>
   );
 }

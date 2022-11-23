@@ -11,7 +11,7 @@ import Department from "../pages/LocationsPages/Department";
 import Building from "../pages/LocationsPages/Building";
 import Location from "../pages/LocationsPages/Location";
 // ADD
-import FormNewItem from "../pages/ItemPage/FormNewItem";
+import NewItem from "../pages/ItemPage/NewItem";
 import NewFaculty from "../pages/LocationsPages/components/addPage/NewFaculty";
 import NewDepartment from "../pages/LocationsPages/components/addPage/NewDepartment";
 import NewBuilding from "../pages/LocationsPages/components/addPage/NewBuilding";
@@ -45,7 +45,7 @@ function RoutesPath() {
         <Route path="/building" element={<Building />} />
         <Route path="/location" element={<Location />} />
         {/* Add */}
-        <Route path="/items/newitem" element={<FormNewItem />} />
+        <Route path="/items/newitem" element={<NewItem />} />
         <Route path="/faculty/newfaculty" element={<NewFaculty />} />
         <Route path="/department/newdepartment" element={<NewDepartment />} />
         <Route path="/building/newbuilding" element={<NewBuilding />} />

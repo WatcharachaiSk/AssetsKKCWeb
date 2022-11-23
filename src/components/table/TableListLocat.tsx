@@ -37,6 +37,20 @@ function TableListLocat(props: any) {
                 <th>ชื่อ(คณะ)</th>
               </>
             )}
+            {isPage == "b" && (
+              <>
+                <th>ชื่อ(คณะ)</th>
+                <th>ชื่อ(สาขา)</th>
+              </>
+            )}
+            {isPage == "l" && (
+              <>
+                <th>ชื่อ(คณะ)</th>
+                <th>ชื่อ(สาขา)</th>
+                <th>ชื่อ(ตึก)</th>
+                <th>ชั้น</th>
+              </>
+            )}
           </tr>
         </thead>
         {/*  */}
@@ -70,6 +84,20 @@ function TableListLocat(props: any) {
                 {isPage == "d" && (
                   <>
                     <td>{item.faculty.nameTH}</td>
+                  </>
+                )}
+                {isPage == "b" && (
+                  <>
+                    <td>{item.faculty.nameTH}</td>
+                    <td>{item.department.nameTH}</td>
+                  </>
+                )}
+                {isPage == "l" && (
+                  <>
+                    <td>{item.faculty.nameTH}</td>
+                    <td>{item.department.nameTH}</td>
+                    <td>{item.building.nameTH}</td>
+                    <td>{item.floor}</td>
                   </>
                 )}
               </tr>

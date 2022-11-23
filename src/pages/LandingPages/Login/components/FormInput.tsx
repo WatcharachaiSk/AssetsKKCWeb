@@ -2,16 +2,7 @@ import { useState } from "react";
 import postLogin from "../../../../axios/postLogin";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-import {
-  Button,
-  ButtonGroup,
-  Dropdown,
-  Form,
-  Card,
-  Container,
-  Row,
-  Col,
-} from "react-bootstrap";
+import { Button, Form, Card, Container, Row, Col } from "react-bootstrap";
 
 const MySwal = withReactContent(Swal);
 
@@ -20,8 +11,6 @@ function FormInput(props: any) {
 
   const [inputs, setInputs] = useState<any>({});
   const [user, setUser] = useState<any>();
-  const [username, setUsername] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
 
   const handleChange = (event: any) => {
     const name = event.target.name;
@@ -41,7 +30,7 @@ function FormInput(props: any) {
         icon: "success",
       }).then((value: any) => {
         setlocalStorage(res.data.web_token);
-        
+
         navigate("/home");
       });
     } else {
