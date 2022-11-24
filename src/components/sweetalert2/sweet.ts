@@ -12,3 +12,27 @@ export const sweet_basic = (
     footer: footer,
   });
 };
+
+export const sweet_popUpTimer = (
+  position?:
+    | "top-start"
+    | "top-end"
+    | "center"
+    | "center-start"
+    | "center-end"
+    | "bottom"
+    | "bottom-start"
+    | "bottom-end",
+  icons?: "success" | "error" | "warning" | "info" | "question",
+  title?: string,
+
+  timer?: number
+) => {
+  Swal.fire({
+    position: position,
+    icon: icons,
+    title: title,
+    showConfirmButton: false,
+    timer: timer,
+  });
+};

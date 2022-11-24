@@ -47,7 +47,7 @@ function TableListItem(props: any) {
                   <Button
                     variant="outline-secondary"
                     onClick={() => {
-                      console.log("item.item_id = " + item.item_id);
+                      console.log("item.item_id = " + item?.item_id);
                     }}
                   >
                     <AiFillEdit color="red" size={20} />

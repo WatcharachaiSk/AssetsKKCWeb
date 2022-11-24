@@ -6,11 +6,22 @@ import { API } from "../../../axios/swr/endpoint";
 import checkToken from "../../../config/checkToken";
 import { useNavigate } from "react-router-dom";
 import _ from "lodash";
+import { sweet_basic } from "../../../components/sweetalert2/sweet";
 
 function FormAddItem(props: any) {
-  const { nameItem, setNameItem, codeItem, setCodeItem } = props;
+  const {
+    nameItem,
+    setNameItem,
+    codeItem,
+    setCodeItem,
+    setModalShowCheck,
+    setPostItemCheck,
+    setPostItem,
+  } = props;
 
   const navigate = useNavigate();
+  const [getTypeItem, setGetTypeItem] = useState<{}>({});
+
   const [getFaculty, setGetFaculty] = useState<{}>({});
   const [getDepartment, setGetDepartment] = useState<{}>({});
   const [getBuilding, setGetBuilding] = useState<{}>({});
@@ -20,55 +31,122 @@ function FormAddItem(props: any) {
   const [idDpm, setIdDpm] = useState<number>(0);
   const [IdBud, setIdBul] = useState<number>(0);
   const [idLocat, setIdLocat] = useState<number>(0);
+  const [idcate, setIdcate] = useState<number>(0);
+  const [idType, setIdType] = useState<number>(0);
+  //
   const [status, setStatus] = useState<number>(1);
+  const [nameCate, setnNameCate] = useState<string>();
+
+  //
+  const onSubmit = async (event: any) => {
+    event.preventDefault();
+    const obj = {
+      name: nameItem,
+      code: codeItem,
+      status_item: {
+        id: status,
+        name: status == 1 ? "ปกติ" : "ชำรุด",
+      },
+      faculty: {
+        id: idFty,
+        faculty: _.filter(getFaculty, (item: any) => {
+          return item.f_id == idFty;
+        }),
+      },
+      department: {
+        id: idDpm,
+        department: _.filter(getDepartment, (item: any) => {
+          return item.d_id == idDpm;
+        }),
+      },
+      building: {
+        id: IdBud,
+        building: _.filter(getBuilding, (item: any) => {
+          return item.b_id == IdBud;
+        }),
+      },
+      location: {
+        id: idLocat,
+        location: _.filter(getLocation, (item: any) => {
+          return item.l_id == idLocat;
+        }),
+      },
+      typeItemType: {
+        id: idType,
+        typeItem: _.filter(getTypeItem, (item: any) => {
+          return item.type_id == idType;
+        }),
+      },
+    };
+    const dataform = {
+      name: nameItem,
+      code: codeItem,
+      status_item: status,
+      facultyFId: idFty,
+      departmentDId: idDpm,
+      buildingBId: IdBud,
+      categoryCateId: idcate,
+      locationLId: idLocat,
+      typeItemTypeId: idType,
+    };
+    setPostItem(dataform);
+
+    setPostItemCheck(obj);
+
+    onSubmitChk();
+  };
+
+  const onSubmitChk = () => {
+    setModalShowCheck(true);
+  };
 
   // getFaculty
   useMemo(async () => {
     try {
-      const res = await axios(configAxios("get", API.getFaculty));
-      setGetFaculty(res.data);
+      const resFacu = await axios(configAxios("get", API.getFaculty));
+      const resType = await axios(configAxios("get", API.getTypeItem));
+      setGetTypeItem(resType.data);
+      setGetFaculty(resFacu.data);
     } catch (error: any) {
-      // console.log("err = ", error.request.status);
       checkToken(error.response.data.status, error.request.status, navigate);
     }
   }, []);
   //  getDepartmentByFtyId
   useMemo(async () => {
     try {
-      const res = await axios(
-        configAxios("get", `${API.getDepartmentByFtyId}${idFty}`)
-      );
-      // console.log(res.data);
-
-      setGetDepartment(res.data);
+      if (idFty != 0) {
+        const res = await axios(
+          configAxios("get", `${API.getDepartmentByFtyId}${idFty}`)
+        );
+        setGetDepartment(res.data);
+      }
     } catch (error: any) {
-      // console.log("err = ", error.request.status);
       checkToken(error.response.data.status, error.request.status, navigate);
     }
   }, [idFty]);
   //  setGetBuilding
   useMemo(async () => {
     try {
-      const res = await axios(
-        configAxios("get", `${API.getBuildingByDpmId}${idDpm}`)
-      );
-      // console.log(res.data);
-      setGetBuilding(res.data);
+      if (idDpm != 0) {
+        const res = await axios(
+          configAxios("get", `${API.getBuildingByDpmId}${idDpm}`)
+        );
+        setGetBuilding(res.data);
+      }
     } catch (error: any) {
-      // console.log("err = ", error.request.status);
       checkToken(error.response.data.status, error.request.status, navigate);
     }
   }, [idDpm]);
   //  getLocation
   useMemo(async () => {
     try {
-      const res = await axios(
-        configAxios("get", `${API.getLocationByBudId}${IdBud}`)
-      );
-      // console.log(res.data);
-      setGetLocation(res.data);
+      if (IdBud != 0) {
+        const res = await axios(
+          configAxios("get", `${API.getLocationByBudId}${IdBud}`)
+        );
+        setGetLocation(res.data);
+      }
     } catch (error: any) {
-      // console.log("err = ", error.request.status);
       checkToken(error.response.data.status, error.request.status, navigate);
     }
   }, [IdBud]);
@@ -104,10 +182,6 @@ function FormAddItem(props: any) {
     setIdLocat(value);
   };
 
-  const onSubmit = async (event: any) => {
-    event.preventDefault();
-  };
-
   const handleChangeName = (event: any) => {
     const name = event.target.value;
     setNameItem(name);
@@ -120,15 +194,33 @@ function FormAddItem(props: any) {
 
   const handleChangeStatus = (event: any) => {
     const status = event.target.value;
-    // console.log(status);
-
     setStatus(status);
+  };
+
+  const handleChangeType = (event?: any) => {
+    const id = event.target.value;
+
+    const typeItemById: any = _.filter(getTypeItem, (item: any) => {
+      return item.type_id == id;
+    });
+
+    if (id != 0) {
+      setnNameCate(typeItemById[0].category.name);
+      setIdcate(typeItemById[0].category.cate_id);
+    } else {
+      setnNameCate(undefined);
+    }
+
+    setIdType(id);
   };
 
   // console.log("IdLocat = " + IdLocat);
 
   return (
     <Container style={{ borderRadius: 15, width: "100%", height: "100%" }}>
+      {/*  */}
+
+      {/*  */}
       <Form>
         <Form.Group className="mb-2" controlId="formNameItem">
           <Form.Label>ชื่อ ครุภัณฑ์</Form.Label>
@@ -167,7 +259,40 @@ function FormAddItem(props: any) {
           </Form.Select>
         </Form.Group>
         {/*  */}
-
+        <Form.Group className="mb-3" controlId="formFaculty">
+          <Form.Label>เลือกชนิดครุภัณฑ์</Form.Label>
+          <Form.Select
+            onChange={(event: any) => {
+              handleChangeType(event);
+            }}
+            size="lg"
+          >
+            <option value={0}>เลือกชนิดครุภัณฑ์</option>
+            {_.map(getTypeItem, (item: any, idx) => {
+              return (
+                <>
+                  <option key={item.type_id} value={item.type_id}>
+                    {item.name}
+                  </option>
+                </>
+              );
+            })}
+          </Form.Select>
+        </Form.Group>
+        {/*  */}
+        <Form.Group className="mb-3">
+          <Form.Label>หมวดหมู่ครุภัณฑ์ (อิงตามชนิดครุภัณฑ์)</Form.Label>
+          <Form.Control
+            size="lg"
+            type="text"
+            placeholder={`${
+              nameCate != undefined ? nameCate : "กรุณาเลือกชนิดครุภัณฑ์"
+            }`}
+            disabled
+            readOnly
+          />
+        </Form.Group>
+        {/*  */}
         <Form.Group className="mb-3" controlId="formFaculty">
           <Form.Label>เลือกคณะ</Form.Label>
           <Form.Select
@@ -198,7 +323,7 @@ function FormAddItem(props: any) {
             }}
             size="lg"
           >
-            {!idFty || idFty != 0 ? (
+            {idFty != 0 ? (
               <option value={0}>กรุณาเลือกสาขา</option>
             ) : (
               <option value={0}>กรุณาเลือกคณะ</option>
@@ -225,7 +350,7 @@ function FormAddItem(props: any) {
             }}
             size="lg"
           >
-            {!idDpm || idDpm != 0 ? (
+            {idDpm != 0 ? (
               <option value={0}>กรุณาเลือกตึก</option>
             ) : (
               <option value={0}>กรุณาเลือกสาขา</option>
@@ -252,7 +377,7 @@ function FormAddItem(props: any) {
             }}
             size="lg"
           >
-            {!IdBud || IdBud != 0 ? (
+            {IdBud != 0 ? (
               <option value={0}>กรุณาเลือกสถานที่</option>
             ) : (
               <option value={0}>กรุณาเลือกตึก</option>
@@ -262,7 +387,7 @@ function FormAddItem(props: any) {
               return (
                 <>
                   <option key={item.l_id} value={item.l_id}>
-                    {item.nameTH}
+                    {item.nameTH} ชั้น {item.floor}
                   </option>
                 </>
               );
@@ -274,8 +399,21 @@ function FormAddItem(props: any) {
         <div className="d-flex justify-content-center">
           <Button
             // style={{}}
-            onClick={(e) => {
-              onSubmit(e);
+            onClick={(event) => {
+              if (
+                idFty != 0 &&
+                idDpm != 0 &&
+                IdBud != 0 &&
+                idLocat != 0 &&
+                idType != 0 &&
+                nameItem &&
+                codeItem
+              ) {
+                onSubmit(event);
+              } else {
+                event.preventDefault();
+                sweet_basic("warning", "ข้อมูลไม่ครบ", "กรุณากรอกข้อมูลให้ครบ");
+              }
             }}
             className="mb-3 mt-3 p-2"
             variant={
@@ -283,6 +421,7 @@ function FormAddItem(props: any) {
               idDpm != 0 &&
               IdBud != 0 &&
               idLocat != 0 &&
+              idType != 0 &&
               nameItem &&
               codeItem
                 ? "success"
@@ -295,6 +434,7 @@ function FormAddItem(props: any) {
             idDpm != 0 &&
             IdBud != 0 &&
             idLocat != 0 &&
+            idType != 0 &&
             nameItem &&
             codeItem
               ? "Submit"
@@ -307,6 +447,3 @@ function FormAddItem(props: any) {
 }
 
 export default FormAddItem;
-function setGetFaculty(data: any) {
-  throw new Error("Function not implemented.");
-}

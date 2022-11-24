@@ -1,6 +1,7 @@
 import { baseURL } from "../config";
 export const API = {
   login: baseURL + `/loginUser`,
+  // GET
   getItem: baseURL + `/getItem`,
   getCategory: baseURL + `/getCategory`,
   getItemCategory: baseURL + `/getItemCategory/`,
@@ -11,6 +12,10 @@ export const API = {
   getBuildingByDpmId: baseURL + `/getBuildingByDpmId/`,
   getLocation: baseURL + `/getLocation`,
   getLocationByBudId: baseURL + `/getLocationByBudId/`,
+  getTypeItem: baseURL + `/getTypeItem`,
+
+  //POST
+  createItem: baseURL + `/createItem`,
 };
 
 /*
