@@ -1,13 +1,23 @@
 import { useState, useMemo } from "react";
 import _ from "lodash";
 import { Button, Form, Container } from "react-bootstrap";
-import axios from "axios";
 
-function FormAddCateItem() {
+function FormAddCateItem(props: any) {
+  const { setModalShowCheckCate, setPostItemCheckCate } = props;
   const [nameCategory, setNameCategory] = useState<string>();
+
+  const handleChangeName = (event: any) => {
+    const name = event.target.value;
+    setNameCategory(name);
+  };
 
   const onSubmit = async (event: any) => {
     event.preventDefault();
+    const dataform = {
+      name: nameCategory,
+    };
+    setPostItemCheckCate(dataform);
+    setModalShowCheckCate(true);
   };
   return (
     <Container style={{ borderRadius: 15, width: "100%", height: "100%" }}>
@@ -20,8 +30,8 @@ function FormAddCateItem() {
             // style={{ height: "3rem" }}
             type="text"
             placeholder="หมวดหมู่ครุภัณฑ์"
-            // value={}
-            // onChange={}
+            value={nameCategory}
+            onChange={handleChangeName}
           />
         </Form.Group>
         <div className="d-flex justify-content-center">
