@@ -17,6 +17,7 @@ export const API = {
   //POST
   createItem: baseURL + `/createItem`,
   createCategory: baseURL + `/createCategory`,
+  createTypeItem: baseURL + `/createTypeItem`,
 };
 
 /*

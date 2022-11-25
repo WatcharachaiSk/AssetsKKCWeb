@@ -11,20 +11,22 @@ import configAxios from "../../axios/configAxios";
 import { API } from "../../axios/swr/endpoint";
 import { useNavigate } from "react-router-dom";
 import checkToken from "../../config/checkToken";
-import {
-  sweet_basic,
-  sweet_popUpTimer,
-} from "../../components/sweetalert2/sweet";
+
+import checkStatus from "../../config/checkStatus";
 import ModalPostCate from "../../components/modal/ModalPostCate";
+import ModalPostType from "../../components/modal/ModalPostType";
 
 function NewItem() {
   const navigate = useNavigate();
   const [showFrom, setShowFrom] = useState<string>("AddItem");
   const [modalShowCheck, setModalShowCheck] = useState(false);
   const [modalShowCheckCate, setModalShowCheckCate] = useState(false);
+  const [modalShowCheckType, setModalShowCheckType] = useState(false);
   const [postItemCheck, setPostItemCheck] = useState<object>();
   const [postItemCheckCate, setPostItemCheckCate] = useState<object>();
+  const [postItemCheckType, setPostItemCheckType] = useState<object>();
   const [postItem, setPostItem] = useState<object>();
+  const [postTypeItem, setPostTypeItem] = useState<object>();
 
   // FormNewItem
   const [nameItem, setNameItem] = useState<string>("");
@@ -36,48 +38,33 @@ function NewItem() {
     if (status == 1) {
       try {
         const res = await axios(configAxios("post", API.createItem, postItem));
-        if (res.status == 200) {
-          sweet_popUpTimer(
-            "top-end",
-            "success",
-            "เพิ่มครุภัณฑ์เสร็จสิ้น",
-            1500
-          );
-        } else {
-          sweet_basic(
-            "error",
-            "Server Error",
-            "มีบางอย่างผิดพลาดลองใหม่อีกครั้ง"
-          );
-        }
+        checkStatus(res, "เพิ่มครุภัณฑ์เสร็จสิ้น");
       } catch (error: any) {
         checkToken(error.response.data.status, error.request.status, navigate);
       }
     }
   };
   const onSubmitFnCate = async (status: number) => {
-    console.log(status);
-
     setModalShowCheckCate(false);
     if (status == 1) {
       try {
         const res = await axios(
           configAxios("post", API.createCategory, postItemCheckCate)
         );
-        if (res.status == 200) {
-          sweet_popUpTimer(
-            "top-end",
-            "success",
-            "เพิ่มหมวดหมู่ครุภัณฑ์เสร็จสิ้น",
-            1500
-          );
-        } else {
-          sweet_basic(
-            "error",
-            "Server Error",
-            "มีบางอย่างผิดพลาดลองใหม่อีกครั้ง"
-          );
-        }
+        checkStatus(res, "เพิ่มหมวดหมู่ครุภัณฑ์เสร็จสิ้น");
+      } catch (error: any) {
+        checkToken(error.response.data.status, error.request.status, navigate);
+      }
+    }
+  };
+  const onSubmitFnType = async (status: number) => {
+    setModalShowCheckType(false);
+    if (status == 1) {
+      try {
+        const res = await axios(
+          configAxios("post", API.createTypeItem, postTypeItem)
+        );
+        checkStatus(res, "เพิ่มชนิดครุภัณฑ์เสร็จสิ้น");
       } catch (error: any) {
         checkToken(error.response.data.status, error.request.status, navigate);
       }
@@ -100,6 +87,13 @@ function NewItem() {
           chackData={postItemCheck}
         />
       )}
+      {modalShowCheckType && (
+        <ModalPostType
+          chackDataType={postItemCheckType}
+          onSubmitFnType={onSubmitFnType}
+          modalShowCheckType={modalShowCheckType}
+        />
+      )}
       {modalShowCheckCate && (
         <ModalPostCate
           modalShowCheckCate={modalShowCheckCate}
@@ -119,7 +113,15 @@ function NewItem() {
           setPostItem={setPostItem}
         />
       )}
-      {showFrom == "AddType" && <FormAddTypeItem />}
+      {/*  */}
+      {showFrom == "AddType" && (
+        <FormAddTypeItem
+          setModalShowCheckType={setModalShowCheckType}
+          setPostItemCheckType={setPostItemCheckType}
+          setPostTypeItem={setPostTypeItem}
+        />
+      )}
+      {/*  */}
       {showFrom == "AddCategory" && (
         <FormAddCateItem
           setModalShowCheckCate={setModalShowCheckCate}

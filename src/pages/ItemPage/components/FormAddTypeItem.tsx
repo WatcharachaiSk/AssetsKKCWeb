@@ -2,16 +2,66 @@ import axios from "axios";
 import { useState, useMemo } from "react";
 import { Button, Form, Container, Row, Col } from "react-bootstrap";
 import _ from "lodash";
+import checkToken from "../../../config/checkToken";
+import configAxios from "../../../axios/configAxios";
+import { API } from "../../../axios/swr/endpoint";
+import { useNavigate } from "react-router-dom";
+import dateFormat, { masks } from "dateformat";
 
-function FormAddTypeItem() {
+function FormAddTypeItem(props: any) {
+  const { setModalShowCheckType, setPostItemCheckType, setPostTypeItem } =
+    props;
+  const navigate = useNavigate();
+  const [getDepartment, setGetDepartment] = useState<{}>({});
+  const [getCategory, setGetCategory] = useState<{}>({});
+
+  const [inputNameType, setInputNameType] = useState<string>();
+  const [inputCode, setInputCode] = useState<string>();
+
+  const [unitItemFN, setUnitItemFn] = useState<any>(0);
+  // console.log("unitItemFN = " + unitItemFN);
   const [unitItem, setUnitItem] = useState<any>(0);
+  const [inputUnitItem, setInputUnitItem] = useState<any>("");
+
   const [quantity, setQuantity] = useState<number>(0);
   const [priceUnit, setPriceUnit] = useState<number>();
   const [totalPrice, setTotalPrice] = useState<number>();
 
+  const [idDpm, setIdDpm] = useState<number>(0);
+  // console.log("idDpm = " + idDpm);
+  const [idcate, setIdcate] = useState<number>(0);
+  // console.log("idcate = " + idcate);
+  const [startDate, setStartDate] = useState<any>(new Date());
+
+  // const [nowstartDate, setNowStartDate] = useState<any>(new Date());
+
+  //  getDepartmentByFtyId
+  useMemo(async () => {
+    try {
+      const resDpm = await axios(configAxios("get", `${API.getDepartment}`));
+      const resCategory = await axios(configAxios("get", `${API.getCategory}`));
+      setGetDepartment(resDpm.data);
+      setGetCategory(resCategory.data);
+    } catch (error: any) {
+      checkToken(error.response.data.status, error.request.status, navigate);
+    }
+  }, []);
+
+  useMemo(async () => {
+    if (unitItem == 0 && inputUnitItem == "") {
+      setUnitItemFn(0);
+    } else {
+      setUnitItemFn(1);
+    }
+    if (unitItem == -1 && inputUnitItem == "") {
+      setUnitItemFn(0);
+    } else {
+      setUnitItemFn(1);
+    }
+  }, [unitItem, inputUnitItem]);
+
   const handleChangeUnit = (event: any) => {
     const value = event.target.value;
-    console.log(value);
     setUnitItem(value);
   };
   const handleChangeQty = (event: any) => {
@@ -38,10 +88,44 @@ function FormAddTypeItem() {
 
   const onSubmit = async (event: any) => {
     event.preventDefault();
+    // console.log(startDate);
+    const obj = {
+      name: inputNameType,
+      code: inputCode,
+      quantity: quantity,
+      unit: inputUnitItem != "" ? inputUnitItem : unitItem,
+      price_unit: priceUnit,
+      total_price: totalPrice,
+      purchase_date: startDate,
+      department: {
+        id: idDpm,
+        department: _.filter(getDepartment, (item: any) => {
+          return item.d_id == idDpm;
+        }),
+      },
+      category: {
+        id: idcate,
+        category: _.filter(getCategory, (item: any) => {
+          return item.cate_id == idcate;
+        }),
+      },
+    };
+    setPostItemCheckType(obj);
+    const dataform = {
+      name: inputNameType,
+      code: inputCode,
+      quantity: quantity,
+      unit: inputUnitItem != "" ? inputUnitItem : unitItem,
+      price_unit: priceUnit,
+      total_price: totalPrice,
+      purchase_date: startDate,
+      departmentDId: idDpm,
+      categoryCateId: idcate,
+    };
+    // console.log(dataform);
+    setPostTypeItem(dataform);
+    setModalShowCheckType(true);
   };
-  // console.log("quantity = " + quantity);
-  // console.log("priceUnit = " + priceUnit);
-  // console.log("totalPrice = " + totalPrice);
 
   return (
     <Container style={{ borderRadius: 15, width: "100%", height: "100%" }}>
@@ -53,9 +137,12 @@ function FormAddTypeItem() {
             size="lg"
             // style={{ height: "3rem" }}
             type="text"
-            placeholder="ชื่อ"
-            // value={}
-            // onChange={}
+            placeholder="ชื่อชนิดครุภัณฑ์"
+            value={inputNameType}
+            onChange={(event: any) => {
+              const value = event.target.value;
+              setInputNameType(value);
+            }}
           />
         </Form.Group>
         {/* code */}
@@ -66,8 +153,11 @@ function FormAddTypeItem() {
             // style={{ height: "3rem" }}
             type="text"
             placeholder="Code"
-            // value={}
-            // onChange={}
+            value={inputCode}
+            onChange={(event: any) => {
+              const value = event.target.value;
+              setInputCode(value);
+            }}
           />
         </Form.Group>
         {/*  */}
@@ -89,6 +179,11 @@ function FormAddTypeItem() {
                 size="lg"
                 type="text"
                 placeholder="ชุด / เครื่อง / แผง / ตัว ..."
+                //value={inputUnitItem}
+                onChange={(event: any) => {
+                  const value = event.target.value;
+                  setInputUnitItem(value);
+                }}
               />
             </Form.Group>
           )}
@@ -144,20 +239,21 @@ function FormAddTypeItem() {
           <Form.Label>เลือกสาขา</Form.Label>
           <Form.Select
             onChange={(event: any) => {
-              // handleChangeDpm(event);
+              const value = event.target.value;
+              setIdDpm(value);
             }}
             size="lg"
           >
             <option value={0}>กรุณาเลือกสาขา</option>
-            {/* {_.map(getFaculty, (item: any, idx) => {
+            {_.map(getDepartment, (item: any, idx) => {
               return (
                 <>
-                  <option key={item.f_id} value={item.f_id}>
+                  <option key={item.d_id} value={item.d_id}>
                     {item.nameTH}
                   </option>
                 </>
               );
-            })} */}
+            })}
           </Form.Select>
         </Form.Group>
 
@@ -166,23 +262,56 @@ function FormAddTypeItem() {
           <Form.Label>เลือกหมวดหมู่ครุภัณฑ์</Form.Label>
           <Form.Select
             onChange={(event: any) => {
-              // handleChangeCategory(event);
+              const value = event.target.value;
+              setIdcate(value);
             }}
             size="lg"
           >
             <option value={0}>กรุณาเลือกหมวดหมู่ครุภัณฑ์</option>
-            {/* {_.map(getFaculty, (item: any, idx) => {
+            {_.map(getCategory, (item: any, idx) => {
               return (
                 <>
-                  <option key={item.f_id} value={item.f_id}>
-                    {item.nameTH}
+                  <option key={item.cate_id} value={item.cate_id}>
+                    {item.name}
                   </option>
                 </>
               );
-            })} */}
+            })}
           </Form.Select>
           {/*  */}
         </Form.Group>
+
+        <Row className="mb-2">
+          <Form.Group as={Col} className="mb-2" controlId="formFaculty">
+            <Form.Label>วันที่ซื้อ</Form.Label>
+            <Form.Control
+            // value={startDate}
+              onChange={(e: any) => {
+                const now = new Date(e.target.value);
+                const dateinput = dateFormat(now, "dd/mm/yyyy");
+                setStartDate(dateinput);
+              }}
+              //value={startDate}
+              size="lg"
+              type="date"
+              placeholder="เลือกวัน"
+            />
+          </Form.Group>
+
+          <Form.Group as={Col} className="mb-2 mt-2" controlId="formFaculty">
+            <Form.Label></Form.Label>
+            <Form.Control
+              placeholder="MM/DD/YYYY"
+              size="lg"
+              type="text"
+              disabled
+              readOnly
+            />
+          </Form.Group>
+        </Row>
+
+        {/*  */}
+
         <div className="d-flex justify-content-center">
           <Button
             // style={{}}
@@ -191,17 +320,30 @@ function FormAddTypeItem() {
             }}
             className="mb-3 mt-3 p-2"
             variant={
-              unitItem != 0 &&
+              inputNameType &&
+              inputCode &&
+              unitItemFN != 0 &&
               quantity != 0 &&
               priceUnit != 0 &&
-              totalPrice != 0
+              totalPrice != 0 &&
+              idDpm &&
+              idcate &&
+              startDate
                 ? "success"
                 : "secondary"
             }
             type="submit"
             size="lg"
           >
-            {unitItem != 0 && quantity != 0 && priceUnit != 0 && totalPrice != 0
+            {inputNameType &&
+            inputCode &&
+            unitItemFN != 0 &&
+            quantity != 0 &&
+            priceUnit != 0 &&
+            totalPrice != 0 &&
+            idDpm &&
+            idcate &&
+            startDate
               ? "Submit"
               : "กรุณากรอกข้อมูลให้ครบ"}
           </Button>

@@ -1913,6 +1913,11 @@
   dependencies:
     "@types/node" "*"
 
+"@types/dateformat@^5.0.0":
+  "integrity" "sha512-SZg4JdHIWHQGEokbYGZSDvo5wA4TLYPXaqhigs/wH+REDOejcJzgH+qyY+HtEUtWOZxEUkbhbdYPqQDiEgrXeA=="
+  "resolved" "https://registry.npmjs.org/@types/dateformat/-/dateformat-5.0.0.tgz"
+  "version" "5.0.0"
+
 "@types/eslint-scope@^3.7.3":
   "integrity" "sha512-9K4zoImiZc3HlIp6AVUDE4CWYx22a+lhSZMYNpbjW04+YF0KWj4pJXnEMjdnFTiQibFFmElcsasJXDbdI/EPhA=="
   "resolved" "https://registry.npmjs.org/@types/eslint-scope/-/eslint-scope-3.7.4.tgz"
@@ -3681,6 +3686,11 @@
     "abab" "^2.0.3"
     "whatwg-mimetype" "^2.3.0"
     "whatwg-url" "^8.0.0"
+
+"dateformat@^5.0.3":
+  "integrity" "sha512-Kvr6HmPXUMerlLcLF+Pwq3K7apHpYmGDVqrxcDasBg86UcKeTSNWbEzU8bwdXnxnR44FtMhJAxI4Bov6Y/KUfA=="
+  "resolved" "https://registry.npmjs.org/dateformat/-/dateformat-5.0.3.tgz"
+  "version" "5.0.3"
 
 "debug@^2.6.0":
   "integrity" "sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA=="
