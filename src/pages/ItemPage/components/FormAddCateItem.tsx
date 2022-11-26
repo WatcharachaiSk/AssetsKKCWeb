@@ -1,6 +1,7 @@
 import { useState, useMemo } from "react";
 import _ from "lodash";
 import { Button, Form, Container } from "react-bootstrap";
+import { sweet_basic } from "../../../components/sweetalert2/sweet";
 
 function FormAddCateItem(props: any) {
   const { setModalShowCheckCate, setPostItemCheckCate } = props;
@@ -37,8 +38,13 @@ function FormAddCateItem(props: any) {
         <div className="d-flex justify-content-center">
           <Button
             // style={{}}
-            onClick={(e) => {
-              onSubmit(e);
+            onClick={(event) => {
+              if (nameCategory) {
+                onSubmit(event);
+              } else {
+                event.preventDefault();
+                sweet_basic("warning", "ข้อมูลไม่ครบ", "กรุณากรอกข้อมูลให้ครบ");
+              }
             }}
             className="mb-3 mt-3 p-2"
             variant={nameCategory ? "success" : "secondary"}

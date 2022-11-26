@@ -16,6 +16,7 @@ import NewFaculty from "../pages/LocationsPages/components/addPage/NewFaculty";
 import NewDepartment from "../pages/LocationsPages/components/addPage/NewDepartment";
 import NewBuilding from "../pages/LocationsPages/components/addPage/NewBuilding";
 import NewLocation from "../pages/LocationsPages/components/addPage/NewLocation";
+import NewUser from "../pages/LandingPages/User/NewUser";
 // Edit
 import EditItem from "../pages/ItemPage/EditItem";
 import EditFaculty from "../pages/LocationsPages/components/editPage/EditFaculty";
@@ -60,7 +61,10 @@ function RoutesPath() {
 
         {/* User */}
         <Route path="/profile" element={<Profile />} />
-        <Route path="/users" element={<Users />} />
+        <Route path="/admin" element={<Users />} />
+        <Route path="/admin/new_user" element={<NewUser />} />
+
+        
       </Routes>
     </>
   );

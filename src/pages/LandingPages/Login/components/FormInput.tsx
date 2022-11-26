@@ -24,12 +24,14 @@ function FormInput(props: any) {
 
     const res: any = await postLogin(inputs.username, inputs.password);
     if (res.status === 200 && res.status <= 201) {
+      console.log(res.data);
+
       MySwal.fire({
         title: <strong>เสร็จสิ้น</strong>,
         html: <i></i>,
         icon: "success",
       }).then((value: any) => {
-        setlocalStorage(res.data.web_token);
+        setlocalStorage(res.data.user.web_token, res.data.user.admin, res.data);
 
         navigate("/home");
       });

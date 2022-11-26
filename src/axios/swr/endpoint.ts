@@ -2,22 +2,29 @@ import { baseURL } from "../config";
 export const API = {
   login: baseURL + `/loginUser`,
   // GET
+  getUsers: baseURL + `/getUsers`,
   getItem: baseURL + `/getItem`,
   getCategory: baseURL + `/getCategory`,
-  getItemCategory: baseURL + `/getItemCategory/`,
   getFaculty: baseURL + `/getFaculty`,
   getDepartment: baseURL + `/getDepartment`,
-  getDepartmentByFtyId: baseURL + `/getDepartmentByFtyId/`,
   getBuilding: baseURL + `/getBuilding`,
-  getBuildingByDpmId: baseURL + `/getBuildingByDpmId/`,
   getLocation: baseURL + `/getLocation`,
-  getLocationByBudId: baseURL + `/getLocationByBudId/`,
   getTypeItem: baseURL + `/getTypeItem`,
+  // GETById
+  getItemCategory: baseURL + `/getItemCategory/`,
+  getDepartmentByFtyId: baseURL + `/getDepartmentByFtyId/`,
+  getDepartmentById: baseURL + `/getDepartmentById/`,
+  getBuildingByDpmId: baseURL + `/getBuildingByDpmId/`,
+  getLocationByBudId: baseURL + `/getLocationByBudId/`,
 
   //POST
   createItem: baseURL + `/createItem`,
   createCategory: baseURL + `/createCategory`,
   createTypeItem: baseURL + `/createTypeItem`,
+  createFaculty: baseURL + `/createFaculty`,
+  createDepartment: baseURL + `/createDepartment`,
+  createBuilding: baseURL + `/createBuilding`,
+  createLocation: baseURL + `/createLocation`,
 };
 
 /*

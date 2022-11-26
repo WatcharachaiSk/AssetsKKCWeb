@@ -150,7 +150,7 @@ function NavbarTop(props: any) {
               <NavDropdown.Item
                 style={styles.fontNavLink}
                 onClick={() => {
-                  navigatePage("/users");
+                  navigatePage("/admin");
                 }}
               >
                 User

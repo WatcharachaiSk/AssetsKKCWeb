@@ -17,7 +17,7 @@ function Building() {
 
   useMemo(async () => {
     try {
-      const res = await axios(configAxios("get", API.getLocation));
+      const res = await axios(configAxios("get", API.getBuilding));
       setGetBuilding(res.data);
     } catch (error: any) {
       // console.log("err = ", error.request.status);

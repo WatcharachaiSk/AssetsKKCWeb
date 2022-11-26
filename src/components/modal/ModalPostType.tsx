@@ -12,11 +12,11 @@ function ModalPostType(props: any) {
       centered
     >
       <Modal.Header>
-        <Modal.Title>ตรวจสอบหมวดหมู่ครุภัณฑ์</Modal.Title>
+        <Modal.Title>ตรวจสอบชนิดครุภัณฑ์</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <div className="d-flex justify-content-center ">
-          <h4 className="mb-3">กรุณาตรวจสอบหมวดหมู่ครุภัณฑ์</h4>
+          <h4 className="mb-3">กรุณาตรวจสอบชนิดครุภัณฑ์</h4>
         </div>
         <div className="d-flex justify-content-center flex-column"></div>
         <Table bordered hover variant="light">

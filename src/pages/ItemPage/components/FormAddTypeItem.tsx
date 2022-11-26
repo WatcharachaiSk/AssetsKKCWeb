@@ -7,6 +7,7 @@ import configAxios from "../../../axios/configAxios";
 import { API } from "../../../axios/swr/endpoint";
 import { useNavigate } from "react-router-dom";
 import dateFormat, { masks } from "dateformat";
+import { sweet_basic } from "../../../components/sweetalert2/sweet";
 
 function FormAddTypeItem(props: any) {
   const { setModalShowCheckType, setPostItemCheckType, setPostTypeItem } =
@@ -285,7 +286,7 @@ function FormAddTypeItem(props: any) {
           <Form.Group as={Col} className="mb-2" controlId="formFaculty">
             <Form.Label>วันที่ซื้อ</Form.Label>
             <Form.Control
-            // value={startDate}
+              // value={startDate}
               onChange={(e: any) => {
                 const now = new Date(e.target.value);
                 const dateinput = dateFormat(now, "dd/mm/yyyy");
@@ -315,8 +316,23 @@ function FormAddTypeItem(props: any) {
         <div className="d-flex justify-content-center">
           <Button
             // style={{}}
-            onClick={(e) => {
-              onSubmit(e);
+            onClick={(event) => {
+              if (
+                inputNameType &&
+                inputCode &&
+                unitItemFN != 0 &&
+                quantity != 0 &&
+                priceUnit != 0 &&
+                totalPrice != 0 &&
+                idDpm &&
+                idcate &&
+                startDate
+              ) {
+                onSubmit(event);
+              } else {
+                event.preventDefault();
+                sweet_basic("warning", "ข้อมูลไม่ครบ", "กรุณากรอกข้อมูลให้ครบ");
+              }
             }}
             className="mb-3 mt-3 p-2"
             variant={
