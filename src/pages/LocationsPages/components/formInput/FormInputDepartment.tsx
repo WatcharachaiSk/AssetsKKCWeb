@@ -10,9 +10,9 @@ import { useNavigate } from "react-router-dom";
 
 function FormInputDepartment(props: any) {
   const {
-    setModalShowCheckBuilding,
-    setPostBuildingCheck,
-    setPostBuilding,
+    setModalShowCheckDepartment,
+    setPostDepartmentCheck,
+    setPostDepartment,
   } = props;
   const navigate = useNavigate();
   const [getFaculty, setGetFaculty] = useState<{}>({});
@@ -31,6 +31,7 @@ function FormInputDepartment(props: any) {
   }, []);
 
   const onSubmit = async (event: any) => {
+    // console.log("modalShowCheckLocate");
     event.preventDefault();
     const obj = {
       nameTH: nameDepartmentTH,
@@ -45,9 +46,9 @@ function FormInputDepartment(props: any) {
       facultyFId: facultyFId,
     };
 
-    setPostBuildingCheck(obj);
-    setPostBuilding(dataform);
-    setModalShowCheckBuilding(true);
+    setPostDepartmentCheck(obj);
+    setPostDepartment(dataform);
+    setModalShowCheckDepartment(true);
   };
   return (
     <Container style={{ borderRadius: 15, width: "100%", height: "100%" }}>
@@ -109,10 +110,10 @@ function FormInputDepartment(props: any) {
           <Button
             // style={{}}
             onClick={(event) => {
+              event.preventDefault();
               if (nameDepartmentTH && nameDepartmentEN && facultyFId != 0) {
                 onSubmit(event);
               } else {
-                event.preventDefault();
                 sweet_basic("warning", "ข้อมูลไม่ครบ", "กรุณากรอกข้อมูลให้ครบ");
               }
             }}

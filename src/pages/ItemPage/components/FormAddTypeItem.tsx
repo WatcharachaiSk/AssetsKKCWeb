@@ -20,9 +20,12 @@ function FormAddTypeItem(props: any) {
   const [inputCode, setInputCode] = useState<string>();
 
   const [unitItemFN, setUnitItemFn] = useState<any>(0);
-  // console.log("unitItemFN = " + unitItemFN);
+  console.log("unitItemFN = " + unitItemFN);
   const [unitItem, setUnitItem] = useState<any>(0);
+  console.log("unitItem = " + unitItem);
+
   const [inputUnitItem, setInputUnitItem] = useState<any>("");
+  console.log("inputUnitItem = " + inputUnitItem);
 
   const [quantity, setQuantity] = useState<number>(0);
   const [priceUnit, setPriceUnit] = useState<number>();
@@ -49,21 +52,33 @@ function FormAddTypeItem(props: any) {
   }, []);
 
   useMemo(async () => {
-    if (unitItem == 0 && inputUnitItem == "") {
+    if (
+      unitItem == 0 ||
+      inputUnitItem == "" ||
+      unitItem == -1 ||
+      inputUnitItem == ""
+    ) {
       setUnitItemFn(0);
     } else {
       setUnitItemFn(1);
     }
+  }, [unitItem]);
+
+  useMemo(async () => {
     if (unitItem == -1 && inputUnitItem == "") {
       setUnitItemFn(0);
     } else {
       setUnitItemFn(1);
     }
-  }, [unitItem, inputUnitItem]);
+  }, [inputUnitItem]);
 
   const handleChangeUnit = (event: any) => {
     const value = event.target.value;
-    setUnitItem(value);
+    if (value == 0) {
+      setUnitItem(0);
+    } else {
+      setUnitItem(value);
+    }
   };
   const handleChangeQty = (event: any) => {
     const value = event.target.value;
@@ -94,7 +109,7 @@ function FormAddTypeItem(props: any) {
       name: inputNameType,
       code: inputCode,
       quantity: quantity,
-      unit: inputUnitItem != "" ? inputUnitItem : unitItem,
+      unit: unitItem != 0 && unitItem != -1 ? unitItem : inputUnitItem,
       price_unit: priceUnit,
       total_price: totalPrice,
       purchase_date: startDate,

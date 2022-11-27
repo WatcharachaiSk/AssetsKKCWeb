@@ -2,7 +2,7 @@ import { Button, Table, Modal } from "react-bootstrap";
 
 function ModalPostType(props: any) {
   const { modalShowCheckType, onSubmitFnType, chackDataType } = props;
-  // console.log(chackDataType);
+  console.log(chackDataType);
 
   return (
     <Modal

@@ -2,6 +2,7 @@ import _ from "lodash";
 import { useNavigate } from "react-router-dom";
 import { Table, Button } from "react-bootstrap";
 import { AiFillEdit } from "react-icons/ai";
+import { HiCheck, HiXMark } from "react-icons/hi2";
 
 function TableListUsers(props: any) {
   const { itemList, editPage } = props;
@@ -15,13 +16,14 @@ function TableListUsers(props: any) {
       <Table
         style={{ paddingTop: 50, textAlign: "center", fontSize: 22 }}
         responsive="sm"
-        striped
+        //striped
         bordered
         hover
       >
         {/*  */}
         <thead>
           <tr>
+            <th>แก้ไข</th>
             <th>คณะ</th>
             <th>สาขา</th>
             <th>รหัส</th>
@@ -34,7 +36,7 @@ function TableListUsers(props: any) {
           </tr>
         </thead>
         {/*  */}
-        {/* <tbody>
+        <tbody>
           {_.map(itemList, (item, idx: string) => {
             return (
               <tr key={idx}>
@@ -42,29 +44,25 @@ function TableListUsers(props: any) {
                   <Button
                     variant="outline-secondary"
                     onClick={() => {
-                      console.log("item.item_id = " + item?.item_id);
+                      console.log("item.item_id = " + item?.pf_id);
                     }}
                   >
                     <AiFillEdit color="red" size={20} />
                   </Button>
                 </td>
-                <td>{idx + 1}</td>
-                <td>{item.code}</td>
-                <td>{item.name}</td>
-                <td>{item.category.name}</td>
-                <td>{item.typeItem.total_price}</td>
-                <td>{item.status_item ? "ปกติ" : "ชำรุด"}</td>
-                <td>{item.faculty.nameTH}</td>
-                <td>{item.department.nameTH}</td>
-                <td>{item.building.nameTH}</td>
-                <td>{item.location.floor}</td>
-                <td>{item.location.nameTH}</td>
-                <td>{item.profile.firstname + " " + item.profile.lastname}</td>
-                <td>{item.createdAt}</td>
+                <td>{item?.faculty?.nameTH}</td>
+                <td>{item?.department?.nameTH}</td>
+                <td>{item?.user?.username}</td>
+                <td>{item?.firstname}</td>
+                <td>{item?.lastname}</td>
+                <td>{item?.nickname}</td>
+                <td>{item?.email}</td>
+                <td>{item?.telephone}</td>
+                <td>{item?.user?.admin ? <HiCheck /> : <HiXMark />}</td>
               </tr>
             );
           })}
-        </tbody> */}
+        </tbody>
         {/*  */}
       </Table>
     </div>

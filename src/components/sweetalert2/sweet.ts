@@ -36,3 +36,51 @@ export const sweet_popUpTimer = (
     timer: timer,
   });
 };
+
+export const sweet_confirm = async (
+  icons?: "success" | "error" | "warning" | "info" | "question",
+  title?: string,
+  text?: string,
+  confirmButtonText?: string,
+  cancelButtonText?: string,
+  confirmButtonColor?: string,
+  cancelButtonColor?: string,
+  titleMixin?: string,
+  textMixin?: string,
+  setValue?: any
+) => {
+  let status = 0;
+  Swal.fire({
+    icon: icons,
+    title: title,
+    text: text,
+    showCancelButton: true,
+    confirmButtonColor: confirmButtonColor ? confirmButtonColor : "#3085d6",
+    cancelButtonColor: cancelButtonColor ? cancelButtonColor : "#d33",
+    confirmButtonText: confirmButtonText,
+    cancelButtonText: cancelButtonText,
+  }).then((result) => {
+    if (result.isConfirmed) {
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener("mouseenter", Swal.stopTimer);
+          toast.addEventListener("mouseleave", Swal.resumeTimer);
+        },
+      });
+      Toast.fire({
+        icon: "success",
+        title: titleMixin,
+        text: textMixin,
+      });
+      setTimeout(() => {
+        setValue(true);
+      }, 1000);
+    }
+  });
+  return status;
+};

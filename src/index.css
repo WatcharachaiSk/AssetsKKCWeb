@@ -1,13 +1,48 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+@font-face {
+  font-family: "KanitLight";
+  src: local("KanitLight"), url("./assets/fonts/kanit/Kanit-Light.ttf") format("truetype");
+  font-weight: bold;
+}
+@font-face {
+  font-family: "KanitMedium";
+  src: local("KanitMedium"), url("./assets/fonts/kanit/Kanit-Medium.ttf") format("truetype");
+  font-weight: bold;
+}
+@font-face {
+  font-family: "KanitExtraBold";
+  src: local("KanitExtraBold"), url("./assets/fonts/kanit/Kanit-ExtraBold.ttf") format("truetype");
+  font-weight: bold;
+}
+@font-face {
+  font-family: "KanitExtraLight";
+  src: local("KanitExtraLight"), url("./assets/fonts/kanit/Kanit-ExtraLight.ttf") format("truetype");
+  font-weight: bold;
+}
+@font-face {
+  font-family: "KanitBold";
+  src: local("KanitBold"), url("./assets/fonts/kanit/Kanit-Bold.ttf") format("truetype");
+  font-weight: bold;
+}
+@font-face {
+  font-family: "KanitBlack";
+  src: local("KanitBlack"), url("./assets/fonts/kanit/Kanit-Black.ttf") format("truetype");
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: "KanitItalic";
+  src: local("KanitItalic"), url("./assets/fonts/kanit/Kanit-Italic.ttf") format("truetype");
+  font-weight: bold;
 }

@@ -18,6 +18,7 @@ export const API = {
   getLocationByBudId: baseURL + `/getLocationByBudId/`,
 
   //POST
+  createUser: baseURL + `/createUser`,
   createItem: baseURL + `/createItem`,
   createCategory: baseURL + `/createCategory`,
   createTypeItem: baseURL + `/createTypeItem`,

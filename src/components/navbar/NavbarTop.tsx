@@ -1,22 +1,9 @@
-import { useState } from "react";
-import {
-  Nav,
-  Navbar,
-  NavDropdown,
-  Container,
-  Form,
-  Button,
-  FormGroup,
-  FormControl,
-  Collapse,
-  Row,
-  Col,
-  InputGroup,
-} from "react-bootstrap";
+import { useState, useEffect } from "react";
+import { Nav, Navbar, NavDropdown, Container } from "react-bootstrap";
 import styled from "styled-components";
 import colors from "../../config/colors";
-import { BsSearch } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
+import { sweet_confirm } from "../sweetalert2/sweet";
 
 function NavbarTop(props: any) {
   const navigate = useNavigate();
@@ -24,6 +11,31 @@ function NavbarTop(props: any) {
   const navigatePage = (page: string, idItem?: any) => {
     navigate(page);
   };
+  const [getUserAdmin, setGetUserAdmin] = useState<boolean>(false);
+  // console.log("getUserAdmin = ", getUserAdmin);
+  const [getProfile, setGetProfile] = useState<any>({});
+  const [isLogOut, setisLogOut] = useState<boolean>(false);
+
+  useEffect(() => {
+    let userAdmin: any = localStorage.getItem("UserAdmin");
+    if (userAdmin == "true") {
+      setGetUserAdmin(true);
+    } else {
+      setGetUserAdmin(false);
+    }
+    let profile: any = localStorage.getItem("Profile");
+    profile = JSON.parse(profile);
+    setGetProfile(profile);
+  }, []);
+
+  useEffect(() => {
+    if (isLogOut) {
+      navigate("/login");
+      localStorage.removeItem("Token");
+      localStorage.removeItem("Profile");
+      localStorage.removeItem("UserAdmin");
+    }
+  }, [isLogOut]);
 
   const { clickPage } = props;
   // console.log(clickPage);
@@ -90,14 +102,17 @@ function NavbarTop(props: any) {
                 id="navbarScrollingDropdown"
                 // style={{ marginRight: 150 }}
               >
-                <NavDropdown.Item
-                  style={styles.fontNavLink}
-                  onClick={() => {
-                    navigatePage("/faculty");
-                  }}
-                >
-                  Faculty
-                </NavDropdown.Item>
+                {getUserAdmin && (
+                  <NavDropdown.Item
+                    style={styles.fontNavLink}
+                    onClick={() => {
+                      navigatePage("/faculty");
+                    }}
+                  >
+                    Faculty
+                  </NavDropdown.Item>
+                )}
+
                 <NavDropdown.Item
                   style={styles.fontNavLink}
                   onClick={() => {
@@ -137,7 +152,11 @@ function NavbarTop(props: any) {
 
             <NavDropdown
               style={styles.fontNavLink}
-              title={<TitleAdmin color={clickPage}>Admin</TitleAdmin>}
+              title={
+                <TitleAdmin color={clickPage}>
+                  {getProfile?.firstname} {"\n"} {getUserAdmin ? "Admin" : ""}
+                </TitleAdmin>
+              }
             >
               <NavDropdown.Item
                 style={styles.fontNavLink}
@@ -147,15 +166,34 @@ function NavbarTop(props: any) {
               >
                 Profile
               </NavDropdown.Item>
+              {/*  */}
+              {getUserAdmin && (
+                <NavDropdown.Item
+                  style={styles.fontNavLink}
+                  onClick={() => {
+                    navigatePage("/admin");
+                  }}
+                >
+                  User
+                </NavDropdown.Item>
+              )}
               <NavDropdown.Item
                 style={styles.fontNavLink}
-                onClick={() => {
-                  navigatePage("/admin");
+                onClick={async () => {
+                  const logOut = await sweet_confirm(
+                    "warning",
+                    "ออกจากระบบ",
+                    "คุณต้องการออกจากระบบใช่หรือไม่",
+                    "ใช่",
+                    "ไม่",
+                    undefined,
+                    undefined,
+                    "ออกจากระบบเสร็จสิ้น",
+                    "ระบบกำลังนำทาง",
+                    setisLogOut
+                  );
                 }}
               >
-                User
-              </NavDropdown.Item>
-              <NavDropdown.Item style={styles.fontNavLink} href="#action4">
                 Log Out
               </NavDropdown.Item>
             </NavDropdown>
