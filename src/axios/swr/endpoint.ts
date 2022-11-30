@@ -10,12 +10,15 @@ export const API = {
   getBuilding: baseURL + `/getBuilding`,
   getLocation: baseURL + `/getLocation`,
   getTypeItem: baseURL + `/getTypeItem`,
+
   // GETById
+  getItemById: baseURL + `/getItem/`,
   getItemCategory: baseURL + `/getItemCategory/`,
   getDepartmentByFtyId: baseURL + `/getDepartmentByFtyId/`,
   getDepartmentById: baseURL + `/getDepartmentById/`,
   getBuildingByDpmId: baseURL + `/getBuildingByDpmId/`,
   getLocationByBudId: baseURL + `/getLocationByBudId/`,
+  getHistoryStatusItem: baseURL + `/getHistoryStatusItem/`,
 
   //POST
   createUser: baseURL + `/createUser`,
@@ -26,6 +29,10 @@ export const API = {
   createDepartment: baseURL + `/createDepartment`,
   createBuilding: baseURL + `/createBuilding`,
   createLocation: baseURL + `/createLocation`,
+  updateStetus: baseURL + `/updateStetus`,
+
+  //PUT
+  updateItem: baseURL + `/updateItem/`,
 };
 
 /*

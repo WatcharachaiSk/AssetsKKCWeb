@@ -2,14 +2,16 @@ import _ from "lodash";
 import { useNavigate } from "react-router-dom";
 import { Table, Button } from "react-bootstrap";
 import { AiFillEdit } from "react-icons/ai";
-import { GetFontWeight, GetKanitFont } from "../../config/fonts";
+import { GetKanitFont } from "../../config/fonts";
+import Moment from "react-moment";
+// import colors from "../../config/colors";
 
 function TableListItem(props: any) {
   const { itemList, editPage } = props;
   const navigate = useNavigate();
 
-  const navigatePage = (page: string, idItem?: any) => {
-    navigate(page, { state: { id: idItem } });
+  const navigatePage = (idItem?: any) => {
+    navigate(editPage, { state: { id: idItem, isPage: "items" } });
   };
   return (
     <div style={{ margin: 30 }}>
@@ -50,18 +52,18 @@ function TableListItem(props: any) {
                   fontSize: 24,
                   height: "5rem",
                   ...GetKanitFont("KanitLight"),
-              
                 }}
               >
                 <td>
                   <Button
                     size="lg"
-                    variant="outline-secondary"
+                    variant="outline-info"
                     onClick={() => {
-                      console.log("item.item_id = " + item?.item_id);
+                      navigatePage(item?.item_id);
+                      //console.log("item.item_id = " + item?.item_id);
                     }}
                   >
-                    <AiFillEdit color="red" size={20} />
+                    <AiFillEdit color="outline-info" size={20} />
                   </Button>
                 </td>
                 <td>{idx + 1}</td>
@@ -69,14 +71,18 @@ function TableListItem(props: any) {
                 <td>{item.name}</td>
                 <td>{item.category.name}</td>
                 <td>{item.typeItem.price_unit}</td>
-                <td>{item.status_item ? "ปกติ" : "ชำรุด"}</td>
+                <td style={{ color: item.status_item ? "green" : "red" }}>
+                  {item.status_item ? "ปกติ" : "ชำรุด"}
+                </td>
                 <td>{item.faculty.nameTH}</td>
                 <td>{item.department.nameTH}</td>
                 <td>{item.building.nameTH}</td>
                 <td>{item.location.floor}</td>
                 <td>{item.location.nameTH}</td>
                 <td>{item.profile.firstname + " " + item.profile.lastname}</td>
-                <td>{item.createdAt}</td>
+                <td>
+                  <Moment format="DD/MM/YYYY">{item.createdAt}</Moment>
+                </td>
               </tr>
             );
           })}

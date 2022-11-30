@@ -3,7 +3,7 @@ import NavbarTop from "../../components/navbar/NavbarTop";
 import styled from "styled-components";
 import CardList from "./components/CardList";
 import { useNavigate } from "react-router-dom";
-import colors from "../../config/colors";
+// import colors from "../../config/colors";
 import axios from "axios";
 import configAxios from "../../axios/configAxios";
 import { API } from "../../axios/swr/endpoint";
@@ -23,7 +23,7 @@ function Home() {
       checkToken(error.response.data.status, error.request.status, navigate);
     }
   }, []);
-  console.log(category);
+  //console.log(category);
 
   const testData = [
     { type: "ครุภัณฑ์สำนักงาน", value: "158" },

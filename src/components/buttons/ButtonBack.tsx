@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { BsBoxArrowInLeft } from "react-icons/bs";
 
 function ButtonBack(props: any) {
-  const { titleButton, pageBack } = props;
+  const { titleButton } = props;
   const navigate = useNavigate();
 
   const BoxFlex = styled.div`

@@ -1,14 +1,118 @@
-import { useState } from "react";
-import { useLocation } from "react-router-dom";
+import axios from "axios";
+import { useState, useMemo } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import configAxios from "../../axios/configAxios";
+import { API } from "../../axios/swr/endpoint";
+import ButtonBack from "../../components/buttons/ButtonBack";
+import NavbarTop from "../../components/navbar/NavbarTop";
+import checkToken from "../../config/checkToken";
+import FormEditItem from "./components/editItem/FormEditItem";
+import FormEditStatus from "./components/editItem/FormEditStatus";
+import HistoryItem from "./components/editItem/HistoryItem";
+import ModalPostEdit from "../../components/modal/ModalPostEdit";
+import checkStatus from "../../config/checkStatus";
 
 function EditItem() {
-  // const { state } = props;
+  const navigate = useNavigate();
   const { state } = useLocation();
+  const [getItems, setGetItems] = useState<{}>({});
+  const [edit_updateEn, setedit_updateEn] = useState(false);
+
+  const [modalShowCheckEditItem, setModalShowCheckEditItem] = useState(false);
+  const [postEditItemCheck, setPostEditItemCheck] = useState<object>();
+  const [postEditItem, setPostEditItem] = useState<object>();
+
+  const [modalShowCheckUpdateItem, setModalShowCheckUpdateItem] =
+    useState(false);
+  const [postUpdateItemCheck, setPostUpdateItemCheck] = useState<object>();
+  const [postUpdateItem, setPostUpdateItem] = useState<object>();
+  // console.log(postEditItem);
+
+  useMemo(async () => {
+    try {
+      const res = await axios(
+        configAxios("get", `${API.getItemById}${state.id}`)
+      );
+
+      setGetItems(res.data);
+    } catch (error: any) {
+      // console.log("err = ", error.request.status);
+      checkToken(error.response.data.status, error.request.status, navigate);
+    }
+  }, [edit_updateEn]);
+
+  const onSubmitFnEditItem = async (status: number) => {
+    setModalShowCheckEditItem(false);
+    if (status == 1) {
+      try {
+        const res = await axios(
+          configAxios("put", `${API.updateItem}${state?.id}`, postEditItem)
+        );
+        checkStatus(res, "แก้ไขครุภัณฑ์สร็จสิ้น");
+        setedit_updateEn(!edit_updateEn);
+      } catch (error: any) {
+        checkToken(error.response.data.status, error.request.status, navigate);
+      }
+    }
+  };
+  const onSubmitFnUpdateItem = async (status: number) => {
+    setModalShowCheckUpdateItem(false);
+    if (status == 1) {
+      try {
+        const res = await axios(
+          configAxios("post", API.updateStetus, postUpdateItem)
+        );
+        checkStatus(res, "ย้ายสถานที่หรือเปลี่ยนถานะครุภัณฑ์สร็จสิ้น");
+        setedit_updateEn(!edit_updateEn);
+      } catch (error: any) {
+        checkToken(error.response.data.status, error.request.status, navigate);
+      }
+    }
+  };
 
   return (
     <>
-      <div>EditItem</div>
-      <div>{state.id}</div>
+      <NavbarTop clickPage={state.isPage} />
+      <ButtonBack titleButton={"ย้อนกลับ"} />
+      <div className="d-flex justify-content-center mt-5 mb-2">
+        <h3>แก้ไขครุภัณฑ์</h3>
+      </div>
+      {modalShowCheckEditItem && (
+        <ModalPostEdit
+          onSubmitFnEdit={onSubmitFnEditItem}
+          modalShowCheckEditItem={modalShowCheckEditItem}
+          chackDataEdit={postEditItemCheck}
+          isEdit={"item"}
+          title={"การแก้ไขข้อมูลครุภัณฑ์"}
+        />
+      )}
+      {modalShowCheckUpdateItem && (
+        <ModalPostEdit
+          onSubmitFnEdit={onSubmitFnUpdateItem}
+          modalShowCheckEditItem={modalShowCheckUpdateItem}
+          chackDataEdit={postUpdateItemCheck}
+          isEdit={"status"}
+          title={"การย้ายสถานที่หรือเปลี่ยนสถานะ"}
+        />
+      )}
+      <FormEditItem
+        getItems={getItems}
+        setModalShowCheckEditItem={setModalShowCheckEditItem}
+        setPostEditItemCheck={setPostEditItemCheck}
+        setPostEditItem={setPostEditItem}
+      />
+      <div className="mt-5">
+        <FormEditStatus
+          getItems={getItems}
+          setModalShowCheckUpdateItem={setModalShowCheckUpdateItem}
+          setPostUpdateItemCheck={setPostUpdateItemCheck}
+          setPostUpdateItem={setPostUpdateItem}
+        />
+      </div>
+
+      <div className="mt-5">
+        <HistoryItem getItems={getItems} />
+      </div>
     </>
   );
 }

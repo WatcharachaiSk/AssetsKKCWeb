@@ -23,7 +23,6 @@ function Items() {
       checkToken(error.response.data.status, error.request.status, navigate);
     }
   }, []);
-  // console.log(getItems);
 
   const navigatePage = (page: string, idItem?: any) => {
     navigate(page, { state: { id: idItem } });
@@ -36,7 +35,7 @@ function Items() {
         <h3>ครุภัณฑ์ทั้งหมด</h3>
       </div>
       <ButtonAdd pageAdd={"/items/newitem"} titleButton={"เพิ่มครุภัณฑ์"} />
-      <TableListItem itemList={getItems} />
+      <TableListItem itemList={getItems} editPage={"/items/editItem"} />
     </>
   );
 }

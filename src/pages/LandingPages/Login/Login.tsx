@@ -15,6 +15,16 @@ function Login() {
     localStorage.setItem("Profile", JSON.stringify(profile));
   };
 
+  /*
+ ! {} 
+ ! []
+ ! asdasd
+ ! 1231231
+ ! 0,1
+ ! {[]}
+ ! any
+
+  */
   return (
     <>
       <FormInput navigate={navigate} setlocalStorage={setlocalStorage} />
