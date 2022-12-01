@@ -11,6 +11,7 @@ import FormEditStatus from "./components/editItem/FormEditStatus";
 import HistoryItem from "./components/editItem/HistoryItem";
 import ModalPostEdit from "../../components/modal/ModalPostEdit";
 import checkStatus from "../../config/checkStatus";
+import { GetKanitFont } from "../../config/fonts";
 
 function EditItem() {
   const navigate = useNavigate();
@@ -71,7 +72,7 @@ function EditItem() {
   };
 
   return (
-    <>
+    <div style={{ ...GetKanitFont("KanitLight") }}>
       <NavbarTop clickPage={state.isPage} />
       <ButtonBack titleButton={"ย้อนกลับ"} />
       <div className="d-flex justify-content-center mt-5 mb-2">
@@ -113,7 +114,7 @@ function EditItem() {
       <div className="mt-5">
         <HistoryItem getItems={getItems} />
       </div>
-    </>
+    </div>
   );
 }
 

@@ -24,7 +24,7 @@ function TableListItem(props: any) {
         hover
       >
         {/*  */}
-        <thead>
+        <thead style={{...GetKanitFont("KanitMedium")}}>
           <tr>
             <th>แก้ไข</th>
             <th>ลำดับ</th>

@@ -8,6 +8,7 @@ import configAxios from "../../axios/configAxios";
 import { API } from "../../axios/swr/endpoint";
 import checkToken from "../../config/checkToken";
 import { useNavigate } from "react-router-dom";
+import { GetKanitFont } from "../../config/fonts";
 
 function Department() {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ function Department() {
     }
   }, []);
   return (
-    <>
+    <div style={{ ...GetKanitFont("KanitLight") }}>
       <NavbarTop clickPage={clickPage} />
       <div>Department</div>
       <ButtonAdd
@@ -32,7 +33,7 @@ function Department() {
         pageAdd={"/department/newdepartment"}
       />
       <TableListLocat itemList={getDepartment} isPage={"d"} />
-    </>
+    </div>
   );
 }
 

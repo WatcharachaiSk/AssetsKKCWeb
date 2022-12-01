@@ -51,7 +51,7 @@ function HistoryItem(props: any) {
         bordered
         hover
       >
-        <thead>
+        <thead style={{ ...GetKanitFont("KanitMedium") }}>
           <tr>
             <th>วันที่แก้ไข</th>
             <th>สถานที่</th>

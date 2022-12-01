@@ -2,6 +2,7 @@ import _ from "lodash";
 import { useNavigate } from "react-router-dom";
 import { Table, Button } from "react-bootstrap";
 import { AiFillEdit } from "react-icons/ai";
+import { GetKanitFont } from "../../config/fonts";
 /*
 Faculty
 Department
@@ -26,7 +27,7 @@ function TableListLocat(props: any) {
         hover
       >
         {/*  */}
-        <thead>
+        <thead style={{ ...GetKanitFont("KanitMedium") }}>
           <tr>
             <th>แก้ไข</th>
             <th>ลำดับ</th>

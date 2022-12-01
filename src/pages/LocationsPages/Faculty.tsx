@@ -7,6 +7,7 @@ import configAxios from "../../axios/configAxios";
 import { API } from "../../axios/swr/endpoint";
 import checkToken from "../../config/checkToken";
 import { useNavigate } from "react-router-dom";
+import { GetKanitFont } from "../../config/fonts";
 
 function Faculty() {
   const navigate = useNavigate();
@@ -23,12 +24,12 @@ function Faculty() {
     }
   }, []);
   return (
-    <>
+    <div style={{ ...GetKanitFont("KanitLight") }}>
       <NavbarTop clickPage={clickPage} />
       <div>Faculty</div>
       <ButtonAdd titleButton={"เพิ่มคณะ"} pageAdd={"/faculty/newfaculty"} />
       <TableListLocat itemList={getFaculty} isPage="f" />
-    </>
+    </div>
   );
 }
 

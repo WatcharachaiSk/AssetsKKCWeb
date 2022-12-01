@@ -1,17 +1,14 @@
 import { useState, useMemo } from "react";
 import NavbarTop from "../../components/navbar/NavbarTop";
 import TableListLocat from "../../components/table/TableListLocat";
-import TableList from "../../components/table/TableList";
+// import TableList from "../../components/table/TableList";
 import { useNavigate } from "react-router-dom";
 import ButtonAdd from "../ItemPage/components/ButtonAdd";
-import {
-  testDataLocation,
-  thLocation,
-} from "./components/datatest/DataLocation";
 import axios from "axios";
 import configAxios from "../../axios/configAxios";
 import { API } from "../../axios/swr/endpoint";
 import checkToken from "../../config/checkToken";
+import { GetKanitFont } from "../../config/fonts";
 function Location() {
   const navigate = useNavigate();
   const [clickPage, setClickPage] = useState<string>("setting");
@@ -27,7 +24,7 @@ function Location() {
     }
   }, []);
   return (
-    <>
+    <div style={{ ...GetKanitFont("KanitLight") }}>
       <NavbarTop clickPage={clickPage} />
       <div>Location</div>
       <ButtonAdd
@@ -35,7 +32,7 @@ function Location() {
         pageAdd={"/location/newlocation"}
       />
       <TableListLocat isPage={"l"} itemList={getLocation} />
-    </>
+    </div>
   );
 }
 

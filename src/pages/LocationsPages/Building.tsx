@@ -9,6 +9,7 @@ import axios from "axios";
 import configAxios from "../../axios/configAxios";
 import { API } from "../../axios/swr/endpoint";
 import checkToken from "../../config/checkToken";
+import { GetKanitFont } from "../../config/fonts";
 
 function Building() {
   const navigate = useNavigate();
@@ -25,12 +26,12 @@ function Building() {
     }
   }, []);
   return (
-    <>
+    <div style={{ ...GetKanitFont("KanitLight") }}>
       <NavbarTop clickPage={clickPage} />
       <div>Building</div>
       <ButtonAdd titleButton={"เพิ่มอาคาร"} pageAdd={"/building/newbuilding"} />
       <TableListLocat isPage={"b"} itemList={getBuilding} />
-    </>
+    </div>
   );
 }
 

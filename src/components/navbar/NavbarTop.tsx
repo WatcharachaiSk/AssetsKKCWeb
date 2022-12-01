@@ -4,6 +4,7 @@ import styled from "styled-components";
 import colors from "../../config/colors";
 import { useNavigate } from "react-router-dom";
 import { sweet_confirm } from "../sweetalert2/sweet";
+import { GetKanitFont } from "../../config/fonts";
 
 function NavbarTop(props: any) {
   const navigate = useNavigate();
@@ -70,7 +71,7 @@ function NavbarTop(props: any) {
 
   return (
     <>
-      <Navbar bg="light" expand="lg">
+      <Navbar bg="light" expand="lg" style={{ ...GetKanitFont("KanitLight") }}>
         <Container fluid style={{ marginLeft: 15, marginRight: 100 }}>
           <Navbar.Brand style={styles.fontNavBrand}>RMUTI kkc</Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarScroll" />

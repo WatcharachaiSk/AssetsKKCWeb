@@ -9,6 +9,7 @@ import styled from "styled-components";
 import TableListItem from "../../components/table/TableListItem";
 import { thTable } from "../ItemPage/components/dataItem";
 import _ from "lodash";
+import { GetKanitFont } from "../../config/fonts";
 
 function CategoryItem() {
   const { state } = useLocation();
@@ -30,14 +31,14 @@ function CategoryItem() {
   }, []);
 
   return (
-    <>
+    <div style={{ ...GetKanitFont("KanitLight") }}>
       <NavbarTop clickPage={"home"} />
       <div className="d-flex justify-content-center mt-5 mb-2">
         <h3>{state.name}</h3>
       </div>
 
       <TableListItem itemList={getItems} />
-    </>
+    </div>
   );
 }
 

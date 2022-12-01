@@ -1,5 +1,6 @@
 // import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { GetKanitFont } from "../../../config/fonts";
 import FormInput from "./components/FormInput";
 
 function Login() {
@@ -15,20 +16,10 @@ function Login() {
     localStorage.setItem("Profile", JSON.stringify(profile));
   };
 
-  /*
- ! {} 
- ! []
- ! asdasd
- ! 1231231
- ! 0,1
- ! {[]}
- ! any
-
-  */
   return (
-    <>
+    <div style={{ ...GetKanitFont("KanitLight") }}>
       <FormInput navigate={navigate} setlocalStorage={setlocalStorage} />
-    </>
+    </div>
   );
 }
 

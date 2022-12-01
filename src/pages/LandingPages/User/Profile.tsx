@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import NavbarTop from "../../../components/navbar/NavbarTop";
+import { GetKanitFont } from "../../../config/fonts";
 import ShowProfile from "./components/ShowProfile";
 
 function Profile() {
@@ -14,13 +15,13 @@ function Profile() {
   }, []);
 
   return (
-    <>
+    <div style={{ ...GetKanitFont("KanitLight") }}>
       <NavbarTop clickPage={clickPage} />
       <div className="d-flex justify-content-center mt-4 mb-2">
         <h3>Profile ของ {getProfile?.firstname}</h3>
       </div>
       <ShowProfile />
-    </>
+    </div>
   );
 }
 

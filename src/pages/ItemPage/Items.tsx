@@ -8,6 +8,7 @@ import configAxios from "../../axios/configAxios";
 import { API } from "../../axios/swr/endpoint";
 import checkToken from "../../config/checkToken";
 import TableListItem from "../../components/table/TableListItem";
+import { GetKanitFont } from "../../config/fonts";
 
 function Items() {
   const navigate = useNavigate();
@@ -29,14 +30,14 @@ function Items() {
   };
 
   return (
-    <>
+    <div style={{ ...GetKanitFont("KanitLight") }}>
       <NavbarTop clickPage={clickPage} />
       <div className="d-flex justify-content-center mt-5 mb-2">
         <h3>ครุภัณฑ์ทั้งหมด</h3>
       </div>
       <ButtonAdd pageAdd={"/items/newitem"} titleButton={"เพิ่มครุภัณฑ์"} />
       <TableListItem itemList={getItems} editPage={"/items/editItem"} />
-    </>
+    </div>
   );
 }
 

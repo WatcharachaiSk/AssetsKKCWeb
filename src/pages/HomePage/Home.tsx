@@ -8,9 +8,14 @@ import axios from "axios";
 import configAxios from "../../axios/configAxios";
 import { API } from "../../axios/swr/endpoint";
 import checkToken from "../../config/checkToken";
+import { Button } from "react-bootstrap";
+import { GetKanitFont } from "../../config/fonts";
 
 function Home() {
   const [clickPage, setClickPage] = useState<string>("home");
+  const [isComponent, setIsComponent] = useState<string>("cate");
+  // console.log("isComponent = " + isComponent);
+
   const [category, setCategory] = useState<{}>({});
   const navigate = useNavigate();
 
@@ -35,19 +40,42 @@ function Home() {
   ];
 
   const Fullscreen = styled.div`
-    background: #FCFCFC no-repeat;
+    background: #fcfcfc no-repeat;
     -webkit-background-size: cover;
     background-size: cover;
   `;
 
   return (
     <>
-      <Fullscreen>
+      <Fullscreen style={{ ...GetKanitFont("KanitLight") }}>
         <NavbarTop clickPage={clickPage} setClickPage={setClickPage} />
         <div className="d-flex justify-content-center mt-5 mb-2">
-          <h3>หมวดหมู่ครุภัณฑ์</h3>
+          <Button
+            onClick={() => {
+              setIsComponent("cate");
+            }}
+            variant="light"
+          >
+            {isComponent === "cate" ? (
+              <h3>หมวดหมู่ครุภัณฑ์</h3>
+            ) : (
+              <h4 style={{ color: "#818181" }}>หมวดหมู่ครุภัณฑ์</h4>
+            )}
+          </Button>
+          <Button
+            variant="light"
+            onClick={() => {
+              setIsComponent("type");
+            }}
+          >
+            {isComponent === "type" ? (
+              <h3>ชนิดครุภัณฑ์</h3>
+            ) : (
+              <h4 style={{ color: "#818181" }}>ชนิดครุภัณฑ์</h4>
+            )}
+          </Button>
         </div>
-        <CardList listItem={category} />
+        {isComponent == "cate" && <CardList listItem={category} />}
       </Fullscreen>
     </>
   );
