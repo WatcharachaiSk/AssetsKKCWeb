@@ -33,6 +33,8 @@ export const API = {
 
   //PUT
   updateItem: baseURL + `/updateItem/`,
+  updateFaculty: baseURL + `/updateFaculty/`,
+  updateDepartment: baseURL + `/updateDepartment/`,
 };
 
 /*

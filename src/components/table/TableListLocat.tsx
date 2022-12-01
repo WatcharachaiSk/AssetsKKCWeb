@@ -14,15 +14,15 @@ function TableListLocat(props: any) {
   const { itemList, editPage, isPage } = props;
   const navigate = useNavigate();
 
-  const navigatePage = (page: string, idItem?: any) => {
-    navigate(page, { state: { id: idItem } });
+  const navigatePage = (idItem?: any, item?: any) => {
+    navigate(editPage, { state: { id: idItem, item: item } });
   };
   return (
     <div style={{ margin: 30 }}>
       <Table
         style={{ paddingTop: 50, textAlign: "center", fontSize: 22 }}
         responsive="sm"
-        striped
+        // striped
         bordered
         hover
       >
@@ -63,17 +63,19 @@ function TableListLocat(props: any) {
                   <Button
                     variant="outline-secondary"
                     onClick={() => {
-                      let getid: any;
+                      let getId: any;
                       if (isPage === "f") {
-                        getid = item.f_id;
+                        getId = item.f_id;
                       } else if (isPage === "d") {
-                        getid = item.d_id;
+                        getId = item.d_id;
                       } else if (isPage === "b") {
-                        getid = item.b_id;
+                        getId = item.b_id;
                       } else if (isPage === "l") {
-                        getid = item.l_id;
+                        getId = item.l_id;
                       }
-                      console.log("item.item_id = " + getid);
+
+                      // console.log("item.item_id = " + getId);
+                      navigatePage(getId, item);
                     }}
                   >
                     <AiFillEdit color="red" size={20} />

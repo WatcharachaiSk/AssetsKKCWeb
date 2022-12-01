@@ -101,7 +101,6 @@ function NavbarTop(props: any) {
                 style={styles.fontNavDropdown}
                 title={<TitleSetting color={clickPage}>ตั้งค่า</TitleSetting>}
                 id="navbarScrollingDropdown"
-                // style={{ marginRight: 150 }}
               >
                 {getUserAdmin && (
                   <NavDropdown.Item

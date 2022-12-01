@@ -6,6 +6,7 @@ const colors = {
   greyF5: "#F5F5F5",
 
   borderColorEdit: "green",
+  borderColorEditNOT: "red",
   statusColor1: "green",
   statusColor0: "red",
 };

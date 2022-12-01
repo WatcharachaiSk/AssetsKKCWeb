@@ -37,7 +37,7 @@ function CategoryItem() {
         <h3>{state.name}</h3>
       </div>
 
-      <TableListItem itemList={getItems} />
+      <TableListItem itemList={getItems} editPage={"/items/editItem"} />
     </div>
   );
 }

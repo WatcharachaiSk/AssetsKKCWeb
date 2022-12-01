@@ -27,12 +27,18 @@ function Department() {
   return (
     <div style={{ ...GetKanitFont("KanitLight") }}>
       <NavbarTop clickPage={clickPage} />
-      <div>Department</div>
+      <div className="d-flex justify-content-center mt-5 mb-2">
+        <h3>สาขา</h3>
+      </div>
       <ButtonAdd
         titleButton={"เพิ่มสาขา"}
         pageAdd={"/department/newdepartment"}
       />
-      <TableListLocat itemList={getDepartment} isPage={"d"} />
+      <TableListLocat
+        itemList={getDepartment}
+        isPage={"d"}
+        editPage={"/departmen/editdepartmen"}
+      />
     </div>
   );
 }
