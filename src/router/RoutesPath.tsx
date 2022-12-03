@@ -2,6 +2,7 @@ import { Routes, Route, Link } from "react-router-dom";
 // HOME
 import Home from "../pages/HomePage/Home";
 import CategoryItem from "../pages/HomePage/CategoryItem";
+import TypeItems from "../pages/HomePage/TypeItems";
 import Items from "../pages/ItemPage/Items";
 
 import Login from "../pages/LandingPages/Login/Login";
@@ -39,6 +40,7 @@ function RoutesPath() {
         <Route path="/home" element={<Home />} />
         <Route path="/items" element={<Items />} />
         <Route path="/home/category_item" element={<CategoryItem />} />
+        <Route path="/home/type_item" element={<TypeItems />} />
 
         {/* Setting */}
         <Route path="/faculty" element={<Faculty />} />
@@ -63,8 +65,6 @@ function RoutesPath() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/admin" element={<Users />} />
         <Route path="/admin/new_user" element={<NewUser />} />
-
-        
       </Routes>
     </>
   );

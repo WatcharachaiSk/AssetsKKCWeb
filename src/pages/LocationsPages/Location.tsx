@@ -26,12 +26,18 @@ function Location() {
   return (
     <div style={{ ...GetKanitFont("KanitLight") }}>
       <NavbarTop clickPage={clickPage} />
-      <div>Location</div>
+      <div className="d-flex justify-content-center mt-5 mb-2">
+        <h3>สถานที่</h3>
+      </div>
       <ButtonAdd
         titleButton={"เพิ่มสถานที่"}
         pageAdd={"/location/newlocation"}
       />
-      <TableListLocat isPage={"l"} itemList={getLocation} />
+      <TableListLocat
+        isPage={"l"}
+        itemList={getLocation}
+        editPage={"/location/editlocation"}
+      />
     </div>
   );
 }

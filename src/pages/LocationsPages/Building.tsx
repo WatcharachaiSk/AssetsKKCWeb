@@ -28,9 +28,15 @@ function Building() {
   return (
     <div style={{ ...GetKanitFont("KanitLight") }}>
       <NavbarTop clickPage={clickPage} />
-      <div>Building</div>
+      <div className="d-flex justify-content-center mt-5 mb-2">
+        <h3>ตึก</h3>
+      </div>
       <ButtonAdd titleButton={"เพิ่มอาคาร"} pageAdd={"/building/newbuilding"} />
-      <TableListLocat isPage={"b"} itemList={getBuilding} />
+      <TableListLocat
+        isPage={"b"}
+        itemList={getBuilding}
+        editPage={"/building/editbuilding"}
+      />
     </div>
   );
 }

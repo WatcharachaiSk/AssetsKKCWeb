@@ -14,6 +14,7 @@ export const API = {
   // GETById
   getItemById: baseURL + `/getItem/`,
   getItemCategory: baseURL + `/getItemCategory/`,
+  getItemByTypeID: baseURL + `/getItemByTypeID/`,
   getDepartmentByFtyId: baseURL + `/getDepartmentByFtyId/`,
   getDepartmentById: baseURL + `/getDepartmentById/`,
   getBuildingByDpmId: baseURL + `/getBuildingByDpmId/`,
@@ -35,6 +36,8 @@ export const API = {
   updateItem: baseURL + `/updateItem/`,
   updateFaculty: baseURL + `/updateFaculty/`,
   updateDepartment: baseURL + `/updateDepartment/`,
+  updateBuilding: baseURL + `/updateBuilding/`,
+  updateLocation: baseURL + `/updateLocation/`,
 };
 
 /*

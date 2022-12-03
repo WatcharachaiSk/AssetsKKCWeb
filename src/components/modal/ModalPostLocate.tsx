@@ -52,8 +52,8 @@ function ModalPostLocate(props: any) {
               <tr>
                 <td>ชื่อคณะ</td>
                 <td>
-                  {chackDataLocate?.faculty[0].nameTH}{" "}
-                  {chackDataLocate?.faculty[0].nameEN}
+                  {chackDataLocate?.faculty[0]?.nameTH}{" "}
+                  {chackDataLocate?.faculty[0]?.nameEN}
                 </td>
               </tr>
             ) : (
@@ -63,8 +63,8 @@ function ModalPostLocate(props: any) {
               <tr>
                 <td>ชื่อสาขา</td>
                 <td>
-                  {chackDataLocate?.department[0].nameTH}{" "}
-                  {chackDataLocate?.department[0].nameEN}
+                  {chackDataLocate?.department[0]?.nameTH}{" "}
+                  {chackDataLocate?.department[0]?.nameEN}
                 </td>
               </tr>
             ) : (
@@ -74,8 +74,8 @@ function ModalPostLocate(props: any) {
               <tr>
                 <td>ชื่ออาคาร</td>
                 <td>
-                  {chackDataLocate?.building[0].nameTH}{" "}
-                  {chackDataLocate?.building[0].nameEN}
+                  {chackDataLocate?.building[0]?.nameTH}{" "}
+                  {chackDataLocate?.building[0]?.nameEN}
                 </td>
               </tr>
             ) : (

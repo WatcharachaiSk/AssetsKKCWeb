@@ -16,18 +16,28 @@ function Home() {
   const [isComponent, setIsComponent] = useState<string>("cate");
   // console.log("isComponent = " + isComponent);
 
-  const [category, setCategory] = useState<{}>({});
+  const [getCategory, setGetCategory] = useState<{}>({});
+  const [getTypeItem, setGetTypeItem] = useState<{}>({});
   const navigate = useNavigate();
 
   useMemo(async () => {
     try {
       const res = await axios(configAxios("get", API.getCategory));
-      setCategory(res.data);
+      setGetCategory(res.data);
     } catch (error: any) {
       // console.log("err = ", error.request.status);
       checkToken(error.response.data.status, error.request.status, navigate);
     }
   }, []);
+  useMemo(async () => {
+    try {
+      const res = await axios(configAxios("get", API.getTypeItem));
+      setGetTypeItem(res.data);
+    } catch (error: any) {
+      // console.log("err = ", error.request.status);
+      checkToken(error.response.data.status, error.request.status, navigate);
+    }
+  }, [isComponent]);
   //console.log(category);
 
   const testData = [
@@ -75,7 +85,20 @@ function Home() {
             )}
           </Button>
         </div>
-        {isComponent == "cate" && <CardList listItem={category} />}
+        {isComponent == "cate" && (
+          <CardList
+            listItem={getCategory}
+            isShow={"cate"}
+            pageShowItem={"/home/category_item"}
+          />
+        )}
+        {isComponent == "type" && (
+          <CardList
+            listItem={getTypeItem}
+            isShow={"type"}
+            pageShowItem={"/home/type_item"}
+          />
+        )}
       </Fullscreen>
     </>
   );

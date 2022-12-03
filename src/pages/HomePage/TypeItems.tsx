@@ -12,17 +12,17 @@ import _ from "lodash";
 import { GetKanitFont } from "../../config/fonts";
 import ButtonBack from "../../components/buttons/ButtonBack";
 
-function CategoryItem() {
+function TypeItems() {
   const { state } = useLocation();
   const [getItems, setgetItems] = useState<any>({});
-  const [itemList, setItemList] = useState<any>([]);
+  // const [itemList, setItemList] = useState<any>([]);
   const navigate = useNavigate();
   // console.log(state);
 
   useMemo(async () => {
     try {
       const res = await axios(
-        configAxios("get", `${API.getItemCategory}${state.id}`)
+        configAxios("get", `${API.getItemByTypeID}${state.id}`)
       );
       setgetItems(res.data);
     } catch (error: any) {
@@ -44,4 +44,4 @@ function CategoryItem() {
   );
 }
 
-export default CategoryItem;
+export default TypeItems;
