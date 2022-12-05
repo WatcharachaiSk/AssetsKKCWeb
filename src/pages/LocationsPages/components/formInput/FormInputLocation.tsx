@@ -203,7 +203,7 @@ function FormInputLocation(props: any) {
             }}
             size="lg"
           >
-            {buildingBId != 0 ? (
+            {departmentDId != 0 ? (
               <option value={0}>กรุณาเลือกอาคาร</option>
             ) : (
               <option value={0}>กรุณาเลือกสาขา</option>

@@ -127,6 +127,12 @@ function CardList(props: any) {
                       <Card.Subtitle className="mb-2">
                         <Card.Text>ราคารวม: {item?.total_price}</Card.Text>
                       </Card.Subtitle>
+                      <Card.Subtitle className="mb-2">
+                        <Card.Text>หน่วยงาน: {item?.department?.nameTH}</Card.Text>
+                      </Card.Subtitle>
+                      <Card.Subtitle className="mb-2">
+                        <Card.Text>หมวดหมู่: {item?.category?.name}</Card.Text>
+                      </Card.Subtitle>
                       <Card.Subtitle>
                         <Card.Text>
                           วันที่ซื้อ:{" "}

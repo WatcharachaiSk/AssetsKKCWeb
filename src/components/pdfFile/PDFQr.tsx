@@ -1,5 +1,5 @@
 import { Page, Text, View, Document, StyleSheet } from "@react-pdf/renderer";
-import QRCode from "react-qr-code";
+
 // Create styles
 const styles = StyleSheet.create({
   body: {
@@ -48,9 +48,7 @@ const PDFQr = (props: any) => {
       <Page size="A4">
         <Text style={styles.header} fixed></Text>
 
-        <Text style={styles.text}>
-          Oh right. {item?.code} การละะ
-        </Text>
+        <Text style={styles.text}>Oh right. {item?.code} การละะ</Text>
         <Text
           style={styles.pageNumber}
           render={({ pageNumber, totalPages }) =>

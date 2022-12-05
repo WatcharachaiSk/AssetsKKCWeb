@@ -22,10 +22,10 @@ function FormAddTypeItem(props: any) {
   const [unitItemFN, setUnitItemFn] = useState<any>(0);
   console.log("unitItemFN = " + unitItemFN);
   const [unitItem, setUnitItem] = useState<any>(0);
-  console.log("unitItem = " + unitItem);
+  // console.log("unitItem = " + unitItem);
 
   const [inputUnitItem, setInputUnitItem] = useState<any>("");
-  console.log("inputUnitItem = " + inputUnitItem);
+  // console.log("inputUnitItem = " + inputUnitItem);
 
   const [quantity, setQuantity] = useState<number>(0);
   const [priceUnit, setPriceUnit] = useState<number>();
@@ -58,6 +58,8 @@ function FormAddTypeItem(props: any) {
       unitItem == -1 ||
       inputUnitItem == ""
     ) {
+      console.log("W20");
+
       setUnitItemFn(0);
     } else {
       setUnitItemFn(1);
@@ -68,9 +70,13 @@ function FormAddTypeItem(props: any) {
     if (unitItem == -1 && inputUnitItem == "") {
       setUnitItemFn(0);
     } else {
-      setUnitItemFn(1);
+      if (unitItem == 0) {
+        setUnitItemFn(0);
+      } else {
+        setUnitItemFn(1);
+      }
     }
-  }, [inputUnitItem]);
+  }, [inputUnitItem, unitItem]);
 
   const handleChangeUnit = (event: any) => {
     const value = event.target.value;

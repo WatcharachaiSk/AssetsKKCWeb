@@ -41,15 +41,6 @@ function Home(): JSX.Element {
   }, [isComponent]);
   //console.log(category);
 
-  const testData = [
-    { type: "ครุภัณฑ์สำนักงาน", value: "158" },
-    { type: "ครุภัณฑ์ไฟฟ้าเเละวิทยุ", value: "79" },
-    { type: "ครุภัณฑ์คอมพิวเตอร์", value: "198" },
-    { type: "ครุภัณฑการศึกษา", value: "28" },
-    { type: "ครุภัณฑ์โฆษณาและเผยแพร่", value: "198" },
-    { type: "ครุภัณฑ์โฆษณาและเผยแพร่", value: "250" },
-  ];
-
   const Fullscreen = styled.div`
     background: #fcfcfc no-repeat;
     -webkit-background-size: cover;

@@ -1,8 +1,9 @@
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import colors from "../../config/colors";
+import { FiSettings } from "react-icons/fi";
 
 function NavbarItem(props: any) {
   const navigate = useNavigate();
@@ -89,7 +90,7 @@ function NavbarItem(props: any) {
                     navigatePage("/faculty");
                   }}
                 >
-                  Faculty
+                  คณะ
                 </NavDropdown.Item>
               )}
 
@@ -99,7 +100,7 @@ function NavbarItem(props: any) {
                   navigatePage("/department");
                 }}
               >
-                Department
+                สาขาวิชา
               </NavDropdown.Item>
               <NavDropdown.Item
                 style={styles.fontNavLink}
@@ -107,7 +108,7 @@ function NavbarItem(props: any) {
                   navigatePage("/building");
                 }}
               >
-                Building
+                ตึก
               </NavDropdown.Item>
               <NavDropdown.Item
                 style={styles.fontNavLink}
@@ -115,7 +116,23 @@ function NavbarItem(props: any) {
                   navigatePage("/location");
                 }}
               >
-                Location
+                สถานที่
+              </NavDropdown.Item>
+              <NavDropdown.Item
+                style={styles.fontNavLink}
+                onClick={() => {
+                  // navigatePage("/location");
+                }}
+              >
+                หมวดหมู่ครุภัณฑ์
+              </NavDropdown.Item>
+              <NavDropdown.Item
+                style={styles.fontNavLink}
+                onClick={() => {
+                  // navigatePage("/location");
+                }}
+              >
+                ชนิดครุภัณฑ์
               </NavDropdown.Item>
             </NavDropdown>
           </Nav>

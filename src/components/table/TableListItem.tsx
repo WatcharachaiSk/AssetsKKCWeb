@@ -1,18 +1,22 @@
 import _ from "lodash";
 import { useNavigate } from "react-router-dom";
-import { Table, Button } from "react-bootstrap";
+import { Table, Button, Form } from "react-bootstrap";
 import { AiFillEdit } from "react-icons/ai";
 import { GetKanitFont } from "../../config/fonts";
 import Moment from "react-moment";
 import { IoQrCodeSharp } from "react-icons/io5";
 import colors from "../../config/colors";
 import ModalOneQr from "../modal/ModalQr/ModalOneQr";
+import ModalSelectQr from "../modal/ModalQr/ModalSelectQr";
 import { useState } from "react";
 
 function TableListItem(props: any) {
   const { itemList, editPage } = props;
-  const [modalShow, setModalShow] = useState(false);
+  const [modalShowOne, setModalShowOne] = useState(false);
+  const [modalShowAll, setModalShowAll] = useState(false);
   const [getItem, setGetItem] = useState();
+  const [selectItem, setSelectItem] = useState();
+
   const navigate = useNavigate();
   const navigatePage = (idItem?: any) => {
     navigate(editPage, { state: { id: idItem, isPage: "items" } });
@@ -20,14 +24,21 @@ function TableListItem(props: any) {
 
   return (
     <div style={{ margin: 30 }}>
-      {modalShow && (
+      {modalShowOne && (
         <ModalOneQr
-          show={modalShow}
-          onHide={() => setModalShow(false)}
+          show={modalShowOne}
+          onHide={() => setModalShowOne(false)}
           item={getItem}
         />
       )}
-
+      {modalShowAll && (
+        <ModalSelectQr
+          show={modalShowAll}
+          onHide={() => setModalShowAll(false)}
+          items={itemList}
+          idItems={selectItem}
+        />
+      )}
       <Table
         style={{ paddingTop: 50, textAlign: "center", fontSize: 22 }}
         responsive="lg"
@@ -39,10 +50,10 @@ function TableListItem(props: any) {
         {/*  */}
         <thead style={{ ...GetKanitFont("KanitMedium") }}>
           <tr>
+            <th>เลือก</th>
             <th>ลำดับ</th>
             <th>แก้ไข</th>
             <th>QR Code</th>
-
             <th>รหัสครุภัณฑ์</th>
             <th>ชื่อ(ไทย)</th>
             <th>หมวดหมู่</th>
@@ -69,6 +80,34 @@ function TableListItem(props: any) {
                   ...GetKanitFont("KanitLight"),
                 }}
               >
+                <td>
+                  <Form.Group className="mb-3">
+                    <Form.Check
+                      onChange={(event: any) => {
+                        // console.log(event.target.checked);
+                        let arrPut: any = selectItem ? selectItem : [];
+                        if (event.target.checked) {
+                          arrPut.push(event.target.value);
+                          setSelectItem(arrPut);
+                        } else {
+                          for (var i = 0; i < arrPut.length; i++) {
+                            if (arrPut[i] === event.target.value) {
+                              arrPut.splice(i, 1);
+                            }
+                          }
+                          setSelectItem(arrPut);
+                        }
+                        // console.log("arrPut = ", arrPut);
+                      }}
+                      value={item.item_id}
+                      // onClick={(event: any) => {
+                      //   // console.log("event.target.value = ", event);
+
+                      //   console.log(item.item_id);
+                      // }}
+                    />
+                  </Form.Group>
+                </td>
                 <td>{idx + 1}</td>
                 {/*  */}
                 <td>
@@ -89,7 +128,7 @@ function TableListItem(props: any) {
                     variant="outline-warning"
                     onClick={() => {
                       setGetItem(item);
-                      setModalShow(true);
+                      setModalShowOne(true);
                     }}
                   >
                     <IoQrCodeSharp color={colors.black} size={20} />
@@ -119,6 +158,15 @@ function TableListItem(props: any) {
         </tbody>
         {/*  */}
       </Table>
+      <Button
+        size="lg"
+        variant="outline-primary"
+        onClick={() => {
+          setModalShowAll(true);
+        }}
+      >
+        Print Selected
+      </Button>
     </div>
   );
 }
