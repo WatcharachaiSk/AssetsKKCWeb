@@ -9,6 +9,7 @@ import configAxios from "../../axios/configAxios";
 import { API } from "../../axios/swr/endpoint";
 import checkToken from "../../config/checkToken";
 import { GetKanitFont } from "../../config/fonts";
+import NavbarItem from "../../components/navbar/NavbarItem";
 function Location() {
   const navigate = useNavigate();
   const [clickPage, setClickPage] = useState<string>("setting");
@@ -26,6 +27,7 @@ function Location() {
   return (
     <div style={{ ...GetKanitFont("KanitLight") }}>
       <NavbarTop clickPage={clickPage} />
+      <NavbarItem clickPage={clickPage} />
       <div className="d-flex justify-content-center mt-5 mb-2">
         <h3>สถานที่</h3>
       </div>

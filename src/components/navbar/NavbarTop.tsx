@@ -5,6 +5,7 @@ import colors from "../../config/colors";
 import { useNavigate } from "react-router-dom";
 import { sweet_confirm } from "../sweetalert2/sweet";
 import { GetKanitFont } from "../../config/fonts";
+import icons from "../../config/icons";
 
 function NavbarTop(props: any) {
   const navigate = useNavigate();
@@ -41,115 +42,48 @@ function NavbarTop(props: any) {
   const { clickPage } = props;
   // console.log(clickPage);
 
-  const TitleHome = styled.span`
-    color: ${(props: any) => (props.color === "home" ? colors.black : "dark")};
-  `;
-  const TitleItem = styled.span`
-    color: ${(props: any) => (props.color === "items" ? colors.black : "dark")};
-  `;
-  const TitleSetting = styled.span`
-    color: ${(props: any) =>
-      props.color === "setting" ? colors.black : "dark"};
-  `;
   const TitleAdmin = styled.span`
     color: ${(props: any) =>
       props.color === "admin" ? colors.goldFC : "dark"};
   `;
   const styles = {
-    fontNavBrand: {
-      fontSize: 35,
-    },
     fontNavLink: {
       fontSize: 20,
     },
     fontNavDropdown: {
       fontSize: 22,
-      marginLeft: 15,
-      marginRight: 15,
     },
   };
 
   return (
-    <>
-      <Navbar bg="light" expand="lg" style={{ ...GetKanitFont("KanitLight") }}>
-        <Container fluid style={{ marginLeft: 15, marginRight: 100 }}>
-          <Navbar.Brand style={styles.fontNavBrand}>RMUTI kkc</Navbar.Brand>
-          <Navbar.Toggle aria-controls="navbarScroll" />
-          <Navbar.Collapse id="navbarScroll">
-            <Nav
-              className="me-auto my-2 my-lg-0"
-              style={{ maxHeight: "100px" }}
-              navbarScroll
-            >
-              <Nav.Link
-                onClick={() => {
-                  navigatePage("/home");
-                }}
-                style={styles.fontNavLink}
-              >
-                <TitleHome color={clickPage}>ครุภัณฑ์</TitleHome>
-              </Nav.Link>
-              <Nav.Link
-                onClick={() => {
-                  navigatePage("/items");
-                }}
-                style={styles.fontNavLink}
-              >
-                <TitleItem color={clickPage}>รายการครุภัณฑ์ทั้งหมด</TitleItem>
-              </Nav.Link>
-              <NavDropdown
-                style={styles.fontNavDropdown}
-                title={<TitleSetting color={clickPage}>ตั้งค่า</TitleSetting>}
-                id="navbarScrollingDropdown"
-              >
-                {getUserAdmin && (
-                  <NavDropdown.Item
-                    style={styles.fontNavLink}
-                    onClick={() => {
-                      navigatePage("/faculty");
-                    }}
-                  >
-                    Faculty
-                  </NavDropdown.Item>
-                )}
-
-                <NavDropdown.Item
-                  style={styles.fontNavLink}
-                  onClick={() => {
-                    navigatePage("/department");
-                  }}
-                >
-                  Department
-                </NavDropdown.Item>
-                <NavDropdown.Item
-                  style={styles.fontNavLink}
-                  onClick={() => {
-                    navigatePage("/building");
-                  }}
-                >
-                  Building
-                </NavDropdown.Item>
-                <NavDropdown.Item
-                  style={styles.fontNavLink}
-                  onClick={() => {
-                    navigatePage("/location");
-                  }}
-                >
-                  Location
-                </NavDropdown.Item>
-              </NavDropdown>
-
-              {/* <Form className="d-flex" style={{}}>
-                <Form.Control
-                  type="search"
-                  placeholder="Search"
-                  className="me-1"
-                  aria-label="Search"
-                />
-                <Button variant="btn btn-outline-secondary">Search</Button>
-              </Form> */}
-            </Nav>
-
+    <Navbar
+      collapseOnSelect
+      bg="light"
+      expand="lg"
+      style={{ ...GetKanitFont("KanitLight") }}
+    >
+      <Container>
+        <Navbar.Brand
+          href={clickPage == "home" ? "" : "#"}
+          onClick={() => {
+            if (clickPage != "home") navigatePage("/home");
+          }}
+        >
+          <img
+            src={icons.RMUTI_kkc}
+            width="100%"
+            height="100%"
+            className="d-inline-block align-top"
+          />
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls="navbarScroll" />
+        <Navbar.Collapse id="navbarScroll">
+          <Nav
+            className="me-auto my-2 my-lg-0"
+            style={{ maxHeight: "100px" }}
+            navbarScroll
+          ></Nav>
+          <Nav>
             <NavDropdown
               style={styles.fontNavLink}
               title={
@@ -197,10 +131,10 @@ function NavbarTop(props: any) {
                 Log Out
               </NavDropdown.Item>
             </NavDropdown>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
-    </>
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   );
 }
 

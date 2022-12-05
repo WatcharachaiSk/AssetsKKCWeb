@@ -4,17 +4,30 @@ import { Table, Button } from "react-bootstrap";
 import { AiFillEdit } from "react-icons/ai";
 import { GetKanitFont } from "../../config/fonts";
 import Moment from "react-moment";
-// import colors from "../../config/colors";
+import { IoQrCodeSharp } from "react-icons/io5";
+import colors from "../../config/colors";
+import ModalOneQr from "../modal/ModalQr/ModalOneQr";
+import { useState } from "react";
 
 function TableListItem(props: any) {
   const { itemList, editPage } = props;
+  const [modalShow, setModalShow] = useState(false);
+  const [getItem, setGetItem] = useState();
   const navigate = useNavigate();
-
   const navigatePage = (idItem?: any) => {
     navigate(editPage, { state: { id: idItem, isPage: "items" } });
   };
+
   return (
     <div style={{ margin: 30 }}>
+      {modalShow && (
+        <ModalOneQr
+          show={modalShow}
+          onHide={() => setModalShow(false)}
+          item={getItem}
+        />
+      )}
+
       <Table
         style={{ paddingTop: 50, textAlign: "center", fontSize: 22 }}
         responsive="lg"
@@ -24,10 +37,12 @@ function TableListItem(props: any) {
         hover
       >
         {/*  */}
-        <thead style={{...GetKanitFont("KanitMedium")}}>
+        <thead style={{ ...GetKanitFont("KanitMedium") }}>
           <tr>
-            <th>แก้ไข</th>
             <th>ลำดับ</th>
+            <th>แก้ไข</th>
+            <th>QR Code</th>
+
             <th>รหัสครุภัณฑ์</th>
             <th>ชื่อ(ไทย)</th>
             <th>หมวดหมู่</th>
@@ -54,19 +69,34 @@ function TableListItem(props: any) {
                   ...GetKanitFont("KanitLight"),
                 }}
               >
+                <td>{idx + 1}</td>
+                {/*  */}
                 <td>
                   <Button
                     size="lg"
-                    variant="outline-info"
+                    variant="warning"
                     onClick={() => {
                       navigatePage(item?.item_id);
                       //console.log("item.item_id = " + item?.item_id);
                     }}
                   >
-                    <AiFillEdit color="outline-info" size={20} />
+                    <AiFillEdit color={colors.black} size={20} />
                   </Button>
                 </td>
-                <td>{idx + 1}</td>
+                <td>
+                  <Button
+                    size="lg"
+                    variant="outline-warning"
+                    onClick={() => {
+                      setGetItem(item);
+                      setModalShow(true);
+                    }}
+                  >
+                    <IoQrCodeSharp color={colors.black} size={20} />
+                  </Button>
+                </td>
+                {/*  */}
+
                 <td>{item.code}</td>
                 <td>{item.name}</td>
                 <td>{item.category.name}</td>

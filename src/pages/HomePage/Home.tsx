@@ -10,8 +10,9 @@ import { API } from "../../axios/swr/endpoint";
 import checkToken from "../../config/checkToken";
 import { Button } from "react-bootstrap";
 import { GetKanitFont } from "../../config/fonts";
+import NavbarItem from "../../components/navbar/NavbarItem";
 
-function Home() {
+function Home(): JSX.Element {
   const [clickPage, setClickPage] = useState<string>("home");
   const [isComponent, setIsComponent] = useState<string>("cate");
   // console.log("isComponent = " + isComponent);
@@ -28,7 +29,7 @@ function Home() {
       // console.log("err = ", error.request.status);
       checkToken(error.response.data.status, error.request.status, navigate);
     }
-  }, []);
+  }, [isComponent]);
   useMemo(async () => {
     try {
       const res = await axios(configAxios("get", API.getTypeItem));
@@ -59,6 +60,7 @@ function Home() {
     <>
       <Fullscreen style={{ ...GetKanitFont("KanitLight") }}>
         <NavbarTop clickPage={clickPage} setClickPage={setClickPage} />
+        <NavbarItem clickPage={clickPage} />
         <div className="d-flex justify-content-center mt-5 mb-2">
           <Button
             onClick={() => {

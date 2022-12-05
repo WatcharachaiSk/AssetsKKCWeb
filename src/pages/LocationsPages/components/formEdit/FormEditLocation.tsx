@@ -136,8 +136,8 @@ function FormEditLocation(props: any) {
           ? buildingBId
           : buildingBId_Old,
     };
-    console.log(obj);
-    console.log(dataform);
+    // console.log(obj);
+    // console.log(dataform);
     setPostLocationCheck(obj);
     setPostLocation(dataform);
     setModalShowCheckLocation(true);

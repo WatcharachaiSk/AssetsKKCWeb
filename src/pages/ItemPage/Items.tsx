@@ -9,6 +9,7 @@ import { API } from "../../axios/swr/endpoint";
 import checkToken from "../../config/checkToken";
 import TableListItem from "../../components/table/TableListItem";
 import { GetKanitFont } from "../../config/fonts";
+import NavbarItem from "../../components/navbar/NavbarItem";
 
 function Items() {
   const navigate = useNavigate();
@@ -32,6 +33,7 @@ function Items() {
   return (
     <div style={{ ...GetKanitFont("KanitLight") }}>
       <NavbarTop clickPage={clickPage} />
+      <NavbarItem clickPage={clickPage} />
       <div className="d-flex justify-content-center mt-5 mb-2">
         <h3>ครุภัณฑ์ทั้งหมด</h3>
       </div>

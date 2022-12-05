@@ -8,6 +8,7 @@ import ButtonAdd from "../../ItemPage/components/ButtonAdd";
 import { useNavigate } from "react-router-dom";
 import checkToken from "../../../config/checkToken";
 import { GetKanitFont } from "../../../config/fonts";
+import NavbarItem from "../../../components/navbar/NavbarItem";
 
 function Users() {
   const navigate = useNavigate();
@@ -25,6 +26,7 @@ function Users() {
   return (
     <div style={{ ...GetKanitFont("KanitLight") }}>
       <NavbarTop clickPage={"admin"} />
+      <NavbarItem clickPage={"admin"} />
       <div className="d-flex justify-content-center mt-4 mb-2">
         <h3>สำหรับผู้ดูแลระบบ</h3>
       </div>

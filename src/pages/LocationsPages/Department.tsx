@@ -9,6 +9,7 @@ import { API } from "../../axios/swr/endpoint";
 import checkToken from "../../config/checkToken";
 import { useNavigate } from "react-router-dom";
 import { GetKanitFont } from "../../config/fonts";
+import NavbarItem from "../../components/navbar/NavbarItem";
 
 function Department() {
   const navigate = useNavigate();
@@ -27,6 +28,7 @@ function Department() {
   return (
     <div style={{ ...GetKanitFont("KanitLight") }}>
       <NavbarTop clickPage={clickPage} />
+      <NavbarItem clickPage={clickPage} />
       <div className="d-flex justify-content-center mt-5 mb-2">
         <h3>สาขา</h3>
       </div>
