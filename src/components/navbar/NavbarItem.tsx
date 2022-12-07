@@ -3,7 +3,7 @@ import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import colors from "../../config/colors";
-import { FiSettings } from "react-icons/fi";
+// import { FiSettings } from "react-icons/fi";
 
 function NavbarItem(props: any) {
   const navigate = useNavigate();
@@ -121,7 +121,7 @@ function NavbarItem(props: any) {
               <NavDropdown.Item
                 style={styles.fontNavLink}
                 onClick={() => {
-                  // navigatePage("/location");
+                  navigatePage("/category");
                 }}
               >
                 หมวดหมู่ครุภัณฑ์
@@ -129,7 +129,7 @@ function NavbarItem(props: any) {
               <NavDropdown.Item
                 style={styles.fontNavLink}
                 onClick={() => {
-                  // navigatePage("/location");
+                  navigatePage("/type_item");
                 }}
               >
                 ชนิดครุภัณฑ์

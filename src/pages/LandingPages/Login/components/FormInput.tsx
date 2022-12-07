@@ -48,62 +48,58 @@ function FormInput(props: any) {
   const styles = {
     container: {
       display: "flex",
-      // backgroundColor: "#000",
-      width: 650,
-      height: 350,
-      marginTop: 300,
+      width: "100%",
+      height: "100%",
     },
     card_box: {
+      display: "flex",
       flex: 1,
       backgroundColor: "#fff",
-      padding: 30,
-      margin: 15,
+      padding: 50,
+      width: "100%",
+      // height: "100%",
+      // top: "20%",
+      // margin: 20,
     },
   };
   return (
     <>
-      <Container style={styles.container}>
-        <Card style={styles.card_box}>
-          <Form>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>UserName</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="username"
-                name="username"
-                onChange={handleChange}
-              />
-            </Form.Group>
+      <Card style={styles.card_box}>
+        <h3 style={{ textAlign: "center" }}>เข้าสู่ระบบ</h3>
+        <Form>
+          <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Label>Username</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="username"
+              name="username"
+              onChange={handleChange}
+            />
+          </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label>PassWord</Form.Label>
-              <Form.Control
-                type="password"
-                placeholder="password"
-                name="password"
-                onChange={handleChange}
-              />
-            </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Label>Password</Form.Label>
+            <Form.Control
+              type="password"
+              placeholder="password"
+              name="password"
+              onChange={handleChange}
+            />
+          </Form.Group>
 
-            <Container>
-              <Row>
-                <Col></Col>
-                <Col>
-                  <Button
-                    style={{ width: 150, height: 60, marginTop: 20 }}
-                    variant="primary"
-                    type="submit"
-                    onClick={handleSubmit}
-                  >
-                    Login
-                  </Button>
-                </Col>
-                <Col></Col>
-              </Row>
-            </Container>
-          </Form>
-        </Card>
-      </Container>
+          <Container>
+            <Row>
+              <Col></Col>
+              <Col>
+                <Button variant="primary" type="submit" onClick={handleSubmit}>
+                  Login
+                </Button>
+              </Col>
+              <Col></Col>
+            </Row>
+          </Container>
+        </Form>
+      </Card>
     </>
   );
 }

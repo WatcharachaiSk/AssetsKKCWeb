@@ -20,7 +20,7 @@ function FormAddTypeItem(props: any) {
   const [inputCode, setInputCode] = useState<string>();
 
   const [unitItemFN, setUnitItemFn] = useState<any>(0);
-  console.log("unitItemFN = " + unitItemFN);
+  // console.log("unitItemFN = " + unitItemFN);
   const [unitItem, setUnitItem] = useState<any>(0);
   // console.log("unitItem = " + unitItem);
 
