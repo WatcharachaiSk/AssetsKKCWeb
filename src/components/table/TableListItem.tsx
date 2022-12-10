@@ -165,7 +165,7 @@ function TableListItem(props: any) {
           setModalShowAll(true);
         }}
       >
-        Print Selected
+        สั่งพิมพ์ที่เหลือก
       </Button>
     </div>
   );

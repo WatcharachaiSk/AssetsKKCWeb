@@ -34,28 +34,37 @@ function Login() {
     <>
       <NavbarTopLogin />
       <Container style={{ ...GetKanitFont("KanitLight") }}>
+        <div className="d-flex justify-content-center flex-column align-items-center mb-3">
+          <div>
+            <h2 className="mt-3">Asset Management System RMUTI KKC</h2>
+          </div>
+          <div>
+            <span>
+              ระบบจัดการครุภัณฑ์สำหรับมหาวิทยาลัยเทคโนโลยีราชมงคลอีสาน
+              วิทยาเขตขอนแก่น.
+            </span>
+          </div>
+        </div>
         <Row>
-          <h2 className="mt-3">Asset Management System RMUTI KKC</h2>
-          <span>
-            ระบบจัดการครุภัณฑ์สำหรับมหาวิทยาลัยเทคโนโลยีราชมงคลอีสาน
-            วิทยาเขตขอนแก่น.
-          </span>
           <Col sm={8} style={{ backgroundColor: "#fcfcfc" }}>
-            <Fullscreen>
-              <Carousel fade>
-                <Carousel.Item>
-                  <img
-                    className="d-block w-100"
-                    src="https://uploads-ssl.webflow.com/60edc0a8835d5b38bf11f03f/61cf04e57e4e9122241998dc_Why-business-needs-an-Asset-Management-System.png"
-                    alt="First slide"
-                  />
-                  <Carousel.Caption></Carousel.Caption>
-                </Carousel.Item>
-              </Carousel>
-            </Fullscreen>
+            <Carousel fade>
+              <Carousel.Item>
+                <img
+                  className="d-block w-100"
+                  src="https://uploads-ssl.webflow.com/60edc0a8835d5b38bf11f03f/61cf04e57e4e9122241998dc_Why-business-needs-an-Asset-Management-System.png"
+                  alt="First slide"
+                />
+                <Carousel.Caption></Carousel.Caption>
+              </Carousel.Item>
+            </Carousel>
           </Col>
-          <Col sm={4}>
-            <FormInput navigate={navigate} setlocalStorage={setlocalStorage} />
+          <Col sm={4} className="">
+            <div className=" d-flex justify-content-center flex-column align-items-center">
+              <FormInput
+                navigate={navigate}
+                setlocalStorage={setlocalStorage}
+              />
+            </div>
           </Col>
         </Row>
       </Container>

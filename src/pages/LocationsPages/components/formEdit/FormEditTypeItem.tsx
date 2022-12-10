@@ -1,23 +1,39 @@
 import axios from "axios";
 import { useState, useMemo } from "react";
-import { Button, Form, Container, Row, Col } from "react-bootstrap";
-import _ from "lodash";
-import checkToken from "../../../config/checkToken";
-import configAxios from "../../../axios/configAxios";
-import { API } from "../../../axios/swr/endpoint";
+import configAxios from "../../../../axios/configAxios";
+import { API } from "../../../../axios/swr/endpoint";
+import checkToken from "../../../../config/checkToken";
 import { useNavigate } from "react-router-dom";
+import _ from "lodash";
+import { sweet_basic } from "../../../../components/sweetalert2/sweet";
+import { Button, Form, Container, Row, Col } from "react-bootstrap";
 import dateFormat from "dateformat";
-import { sweet_basic } from "../../../components/sweetalert2/sweet";
 
-function FormAddTypeItem(props: any) {
-  const { setModalShowCheckType, setPostItemCheckType, setPostTypeItem } =
-    props;
+function FormEditTypeItem(props: any) {
+  const {
+    setModalShowCheckType,
+    setPostItemCheckType,
+    setPostTypeItem,
+    typeItem_Old,
+  } = props;
+  // console.log(typeItem_Old);
+
   const navigate = useNavigate();
   const [getDepartment, setGetDepartment] = useState<{}>({});
   const [getCategory, setGetCategory] = useState<{}>({});
 
-  const [inputNameType, setInputNameType] = useState<string>();
-  const [inputCode, setInputCode] = useState<string>();
+  //
+  const [inputNameType, setInputNameType] = useState<string>(
+    typeItem_Old?.name
+  );
+  const [inputNameType_Old, setInputNameType_Old] = useState<string>(
+    typeItem_Old?.name
+  );
+  //
+  const [inputCode, setInputCode] = useState<string>(typeItem_Old?.code);
+  const [inputCode_Old, setInputCode_Old] = useState<string>(
+    typeItem_Old?.code
+  );
 
   const [unitItemFN, setUnitItemFn] = useState<any>(0);
   // console.log("unitItemFN = " + unitItemFN);
@@ -27,15 +43,31 @@ function FormAddTypeItem(props: any) {
   const [inputUnitItem, setInputUnitItem] = useState<any>("");
   // console.log("inputUnitItem = " + inputUnitItem);
 
-  const [quantity, setQuantity] = useState<number>(0);
-  const [priceUnit, setPriceUnit] = useState<number>();
-  const [totalPrice, setTotalPrice] = useState<number>();
+  //
+  const [quantity, setQuantity] = useState<number>(typeItem_Old?.quantity);
+  const [quantity_Old, setQuantity_Old] = useState<number>(
+    typeItem_Old?.quantity
+  );
+  //
+  const [priceUnit, setPriceUnit] = useState<number>(typeItem_Old?.price_unit);
+  const [priceUnit_Old, setPriceUnit_Old] = useState<number>(
+    typeItem_Old?.price_unit
+  );
+  //
+  const [totalPrice, setTotalPrice] = useState<number>(
+    typeItem_Old?.total_price
+  );
+  const [totalPrice_Old, setTotalPrice_Old] = useState<number>(
+    typeItem_Old?.total_price
+  );
+  //
 
   const [idDpm, setIdDpm] = useState<number>(0);
   // console.log("idDpm = " + idDpm);
   const [idcate, setIdcate] = useState<number>(0);
   // console.log("idcate = " + idcate);
   const [startDate, setStartDate] = useState<any>(new Date());
+  // console.log(typeof startDate);
 
   // const [nowstartDate, setNowStartDate] = useState<any>(new Date());
 
@@ -77,7 +109,6 @@ function FormAddTypeItem(props: any) {
       }
     }
   }, [inputUnitItem, unitItem]);
-
   const handleChangeUnit = (event: any) => {
     const value = event.target.value;
     if (value == 0) {
@@ -148,7 +179,6 @@ function FormAddTypeItem(props: any) {
     setPostTypeItem(dataform);
     setModalShowCheckType(true);
   };
-
   return (
     <Container style={{ borderRadius: 15, width: "100%", height: "100%" }}>
       <Form>
@@ -160,7 +190,11 @@ function FormAddTypeItem(props: any) {
             // style={{ height: "3rem" }}
             type="text"
             placeholder="ชื่อชนิดครุภัณฑ์"
-            value={inputNameType}
+            value={
+              inputNameType === inputNameType_Old
+                ? inputNameType_Old
+                : inputNameType
+            }
             onChange={(event: any) => {
               const value = event.target.value;
               setInputNameType(value);
@@ -175,7 +209,7 @@ function FormAddTypeItem(props: any) {
             // style={{ height: "3rem" }}
             type="text"
             placeholder="Code"
-            value={inputCode}
+            value={inputCode === inputCode_Old ? inputCode_Old : inputCode}
             onChange={(event: any) => {
               const value = event.target.value;
               setInputCode(value);
@@ -191,6 +225,7 @@ function FormAddTypeItem(props: any) {
               onChange={handleChangeQty}
               size="lg"
               type="number"
+              value={quantity === quantity_Old ? quantity_Old : quantity}
               placeholder="จำนวน"
             />
           </Form.Group>
@@ -211,14 +246,19 @@ function FormAddTypeItem(props: any) {
           )}
           <Form.Group as={Col} controlId="formUnit">
             {/* unit */}
-            <Form.Label>หน่วยนับ</Form.Label>
+            <Form.Label>
+              หน่วยนับ ตอนนี้หน่วยนับคือ{" "}
+              <span style={{ color: "#4c00ff", fontSize: 18 }}>
+                ({typeItem_Old?.unit})
+              </span>
+            </Form.Label>
             <Form.Select
               onChange={(event: any) => {
                 handleChangeUnit(event);
               }}
               size="lg"
             >
-              <option value="0">เลือกหน่วยนับ</option>
+              <option value="0">เลือกเปลี่ยนหน่วยนับ</option>
               <option>ตู้</option>
               <option>ชุด</option>
               <option>ตัว</option>
@@ -235,7 +275,7 @@ function FormAddTypeItem(props: any) {
             <Form.Label>ราคาต่อหน่วย</Form.Label>
             <Form.Control
               onChange={handleChangePUT}
-              value={priceUnit}
+              value={priceUnit === priceUnit_Old ? priceUnit_Old : priceUnit}
               size="lg"
               type="number"
               placeholder="ราคา"
@@ -250,38 +290,22 @@ function FormAddTypeItem(props: any) {
               // disabled={priceUnit != 0 ? true : false}
               // readOnly={priceUnit != 0 ? true : false}
               placeholder="ราคารวม"
-              value={totalPrice}
+              value={
+                totalPrice === totalPrice_Old ? totalPrice_Old : totalPrice
+              }
               onChange={handleChangeTp}
             />
           </Form.Group>
         </Row>
 
-        {/* Department */}
-        <Form.Group className="mb-2" controlId="formFaculty">
-          <Form.Label>เลือกสาขา</Form.Label>
-          <Form.Select
-            onChange={(event: any) => {
-              const value = event.target.value;
-              setIdDpm(value);
-            }}
-            size="lg"
-          >
-            <option value={0}>กรุณาเลือกสาขา</option>
-            {_.map(getDepartment, (item: any, idx) => {
-              return (
-                <>
-                  <option key={item.d_id} value={item.d_id}>
-                    {item.nameTH}
-                  </option>
-                </>
-              );
-            })}
-          </Form.Select>
-        </Form.Group>
-
         {/* Category */}
         <Form.Group className="mb-2" controlId="formFaculty">
-          <Form.Label>เลือกหมวดหมู่ครุภัณฑ์</Form.Label>
+          <Form.Label>
+            เลือกหมวดหมู่ครุภัณฑ์ ตอนนี้อยู่{" "}
+            <span style={{ color: "#4c00ff", fontSize: 18 }}>
+              ({typeItem_Old?.category?.name})
+            </span>
+          </Form.Label>
           <Form.Select
             onChange={(event: any) => {
               const value = event.target.value;
@@ -303,6 +327,38 @@ function FormAddTypeItem(props: any) {
           {/*  */}
         </Form.Group>
 
+        {/* Department */}
+        <Form.Group className="mb-2" controlId="formFaculty">
+          <Form.Label>
+            เลือกสาขา ตอนนี้อยู่{" "}
+            <span style={{ color: "#4c00ff", fontSize: 18 }}>
+              (
+              {typeItem_Old?.department?.nameTH +
+                " " +
+                typeItem_Old?.department?.nameEN}
+              )
+            </span>
+          </Form.Label>
+          <Form.Select
+            onChange={(event: any) => {
+              const value = event.target.value;
+              setIdDpm(value);
+            }}
+            size="lg"
+          >
+            <option value={0}>กรุณาเลือกสาขา</option>
+            {_.map(getDepartment, (item: any, idx) => {
+              return (
+                <>
+                  <option key={item.d_id} value={item.d_id}>
+                    {item.nameTH} {item.nameEN}
+                  </option>
+                </>
+              );
+            })}
+          </Form.Select>
+        </Form.Group>
+
         <Row className="mb-2">
           <Form.Group as={Col} className="mb-2" controlId="formFaculty">
             <Form.Label>วันที่ซื้อ</Form.Label>
@@ -310,6 +366,10 @@ function FormAddTypeItem(props: any) {
               // value={startDate}
               onChange={(e: any) => {
                 const now = new Date(e.target.value);
+
+                // console.log(typeof now);
+                // const dateinput = dateFormat(now, "dd/mm/yyyy");
+                // console.log(typeof dateinput);
                 setStartDate(now);
               }}
               //value={startDate}
@@ -319,12 +379,13 @@ function FormAddTypeItem(props: any) {
             />
           </Form.Group>
 
-          <Form.Group as={Col} className="mb-2 mt-2" controlId="formFaculty">
-            <Form.Label></Form.Label>
+          <Form.Group as={Col} className="mb-2" controlId="formFaculty">
+            <Form.Label style={{ color: "#4c00ff" }}>วันที่ซื้อเดิม</Form.Label>
             <Form.Control
               placeholder="MM/DD/YYYY"
               size="lg"
               type="text"
+              value={dateFormat(typeItem_Old?.purchase_date, "mm/dd/yyyy")}
               disabled
               readOnly
             />
@@ -389,4 +450,4 @@ function FormAddTypeItem(props: any) {
   );
 }
 
-export default FormAddTypeItem;
+export default FormEditTypeItem;

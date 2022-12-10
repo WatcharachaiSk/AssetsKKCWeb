@@ -28,6 +28,7 @@ function NewItem() {
   const [postItemCheckType, setPostItemCheckType] = useState<object>();
   const [postItem, setPostItem] = useState<object>();
   const [postTypeItem, setPostTypeItem] = useState<object>();
+  const [postCate, setPostCate] = useState<object>();
 
   // FormNewItem
   const [nameItem, setNameItem] = useState<string>("");
@@ -50,7 +51,7 @@ function NewItem() {
     if (status == 1) {
       try {
         const res = await axios(
-          configAxios("post", API.createCategory, postItemCheckCate)
+          configAxios("post", API.createCategory, postCate)
         );
         checkStatus(res, "เพิ่มหมวดหมู่ครุภัณฑ์เสร็จสิ้น");
       } catch (error: any) {
@@ -97,9 +98,9 @@ function NewItem() {
       )}
       {modalShowCheckCate && (
         <ModalPostCate
-          modalShowCheckCate={modalShowCheckCate}
-          onSubmitFnCate={onSubmitFnCate}
-          chackDataCate={postItemCheckCate}
+        modalShowCheckCate={modalShowCheckCate}
+        onSubmitFnCate={onSubmitFnCate}
+        chackDataCate={postItemCheckCate}
         />
       )}
       {/*  */}
@@ -125,8 +126,9 @@ function NewItem() {
       {/*  */}
       {showFrom == "AddCategory" && (
         <FormAddCateItem
-          setModalShowCheckCate={setModalShowCheckCate}
-          setPostItemCheckCate={setPostItemCheckCate}
+        setModalShowCheckCate={setModalShowCheckCate}
+        setPostCate={setPostCate}
+        setPostItemCheckCate={setPostItemCheckCate}
         />
       )}
     </div>

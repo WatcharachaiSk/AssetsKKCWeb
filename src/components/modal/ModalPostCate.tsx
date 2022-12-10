@@ -2,6 +2,7 @@ import { Button, Table, Modal } from "react-bootstrap";
 
 function ModalPostCate(props: any) {
   const { modalShowCheckCate, onSubmitFnCate, chackDataCate } = props;
+  // console.log(chackDataCate);
   return (
     <Modal
       show={modalShowCheckCate}
@@ -28,6 +29,14 @@ function ModalPostCate(props: any) {
             <tr>
               <td>ชื่อหมวดหมู่ครุภัณฑ์</td>
               <td>{chackDataCate?.name}</td>
+            </tr>
+            <tr>
+              <td>สาขา</td>
+              <td>
+                {chackDataCate?.department?.nameTH +
+                  " " +
+                  chackDataCate?.department?.nameEN}
+              </td>
             </tr>
           </tbody>
         </Table>

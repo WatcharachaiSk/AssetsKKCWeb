@@ -24,7 +24,7 @@ function FormInput(props: any) {
 
     const res: any = await postLogin(inputs.username, inputs.password);
     if (res.status === 200 && res.status <= 201) {
-      console.log(res.data);
+      // console.log(res.data);
 
       MySwal.fire({
         title: <strong>เสร็จสิ้น</strong>,
@@ -52,13 +52,11 @@ function FormInput(props: any) {
       height: "100%",
     },
     card_box: {
-      display: "flex",
-      flex: 1,
       backgroundColor: "#fff",
       padding: 50,
       width: "100%",
       // height: "100%",
-      // top: "20%",
+      // top: "15vh",
       // margin: 20,
     },
   };

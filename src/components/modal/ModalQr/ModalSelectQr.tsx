@@ -47,7 +47,7 @@ function ModalSelectQr(props: any) {
       <Modal.Body>
         <Container className="d-flex flex-row-reverse bd-highligh">
           <Button size="lg" variant="outline-primary" onClick={handlePrint}>
-            Print All
+            สั่งพิมพ์
           </Button>
         </Container>
         <Container ref={componentRef}>

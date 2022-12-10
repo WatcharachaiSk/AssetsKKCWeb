@@ -6,7 +6,7 @@ import TypeItems from "../pages/HomePage/TypeItems";
 import Items from "../pages/ItemPage/Items";
 
 import Login from "../pages/LandingPages/Login/Login";
-import Register from "../pages/LandingPages/Register/Register";
+
 import Faculty from "../pages/LocationsPages/Faculty";
 import Department from "../pages/LocationsPages/Department";
 import Building from "../pages/LocationsPages/Building";
@@ -21,13 +21,15 @@ import NewBuilding from "../pages/LocationsPages/components/addPage/NewBuilding"
 import NewLocation from "../pages/LocationsPages/components/addPage/NewLocation";
 import NewUser from "../pages/LandingPages/User/NewUser";
 import NewTypeItem from "../pages/ItemPage/TypeItem/NewTypeItem";
+import NewCateItem from "../pages/ItemPage/Category/NewCategory";
 // Edit
 import EditItem from "../pages/ItemPage/EditItem";
 import EditFaculty from "../pages/LocationsPages/components/editPage/EditFaculty";
 import EditDepartment from "../pages/LocationsPages/components/editPage/EditDepartment";
 import EditBuilding from "../pages/LocationsPages/components/editPage/EditBuilding";
 import EditLocation from "../pages/LocationsPages/components/editPage/EditLocation";
-
+import EditCategory from "../pages/ItemPage/Category/EditCategory";
+import EditTypeItem from "../pages/ItemPage/TypeItem/EditTypeItem";
 //
 import Profile from "../pages/LandingPages/User/Profile";
 import Users from "../pages/LandingPages/User/Users";
@@ -38,7 +40,6 @@ function RoutesPath() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
         {/* Home */}
         <Route path="/home" element={<Home />} />
         <Route path="/items" element={<Items />} />
@@ -60,6 +61,7 @@ function RoutesPath() {
         <Route path="/building/newbuilding" element={<NewBuilding />} />
         <Route path="/location/newlocation" element={<NewLocation />} />
         <Route path="/type_item/newTypeItem" element={<NewTypeItem />} />
+        <Route path="/category/newCategory" element={<NewCateItem />} />
 
         {/* Edit */}
         <Route path="/items/editItem" element={<EditItem />} />
@@ -67,6 +69,8 @@ function RoutesPath() {
         <Route path="/departmen/editdepartmen" element={<EditDepartment />} />
         <Route path="/building/editbuilding" element={<EditBuilding />} />
         <Route path="/location/editlocation" element={<EditLocation />} />
+        <Route path="/category/editCategory" element={<EditCategory />} />
+        <Route path="/type_item/editTypeItem" element={<EditTypeItem />} />
 
         {/* User */}
         <Route path="/profile" element={<Profile />} />

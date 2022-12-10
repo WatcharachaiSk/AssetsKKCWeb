@@ -1,3 +1,4 @@
+import Moment from "react-moment";
 import { Button, Table, Modal } from "react-bootstrap";
 
 function ModalPostType(props: any) {
@@ -61,7 +62,12 @@ function ModalPostType(props: any) {
             </tr>
             <tr>
               <td>วันที่ซื้อ</td>
-              <td>{chackDataType?.purchase_date} ว/ด/ป</td>
+              <td>
+                <Moment format="DD/MM/YYYY">
+                  {chackDataType?.purchase_date}
+                </Moment>
+                {"  "} ว/ด/ป
+              </td>
             </tr>
           </tbody>
         </Table>

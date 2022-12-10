@@ -38,6 +38,8 @@ export const API = {
   updateDepartment: baseURL + `/updateDepartment/`,
   updateBuilding: baseURL + `/updateBuilding/`,
   updateLocation: baseURL + `/updateLocation/`,
+  updateCategory: baseURL + `/updateCategory/`,
+  updateTypeItem: baseURL + `/updateTypeItem/`,
 };
 
 /*

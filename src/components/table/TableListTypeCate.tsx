@@ -32,8 +32,8 @@ function TableListTypeCate(props: any) {
     setgetVauleNormal(arrvauleNormal);
     setgetVauleNotNormal(arrvauleNotNormal);
   }, [itemList]);
-  const navigatePage = (page: string, idItem?: any) => {
-    navigate(page, { state: { id: idItem } });
+  const navigatePage = (page: string, idItem: any, item: any) => {
+    navigate(page, { state: { id: idItem, item: item } });
   };
   return (
     <div style={{ margin: 30 }}>
@@ -90,7 +90,12 @@ function TableListTypeCate(props: any) {
                       <Button
                         variant="outline-secondary"
                         onClick={() => {
-                          // console.log("item.item_id = " + item?.type_id);
+                          //console.log("item.Type = " + item?.type_id);
+                          navigatePage(
+                            "/type_item/editTypeItem",
+                            item.type_id,
+                            item
+                          );
                         }}
                       >
                         <AiFillEdit color="red" size={20} />
@@ -127,7 +132,12 @@ function TableListTypeCate(props: any) {
                       <Button
                         variant="outline-secondary"
                         onClick={() => {
-                          // console.log("item.item_id = " + item?.cate_id);
+                        //  console.log("item.cate = " + item?.cate_id);
+                          navigatePage(
+                            "/category/editCategory",
+                            item.cate_id,
+                            item
+                          );
                         }}
                       >
                         <AiFillEdit color="red" size={20} />

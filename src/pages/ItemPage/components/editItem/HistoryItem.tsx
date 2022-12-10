@@ -54,6 +54,7 @@ function HistoryItem(props: any) {
         <thead style={{ ...GetKanitFont("KanitMedium") }}>
           <tr>
             <th>วันที่แก้ไข</th>
+            <th>ผู้แก้ไข</th>
             <th>สถานที่</th>
             <th>สถานะ</th>
             <th>หมายเหตุ/Note</th>
@@ -64,8 +65,11 @@ function HistoryItem(props: any) {
             return (
               <tr key={item?.hs_id}>
                 <td>
-                  <Moment format="DD/MM/YYYY">{item?.createdAt}</Moment>
+                  <Moment format="HH:mm:ss - DD/MM/YYYY ">
+                    {item?.createdAt}
+                  </Moment>
                 </td>
+                <td>{item?.profile?.firstname}{" "}{item?.profile?.lastname}</td>
                 <td>
                   {item?.location?.nameTH} {item?.location?.nameEN}
                 </td>

@@ -64,7 +64,7 @@ function ModalOneQr(props: any) {
         </Container>
         <div className="d-flex justify-content-center ">
           <Button variant="outline-primary" onClick={handlePrint}>
-            Print this out
+            สั่งพิมพ์
           </Button>
         </div>
       </Modal.Body>

@@ -1,20 +1,29 @@
-import { useState, useMemo } from "react";
-import _ from "lodash";
-import { Button, Form, Container } from "react-bootstrap";
-import { sweet_basic } from "../../../components/sweetalert2/sweet";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import configAxios from "../../../axios/configAxios";
-import { API } from "../../../axios/swr/endpoint";
-import checkToken from "../../../config/checkToken";
+import { useState, useMemo } from "react";
+import { Button, Form, Container } from "react-bootstrap";
+import configAxios from "../../../../axios/configAxios";
+import { API } from "../../../../axios/swr/endpoint";
+import checkToken from "../../../../config/checkToken";
+import { useNavigate } from "react-router-dom";
+import _ from "lodash";
+import { sweet_basic } from "../../../../components/sweetalert2/sweet";
 
-function FormAddCateItem(props: any) {
+function FormEditCategory(props: any) {
+  const {
+    setModalShowCheckCate,
+    setPostItemCheckCate,
+    setPostCate,
+    name_Old,
+    department_Old,
+  } = props;
+
   const navigate = useNavigate();
-  const { setModalShowCheckCate, setPostItemCheckCate, setPostCate } = props;
-  const [nameCategory, setNameCategory] = useState<string>();
   const [getDepartment, setGetDepartment] = useState<{}>({});
+
+  const [nameCategory, setNameCategory] = useState<string>(name_Old);
+  const [nameCategory_Old, setNameCategory_Old] = useState<string>(name_Old);
   const [departmentDId, setDepartmentDId] = useState<number>(0);
-  //  getDepartmentByFtyId
+
   useMemo(async () => {
     try {
       const resDpm = await axios(configAxios("get", `${API.getDepartment}`));
@@ -23,11 +32,6 @@ function FormAddCateItem(props: any) {
       checkToken(error.response.data.status, error.request.status, navigate);
     }
   }, []);
-
-  const handleChangeName = (event: any) => {
-    const name = event.target.value;
-    setNameCategory(name);
-  };
 
   const onSubmit = async (event: any) => {
     event.preventDefault();
@@ -40,7 +44,7 @@ function FormAddCateItem(props: any) {
       department: department[0],
     };
     const dataform = {
-      name: nameCategory,
+      name: nameCategory != nameCategory_Old ? nameCategory : nameCategory_Old,
       departmentDId: departmentDId,
     };
     setPostItemCheckCate(obj);
@@ -58,13 +62,25 @@ function FormAddCateItem(props: any) {
             // style={{ height: "3rem" }}
             type="text"
             placeholder="หมวดหมู่ครุภัณฑ์"
-            value={nameCategory}
-            onChange={handleChangeName}
+            value={
+              nameCategory === nameCategory_Old
+                ? nameCategory_Old
+                : nameCategory
+            }
+            onChange={(event: any) => {
+              const name = event.target.value;
+              setNameCategory(name);
+            }}
           />
         </Form.Group>
         {/* Department */}
         <Form.Group className="mb-2" controlId="formFaculty">
-          <Form.Label>เลือกสาขา</Form.Label>
+          <Form.Label>
+            เลือกสาขา ตอนนี้อยู่{" "}
+            <span style={{ color: "#4c00ff", fontSize: 18 }}>
+              ({department_Old?.nameTH + " " + department_Old?.nameEN})
+            </span>
+          </Form.Label>
           <Form.Select
             onChange={(event: any) => {
               const value = event.target.value;
@@ -100,7 +116,7 @@ function FormAddCateItem(props: any) {
             type="submit"
             size="lg"
           >
-            {nameCategory ? "Submit" : "กรุณากรอกข้อมูลให้ครบ"}
+            {nameCategory ? "บันทึก" : "กรุณากรอกข้อมูลให้ครบ"}
           </Button>
         </div>
       </Form>
@@ -108,4 +124,4 @@ function FormAddCateItem(props: any) {
   );
 }
 
-export default FormAddCateItem;
+export default FormEditCategory;

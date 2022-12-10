@@ -30,7 +30,7 @@ function CategorySetting() {
       </div>
       <ButtonAdd
         titleButton={"เพิ่มหมวดหมู่ครุภัณฑ์"}
-        pageAdd={"/location/newlocation"}
+        pageAdd={"/category/newCategory"}
       />
       <TableListTypeCate itemList={getCategory} isPage={"cate"} />
     </div>
