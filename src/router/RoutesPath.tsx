@@ -30,6 +30,7 @@ import EditBuilding from "../pages/LocationsPages/components/editPage/EditBuildi
 import EditLocation from "../pages/LocationsPages/components/editPage/EditLocation";
 import EditCategory from "../pages/ItemPage/Category/EditCategory";
 import EditTypeItem from "../pages/ItemPage/TypeItem/EditTypeItem";
+import EditUser from "../pages/LandingPages/User/EditUser";
 //
 import Profile from "../pages/LandingPages/User/Profile";
 import Users from "../pages/LandingPages/User/Users";
@@ -38,7 +39,7 @@ function RoutesPath() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Login />} />
         <Route path="/login" element={<Login />} />
         {/* Home */}
         <Route path="/home" element={<Home />} />
@@ -71,7 +72,9 @@ function RoutesPath() {
         <Route path="/location/editlocation" element={<EditLocation />} />
         <Route path="/category/editCategory" element={<EditCategory />} />
         <Route path="/type_item/editTypeItem" element={<EditTypeItem />} />
+        <Route path="/admin/editUser" element={<EditUser />} />
 
+        
         {/* User */}
         <Route path="/profile" element={<Profile />} />
         <Route path="/admin" element={<Users />} />

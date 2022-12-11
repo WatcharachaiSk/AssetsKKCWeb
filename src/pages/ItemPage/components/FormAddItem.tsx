@@ -143,7 +143,7 @@ function FormAddItem(props: any) {
     try {
       if (IdBud != 0) {
         const res = await axios(
-          configAxios("get", `${API.getLocationByBudId}${IdBud}`)
+          configAxios("get", `${API.getLocationByBud_Id}${IdBud}`)
         );
         setGetLocation(res.data);
       }

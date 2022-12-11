@@ -18,7 +18,7 @@ export const API = {
   getDepartmentByFtyId: baseURL + `/getDepartmentByFtyId/`,
   getDepartmentById: baseURL + `/getDepartmentById/`,
   getBuildingByDpmId: baseURL + `/getBuildingByDpmId/`,
-  getLocationByBudId: baseURL + `/getLocationByBudId/`,
+  getLocationByBud_Id: baseURL + `/getLocationByBud_Id/`,
   getHistoryStatusItem: baseURL + `/getHistoryStatusItem/`,
 
   //POST
@@ -33,6 +33,7 @@ export const API = {
   updateStetus: baseURL + `/updateStetus`,
 
   //PUT
+  updateUser: baseURL + `/updateUser/`,
   updateItem: baseURL + `/updateItem/`,
   updateFaculty: baseURL + `/updateFaculty/`,
   updateDepartment: baseURL + `/updateDepartment/`,

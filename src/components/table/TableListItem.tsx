@@ -95,10 +95,12 @@ function TableListItem(props: any) {
                               arrPut.splice(i, 1);
                             }
                           }
+                         
                           setSelectItem(arrPut);
                         }
                         // console.log("arrPut = ", arrPut);
                       }}
+                      
                       value={item.item_id}
                       // onClick={(event: any) => {
                       //   // console.log("event.target.value = ", event);

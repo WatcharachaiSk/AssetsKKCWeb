@@ -8,8 +8,8 @@ function TableListUsers(props: any) {
   const { itemList, editPage } = props;
   const navigate = useNavigate();
 
-  const navigatePage = (page: string, idItem?: any) => {
-    navigate(page, { state: { id: idItem } });
+  const navigatePage = (page: string, idItem: any, item: any) => {
+    navigate(page, { state: { id: idItem, item: item } });
   };
   return (
     <div style={{ margin: 30 }}>
@@ -44,7 +44,8 @@ function TableListUsers(props: any) {
                   <Button
                     variant="outline-secondary"
                     onClick={() => {
-                      console.log("item.item_id = " + item?.pf_id);
+                      //console.log("item.item_id = " + item?.userUserId);
+                      navigatePage("/admin/editUser", item?.userUserId, item);
                     }}
                   >
                     <AiFillEdit color="red" size={20} />
