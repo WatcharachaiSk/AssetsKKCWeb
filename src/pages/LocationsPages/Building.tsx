@@ -31,7 +31,7 @@ function Building() {
       <NavbarTop clickPage={clickPage} />
       <NavbarItem clickPage={clickPage} />
       <div className="d-flex justify-content-center mt-5 mb-2">
-        <h3>ตึก</h3>
+        <h3>อาคาร</h3>
       </div>
       <ButtonAdd titleButton={"เพิ่มอาคาร"} pageAdd={"/building/newbuilding"} />
       <TableListLocat

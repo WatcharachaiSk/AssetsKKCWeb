@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Button, Form, Container } from "react-bootstrap";
 import configAxios from "../../../../axios/configAxios";
 import { API } from "../../../../axios/swr/endpoint";
@@ -16,13 +16,41 @@ function FormEditCategory(props: any) {
     name_Old,
     department_Old,
   } = props;
-
+  // console.log(department_Old?.d_id);
   const navigate = useNavigate();
   const [getDepartment, setGetDepartment] = useState<{}>({});
 
   const [nameCategory, setNameCategory] = useState<string>(name_Old);
   const [nameCategory_Old, setNameCategory_Old] = useState<string>(name_Old);
+
   const [departmentDId, setDepartmentDId] = useState<number>(0);
+  const [departmentDId_Old, setDepartmentDId_Old] = useState<number>(
+    department_Old?.d_id
+  );
+
+  const [boxCheck, setBoxCheck] = useState<any>(false);
+  // console.log(boxCheck);
+
+  useEffect(() => {
+    let arrCheck = [];
+    if (nameCategory !== nameCategory_Old && nameCategory) {
+      arrCheck.push(true);
+    } else {
+      arrCheck.push(false);
+    }
+    if (departmentDId != departmentDId_Old && departmentDId) {
+      arrCheck.push(true);
+    } else {
+      arrCheck.push(false);
+    }
+    // console.log("arrCheck = ", arrCheck);
+
+    if (arrCheck[0] || arrCheck[1]) {
+      setBoxCheck(true);
+    } else {
+      setBoxCheck(false);
+    }
+  }, [nameCategory, departmentDId]);
 
   useMemo(async () => {
     try {
@@ -36,7 +64,12 @@ function FormEditCategory(props: any) {
   const onSubmit = async (event: any) => {
     event.preventDefault();
     const department = _.filter(getDepartment, (item: any) => {
-      return item.d_id == departmentDId;
+      return (
+        item.d_id ==
+        (departmentDId != departmentDId_Old && departmentDId != 0
+          ? departmentDId
+          : departmentDId_Old)
+      );
     });
     //
     const obj = {
@@ -45,7 +78,10 @@ function FormEditCategory(props: any) {
     };
     const dataform = {
       name: nameCategory != nameCategory_Old ? nameCategory : nameCategory_Old,
-      departmentDId: departmentDId,
+      departmentDId:
+        departmentDId != departmentDId_Old && departmentDId != 0
+          ? departmentDId
+          : departmentDId_Old,
     };
     setPostItemCheckCate(obj);
     setPostCate(dataform);
@@ -104,7 +140,7 @@ function FormEditCategory(props: any) {
           <Button
             // style={{}}
             onClick={(event) => {
-              if (nameCategory) {
+              if (boxCheck) {
                 onSubmit(event);
               } else {
                 event.preventDefault();
@@ -112,11 +148,11 @@ function FormEditCategory(props: any) {
               }
             }}
             className="mb-3 mt-3 p-2"
-            variant={nameCategory ? "success" : "secondary"}
+            variant={boxCheck ? "success" : "secondary"}
             type="submit"
             size="lg"
           >
-            {nameCategory ? "บันทึก" : "กรุณากรอกข้อมูลให้ครบ"}
+            {boxCheck ? "บันทึก" : "กรุณากรอกข้อมูลให้ครบ"}
           </Button>
         </div>
       </Form>

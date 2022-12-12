@@ -108,7 +108,7 @@ function NavbarItem(props: any) {
                   navigatePage("/building");
                 }}
               >
-                ตึก
+                อาคาร
               </NavDropdown.Item>
               <NavDropdown.Item
                 style={styles.fontNavLink}

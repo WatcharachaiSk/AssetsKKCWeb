@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Button, Form, Container } from "react-bootstrap";
 import configAxios from "../../../../axios/configAxios";
 import { API } from "../../../../axios/swr/endpoint";
@@ -34,14 +34,58 @@ function FormEditLocation(props: any) {
   const [nameEN, setnameEN] = useState<string>(nameEN_Old);
   const [floor, setFloor] = useState<string>(floor_Old);
 
+  //
   const [facultyFId, setFacultyFId] = useState<number>(0);
   const [departmentDId, setdepartmentDId] = useState<number>(0);
   const [buildingBId, setbuildingBId] = useState<number>(0);
   // console.log(buildingBId_Old);
   // console.log(buildingBId);
-  
-
   // console.log(departmentDId);
+  const [boxCheck, setBoxCheck] = useState<any>(false);
+  console.log("boxCheck = ", boxCheck);
+  useEffect(() => {
+    let arrCheck = [];
+    if (
+      (nameTH !== nameTH_Old && nameTH) ||
+      (nameEN !== nameEN_Old && nameEN) ||
+      (floor !== floor_Old && floor)
+    ) {
+      arrCheck.push(true);
+    } else {
+      arrCheck.push(false);
+    }
+    //
+    if (facultyFId != facultyFId_Old && facultyFId != 0) {
+      arrCheck.push(true);
+    } else {
+      arrCheck.push(false);
+    }
+    if (departmentDId != departmentDId_Old && departmentDId != 0) {
+      arrCheck.push(true);
+    } else {
+      arrCheck.push(false);
+    }
+    if (buildingBId != buildingBId_Old && buildingBId != 0) {
+      arrCheck.push(true);
+    } else {
+      arrCheck.push(false);
+    }
+    //
+
+    if (arrCheck[0] && arrCheck[1] && arrCheck[2] && arrCheck[3]) {
+      setBoxCheck(true);
+    } else if (arrCheck[1] && arrCheck[2] && arrCheck[3]) {
+      setBoxCheck(true);
+    } else if (arrCheck[0] && !arrCheck[1] && !arrCheck[2] && !arrCheck[3]) {
+      setBoxCheck(true);
+    } else if (arrCheck[3]) {
+      setBoxCheck(true);
+    } else {
+      setBoxCheck(false);
+    }
+
+    // console.log("arrCheck = ", arrCheck);
+  }, [nameTH, nameEN, floor, facultyFId, departmentDId, buildingBId]);
 
   // getFaculty
   useMemo(async () => {
@@ -244,7 +288,7 @@ function FormEditLocation(props: any) {
             </span>
           </Form.Label>
           <Form.Select
-            // disabled={facultyFId == 0 ? true : false}
+            disabled={facultyFId == 0 ? true : false}
             value={departmentDId}
             style={{
               borderColor:
@@ -275,13 +319,13 @@ function FormEditLocation(props: any) {
         {/*  */}
         <Form.Group className="mb-3" controlId="formFaculty">
           <Form.Label style={{ fontSize: 22 }}>
-            เลือกตึก ตอนนี้อยู่{" "}
+            เลือกอาคาร ตอนนี้อยู่{" "}
             <span style={{ color: "#4c00ff", fontSize: 18 }}>
               ({building_Old?.nameTH + " " + building_Old?.nameEN})
             </span>
           </Form.Label>
           <Form.Select
-            // disabled={facultyFId == 0 ? true : false}
+            disabled={departmentDId == 0 ? true : false}
             value={buildingBId}
             style={{
               borderColor:
@@ -295,7 +339,7 @@ function FormEditLocation(props: any) {
             }}
             size="lg"
           >
-            <option value={0}>เลือกเปลี่ยนตึก</option>
+            <option value={0}>เลือกเปลี่ยนอาคาร</option>
 
             {_.map(getBuilding, (item: any) => {
               return (
@@ -312,14 +356,7 @@ function FormEditLocation(props: any) {
           <Button
             // style={{}}
             onClick={(event) => {
-              if (
-                (nameTH !== nameTH_Old && nameTH) ||
-                (nameEN !== nameEN_Old && nameEN) ||
-                (floor !== floor_Old && floor) ||
-                (facultyFId != facultyFId_Old && facultyFId != 0) ||
-                (departmentDId != departmentDId_Old && departmentDId != 0) ||
-                (buildingBId != buildingBId_Old && buildingBId != 0)
-              ) {
+              if (boxCheck) {
                 onSubmit(event);
               } else {
                 event.preventDefault();
@@ -327,26 +364,12 @@ function FormEditLocation(props: any) {
               }
             }}
             className="mb-3 mt-3 p-2"
-            variant={
-              (nameTH !== nameTH_Old && nameTH) ||
-              (nameEN !== nameEN_Old && nameEN) ||
-              (floor !== floor_Old && floor) ||
-              (facultyFId != facultyFId_Old && facultyFId != 0) ||
-              (departmentDId != departmentDId_Old && departmentDId != 0) ||
-              (buildingBId != buildingBId_Old && buildingBId != 0)
-                ? "success"
-                : "secondary"
-            }
+            variant={boxCheck ? "success" : "secondary"}
             type="submit"
             size="lg"
           >
-            {(nameTH !== nameTH_Old && nameTH) ||
-            (nameEN !== nameEN_Old && nameEN) ||
-            (floor !== floor_Old && floor) ||
-            (facultyFId != facultyFId_Old && facultyFId != 0) ||
-            (departmentDId != departmentDId_Old && departmentDId != 0) ||
-            (buildingBId != buildingBId_Old && buildingBId != 0)
-              ? "Submit"
+            {boxCheck
+              ? "บันทึก"
               : "กรุณากรอกข้อมูลให้ครบหรือยังไม่มีข้อมูลที่เปลี่ยนแปลง"}
           </Button>
         </div>

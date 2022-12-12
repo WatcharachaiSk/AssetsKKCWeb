@@ -52,7 +52,7 @@ function EditBuilding() {
     <>
       <NavbarTop clickPage={"setting"} />
       <div className="d-flex justify-content-center mt-5 mb-2">
-        <h3>แก้ไขตึก</h3>
+        <h3>แก้ไขอาคาร</h3>
       </div>
       <ButtonBack titleButton={"ย้อนกลับ"} />
       {modalShowCheckBuilding && <ModalPostLocate 

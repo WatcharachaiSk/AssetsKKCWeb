@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Button, Form, Container } from "react-bootstrap";
 import configAxios from "../../../../axios/configAxios";
 import { API } from "../../../../axios/swr/endpoint";
@@ -30,7 +30,47 @@ function FormEditBuilding(props: any) {
 
   const [facultyFId, setFacultyFId] = useState<number>(0);
   const [departmentDId, setdepartmentDId] = useState<number>(0);
-  // console.log(departmentDId);
+  // console.log("departmentDId = " + departmentDId);
+
+  const [boxCheck, setBoxCheck] = useState<any>(false);
+  // console.log("boxCheck = ", boxCheck);
+
+  useEffect(() => {
+    let arrCheck = [];
+    if (nameTH !== nameTH_Old && nameTH) {
+      arrCheck.push(true);
+    } else if (nameEN !== nameEN_Old && nameEN) {
+      arrCheck.push(true);
+    } else {
+      arrCheck.push(false);
+    }
+
+    if (facultyFId != facultyFId_Old && facultyFId != 0) {
+      arrCheck.push(true);
+    } else {
+      arrCheck.push(false);
+    }
+    if (departmentDId != departmentDId_Old && departmentDId != 0) {
+      arrCheck.push(true);
+    } else {
+      arrCheck.push(false);
+    }
+
+    // console.log("arrCheck", arrCheck);
+    if (arrCheck[0] && arrCheck[1] && arrCheck[2]) {
+      setBoxCheck(true);
+    } else if (arrCheck[1] && arrCheck[2]) {
+      setBoxCheck(true);
+    } else if (arrCheck[0] && arrCheck[2]) {
+      setBoxCheck(true);
+    } else if (arrCheck[0] && !arrCheck[1] && !arrCheck[2]) {
+      setBoxCheck(true);
+    } else if (arrCheck[2]) {
+      setBoxCheck(true);
+    } else {
+      setBoxCheck(false);
+    }
+  }, [nameTH, nameEN, facultyFId, departmentDId]);
 
   // getFaculty
   useMemo(async () => {
@@ -84,6 +124,7 @@ function FormEditBuilding(props: any) {
     const dataform = {
       nameTH: nameTH != nameTH_Old ? nameTH : nameTH_Old,
       nameEN: nameEN != nameEN_Old ? nameEN : nameEN_Old,
+      //
       facultyFId:
         facultyFId != facultyFId_Old && facultyFId != 0
           ? facultyFId
@@ -92,6 +133,8 @@ function FormEditBuilding(props: any) {
         departmentDId != departmentDId_Old && departmentDId != 0
           ? departmentDId
           : departmentDId_Old,
+
+      //
     };
     // console.log(obj);
     // console.log(dataform);
@@ -212,12 +255,7 @@ function FormEditBuilding(props: any) {
           <Button
             // style={{}}
             onClick={(event) => {
-              if (
-                (nameTH !== nameTH_Old && nameTH) ||
-                (nameEN !== nameEN_Old && nameEN) ||
-                (facultyFId != facultyFId_Old && facultyFId != 0) ||
-                (departmentDId != departmentDId_Old && departmentDId != 0)
-              ) {
+              if (boxCheck) {
                 onSubmit(event);
               } else {
                 event.preventDefault();
@@ -225,22 +263,12 @@ function FormEditBuilding(props: any) {
               }
             }}
             className="mb-3 mt-3 p-2"
-            variant={
-              (nameTH !== nameTH_Old && nameTH) ||
-              (nameEN !== nameEN_Old && nameEN) ||
-              (facultyFId != facultyFId_Old && facultyFId != 0) ||
-              (departmentDId != departmentDId_Old && departmentDId != 0)
-                ? "success"
-                : "secondary"
-            }
+            variant={boxCheck ? "success" : "secondary"}
             type="submit"
             size="lg"
           >
-            {(nameTH !== nameTH_Old && nameTH) ||
-            (nameEN !== nameEN_Old && nameEN) ||
-            ((facultyFId != facultyFId_Old && facultyFId != 0) ||
-            (departmentDId != departmentDId_Old && departmentDId != 0))
-              ? "Submit"
+            {boxCheck
+              ? "บันทึก"
               : "กรุณากรอกข้อมูลให้ครบหรือยังไม่มีข้อมูลที่เปลี่ยนแปลง"}
           </Button>
         </div>
