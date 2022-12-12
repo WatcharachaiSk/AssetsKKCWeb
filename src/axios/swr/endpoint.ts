@@ -14,6 +14,7 @@ export const API = {
   // GETById
   getItemById: baseURL + `/getItem/`,
   getItemCategory: baseURL + `/getItemCategory/`,
+  getCategoryByDpm_Id: baseURL + `/getCategoryByDpm_Id/`,
   getItemByTypeID: baseURL + `/getItemByTypeID/`,
   getDepartmentByFtyId: baseURL + `/getDepartmentByFtyId/`,
   getDepartmentById: baseURL + `/getDepartmentById/`,

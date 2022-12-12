@@ -42,7 +42,7 @@ function FormEditLocation(props: any) {
   // console.log(buildingBId);
   // console.log(departmentDId);
   const [boxCheck, setBoxCheck] = useState<any>(false);
-  console.log("boxCheck = ", boxCheck);
+  // console.log("boxCheck = ", boxCheck);
   useEffect(() => {
     let arrCheck = [];
     if (

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import configAxios from "../../../../axios/configAxios";
 import { API } from "../../../../axios/swr/endpoint";
 import checkToken from "../../../../config/checkToken";
@@ -22,6 +22,8 @@ function FormEditTypeItem(props: any) {
   const [getDepartment, setGetDepartment] = useState<{}>({});
   const [getCategory, setGetCategory] = useState<{}>({});
 
+  const [boxCheck, setBoxCheck] = useState<any>(false);
+
   //
   const [inputNameType, setInputNameType] = useState<string>(
     typeItem_Old?.name
@@ -29,11 +31,13 @@ function FormEditTypeItem(props: any) {
   const [inputNameType_Old, setInputNameType_Old] = useState<string>(
     typeItem_Old?.name
   );
+
   //
   const [inputCode, setInputCode] = useState<string>(typeItem_Old?.code);
   const [inputCode_Old, setInputCode_Old] = useState<string>(
     typeItem_Old?.code
   );
+  //
 
   const [unitItemFN, setUnitItemFn] = useState<any>(0);
   // console.log("unitItemFN = " + unitItemFN);
@@ -48,11 +52,13 @@ function FormEditTypeItem(props: any) {
   const [quantity_Old, setQuantity_Old] = useState<number>(
     typeItem_Old?.quantity
   );
+
   //
   const [priceUnit, setPriceUnit] = useState<number>(typeItem_Old?.price_unit);
   const [priceUnit_Old, setPriceUnit_Old] = useState<number>(
     typeItem_Old?.price_unit
   );
+
   //
   const [totalPrice, setTotalPrice] = useState<number>(
     typeItem_Old?.total_price
@@ -60,28 +66,93 @@ function FormEditTypeItem(props: any) {
   const [totalPrice_Old, setTotalPrice_Old] = useState<number>(
     typeItem_Old?.total_price
   );
-  //
 
-  const [idDpm, setIdDpm] = useState<number>(0);
-  // console.log("idDpm = " + idDpm);
-  const [idcate, setIdcate] = useState<number>(0);
-  // console.log("idcate = " + idcate);
-  const [startDate, setStartDate] = useState<any>(new Date());
-  // console.log(typeof startDate);
+  //
 
   // const [nowstartDate, setNowStartDate] = useState<any>(new Date());
 
+  const [idDpm, setIdDpm] = useState<number>(typeItem_Old?.departmentDId);
+  const [idDpm_Old, setIdDpm_Old] = useState<number>(
+    typeItem_Old?.departmentDId
+  );
+  // console.log("idDpm = " + idDpm);
+  const [idcate, setIdcate] = useState<number>(typeItem_Old?.categoryCateId);
+  const [idcate_Old, setIdcate_Old] = useState<number>(
+    typeItem_Old?.categoryCateId
+  );
+  // console.log("idcate = " + idcate);
+  const [startDate, setStartDate] = useState<any>();
+
+  useEffect(() => {
+    let arrCheck = [];
+    //
+    if (
+      (inputNameType !== inputNameType_Old && inputNameType) ||
+      (inputCode !== inputCode_Old && inputCode)
+    ) {
+      arrCheck.push(true);
+    } else {
+      arrCheck.push(false);
+    }
+    //
+    if (quantity != quantity_Old && quantity != 0) {
+      arrCheck.push(true);
+    } else {
+      arrCheck.push(false);
+    }
+    //
+    if (totalPrice != totalPrice_Old && totalPrice != 0) {
+      arrCheck.push(true);
+    } else if (priceUnit != priceUnit_Old && priceUnit != 0) {
+      arrCheck.push(true);
+    } else {
+      arrCheck.push(false);
+    }
+    //
+    if (idDpm != idDpm_Old && idDpm != 0) {
+      arrCheck.push(true);
+    } else {
+      arrCheck.push(false);
+    }
+    //
+    if (idcate != idcate_Old && idcate != 0) {
+      arrCheck.push(true);
+    } else {
+      arrCheck.push(false);
+    }
+
+    console.log(arrCheck);
+  }, [
+    inputNameType,
+    inputCode,
+    quantity,
+    priceUnit,
+    totalPrice,
+    idDpm,
+    idcate,
+  ]);
+
+  // console.log(typeof startDate);
   //  getDepartmentByFtyId
   useMemo(async () => {
     try {
       const resDpm = await axios(configAxios("get", `${API.getDepartment}`));
-      const resCategory = await axios(configAxios("get", `${API.getCategory}`));
       setGetDepartment(resDpm.data);
-      setGetCategory(resCategory.data);
     } catch (error: any) {
       checkToken(error.response.data.status, error.request.status, navigate);
     }
   }, []);
+  //
+  useMemo(async () => {
+    try {
+      const resCategory = await axios(
+        configAxios("get", `${API.getCategoryByDpm_Id}${idDpm}`)
+      );
+      setGetCategory(resCategory.data);
+    } catch (error: any) {
+      checkToken(error.response.data.status, error.request.status, navigate);
+    }
+  }, [idDpm]);
 
   useMemo(async () => {
     if (
@@ -298,35 +369,6 @@ function FormEditTypeItem(props: any) {
           </Form.Group>
         </Row>
 
-        {/* Category */}
-        <Form.Group className="mb-2" controlId="formFaculty">
-          <Form.Label>
-            เลือกหมวดหมู่ครุภัณฑ์ ตอนนี้อยู่{" "}
-            <span style={{ color: "#4c00ff", fontSize: 18 }}>
-              ({typeItem_Old?.category?.name})
-            </span>
-          </Form.Label>
-          <Form.Select
-            onChange={(event: any) => {
-              const value = event.target.value;
-              setIdcate(value);
-            }}
-            size="lg"
-          >
-            <option value={0}>กรุณาเลือกหมวดหมู่ครุภัณฑ์</option>
-            {_.map(getCategory, (item: any, idx) => {
-              return (
-                <>
-                  <option key={item.cate_id} value={item.cate_id}>
-                    {item.name}
-                  </option>
-                </>
-              );
-            })}
-          </Form.Select>
-          {/*  */}
-        </Form.Group>
-
         {/* Department */}
         <Form.Group className="mb-2" controlId="formFaculty">
           <Form.Label>
@@ -357,6 +399,34 @@ function FormEditTypeItem(props: any) {
               );
             })}
           </Form.Select>
+        </Form.Group>
+        {/* Category */}
+        <Form.Group className="mb-2" controlId="formFaculty">
+          <Form.Label>
+            เลือกหมวดหมู่ครุภัณฑ์ ตอนนี้อยู่{" "}
+            <span style={{ color: "#4c00ff", fontSize: 18 }}>
+              ({typeItem_Old?.category?.name})
+            </span>
+          </Form.Label>
+          <Form.Select
+            onChange={(event: any) => {
+              const value = event.target.value;
+              setIdcate(value);
+            }}
+            size="lg"
+          >
+            <option value={0}>กรุณาเลือกหมวดหมู่ครุภัณฑ์</option>
+            {_.map(getCategory, (item: any, idx) => {
+              return (
+                <>
+                  <option key={item.cate_id} value={item.cate_id}>
+                    {item.name}
+                  </option>
+                </>
+              );
+            })}
+          </Form.Select>
+          {/*  */}
         </Form.Group>
 
         <Row className="mb-2">
