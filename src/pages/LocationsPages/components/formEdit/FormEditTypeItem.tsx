@@ -8,6 +8,7 @@ import _ from "lodash";
 import { sweet_basic } from "../../../../components/sweetalert2/sweet";
 import { Button, Form, Container, Row, Col } from "react-bootstrap";
 import dateFormat from "dateformat";
+import colors from "../../../../config/colors";
 
 function FormEditTypeItem(props: any) {
   const {
@@ -21,8 +22,6 @@ function FormEditTypeItem(props: any) {
   const navigate = useNavigate();
   const [getDepartment, setGetDepartment] = useState<{}>({});
   const [getCategory, setGetCategory] = useState<{}>({});
-
-  const [boxCheck, setBoxCheck] = useState<any>(false);
 
   //
   const [inputNameType, setInputNameType] = useState<string>(
@@ -41,7 +40,8 @@ function FormEditTypeItem(props: any) {
 
   const [unitItemFN, setUnitItemFn] = useState<any>(0);
   // console.log("unitItemFN = " + unitItemFN);
-  const [unitItem, setUnitItem] = useState<any>(0);
+  const [unitItem, setUnitItem] = useState<any>(typeItem_Old?.unit);
+  const [unitItem_Old, setUnitItem_Old] = useState<any>(typeItem_Old?.unit);
   // console.log("unitItem = " + unitItem);
 
   const [inputUnitItem, setInputUnitItem] = useState<any>("");
@@ -52,7 +52,7 @@ function FormEditTypeItem(props: any) {
   const [quantity_Old, setQuantity_Old] = useState<number>(
     typeItem_Old?.quantity
   );
-
+  // console.log(quantity_Old);
   //
   const [priceUnit, setPriceUnit] = useState<number>(typeItem_Old?.price_unit);
   const [priceUnit_Old, setPriceUnit_Old] = useState<number>(
@@ -77,11 +77,22 @@ function FormEditTypeItem(props: any) {
   );
   // console.log("idDpm = " + idDpm);
   const [idcate, setIdcate] = useState<number>(typeItem_Old?.categoryCateId);
+  // console.log("idcate = " + idcate);
   const [idcate_Old, setIdcate_Old] = useState<number>(
     typeItem_Old?.categoryCateId
   );
   // console.log("idcate = " + idcate);
   const [startDate, setStartDate] = useState<any>();
+  const [startDate_Old, setStartDate_Old] = useState<any>(
+    new Date(typeItem_Old?.purchase_date)
+  );
+  // console.log(typeof new Date(typeItem_Old?.purchase_date));
+  // console.log("startDate = ", startDate);
+
+  // console.log(new Date(typeItem_Old?.purchase_date) === startDate);
+
+  const [boxCheck, setBoxCheck] = useState<any>(false);
+  console.log("boxCheck = " + boxCheck);
 
   useEffect(() => {
     let arrCheck = [];
@@ -100,7 +111,7 @@ function FormEditTypeItem(props: any) {
     } else {
       arrCheck.push(false);
     }
-    //
+
     if (totalPrice != totalPrice_Old && totalPrice != 0) {
       arrCheck.push(true);
     } else if (priceUnit != priceUnit_Old && priceUnit != 0) {
@@ -109,16 +120,48 @@ function FormEditTypeItem(props: any) {
       arrCheck.push(false);
     }
     //
-    if (idDpm != idDpm_Old && idDpm != 0) {
+    if (unitItem == -1) {
+      if (inputUnitItem != "") {
+        arrCheck.push(true);
+      } else {
+        arrCheck.push(false);
+      }
+    } else if (unitItem != unitItem_Old && unitItem != 0) {
       arrCheck.push(true);
     } else {
       arrCheck.push(false);
     }
     //
-    if (idcate != idcate_Old && idcate != 0) {
+    if (idDpm != 0) {
+      if (idcate != idcate_Old && idcate != 0) {
+        arrCheck.push(true);
+      } else {
+        arrCheck.push(false);
+      }
+    } else {
+      arrCheck.push(false);
+    }
+    //
+    // if (idcate != idcate_Old && idcate != 0) {
+    //   arrCheck.push(true);
+    // } else {
+    //   arrCheck.push(false);
+    // }
+
+    if (startDate) {
       arrCheck.push(true);
     } else {
       arrCheck.push(false);
+    }
+    // *
+    if (arrCheck[1] && arrCheck[2]) {
+      setBoxCheck(true);
+    } else if (arrCheck[3]) {
+      setBoxCheck(true);
+    } else if (arrCheck[0]) {
+      setBoxCheck(true);
+    } else {
+      setBoxCheck(false);
     }
 
     console.log(arrCheck);
@@ -130,6 +173,9 @@ function FormEditTypeItem(props: any) {
     totalPrice,
     idDpm,
     idcate,
+    startDate,
+    unitItem,
+    inputUnitItem,
   ]);
 
   // console.log(typeof startDate);
@@ -258,7 +304,12 @@ function FormEditTypeItem(props: any) {
           <Form.Label>ชื่อชนิดครุภัณฑ์</Form.Label>
           <Form.Control
             size="lg"
-            // style={{ height: "3rem" }}
+            style={{
+              borderColor:
+                inputNameType_Old !== inputNameType && inputNameType
+                  ? colors.borderColorEdit
+                  : "",
+            }}
             type="text"
             placeholder="ชื่อชนิดครุภัณฑ์"
             value={
@@ -277,7 +328,12 @@ function FormEditTypeItem(props: any) {
           <Form.Label>รหัสชนิดครุภัณฑ์</Form.Label>
           <Form.Control
             size="lg"
-            // style={{ height: "3rem" }}
+            style={{
+              borderColor:
+                inputCode_Old !== inputCode && inputCode
+                  ? colors.borderColorEdit
+                  : "",
+            }}
             type="text"
             placeholder="Code"
             value={inputCode === inputCode_Old ? inputCode_Old : inputCode}
@@ -294,6 +350,12 @@ function FormEditTypeItem(props: any) {
             <Form.Label>จำนวน/หน่วยนับ</Form.Label>
             <Form.Control
               onChange={handleChangeQty}
+              style={{
+                borderColor:
+                  quantity_Old != quantity && quantity != 0
+                    ? colors.borderColorEdit
+                    : "",
+              }}
               size="lg"
               type="number"
               value={quantity === quantity_Old ? quantity_Old : quantity}
@@ -324,6 +386,12 @@ function FormEditTypeItem(props: any) {
               </span>
             </Form.Label>
             <Form.Select
+              style={{
+                borderColor:
+                  unitItem_Old !== unitItem && unitItem != 0 && unitItem
+                    ? colors.borderColorEdit
+                    : "",
+              }}
               onChange={(event: any) => {
                 handleChangeUnit(event);
               }}
@@ -346,6 +414,12 @@ function FormEditTypeItem(props: any) {
             <Form.Label>ราคาต่อหน่วย</Form.Label>
             <Form.Control
               onChange={handleChangePUT}
+              style={{
+                borderColor:
+                  priceUnit_Old != priceUnit && priceUnit != 0
+                    ? colors.borderColorEdit
+                    : "",
+              }}
               value={priceUnit === priceUnit_Old ? priceUnit_Old : priceUnit}
               size="lg"
               type="number"
@@ -358,6 +432,12 @@ function FormEditTypeItem(props: any) {
             <Form.Control
               size="lg"
               type="number"
+              style={{
+                borderColor:
+                  totalPrice_Old != totalPrice && totalPrice != 0
+                    ? colors.borderColorEdit
+                    : "",
+              }}
               // disabled={priceUnit != 0 ? true : false}
               // readOnly={priceUnit != 0 ? true : false}
               placeholder="ราคารวม"
@@ -382,9 +462,14 @@ function FormEditTypeItem(props: any) {
             </span>
           </Form.Label>
           <Form.Select
+            style={{
+              borderColor:
+                idDpm_Old != idDpm && idDpm != 0 ? colors.borderColorEdit : "",
+            }}
             onChange={(event: any) => {
               const value = event.target.value;
               setIdDpm(value);
+              setIdcate(0);
             }}
             size="lg"
           >
@@ -409,6 +494,12 @@ function FormEditTypeItem(props: any) {
             </span>
           </Form.Label>
           <Form.Select
+            style={{
+              borderColor:
+                idcate_Old != idcate && idcate != 0
+                  ? colors.borderColorEdit
+                  : "",
+            }}
             onChange={(event: any) => {
               const value = event.target.value;
               setIdcate(value);
@@ -433,11 +524,14 @@ function FormEditTypeItem(props: any) {
           <Form.Group as={Col} className="mb-2" controlId="formFaculty">
             <Form.Label>วันที่ซื้อ</Form.Label>
             <Form.Control
+              style={{
+                borderColor: startDate ? colors.borderColorEdit : "",
+              }}
               // value={startDate}
               onChange={(e: any) => {
                 const now = new Date(e.target.value);
 
-                // console.log(typeof now);
+                // console.log(now);
                 // const dateinput = dateFormat(now, "dd/mm/yyyy");
                 // console.log(typeof dateinput);
                 setStartDate(now);
@@ -468,17 +562,7 @@ function FormEditTypeItem(props: any) {
           <Button
             // style={{}}
             onClick={(event) => {
-              if (
-                inputNameType &&
-                inputCode &&
-                unitItemFN != 0 &&
-                quantity != 0 &&
-                priceUnit != 0 &&
-                totalPrice != 0 &&
-                idDpm &&
-                idcate &&
-                startDate
-              ) {
+              if (boxCheck) {
                 onSubmit(event);
               } else {
                 event.preventDefault();
@@ -486,33 +570,11 @@ function FormEditTypeItem(props: any) {
               }
             }}
             className="mb-3 mt-3 p-2"
-            variant={
-              inputNameType &&
-              inputCode &&
-              unitItemFN != 0 &&
-              quantity != 0 &&
-              priceUnit != 0 &&
-              totalPrice != 0 &&
-              idDpm &&
-              idcate &&
-              startDate
-                ? "success"
-                : "secondary"
-            }
+            variant={boxCheck ? "success" : "secondary"}
             type="submit"
             size="lg"
           >
-            {inputNameType &&
-            inputCode &&
-            unitItemFN != 0 &&
-            quantity != 0 &&
-            priceUnit != 0 &&
-            totalPrice != 0 &&
-            idDpm &&
-            idcate &&
-            startDate
-              ? "Submit"
-              : "กรุณากรอกข้อมูลให้ครบ"}
+            {boxCheck ? "บันทึก" : "กรุณากรอกข้อมูลให้ครบ"}
           </Button>
         </div>
       </Form>
