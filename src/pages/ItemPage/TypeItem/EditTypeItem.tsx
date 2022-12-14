@@ -44,6 +44,7 @@ function EditTypeItem() {
           chackDataType={postItemCheckType}
           onSubmitFnType={onSubmitFnType}
           modalShowCheckType={modalShowCheckType}
+          isPage={"edit"}
         />
       )}
 

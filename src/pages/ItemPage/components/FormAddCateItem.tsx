@@ -88,7 +88,7 @@ function FormAddCateItem(props: any) {
           <Button
             // style={{}}
             onClick={(event) => {
-              if (nameCategory) {
+              if (nameCategory && departmentDId) {
                 onSubmit(event);
               } else {
                 event.preventDefault();
@@ -96,11 +96,11 @@ function FormAddCateItem(props: any) {
               }
             }}
             className="mb-3 mt-3 p-2"
-            variant={nameCategory ? "success" : "secondary"}
+            variant={nameCategory && departmentDId ? "success" : "secondary"}
             type="submit"
             size="lg"
           >
-            {nameCategory ? "Submit" : "กรุณากรอกข้อมูลให้ครบ"}
+            {nameCategory && departmentDId ? "บันทึก" : "กรุณากรอกข้อมูลให้ครบ"}
           </Button>
         </div>
       </Form>

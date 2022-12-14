@@ -9,6 +9,7 @@ import checkStatus from "../../../../config/checkStatus";
 import checkToken from "../../../../config/checkToken";
 import FormEditLocation from "../formEdit/FormEditLocation";
 import ModalPostLocate from "../../../../components/modal/ModalPostLocate";
+import { GetKanitFont } from "../../../../config/fonts";
 
 function EditLocation() {
   const { state } = useLocation();
@@ -52,7 +53,7 @@ function EditLocation() {
     }
   };
   return (
-    <>
+    <div style={{ ...GetKanitFont("KanitLight") }}>
       <NavbarTop clickPage={"setting"} />
       <div className="d-flex justify-content-center mt-5 mb-2">
         <h3>แก้ไขสถานที่</h3>
@@ -81,7 +82,7 @@ function EditLocation() {
         setPostLocationCheck={setPostLocationCheck}
         setPostLocation={setPostLocation}
       />
-    </>
+    </div>
   );
 }
 

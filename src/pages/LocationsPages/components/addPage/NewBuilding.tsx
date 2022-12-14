@@ -9,6 +9,7 @@ import checkStatus from "../../../../config/checkStatus";
 import checkToken from "../../../../config/checkToken";
 import FormInputBuilding from "../formInput/FormInputBuilding";
 import ModalPostLocate from "../../../../components/modal/ModalPostLocate";
+import { GetKanitFont } from "../../../../config/fonts";
 
 function NewBuilding() {
   const navigate = useNavigate();
@@ -30,7 +31,7 @@ function NewBuilding() {
     }
   };
   return (
-    <>
+    <div style={{ ...GetKanitFont("KanitLight") }}>
       <NavbarTop clickPage={"setting"} />
       <div className="d-flex justify-content-center mt-4 mb-2">
         <h3>เพิ่มอาคาร</h3>
@@ -52,7 +53,7 @@ function NewBuilding() {
         setPostBuildingCheck={setPostBuildingCheck}
         setPostBuilding={setPostBuilding}
       />
-    </>
+    </div>
   );
 }
 

@@ -7,6 +7,7 @@ import checkToken from "../../../../config/checkToken";
 import { useNavigate } from "react-router-dom";
 import _ from "lodash";
 import { sweet_basic } from "../../../../components/sweetalert2/sweet";
+import colors from "../../../../config/colors";
 
 function FormEditCategory(props: any) {
   const {
@@ -95,7 +96,12 @@ function FormEditCategory(props: any) {
           <Form.Label>ชื่อหมวดหมู่ครุภัณฑ์</Form.Label>
           <Form.Control
             size="lg"
-            // style={{ height: "3rem" }}
+            style={{
+              borderColor:
+                nameCategory_Old !== nameCategory && nameCategory
+                  ? colors.borderColorEdit
+                  : "",
+            }}
             type="text"
             placeholder="หมวดหมู่ครุภัณฑ์"
             value={
@@ -118,6 +124,12 @@ function FormEditCategory(props: any) {
             </span>
           </Form.Label>
           <Form.Select
+            style={{
+              borderColor:
+                departmentDId_Old != departmentDId && departmentDId
+                  ? colors.borderColorEdit
+                  : "",
+            }}
             onChange={(event: any) => {
               const value = event.target.value;
               setDepartmentDId(value);
@@ -129,7 +141,7 @@ function FormEditCategory(props: any) {
               return (
                 <>
                   <option key={item.d_id} value={item.d_id}>
-                    {item.nameTH}
+                    {item.nameTH} {item.nameEN}
                   </option>
                 </>
               );
@@ -144,7 +156,11 @@ function FormEditCategory(props: any) {
                 onSubmit(event);
               } else {
                 event.preventDefault();
-                sweet_basic("warning", "ข้อมูลไม่ครบ", "กรุณากรอกข้อมูลให้ครบ");
+                sweet_basic(
+                  "warning",
+                  "ยังไม่มีข้อมูลเปลี่ยนแปลง",
+                  "กรุณาแก้ไขข้อมูล"
+                );
               }
             }}
             className="mb-3 mt-3 p-2"
@@ -152,7 +168,7 @@ function FormEditCategory(props: any) {
             type="submit"
             size="lg"
           >
-            {boxCheck ? "บันทึก" : "กรุณากรอกข้อมูลให้ครบ"}
+            {boxCheck ? "บันทึก" : "ยังไม่มีข้อมูลเปลี่ยนแปลง"}
           </Button>
         </div>
       </Form>

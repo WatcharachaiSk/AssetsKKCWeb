@@ -9,6 +9,7 @@ import { API } from "../../../../axios/swr/endpoint";
 import checkStatus from "../../../../config/checkStatus";
 import checkToken from "../../../../config/checkToken";
 import ModalPostLocate from "../../../../components/modal/ModalPostLocate";
+import { GetKanitFont } from "../../../../config/fonts";
 
 function NewLocation() {
   const navigate = useNavigate();
@@ -30,7 +31,7 @@ function NewLocation() {
     }
   };
   return (
-    <>
+    <div style={{ ...GetKanitFont("KanitLight") }}>
       <NavbarTop clickPage={"setting"} />
       <div className="d-flex justify-content-center mt-4 mb-2">
         <h3>เพิ่มสถานที่</h3>
@@ -53,7 +54,7 @@ function NewLocation() {
         setPostLocationCheck={setPostLocationCheck}
         setPostLocation={setPostLocation}
       />
-    </>
+    </div>
   );
 }
 

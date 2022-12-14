@@ -6,7 +6,7 @@ import checkToken from "../../../config/checkToken";
 import configAxios from "../../../axios/configAxios";
 import { API } from "../../../axios/swr/endpoint";
 import { useNavigate } from "react-router-dom";
-import dateFormat from "dateformat";
+// import dateFormat from "dateformat";
 import { sweet_basic } from "../../../components/sweetalert2/sweet";
 
 function FormAddTypeItem(props: any) {
@@ -35,7 +35,7 @@ function FormAddTypeItem(props: any) {
   // console.log("idDpm = " + idDpm);
   const [idcate, setIdcate] = useState<number>(0);
   // console.log("idcate = " + idcate);
-  const [startDate, setStartDate] = useState<any>(new Date());
+  const [startDate, setStartDate] = useState<any>();
 
   // const [nowstartDate, setNowStartDate] = useState<any>(new Date());
 
@@ -43,13 +43,22 @@ function FormAddTypeItem(props: any) {
   useMemo(async () => {
     try {
       const resDpm = await axios(configAxios("get", `${API.getDepartment}`));
-      const resCategory = await axios(configAxios("get", `${API.getCategory}`));
       setGetDepartment(resDpm.data);
-      setGetCategory(resCategory.data);
     } catch (error: any) {
       checkToken(error.response.data.status, error.request.status, navigate);
     }
   }, []);
+  //
+  useMemo(async () => {
+    try {
+      const resCategory = await axios(
+        configAxios("get", `${API.getCategoryByDpm_Id}${idDpm}`)
+      );
+      setGetCategory(resCategory.data);
+    } catch (error: any) {
+      checkToken(error.response.data.status, error.request.status, navigate);
+    }
+  }, [idDpm]);
 
   useMemo(async () => {
     if (

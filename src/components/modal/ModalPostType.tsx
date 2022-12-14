@@ -2,8 +2,8 @@ import Moment from "react-moment";
 import { Button, Table, Modal } from "react-bootstrap";
 
 function ModalPostType(props: any) {
-  const { modalShowCheckType, onSubmitFnType, chackDataType } = props;
-  console.log(chackDataType);
+  const { modalShowCheckType, onSubmitFnType, chackDataType, isPage } = props;
+  // console.log(chackDataType);
 
   return (
     <Modal
@@ -54,11 +54,21 @@ function ModalPostType(props: any) {
             </tr>
             <tr>
               <td>สาขา</td>
-              <td>{chackDataType?.department.department[0].nameTH}</td>
+
+              {isPage === "edit" ? (
+                <td>{chackDataType?.department?.department?.nameTH}</td>
+              ) : (
+                <td>{chackDataType?.department?.department[0]?.nameTH}</td>
+              )}
             </tr>
             <tr>
               <td>ชนิดครุภัณฑ์</td>
-              <td>{chackDataType?.category.category[0].name}</td>
+
+              {isPage === "edit" ? (
+                <td>{chackDataType?.category?.category?.name}</td>
+              ) : (
+                <td>{chackDataType?.category?.category[0]?.name}</td>
+              )}
             </tr>
             <tr>
               <td>วันที่ซื้อ</td>

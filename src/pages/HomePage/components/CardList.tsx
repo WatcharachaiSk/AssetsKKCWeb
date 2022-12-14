@@ -30,7 +30,6 @@ function CardList(props: any) {
     setgetVauleNotNormal(arrvauleNotNormal);
   }, [listItem]);
 
-  
   return (
     <>
       <Container>
@@ -51,7 +50,12 @@ function CardList(props: any) {
                       </Card.Title>
                     </Card.Header>
                     <Card.Body>
-                      <Card.Subtitle style={{ height: "4rem" }}></Card.Subtitle>
+                      <Card.Subtitle className="mb-2">
+                        <Card.Text>
+                          หน่วยงาน: {item?.department?.nameTH}
+                        </Card.Text>
+                      </Card.Subtitle>
+                      <Card.Subtitle style={{ height: "3rem" }}></Card.Subtitle>
                       <Card.Subtitle
                         className="mb-1"
                         style={{ textAlign: "end" }}
@@ -128,7 +132,9 @@ function CardList(props: any) {
                         <Card.Text>ราคารวม: {item?.total_price}</Card.Text>
                       </Card.Subtitle>
                       <Card.Subtitle className="mb-2">
-                        <Card.Text>หน่วยงาน: {item?.department?.nameTH}</Card.Text>
+                        <Card.Text>
+                          หน่วยงาน: {item?.department?.nameTH}
+                        </Card.Text>
                       </Card.Subtitle>
                       <Card.Subtitle className="mb-2">
                         <Card.Text>หมวดหมู่: {item?.category?.name}</Card.Text>

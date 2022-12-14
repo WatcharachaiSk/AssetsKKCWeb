@@ -25,12 +25,12 @@ function Login() {
 
   useEffect(() => {
     const getToken = localStorage.getItem("Token");
-    if (getToken) {
-      sweet_popUpTimer("center", "warning", "คุณยังไม่ได้ออกจากระบบ", 1500);
-      setTimeout(() => {
-        navigate(-1);
-      }, 1500);
-    }
+    // if (getToken) {
+    //   sweet_popUpTimer("center", "warning", "คุณยังไม่ได้ออกจากระบบ", 1500);
+    //   setTimeout(() => {
+    //     navigate(-1);
+    //   }, 1500);
+    // }
   }, []);
   const Fullscreen = styled.div`
     /* display: flex; */

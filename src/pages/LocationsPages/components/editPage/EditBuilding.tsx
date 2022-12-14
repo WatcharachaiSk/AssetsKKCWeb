@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useLocation,useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import ButtonBack from "../../../../components/buttons/ButtonBack";
 import NavbarTop from "../../../../components/navbar/NavbarTop";
 import FormEditBuilding from "../formEdit/FormEditBuilding";
@@ -9,6 +9,7 @@ import { API } from "../../../../axios/swr/endpoint";
 import checkStatus from "../../../../config/checkStatus";
 import checkToken from "../../../../config/checkToken";
 import configAxios from "../../../../axios/configAxios";
+import { GetKanitFont } from "../../../../config/fonts";
 function EditBuilding() {
   const { state } = useLocation();
   const navigate = useNavigate();
@@ -34,11 +35,7 @@ function EditBuilding() {
     if (status == 1) {
       try {
         const res = await axios(
-          configAxios(
-            "put",
-            `${API.updateBuilding}${state.id}`,
-            postBuilding
-          )
+          configAxios("put", `${API.updateBuilding}${state.id}`, postBuilding)
         );
         checkStatus(res, "แก้ไขสาขาเสร็จสิ้น");
         navigate(-1);
@@ -49,18 +46,21 @@ function EditBuilding() {
   };
 
   return (
-    <>
+    <div style={{ ...GetKanitFont("KanitLight") }}>
       <NavbarTop clickPage={"setting"} />
       <div className="d-flex justify-content-center mt-5 mb-2">
         <h3>แก้ไขอาคาร</h3>
       </div>
       <ButtonBack titleButton={"ย้อนกลับ"} />
-      {modalShowCheckBuilding && <ModalPostLocate 
-           onSubmitFnLocate={onSubmitFnBuilding}
-           chackDataLocate={postBuildingCheck}
-           modalShowCheckLocate={modalShowCheckBuilding}
-           isPage={"b"}
-           title={"ตึก"}/>}
+      {modalShowCheckBuilding && (
+        <ModalPostLocate
+          onSubmitFnLocate={onSubmitFnBuilding}
+          chackDataLocate={postBuildingCheck}
+          modalShowCheckLocate={modalShowCheckBuilding}
+          isPage={"b"}
+          title={"ตึก"}
+        />
+      )}
       <FormEditBuilding
         nameTH_Old={nameTH_Old}
         nameEN_Old={nameEN_Old}
@@ -72,7 +72,7 @@ function EditBuilding() {
         setPostBuildingCheck={setPostBuildingCheck}
         setPostBuilding={setPostBuilding}
       />
-    </>
+    </div>
   );
 }
 

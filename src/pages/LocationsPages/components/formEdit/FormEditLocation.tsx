@@ -360,7 +360,11 @@ function FormEditLocation(props: any) {
                 onSubmit(event);
               } else {
                 event.preventDefault();
-                sweet_basic("warning", "ข้อมูลไม่ครบ", "กรุณากรอกข้อมูลให้ครบ");
+                sweet_basic(
+                  "warning",
+                  "ยังไม่มีข้อมูลเปลี่ยนแปลง",
+                  "กรุณาแก้ไขข้อมูล"
+                );
               }
             }}
             className="mb-3 mt-3 p-2"
@@ -368,9 +372,7 @@ function FormEditLocation(props: any) {
             type="submit"
             size="lg"
           >
-            {boxCheck
-              ? "บันทึก"
-              : "กรุณากรอกข้อมูลให้ครบหรือยังไม่มีข้อมูลที่เปลี่ยนแปลง"}
+            {boxCheck ? "บันทึก" : "ยังไม่มีข้อมูลเปลี่ยนแปลง"}
           </Button>
         </div>
       </Form>

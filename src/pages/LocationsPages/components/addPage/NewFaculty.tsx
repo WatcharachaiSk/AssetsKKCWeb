@@ -9,6 +9,7 @@ import checkStatus from "../../../../config/checkStatus";
 import checkToken from "../../../../config/checkToken";
 import FormInputFaculty from "../formInput/FormInputFaculty";
 import ModalPostLocate from "../../../../components/modal/ModalPostLocate";
+import { GetKanitFont } from "../../../../config/fonts";
 
 function NewFaculty() {
   const navigate = useNavigate();
@@ -29,7 +30,7 @@ function NewFaculty() {
     }
   };
   return (
-    <>
+    <div style={{ ...GetKanitFont("KanitLight") }}>
       <NavbarTop clickPage={"setting"} />
       <div className="d-flex justify-content-center mt-4 mb-2">
         <h3>เพิ่มคณะ</h3>
@@ -50,7 +51,7 @@ function NewFaculty() {
         setModalShowCheckFaculty={setModalShowCheckFaculty}
         setPostFacultyCheck={setPostFacultyCheck}
       />
-    </>
+    </div>
   );
 }
 

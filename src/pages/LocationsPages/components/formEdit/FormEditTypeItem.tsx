@@ -44,7 +44,10 @@ function FormEditTypeItem(props: any) {
   const [unitItem_Old, setUnitItem_Old] = useState<any>(typeItem_Old?.unit);
   // console.log("unitItem = " + unitItem);
 
-  const [inputUnitItem, setInputUnitItem] = useState<any>("");
+  const [inputUnitItem, setInputUnitItem] = useState<any>(typeItem_Old?.unit);
+  const [inputUnitItem_Old, setInputUnitItem_Old] = useState<any>(
+    typeItem_Old?.unit
+  );
   // console.log("inputUnitItem = " + inputUnitItem);
 
   //
@@ -92,33 +95,38 @@ function FormEditTypeItem(props: any) {
   // console.log(new Date(typeItem_Old?.purchase_date) === startDate);
 
   const [boxCheck, setBoxCheck] = useState<any>(false);
-  console.log("boxCheck = " + boxCheck);
+  const [boxCheck_Locate, setBoxCheck_Locate] = useState<any>(false);
+  // console.log("boxCheck = " + boxCheck);
 
   useEffect(() => {
     let arrCheck = [];
     //
-    if (
-      (inputNameType !== inputNameType_Old && inputNameType) ||
-      (inputCode !== inputCode_Old && inputCode)
-    ) {
-      arrCheck.push(true);
+    if (inputNameType !== inputNameType_Old && inputNameType) {
+      if (inputCode) {
+        arrCheck.push(true);
+      } else {
+        arrCheck.push(false);
+      }
+    } else if (inputCode !== inputCode_Old && inputCode) {
+      if (inputNameType) {
+        arrCheck.push(true);
+      }
     } else {
       arrCheck.push(false);
     }
     //
-    if (quantity != quantity_Old && quantity != 0) {
-      arrCheck.push(true);
+    if (quantity != 0) {
+      if (totalPrice != totalPrice_Old && totalPrice != 0) {
+        arrCheck.push(true);
+      } else if (priceUnit != priceUnit_Old && priceUnit != 0) {
+        arrCheck.push(true);
+      } else {
+        arrCheck.push(false);
+      }
     } else {
       arrCheck.push(false);
     }
 
-    if (totalPrice != totalPrice_Old && totalPrice != 0) {
-      arrCheck.push(true);
-    } else if (priceUnit != priceUnit_Old && priceUnit != 0) {
-      arrCheck.push(true);
-    } else {
-      arrCheck.push(false);
-    }
     //
     if (unitItem == -1) {
       if (inputUnitItem != "") {
@@ -154,17 +162,19 @@ function FormEditTypeItem(props: any) {
       arrCheck.push(false);
     }
     // *
-    if (arrCheck[1] && arrCheck[2]) {
-      setBoxCheck(true);
-    } else if (arrCheck[3]) {
-      setBoxCheck(true);
-    } else if (arrCheck[0]) {
+    if (arrCheck[0] || arrCheck[1] || arrCheck[2] || arrCheck[4]) {
       setBoxCheck(true);
     } else {
       setBoxCheck(false);
     }
 
-    console.log(arrCheck);
+    if (arrCheck[3]) {
+      setBoxCheck_Locate(true);
+    } else {
+      setBoxCheck_Locate(false);
+    }
+
+    // console.log(arrCheck);
   }, [
     inputNameType,
     inputCode,
@@ -177,6 +187,15 @@ function FormEditTypeItem(props: any) {
     unitItem,
     inputUnitItem,
   ]);
+
+  const [submit, setSubmit] = useState<any>(false);
+  useEffect(() => {
+    if (boxCheck || boxCheck_Locate) {
+      setSubmit(true);
+    } else {
+      setSubmit(false);
+    }
+  }, [boxCheck, boxCheck_Locate]);
 
   // console.log(typeof startDate);
   //  getDepartmentByFtyId
@@ -258,39 +277,55 @@ function FormEditTypeItem(props: any) {
 
   const onSubmit = async (event: any) => {
     event.preventDefault();
+    let department = _.filter(getDepartment, (item: any) => {
+      return item.d_id == idDpm;
+    });
+    let category = _.filter(getCategory, (item: any) => {
+      return item.cate_id == idcate;
+    });
     // console.log(startDate);
     const obj = {
-      name: inputNameType,
-      code: inputCode,
-      quantity: quantity,
-      unit: unitItem != 0 && unitItem != -1 ? unitItem : inputUnitItem,
-      price_unit: priceUnit,
-      total_price: totalPrice,
-      purchase_date: startDate,
+      name: !inputNameType ? inputNameType_Old : inputNameType,
+      code: !inputCode ? inputCode_Old : inputCode,
+      quantity: !quantity ? quantity_Old : quantity,
+      unit:
+        unitItem != 0 && unitItem != -1
+          ? unitItem
+            ? unitItem
+            : unitItem_Old
+          : inputUnitItem
+          ? inputUnitItem
+          : inputUnitItem_Old,
+      price_unit: !priceUnit ? priceUnit_Old : priceUnit,
+      total_price: !totalPrice ? totalPrice_Old : totalPrice,
+      purchase_date: !startDate ? startDate_Old : startDate,
       department: {
         id: idDpm,
-        department: _.filter(getDepartment, (item: any) => {
-          return item.d_id == idDpm;
-        }),
+        department: boxCheck_Locate ? department[0] : typeItem_Old?.department,
       },
       category: {
         id: idcate,
-        category: _.filter(getCategory, (item: any) => {
-          return item.cate_id == idcate;
-        }),
+        category: boxCheck_Locate ? category[0] : typeItem_Old?.category,
       },
     };
     setPostItemCheckType(obj);
     const dataform = {
-      name: inputNameType,
-      code: inputCode,
-      quantity: quantity,
-      unit: inputUnitItem != "" ? inputUnitItem : unitItem,
-      price_unit: priceUnit,
-      total_price: totalPrice,
-      purchase_date: startDate,
-      departmentDId: idDpm,
-      categoryCateId: idcate,
+      name: !inputNameType ? inputNameType_Old : inputNameType,
+      code: !inputCode ? inputCode_Old : inputCode,
+      quantity: !quantity ? quantity_Old : quantity_Old,
+      unit:
+        unitItem != 0 && unitItem != -1
+          ? unitItem
+            ? unitItem
+            : unitItem_Old
+          : inputUnitItem
+          ? inputUnitItem
+          : inputUnitItem_Old,
+      price_unit: !priceUnit ? priceUnit_Old : priceUnit,
+      total_price: !totalPrice ? totalPrice_Old : totalPrice,
+      purchase_date: !startDate ? startDate_Old : startDate,
+      departmentDId: boxCheck_Locate ? idDpm : idDpm_Old,
+      categoryCateId: boxCheck_Locate ? idcate : idcate_Old,
     };
     // console.log(dataform);
     setPostTypeItem(dataform);
@@ -562,19 +597,23 @@ function FormEditTypeItem(props: any) {
           <Button
             // style={{}}
             onClick={(event) => {
-              if (boxCheck) {
+              if (submit) {
                 onSubmit(event);
               } else {
                 event.preventDefault();
-                sweet_basic("warning", "ข้อมูลไม่ครบ", "กรุณากรอกข้อมูลให้ครบ");
+                sweet_basic(
+                  "warning",
+                  "ยังไม่มีข้อมูลเปลี่ยนแปลง",
+                  "กรุณาแก้ไขข้อมูล"
+                );
               }
             }}
             className="mb-3 mt-3 p-2"
-            variant={boxCheck ? "success" : "secondary"}
+            variant={submit ? "success" : "secondary"}
             type="submit"
             size="lg"
           >
-            {boxCheck ? "บันทึก" : "กรุณากรอกข้อมูลให้ครบ"}
+            {submit ? "บันทึก" : "ยังไม่มีข้อมูลเปลี่ยนแปลง"}
           </Button>
         </div>
       </Form>
