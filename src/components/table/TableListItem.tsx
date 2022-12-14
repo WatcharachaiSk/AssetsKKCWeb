@@ -95,12 +95,11 @@ function TableListItem(props: any) {
                               arrPut.splice(i, 1);
                             }
                           }
-                         
+
                           setSelectItem(arrPut);
                         }
                         // console.log("arrPut = ", arrPut);
                       }}
-                      
                       value={item.item_id}
                       // onClick={(event: any) => {
                       //   // console.log("event.target.value = ", event);
@@ -138,21 +137,23 @@ function TableListItem(props: any) {
                 </td>
                 {/*  */}
 
-                <td>{item.code}</td>
-                <td>{item.name}</td>
-                <td>{item.category.name}</td>
-                <td>{item.typeItem.price_unit}</td>
-                <td style={{ color: item.status_item ? "green" : "red" }}>
-                  {item.status_item ? "ปกติ" : "ชำรุด"}
+                <td>{item?.code}</td>
+                <td>{item?.name}</td>
+                <td>{item?.category?.name}</td>
+                <td>{item?.price}</td>
+                <td style={{ color: item?.status_item ? "green" : "red" }}>
+                  {item?.status_item ? "ปกติ" : "ชำรุด"}
                 </td>
-                <td>{item.faculty.nameTH}</td>
-                <td>{item.department.nameTH}</td>
-                <td>{item.building.nameTH}</td>
-                <td>{item.location.floor}</td>
-                <td>{item.location.nameTH}</td>
-                <td>{item.profile.firstname + " " + item.profile.lastname}</td>
+                <td>{item?.faculty?.nameTH}</td>
+                <td>{item?.department?.nameTH}</td>
+                <td>{item?.building?.nameTH}</td>
+                <td>{item?.location.floor}</td>
+                <td>{item?.location?.nameTH}</td>
                 <td>
-                  <Moment format="DD/MM/YYYY">{item.createdAt}</Moment>
+                  {item?.profile?.firstname + " " + item?.profile?.lastname}
+                </td>
+                <td>
+                  <Moment format="DD/MM/YYYY">{item?.createdAt}</Moment>
                 </td>
               </tr>
             );

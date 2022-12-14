@@ -44,6 +44,14 @@ function ModalPostEdit(props: any) {
                   <td>{chackDataEdit?.code}</td>
                 </tr>
                 <tr>
+                  <td>รายละเอียดครุภัณฑ์</td>
+                  <td>{chackDataEdit?.description}</td>
+                </tr>
+                <tr>
+                  <td>ราคาครุภัณฑ์</td>
+                  <td>{chackDataEdit?.price}</td>
+                </tr>
+                <tr>
                   <td>เลือกชนิดครุภัณฑ์</td>
                   <td>{chackDataEdit?.typeItem[0]?.name}</td>
                 </tr>

@@ -19,7 +19,7 @@ function ModalPostItem(props: any) {
           <h4 className="mb-3">กรุณาตรวจสอบครุภัณฑ์</h4>
         </div>
         <div className="d-flex justify-content-center flex-column"></div>
-        <Table bordered hover  variant="light">
+        <Table bordered hover variant="light">
           <thead>
             <tr>
               <th>ชนิดช้อมูล</th>
@@ -37,7 +37,15 @@ function ModalPostItem(props: any) {
             </tr>
             <tr>
               <td>สภานะครุภัณฑ์</td>
-              <td>{chackData?.status_item.name}</td>
+              <td>{chackData?.status_item?.name}</td>
+            </tr>
+            <tr>
+              <td>รายละเอียดครุภัณฑ์</td>
+              <td>{chackData?.description}</td>
+            </tr>
+            <tr>
+              <td>ราคาครุภัณฑ์</td>
+              <td>{chackData?.price}</td>
             </tr>
             <tr>
               <td>ชนิดครุภัณฑ์</td>

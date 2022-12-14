@@ -8,7 +8,6 @@ import { useNavigate } from "react-router-dom";
 import _ from "lodash";
 import { sweet_basic } from "../../../components/sweetalert2/sweet";
 
-
 function FormAddItem(props: any) {
   const {
     nameItem,
@@ -36,8 +35,10 @@ function FormAddItem(props: any) {
   const [idType, setIdType] = useState<number>(0);
   //
   const [status, setStatus] = useState<number>(1);
-  const [nameCate, setnNameCate] = useState<string>();
+  const [nameCate, setNameCate] = useState<string>();
 
+  const [description, setDescription] = useState<string>();
+  const [price, setPrice] = useState<number>();
   //
   const onSubmit = async (event: any) => {
     event.preventDefault();
@@ -48,6 +49,8 @@ function FormAddItem(props: any) {
         id: status,
         name: status == 1 ? "ปกติ" : "ชำรุด",
       },
+      description: description,
+      price: price,
       faculty: {
         id: idFty,
         faculty: _.filter(getFaculty, (item: any) => {
@@ -83,6 +86,8 @@ function FormAddItem(props: any) {
       name: nameItem,
       code: codeItem,
       status_item: status,
+      description: description,
+      price: price,
       facultyFId: idFty,
       departmentDId: idDpm,
       buildingBId: IdBud,
@@ -105,14 +110,12 @@ function FormAddItem(props: any) {
   useMemo(async () => {
     try {
       const resFacu = await axios(configAxios("get", API.getFaculty));
-      const resType = await axios(configAxios("get", API.getTypeItem));
-      setGetTypeItem(resType.data);
       setGetFaculty(resFacu.data);
     } catch (error: any) {
       checkToken(error.response.data.status, error.request.status, navigate);
     }
   }, []);
-  //  getDepartmentByFtyId
+  //
   useMemo(async () => {
     try {
       if (idFty != 0) {
@@ -125,6 +128,7 @@ function FormAddItem(props: any) {
       checkToken(error.response.data.status, error.request.status, navigate);
     }
   }, [idFty]);
+  //  getDepartmentByFtyId
   //  setGetBuilding
   useMemo(async () => {
     try {
@@ -132,6 +136,10 @@ function FormAddItem(props: any) {
         const res = await axios(
           configAxios("get", `${API.getBuildingByDpmId}${idDpm}`)
         );
+        const resType = await axios(
+          configAxios("get", `${API.getTypeItemByDpmId}${idDpm}`)
+        );
+        setGetTypeItem(resType.data);
         setGetBuilding(res.data);
       }
     } catch (error: any) {
@@ -206,10 +214,10 @@ function FormAddItem(props: any) {
     });
 
     if (id != 0) {
-      setnNameCate(typeItemById[0].category.name);
+      setNameCate(typeItemById[0].category.name);
       setIdcate(typeItemById[0].category.cate_id);
     } else {
-      setnNameCate(undefined);
+      setNameCate(undefined);
     }
 
     setIdType(id);
@@ -224,7 +232,7 @@ function FormAddItem(props: any) {
       {/*  */}
       <Form>
         <Form.Group className="mb-2" controlId="formNameItem">
-          <Form.Label>ชื่อ ครุภัณฑ์</Form.Label>
+          <Form.Label>ชื่อครุภัณฑ์</Form.Label>
           <Form.Control
             size="lg"
             // style={{ height: "3rem" }}
@@ -260,39 +268,36 @@ function FormAddItem(props: any) {
           </Form.Select>
         </Form.Group>
         {/*  */}
-        <Form.Group className="mb-3" controlId="formFaculty">
-          <Form.Label>เลือกชนิดครุภัณฑ์</Form.Label>
-          <Form.Select
+        <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+          <Form.Label>รายละเอียดครุภัณฑ์</Form.Label>
+          <Form.Control
             onChange={(event: any) => {
-              handleChangeType(event);
+              const value = event.target.value;
+              // console.log(value);
+
+              setDescription(value);
             }}
             size="lg"
-          >
-            <option value={0}>เลือกชนิดครุภัณฑ์</option>
-            {_.map(getTypeItem, (item: any, idx) => {
-              return (
-                <>
-                  <option key={item.type_id} value={item.type_id}>
-                    {item.name}
-                  </option>
-                </>
-              );
-            })}
-          </Form.Select>
-        </Form.Group>
-        {/*  */}
-        <Form.Group className="mb-3">
-          <Form.Label>หมวดหมู่ครุภัณฑ์ (อิงตามชนิดครุภัณฑ์)</Form.Label>
-          <Form.Control
-            size="lg"
-            type="text"
-            placeholder={`${
-              nameCate != undefined ? nameCate : "กรุณาเลือกชนิดครุภัณฑ์"
-            }`}
-            disabled
-            readOnly
+            placeholder="สี/ขนาดจอ/ความสูง/ความกว้าง/ยี่ห้อ"
+            as="textarea"
+            rows={3}
           />
         </Form.Group>
+        <Form.Group className="mb-3" controlId="formCodeItem">
+          <Form.Label>ราคาครุภัณฑ์</Form.Label>
+          <Form.Control
+            size="lg"
+            // style={{ height: "3rem" }}
+            type="number"
+            placeholder="ราคาครุภัณฑ์"
+            value={price}
+            onChange={(event: any) => {
+              const value = event.target.value;
+              setPrice(value);
+            }}
+          />
+        </Form.Group>
+
         {/*  */}
         <Form.Group className="mb-3" controlId="formFaculty">
           <Form.Label>เลือกคณะ</Form.Label>
@@ -341,7 +346,40 @@ function FormAddItem(props: any) {
             })}
           </Form.Select>
         </Form.Group>
-
+        {/*  */}
+        <Form.Group className="mb-3" controlId="formFaculty">
+          <Form.Label>เลือกชนิดครุภัณฑ์</Form.Label>
+          <Form.Select
+            onChange={(event: any) => {
+              handleChangeType(event);
+            }}
+            size="lg"
+          >
+            <option value={0}>เลือกชนิดครุภัณฑ์</option>
+            {_.map(getTypeItem, (item: any, idx) => {
+              return (
+                <>
+                  <option key={item.type_id} value={item.type_id}>
+                    {item.name}
+                  </option>
+                </>
+              );
+            })}
+          </Form.Select>
+        </Form.Group>
+        {/*  */}
+        <Form.Group className="mb-3">
+          <Form.Label>หมวดหมู่ครุภัณฑ์ (อิงตามชนิดครุภัณฑ์)</Form.Label>
+          <Form.Control
+            size="lg"
+            type="text"
+            placeholder={`${
+              nameCate != undefined ? nameCate : "กรุณาเลือกชนิดครุภัณฑ์"
+            }`}
+            disabled
+            readOnly
+          />
+        </Form.Group>
         <Form.Group className="mb-3" controlId="formBuilding">
           <Form.Label>เลือกตึก</Form.Label>
           <Form.Select
@@ -408,7 +446,9 @@ function FormAddItem(props: any) {
                 idLocat != 0 &&
                 idType != 0 &&
                 nameItem &&
-                codeItem
+                codeItem &&
+                description &&
+                price
               ) {
                 onSubmit(event);
               } else {
@@ -424,7 +464,9 @@ function FormAddItem(props: any) {
               idLocat != 0 &&
               idType != 0 &&
               nameItem &&
-              codeItem
+              codeItem &&
+              description &&
+              price
                 ? "success"
                 : "secondary"
             }
@@ -437,7 +479,9 @@ function FormAddItem(props: any) {
             idLocat != 0 &&
             idType != 0 &&
             nameItem &&
-            codeItem
+            codeItem &&
+            description &&
+            price
               ? "Submit"
               : "กรุณากรอกข้อมูลให้ครบ"}
           </Button>
