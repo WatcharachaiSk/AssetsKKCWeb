@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Button, Form, Container } from "react-bootstrap";
 import configAxios from "../../../axios/configAxios";
 import { API } from "../../../axios/swr/endpoint";
@@ -33,6 +33,17 @@ function FormAddItem(props: any) {
   const [idLocat, setIdLocat] = useState<number>(0);
   const [idcate, setIdcate] = useState<number>(0);
   const [idType, setIdType] = useState<number>(0);
+  //
+  useEffect(() => {
+    console.log("..........................");
+    console.log("idFty = ", idFty);
+    console.log("idDpm = ", idDpm);
+    console.log("IdBud = ", IdBud);
+    console.log("idLocat = ", idLocat);
+    console.log("idcate = ", idcate);
+    console.log("idType = ", idType);
+  }, [idFty, idDpm, IdBud, idLocat, idcate, idType]);
+
   //
   const [status, setStatus] = useState<number>(1);
   const [nameCate, setNameCate] = useState<string>();
@@ -162,29 +173,28 @@ function FormAddItem(props: any) {
 
   const handleChangeFty = (event: any) => {
     const value = event.target.value;
-    if (value == 0) {
-      setIdDpm(value);
-      setIdBul(value);
-      setIdLocat(value);
-    }
     setIdFty(value);
+
+    setIdDpm(0);
+    setIdBul(0);
+    setIdLocat(0);
   };
 
   const handleChangeDpm = (event: any) => {
     const value = event.target.value;
-    if (value == 0) {
-      setIdBul(value);
-      setIdLocat(value);
-    }
     setIdDpm(value);
+
+    setIdType(0);
+    setIdcate(0);
+    setIdBul(0);
+    setIdLocat(0);
   };
 
   const handleChangeBud = (event: any) => {
     const value = event.target.value;
-    if (value == 0) {
-      setIdLocat(value);
-    }
+
     setIdBul(value);
+    setIdLocat(0);
   };
   const handleChangeLocat = (event: any) => {
     const value = event.target.value;
@@ -347,41 +357,9 @@ function FormAddItem(props: any) {
           </Form.Select>
         </Form.Group>
         {/*  */}
-        <Form.Group className="mb-3" controlId="formFaculty">
-          <Form.Label>เลือกชนิดครุภัณฑ์</Form.Label>
-          <Form.Select
-            onChange={(event: any) => {
-              handleChangeType(event);
-            }}
-            size="lg"
-          >
-            <option value={0}>เลือกชนิดครุภัณฑ์</option>
-            {_.map(getTypeItem, (item: any, idx) => {
-              return (
-                <>
-                  <option key={item.type_id} value={item.type_id}>
-                    {item.name}
-                  </option>
-                </>
-              );
-            })}
-          </Form.Select>
-        </Form.Group>
-        {/*  */}
-        <Form.Group className="mb-3">
-          <Form.Label>หมวดหมู่ครุภัณฑ์ (อิงตามชนิดครุภัณฑ์)</Form.Label>
-          <Form.Control
-            size="lg"
-            type="text"
-            placeholder={`${
-              nameCate != undefined ? nameCate : "กรุณาเลือกชนิดครุภัณฑ์"
-            }`}
-            disabled
-            readOnly
-          />
-        </Form.Group>
+
         <Form.Group className="mb-3" controlId="formBuilding">
-          <Form.Label>เลือกตึก</Form.Label>
+          <Form.Label>เลือกอาคาร</Form.Label>
           <Form.Select
             style={{ backgroundColor: idDpm != 0 ? "" : "#DCDCDC" }}
             onChange={(event: any) => {
@@ -390,7 +368,7 @@ function FormAddItem(props: any) {
             size="lg"
           >
             {idDpm != 0 ? (
-              <option value={0}>กรุณาเลือกตึก</option>
+              <option value={0}>กรุณาเลือกอาคาร</option>
             ) : (
               <option value={0}>กรุณาเลือกสาขา</option>
             )}
@@ -432,6 +410,40 @@ function FormAddItem(props: any) {
               );
             })}
           </Form.Select>
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="formFaculty">
+          <Form.Label>เลือกชนิดครุภัณฑ์</Form.Label>
+          <Form.Select
+            onChange={(event: any) => {
+              handleChangeType(event);
+            }}
+            size="lg"
+          >
+            <option value={0}>เลือกชนิดครุภัณฑ์</option>
+            {_.map(getTypeItem, (item: any, idx) => {
+              return (
+                <>
+                  <option key={item.type_id} value={item.type_id}>
+                    {item.name}
+                  </option>
+                </>
+              );
+            })}
+          </Form.Select>
+        </Form.Group>
+        {/*  */}
+        <Form.Group className="mb-3">
+          <Form.Label>หมวดหมู่ครุภัณฑ์ (อิงตามชนิดครุภัณฑ์)</Form.Label>
+          <Form.Control
+            size="lg"
+            type="text"
+            placeholder={`${
+              nameCate != undefined ? nameCate : "กรุณาเลือกชนิดครุภัณฑ์"
+            }`}
+            disabled
+            readOnly
+          />
         </Form.Group>
 
         {/*  */}

@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import NavbarTop from "../../components/navbar/NavbarTop";
 // import colors from "../../config/colors";
 import ButtonAdd from "./components/ButtonAdd";
@@ -10,10 +10,17 @@ import checkToken from "../../config/checkToken";
 import TableListItem from "../../components/table/TableListItem";
 import { GetKanitFont } from "../../config/fonts";
 import NavbarItem from "../../components/navbar/NavbarItem";
+import _ from "lodash";
+import SearchItem from "./components/dropdowns/SearchItem";
 
 function Items() {
   const navigate = useNavigate();
   const [getItems, setGetItems] = useState<{}>({});
+
+  // *
+
+  //
+  const [dataFilter, setDataFilter] = useState<any>(undefined);
   const [clickPage, setClickPage] = useState<string>("items");
 
   useMemo(async () => {
@@ -37,8 +44,17 @@ function Items() {
       <div className="d-flex justify-content-center mt-5 mb-2">
         <h3>ครุภัณฑ์ทั้งหมด</h3>
       </div>
-      <ButtonAdd pageAdd={"/items/newitem"} titleButton={"เพิ่มครุภัณฑ์"} />
-      <TableListItem itemList={getItems} editPage={"/items/editItem"} />
+      <div className="d-flex justify-content-between">
+        <ButtonAdd pageAdd={"/items/newitem"} titleButton={"เพิ่มครุภัณฑ์"} />
+      </div>
+      <div className="d-flex justify-content-end flex-wrap">
+        <SearchItem getItems={getItems} setDataFilter={setDataFilter} />
+      </div>
+
+      <TableListItem
+        itemList={dataFilter ? dataFilter : getItems}
+        editPage={"/items/editItem"}
+      />
     </div>
   );
 }

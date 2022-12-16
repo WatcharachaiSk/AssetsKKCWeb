@@ -8,7 +8,7 @@ import { IoQrCodeSharp } from "react-icons/io5";
 import colors from "../../config/colors";
 import ModalOneQr from "../modal/ModalQr/ModalOneQr";
 import ModalSelectQr from "../modal/ModalQr/ModalSelectQr";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function TableListItem(props: any) {
   const { itemList, editPage } = props;
@@ -17,6 +17,12 @@ function TableListItem(props: any) {
   const [getItem, setGetItem] = useState();
   const [selectItem, setSelectItem] = useState();
 
+  // const [itemShow, setitemShow] = useState<any>();
+  // console.log("itemShow = ", itemShow);
+
+  // useEffect(() => {
+  //   setitemShow(itemList);
+  // }, [itemList]);
   const navigate = useNavigate();
   const navigatePage = (idItem?: any) => {
     navigate(editPage, { state: { id: idItem, isPage: "items" } });
@@ -50,7 +56,37 @@ function TableListItem(props: any) {
         {/*  */}
         <thead style={{ ...GetKanitFont("KanitMedium") }}>
           <tr>
-            <th>เลือก</th>
+            <th>
+              เลือก{" "}
+              <Form.Group className="mb-3">
+                <Form.Check
+                  // checked
+                  onChange={(event: any) => {
+                    console.log(event.target.checked);
+                    let arrPut: any = selectItem ? selectItem : [];
+                    // if (event.target.checked) {
+                    //   arrPut.push(event.target.value);
+                    //   setSelectItem(arrPut);
+                    // } else {
+                    //   for (var i = 0; i < arrPut.length; i++) {
+                    //     if (arrPut[i] === event.target.value) {
+                    //       arrPut.splice(i, 1);
+                    //     }
+                    //   }
+
+                    //   setSelectItem(arrPut);
+                    // }
+                    // console.log("arrPut = ", arrPut);
+                  }}
+                  // value={item.item_id}
+                  // onClick={(event: any) => {
+                  //   // console.log("event.target.value = ", event);
+
+                  //   console.log(item.item_id);
+                  // }}
+                />
+              </Form.Group>
+            </th>
             <th>ลำดับ</th>
             <th>แก้ไข</th>
             <th>QR Code</th>
@@ -83,6 +119,9 @@ function TableListItem(props: any) {
                 <td>
                   <Form.Group className="mb-3">
                     <Form.Check
+                      // checked
+
+                      value={item?.item_id}
                       onChange={(event: any) => {
                         // console.log(event.target.checked);
                         let arrPut: any = selectItem ? selectItem : [];
@@ -98,9 +137,9 @@ function TableListItem(props: any) {
 
                           setSelectItem(arrPut);
                         }
-                        // console.log("arrPut = ", arrPut);
+                        console.log("arrPut = ", arrPut);
                       }}
-                      value={item.item_id}
+
                       // onClick={(event: any) => {
                       //   // console.log("event.target.value = ", event);
 
@@ -168,7 +207,7 @@ function TableListItem(props: any) {
           setModalShowAll(true);
         }}
       >
-        สั่งพิมพ์ที่เหลือก
+        สั่งพิมพ์ที่เลือก
       </Button>
     </div>
   );

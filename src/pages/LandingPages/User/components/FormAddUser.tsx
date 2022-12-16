@@ -13,6 +13,7 @@ import axios from "axios";
 import { API } from "../../../../axios/swr/endpoint";
 import checkToken from "../../../../config/checkToken";
 import { useNavigate } from "react-router-dom";
+import images from "../../../../config/index.images";
 
 function FormAddUser(props: any) {
   const navigate = useNavigate();
@@ -96,9 +97,58 @@ function FormAddUser(props: any) {
     { name: "Admin", value: "1" },
     { name: "User", value: "0" },
   ];
+  const [selectedFile, setSelectedFile] = useState<any>();
+  const [showFile, setShowFile] = useState<any>();
+  // console.log(selectedFile);
+  // console.log("showFile = " + showFile);
+
+  const getBase64 = (file: any, cb: any) => {
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function () {
+      cb(reader.result);
+    };
+    reader.onerror = function (error) {
+      // console.log("Error: ", error);
+    };
+  };
+
   return (
     <Container style={{ borderRadius: 15, width: "100%", height: "100%" }}>
+      <div className="d-flex justify-content-center">
+        <img
+          src={showFile ? showFile : images.upLoadImg}
+          className="rounded float-right"
+          width={200}
+          height={200}
+          style={{
+            objectFit: "cover",
+            borderRadius: 15,
+            borderColor: "#ced4da",
+            borderWidth: 1,
+            borderStyle: "solid",
+          }}
+        />
+      </div>
       <Form>
+        <Form.Group controlId="formFile" className="mb-3">
+          <Form.Label>Profile</Form.Label>
+          <Form.Control
+            accept="image/png,image/jpeg,image/jpg"
+            placeholder="เลือกรูปภาพ"
+            size="lg"
+            type="file"
+            onChange={(e: any) => {
+              // console.log(e.target.files[0]);
+              getBase64(e.target.files[0], (result: any) => {
+                // console.log(result);
+                setShowFile(result);
+              });
+
+              setSelectedFile(e.target.files[0]);
+            }}
+          />
+        </Form.Group>
         {/* name */}
         <Form.Group className="mb-2">
           <Form.Label>Username</Form.Label>

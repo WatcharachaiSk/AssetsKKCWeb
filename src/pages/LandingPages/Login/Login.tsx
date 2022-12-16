@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { GetKanitFont } from "../../../config/fonts";
@@ -9,6 +9,10 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Carousel from "react-bootstrap/Carousel";
 import { sweet_popUpTimer } from "../../../components/sweetalert2/sweet";
+import axios from "axios";
+import configAxios from "../../../axios/configAxios";
+import checkToken from "../../../config/checkToken";
+import { API } from "../../../axios/swr/endpoint";
 
 function Login() {
   const navigate = useNavigate();
@@ -23,14 +27,23 @@ function Login() {
     localStorage.setItem("Profile", JSON.stringify(profile));
   };
 
-  useEffect(() => {
+  useMemo(async () => {
     const getToken = localStorage.getItem("Token");
-    // if (getToken) {
-    //   sweet_popUpTimer("center", "warning", "คุณยังไม่ได้ออกจากระบบ", 1500);
-    //   setTimeout(() => {
-    //     navigate(-1);
-    //   }, 1500);
-    // }
+    if (getToken) {
+      try {
+        const res = await axios(configAxios("get", API.checkToken));
+        // console.log(res.status);
+        if (res.status == 200) {
+          setTimeout(() => {
+            navigate("/home");
+          }, 100);
+        }
+      } catch (error: any) {
+        // console.log("err = ", error.request.status);
+      }
+      //   navigate(-1);
+    } else {
+    }
   }, []);
   const Fullscreen = styled.div`
     /* display: flex; */

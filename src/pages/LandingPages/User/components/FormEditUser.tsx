@@ -127,6 +127,7 @@ function FormEditUser(props: any) {
     <>
       <Container style={{ borderRadius: 15, width: "100%", height: "100%" }}>
         <Form>
+      
           {/* name */}
           <Form.Group className="mb-2">
             <Form.Label>Username</Form.Label>

@@ -11,11 +11,13 @@ import TableListItem from "../../components/table/TableListItem";
 import _ from "lodash";
 import { GetKanitFont } from "../../config/fonts";
 import ButtonBack from "../../components/buttons/ButtonBack";
+import SearchItem from "../ItemPage/components/dropdowns/SearchItem";
 
 function TypeItems() {
   const { state } = useLocation();
   const [getItems, setgetItems] = useState<any>({});
   // const [itemList, setItemList] = useState<any>([]);
+  const [dataFilter, setDataFilter] = useState<any>(undefined);
   const navigate = useNavigate();
   // console.log(state);
 
@@ -38,8 +40,13 @@ function TypeItems() {
         <h3>{state.name}</h3>
       </div>
       <ButtonBack titleButton={"ย้อนกลับ"} />
-
-      <TableListItem itemList={getItems} editPage={"/items/editItem"} />
+      <div className="d-flex justify-content-end flex-wrap">
+        <SearchItem getItems={getItems} setDataFilter={setDataFilter} />
+      </div>
+      <TableListItem
+        itemList={dataFilter ? dataFilter : getItems}
+        editPage={"/items/editItem"}
+      />
     </div>
   );
 }

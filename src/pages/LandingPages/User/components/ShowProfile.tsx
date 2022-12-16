@@ -1,5 +1,6 @@
 import { Form, Container, Row, Col } from "react-bootstrap";
 import { useState, useEffect, useMemo } from "react";
+import images from "../../../../config/index.images";
 // import configAxios from "../../../../axios/configAxios";
 // import axios from "axios";
 // import { API } from "../../../../axios/swr/endpoint";
@@ -26,11 +27,27 @@ function ShowProfile(props: any) {
     let profile: any = localStorage.getItem("Profile");
     profile = JSON.parse(profile);
     setShowProfile(profile);
-    console.log(profile);
+    // console.log(profile);
   }, []);
+  const [showFile, setShowFile] = useState<any>();
 
   return (
     <Container style={{ borderRadius: 15, width: "100%", height: "100%" }}>
+      <div className="d-flex justify-content-center">
+        <img
+          src={showFile ? showFile : images.imageNotFound}
+          className="rounded float-right"
+          width={200}
+          height={200}
+          style={{
+            objectFit: "cover",
+            borderRadius: 15,
+            borderColor: "#ced4da",
+            borderWidth: 1,
+            borderStyle: "solid",
+          }}
+        />
+      </div>
       <Form>
         {/* ชื่อ */}
         <Form.Group className="mb-2" controlId="formNameItem">

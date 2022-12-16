@@ -35,12 +35,17 @@ import EditUser from "../pages/LandingPages/User/EditUser";
 import Profile from "../pages/LandingPages/User/Profile";
 import Users from "../pages/LandingPages/User/Users";
 
+//test
+import UpTestt from "../pages/upTest/UpTestt";
+
 function RoutesPath() {
   return (
     <>
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/test_Up" element={<UpTestt />} />
+        
         {/* Home */}
         <Route path="/home" element={<Home />} />
         <Route path="/items" element={<Items />} />

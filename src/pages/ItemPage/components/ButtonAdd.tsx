@@ -10,13 +10,13 @@ function ButtonAdd(props: any) {
     display: flex;
     /* border: 1px solid; */
     align-items: center;
-    margin-top: 50px;
-    margin: 50px;
+    /* margin-top: 50px; */
+    /* margin: 50px; */
   `;
 
   return (
     <>
-      <BoxFlex>
+      <BoxFlex className="p-5">
         <div>
           <Button
             onClick={() => {
