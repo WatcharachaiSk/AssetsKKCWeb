@@ -11,40 +11,37 @@ import checkToken from "../../config/checkToken";
 import { Button } from "react-bootstrap";
 import { GetKanitFont } from "../../config/fonts";
 import NavbarItem from "../../components/navbar/NavbarItem";
+import SearchCatType from "./components/dropdowns/SearchCatType";
 
-function Home(): JSX.Element {
+function Home() {
+  const navigate = useNavigate();
   const [clickPage, setClickPage] = useState<string>("home");
   const [isComponent, setIsComponent] = useState<string>("cate");
-  // console.log("isComponent = " + isComponent);
-
   const [getCategory, setGetCategory] = useState<{}>({});
   const [getTypeItem, setGetTypeItem] = useState<{}>({});
-  const navigate = useNavigate();
+
+  const [dataFilter, setDataFilter] = useState<any>(undefined);
+
+  // console.log("dataFilter", dataFilter);
 
   useMemo(async () => {
     try {
       const res = await axios(configAxios("get", API.getCategory));
       setGetCategory(res.data);
+      const resType = await axios(configAxios("get", API.getTypeItem));
+      setGetTypeItem(resType.data);
     } catch (error: any) {
       // console.log("err = ", error.request.status);
       checkToken(error.response.data.status, error.request.status, navigate);
     }
-  }, [isComponent]);
-  useMemo(async () => {
-    try {
-      const res = await axios(configAxios("get", API.getTypeItem));
-      setGetTypeItem(res.data);
-    } catch (error: any) {
-      // console.log("err = ", error.request.status);
-      checkToken(error.response.data.status, error.request.status, navigate);
-    }
-  }, [isComponent]);
+  }, []);
+
   //console.log(category);
 
   const Fullscreen = styled.div`
-    background: #fcfcfc no-repeat;
+    /* background: #fff no-repeat;
     -webkit-background-size: cover;
-    background-size: cover;
+    background-size: cover; */
   `;
 
   return (
@@ -78,14 +75,22 @@ function Home(): JSX.Element {
             )}
           </Button>
         </div>
-        {isComponent == "cate" && (
+        <div className="d-flex justify-content-end flex-wrap">
+          {getCategory && (
+            <SearchCatType
+              getItems={getCategory}
+              setDataFilter={setDataFilter}
+            />
+          )}
+        </div>
+        {getTypeItem && getCategory && isComponent === "cate" && (
           <CardList
-            listItem={getCategory}
+            listItem={dataFilter ? dataFilter : getCategory}
             isShow={"cate"}
             pageShowItem={"/home/category_item"}
           />
         )}
-        {isComponent == "type" && (
+        {getTypeItem && getCategory && isComponent === "type" && (
           <CardList
             listItem={getTypeItem}
             isShow={"type"}

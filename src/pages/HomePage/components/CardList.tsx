@@ -28,7 +28,7 @@ function CardList(props: any) {
     // console.log(arrvauleNormal);
     setgetVauleNormal(arrvauleNormal);
     setgetVauleNotNormal(arrvauleNotNormal);
-  }, [listItem]);
+  }, []);
 
   return (
     <>
@@ -44,7 +44,9 @@ function CardList(props: any) {
               >
                 {isShow === "cate" && (
                   <>
-                    <Card.Header style={{ backgroundColor: "#868686cc" }}>
+                    <Card.Header
+                      style={{ backgroundColor: "#868686cc", color: "#000" }}
+                    >
                       <Card.Title style={{ fontSize: 20, textAlign: "center" }}>
                         {item?.name}
                       </Card.Title>

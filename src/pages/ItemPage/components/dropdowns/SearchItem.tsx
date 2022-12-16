@@ -6,6 +6,7 @@ import _ from "lodash";
 function SearchItem(props: any) {
   const { getItems, setDataFilter } = props;
 
+
   const [items, setItems] = useState<object>(getItems);
   // console.log(items);
   const [facultys, setFacultys] = useState<any>();
@@ -49,7 +50,6 @@ function SearchItem(props: any) {
       for (let i = 0; i < getItems.length; i++) {
         arrFaculty.push(getItems[i]?.faculty?.nameTH);
         arrDepartment.push(getItems[i]?.department?.nameTH);
-        arrBuilding.push(getItems[i]?.building?.nameTH);
         arrBuilding.push(getItems[i]?.building?.nameTH);
         arrLocation.push(getItems[i]?.location?.nameTH);
         arrStatusItem.push(getItems[i]?.status_item);

@@ -18,7 +18,7 @@ function Items() {
   const [getItems, setGetItems] = useState<{}>({});
 
   // *
-
+// console.log(getItems)
   //
   const [dataFilter, setDataFilter] = useState<any>(undefined);
   const [clickPage, setClickPage] = useState<string>("items");
