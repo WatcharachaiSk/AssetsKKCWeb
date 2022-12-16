@@ -1,7 +1,5 @@
-const REACT_ENVIRONMENT = "dev";
-const APP_API_URL_DEV = "http://localhost:3500/api";
-const APP_API_URL_PROD = "";
-export const REACT_APP_VERSION = "0.0.0";
-
+import env from "react-dotenv";
 export const baseURL =
-  REACT_ENVIRONMENT === "dev" ? APP_API_URL_DEV : APP_API_URL_PROD;
+  env.REACT_ENVIRONMENT === "dev" ? env.APP_API_URL_DEV : env.APP_API_URL_PROD;
+
+// TODO console.log(`*${env.REACT_ENVIRONMENT}* Environments\nBaseURL : ${baseURL}`);

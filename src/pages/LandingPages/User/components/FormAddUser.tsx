@@ -97,6 +97,8 @@ function FormAddUser(props: any) {
     { name: "Admin", value: "1" },
     { name: "User", value: "0" },
   ];
+  
+  // Image
   const [selectedFile, setSelectedFile] = useState<any>();
   const [showFile, setShowFile] = useState<any>();
   // console.log(selectedFile);

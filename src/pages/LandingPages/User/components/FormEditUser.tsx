@@ -13,6 +13,8 @@ import { API } from "../../../../axios/swr/endpoint";
 import checkToken from "../../../../config/checkToken";
 import { useNavigate } from "react-router-dom";
 import { sweet_basic } from "../../../../components/sweetalert2/sweet";
+import images from "../../../../config/index.images";
+import setURLProfile from "../../../../config/setURL_image";
 
 function FormEditUser(props: any) {
   const { setModalShowCheckUser, setPostUser, setPostUserCheck, user_Old } =
@@ -62,10 +64,16 @@ function FormEditUser(props: any) {
   const [departmentDId_Old, setDepartmentDId_Old] = useState<number>(0);
   // const [admin, setAdmin] = useState<boolean>();
 
+  const [showImage, setShowImage] = useState<any>();
   useMemo(async () => {
     try {
       const resFacu = await axios(configAxios("get", API.getFaculty));
       setGetFaculty(resFacu.data);
+      //
+      if (user_Old?.name_image) {
+        const urlProfile = setURLProfile(user_Old?.name_image);
+        setShowImage(urlProfile);
+      }
     } catch (error: any) {
       checkToken(error.response.data.status, error.request.status, navigate);
     }
@@ -123,11 +131,61 @@ function FormEditUser(props: any) {
     { name: "Admin", value: "1" },
     { name: "User", value: "0" },
   ];
+
+  // Image
+  const [selectedFile, setSelectedFile] = useState<any>();
+  const [showFile, setShowFile] = useState<any>();
+  // console.log(selectedFile);
+  // console.log("showFile = " + showFile);
+
+  const getBase64 = (file: any, cb: any) => {
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function () {
+      cb(reader.result);
+    };
+    reader.onerror = function (error) {
+      // console.log("Error: ", error);
+    };
+  };
   return (
     <>
       <Container style={{ borderRadius: 15, width: "100%", height: "100%" }}>
+        <div className="d-flex justify-content-center">
+          <img
+            src={showImage ? showImage : images.upLoadImg}
+            className="rounded float-right"
+            width={200}
+            height={200}
+            style={{
+              objectFit: "cover",
+              borderRadius: 15,
+              borderColor: "#ced4da",
+              borderWidth: 1,
+              borderStyle: "solid",
+            }}
+          />
+        </div>
         <Form>
-      
+          {/*  */}
+          <Form.Group controlId="formFile" className="mb-3">
+            <Form.Label>Profile</Form.Label>
+            <Form.Control
+              accept="image/png,image/jpeg,image/jpg"
+              placeholder="เลือกรูปภาพ"
+              size="lg"
+              type="file"
+              onChange={(e: any) => {
+                // console.log(e.target.files[0]);
+                getBase64(e.target.files[0], (result: any) => {
+                  // console.log(result);
+                  setShowFile(result);
+                });
+
+                setSelectedFile(e.target.files[0]);
+              }}
+            />
+          </Form.Group>
           {/* name */}
           <Form.Group className="mb-2">
             <Form.Label>Username</Form.Label>

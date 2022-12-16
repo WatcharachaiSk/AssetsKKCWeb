@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Table, Button } from "react-bootstrap";
 import { AiFillEdit } from "react-icons/ai";
 import { HiCheck, HiXMark } from "react-icons/hi2";
+import colors from "../../config/colors";
 
 function TableListUsers(props: any) {
   const { itemList, editPage } = props;
@@ -59,7 +60,15 @@ function TableListUsers(props: any) {
                 <td>{item?.nickname}</td>
                 <td>{item?.email}</td>
                 <td>{item?.telephone}</td>
-                <td>{item?.user?.admin ? <HiCheck /> : <HiXMark />}</td>
+                <td
+                  style={{
+                    color: item?.user?.admin
+                      ? colors.statusColor1
+                      : colors.statusColor0,
+                  }}
+                >
+                  {item?.user?.admin ? <HiCheck /> : <HiXMark />}
+                </td>
               </tr>
             );
           })}

@@ -26,6 +26,7 @@ export const API = {
 
   //POST
   createUser: baseURL + `/createUser`,
+  createUserPhoto: baseURL + `/createUserPhoto`,
   createItem: baseURL + `/createItem`,
   createCategory: baseURL + `/createCategory`,
   createTypeItem: baseURL + `/createTypeItem`,

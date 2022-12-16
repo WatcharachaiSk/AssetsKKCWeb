@@ -1,6 +1,7 @@
 import { Form, Container, Row, Col } from "react-bootstrap";
 import { useState, useEffect, useMemo } from "react";
 import images from "../../../../config/index.images";
+import setURLProfile from "../../../../config/setURL_image";
 // import configAxios from "../../../../axios/configAxios";
 // import axios from "axios";
 // import { API } from "../../../../axios/swr/endpoint";
@@ -22,20 +23,22 @@ import images from "../../../../config/index.images";
 function ShowProfile(props: any) {
   // const navigate = useNavigate();
   const [showProfile, setShowProfile] = useState<any>();
-
+  // console.log("showProfile = " + showProfile);
+  const [showImage, setShowImage] = useState<any>();
   useEffect(() => {
     let profile: any = localStorage.getItem("Profile");
     profile = JSON.parse(profile);
     setShowProfile(profile);
-    // console.log(profile);
+
+    const urlProfile = setURLProfile(profile?.name_image);
+    setShowImage(urlProfile);
   }, []);
-  const [showFile, setShowFile] = useState<any>();
 
   return (
     <Container style={{ borderRadius: 15, width: "100%", height: "100%" }}>
       <div className="d-flex justify-content-center">
         <img
-          src={showFile ? showFile : images.imageNotFound}
+          src={showImage ? showImage : images.imageNotFound}
           className="rounded float-right"
           width={200}
           height={200}
