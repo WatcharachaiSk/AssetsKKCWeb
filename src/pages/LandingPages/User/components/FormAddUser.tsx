@@ -18,21 +18,22 @@ import images from "../../../../config/index.images";
 function FormAddUser(props: any) {
   const navigate = useNavigate();
 
-  const { setModalShowCheckUser, setPostUser, setPostUserCheck } = props;
+  const { setModalShowCheckUser, setPostUser, setPostUserCheck, setuserUrl } =
+    props;
   const [getFaculty, setGetFaculty] = useState<{}>({});
   const [getDepartment, setGetDepartment] = useState<{}>({});
 
-  const [username, setUsername] = useState<string>();
-  const [password, setPassword] = useState<string>();
-  const [checkPassword, setCheckPassword] = useState<string>();
-  const [firstname, setFirstname] = useState<string>();
-  const [lastname, setLastname] = useState<string>();
-  const [nickname, setNickname] = useState<string>();
-  const [telephone, setTelephone] = useState<string>();
-  const [email, setEmail] = useState<string>();
+  const [username, setUsername] = useState<any>();
+  const [password, setPassword] = useState<any>();
+  const [checkPassword, setCheckPassword] = useState<any>();
+  const [firstname, setFirstname] = useState<any>();
+  const [lastname, setLastname] = useState<any>();
+  const [nickname, setNickname] = useState<any>();
+  const [telephone, setTelephone] = useState<any>();
+  const [email, setEmail] = useState<any>();
   const [radioValue, setRadioValue] = useState("");
-  const [facultyFId, setFacultyFId] = useState<number>(0);
-  const [departmentDId, setDepartmentDId] = useState<number>(0);
+  const [facultyFId, setFacultyFId] = useState<any>(0);
+  const [departmentDId, setDepartmentDId] = useState<any>(0);
 
   // const [admin, setAdmin] = useState<boolean>();
 
@@ -58,6 +59,23 @@ function FormAddUser(props: any) {
     }
   }, [facultyFId]);
 
+  // Image
+  const [selectedFile, setSelectedFile] = useState<any>();
+  const [showFile, setShowFile] = useState<any>();
+  // console.log(selectedFile);
+  // console.log("showFile = " + showFile);
+
+  const getBase64 = (file: any, cb: any) => {
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function () {
+      cb(reader.result);
+    };
+    reader.onerror = function (error) {
+      // console.log("Error: ", error);
+    };
+  };
+
   const onSubmit = async (event: any) => {
     event.preventDefault();
     const obj = {
@@ -76,7 +94,7 @@ function FormAddUser(props: any) {
         return item.d_id == departmentDId;
       }),
     };
-    const dataform = {
+    const data = {
       username: username,
       password: password,
       admin: radioValue == "1" ? true : false,
@@ -88,8 +106,27 @@ function FormAddUser(props: any) {
       facultyFId: facultyFId,
       departmentDId: departmentDId,
     };
+
+    let dataform = new FormData();
+    dataform.append("username", username);
+    dataform.append("password", password);
+    dataform.append("admin", radioValue);
+    dataform.append("firstname", firstname);
+    dataform.append("lastname", lastname);
+    dataform.append("nickname", nickname);
+    dataform.append("telephone", telephone);
+    dataform.append("email", email);
+    dataform.append("facultyFId", facultyFId);
+    dataform.append("departmentDId", departmentDId);
+    dataform.append("images", selectedFile);
+
+    console.log(selectedFile);
+    // console.log(typeof data);
+    // console.log(typeof dataform);
+
     setPostUserCheck(obj);
-    setPostUser(dataform);
+    setuserUrl(selectedFile ? true : false);
+    setPostUser(selectedFile ? dataform : data);
     setModalShowCheckUser(true);
   };
 
@@ -97,23 +134,6 @@ function FormAddUser(props: any) {
     { name: "Admin", value: "1" },
     { name: "User", value: "0" },
   ];
-  
-  // Image
-  const [selectedFile, setSelectedFile] = useState<any>();
-  const [showFile, setShowFile] = useState<any>();
-  // console.log(selectedFile);
-  // console.log("showFile = " + showFile);
-
-  const getBase64 = (file: any, cb: any) => {
-    let reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = function () {
-      cb(reader.result);
-    };
-    reader.onerror = function (error) {
-      // console.log("Error: ", error);
-    };
-  };
 
   return (
     <Container style={{ borderRadius: 15, width: "100%", height: "100%" }}>

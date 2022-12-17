@@ -20,12 +20,16 @@ function EditUser() {
   const [postUserCheck, setPostUserCheck] = useState<object>();
   const [postUser, setPostUser] = useState<object>();
 
+  const [userUrl, setuserUrl] = useState<boolean>(false);
+
   const onSubmitFnUser = async (status: number) => {
     setModalShowCheckUser(false);
+    let sendUrl = userUrl ? API.updateUserPhoto : API.updateUser;
+    // console.log(sendUrl);
     if (status == 1) {
       try {
         const res = await axios(
-          configAxios("put", `${API.updateUser}${state.id}`, postUser)
+          configAxios("put", `${sendUrl}${state.id}`, postUser)
         );
         checkStatus(res, "แก้ไขผู้ใช้งานเสร็จสิ้น");
         navigate(-1);
@@ -55,6 +59,7 @@ function EditUser() {
         setPostUserCheck={setPostUserCheck}
         setPostUser={setPostUser}
         user_Old={user_Old}
+        setuserUrl={setuserUrl}
       />
     </div>
   );

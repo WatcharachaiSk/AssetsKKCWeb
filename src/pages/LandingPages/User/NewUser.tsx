@@ -15,12 +15,17 @@ function NewUser() {
   const [modalShowCheckUser, setModalShowCheckUser] = useState(false);
   const [postUserCheck, setPostUserCheck] = useState<object>();
   const [postUser, setPostUser] = useState<object>();
+  // console.log(postUser);
+  const [userUrl, setuserUrl] = useState<boolean>(false);
+  // console.log(userUrl);
 
   const onSubmitFnUser = async (status: number) => {
     setModalShowCheckUser(false);
+    let sendUrl = userUrl ? API.createUserPhoto : API.createUser;
+    // console.log(sendUrl);
     if (status == 1) {
       try {
-        const res = await axios(configAxios("post", API.createUser, postUser));
+        const res = await axios(configAxios("post", sendUrl, postUser));
         checkStatus(res, "เพิ่มผู้ใช้งานเสร็จสิ้น");
       } catch (error: any) {
         checkToken(error.response.data.status, error.request.status, navigate);
@@ -48,6 +53,7 @@ function NewUser() {
         setModalShowCheckUser={setModalShowCheckUser}
         setPostUserCheck={setPostUserCheck}
         setPostUser={setPostUser}
+        setuserUrl={setuserUrl}
       />
     </>
   );

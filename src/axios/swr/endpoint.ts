@@ -38,6 +38,7 @@ export const API = {
 
   //PUT
   updateUser: baseURL + `/updateUser/`,
+  updateUserPhoto: baseURL + `/updateUserPhoto/`,
   updateItem: baseURL + `/updateItem/`,
   updateFaculty: baseURL + `/updateFaculty/`,
   updateDepartment: baseURL + `/updateDepartment/`,

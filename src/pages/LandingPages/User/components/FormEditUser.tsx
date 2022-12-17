@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import _ from "lodash";
 import {
   Button,
@@ -6,6 +6,8 @@ import {
   Container,
   ToggleButton,
   ButtonGroup,
+  Row,
+  Col,
 } from "react-bootstrap";
 import axios from "axios";
 import configAxios from "../../../../axios/configAxios";
@@ -17,54 +19,58 @@ import images from "../../../../config/index.images";
 import setURLProfile from "../../../../config/setURL_image";
 
 function FormEditUser(props: any) {
-  const { setModalShowCheckUser, setPostUser, setPostUserCheck, user_Old } =
-    props;
+  const {
+    setModalShowCheckUser,
+    setPostUser,
+    setPostUserCheck,
+    user_Old,
+    setuserUrl,
+  } = props;
   // console.log(user_Old);
 
   const navigate = useNavigate();
+  const nameImage_delete = user_Old?.name_image;
+  // console.log(nameImage_delete);
 
   const [getFaculty, setGetFaculty] = useState<{}>({});
   const [getDepartment, setGetDepartment] = useState<{}>({});
 
-  const [username, setUsername] = useState<string>(user_Old?.user?.username);
-  const [username_Old, setUsername_Old] = useState<string>(
+  const [username, setUsername] = useState<any>(user_Old?.user?.username);
+  const [username_Old, setUsername_Old] = useState<any>(
     user_Old?.user?.username
   );
   //
-  const [password, setPassword] = useState<string>();
-  const [checkPassword, setCheckPassword] = useState<string>();
+  const [password, setPassword] = useState<any>();
+  const [checkPassword, setCheckPassword] = useState<any>();
   //
-  const [firstname, setFirstname] = useState<string>(user_Old?.firstname);
-  const [firstname_Old, setFirstname_Old] = useState<string>(
-    user_Old?.firstname
-  );
+  const [firstname, setFirstname] = useState<any>(user_Old?.firstname);
+  const [firstname_Old, setFirstname_Old] = useState<any>(user_Old?.firstname);
   //
-  const [lastname, setLastname] = useState<string>(user_Old?.lastname);
-  const [lastname_Old, setLastname_Old] = useState<string>(user_Old?.lastname);
+  const [lastname, setLastname] = useState<any>(user_Old?.lastname);
+  const [lastname_Old, setLastname_Old] = useState<any>(user_Old?.lastname);
   //
-  const [nickname, setNickname] = useState<string>(user_Old?.nickname);
-  const [nickname_Old, setNickname_Old] = useState<string>(user_Old?.nickname);
+  const [nickname, setNickname] = useState<any>(user_Old?.nickname);
+  const [nickname_Old, setNickname_Old] = useState<any>(user_Old?.nickname);
   //
-  const [telephone, setTelephone] = useState<string>(user_Old?.telephone);
-  const [telephone_Old, setTelephone_Old] = useState<string>(
-    user_Old?.telephone
-  );
+  const [telephone, setTelephone] = useState<any>(user_Old?.telephone);
+  const [telephone_Old, setTelephone_Old] = useState<any>(user_Old?.telephone);
   //
-  const [email, setEmail] = useState<string>(user_Old?.email);
-  const [email_Old, setEmail_Old] = useState<string>(user_Old?.email);
+  const [email, setEmail] = useState<any>(user_Old?.email);
+  const [email_Old, setEmail_Old] = useState<any>(user_Old?.email);
+
+  // nameImage_delete
   //
   const [radioValue, setRadioValue] = useState(
     user_Old?.user?.admin ? "1" : "0"
   );
   //
-  const [facultyFId, setFacultyFId] = useState<number>(0);
-  const [facultyFId_Old, setFacultyFId_Old] = useState<number>(0);
+  const [facultyFId, setFacultyFId] = useState<any>(0);
+  const [facultyFId_Old, setFacultyFId_Old] = useState<any>(0);
   //
-  const [departmentDId, setDepartmentDId] = useState<number>(0);
-  const [departmentDId_Old, setDepartmentDId_Old] = useState<number>(0);
+  const [departmentDId, setDepartmentDId] = useState<any>(0);
+  const [departmentDId_Old, setDepartmentDId_Old] = useState<any>(0);
   // const [admin, setAdmin] = useState<boolean>();
 
-  const [showImage, setShowImage] = useState<any>();
   useMemo(async () => {
     try {
       const resFacu = await axios(configAxios("get", API.getFaculty));
@@ -92,6 +98,34 @@ function FormEditUser(props: any) {
     }
   }, [facultyFId]);
 
+  const radios = [
+    { name: "Admin", value: "1" },
+    { name: "User", value: "0" },
+  ];
+
+  // Image
+  const [selectedFile, setSelectedFile] = useState<any>();
+
+  // console.log(selectedFile);
+  //
+  const [showFile, setShowFile] = useState<any>();
+  const [showImage, setShowImage] = useState<any>();
+  // console.log(selectedFile);
+  // console.log("showFile = " + showFile);
+
+  useEffect(() => {}, [showFile]);
+
+  const getBase64 = (file: any, cb: any) => {
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function () {
+      cb(reader.result);
+    };
+    reader.onerror = function (error) {
+      // console.log("Error: ", error);
+    };
+  };
+
   const onSubmit = async (event: any) => {
     event.preventDefault();
     const obj = {
@@ -110,7 +144,7 @@ function FormEditUser(props: any) {
         return item.d_id == departmentDId;
       }),
     };
-    const dataform = {
+    const data = {
       username: username,
       password: password,
       admin: radioValue == "1" ? true : false,
@@ -122,38 +156,32 @@ function FormEditUser(props: any) {
       facultyFId: facultyFId,
       departmentDId: departmentDId,
     };
+
+    var dataform = new FormData();
+    dataform.append("username", username);
+    dataform.append("password", password);
+    dataform.append("admin", radioValue);
+    dataform.append("firstname", firstname);
+    dataform.append("lastname", lastname);
+    dataform.append("nickname", nickname);
+    dataform.append("telephone", telephone);
+    dataform.append("email", email);
+    dataform.append("facultyFId", facultyFId);
+    dataform.append("departmentDId", departmentDId);
+    dataform.append("nameImage_delete", nameImage_delete);
+    dataform.append("images", selectedFile);
     setPostUserCheck(obj);
-    setPostUser(dataform);
+    setuserUrl(selectedFile ? true : false);
+    setPostUser(selectedFile ? dataform : data);
     setModalShowCheckUser(true);
   };
 
-  const radios = [
-    { name: "Admin", value: "1" },
-    { name: "User", value: "0" },
-  ];
-
-  // Image
-  const [selectedFile, setSelectedFile] = useState<any>();
-  const [showFile, setShowFile] = useState<any>();
-  // console.log(selectedFile);
-  // console.log("showFile = " + showFile);
-
-  const getBase64 = (file: any, cb: any) => {
-    let reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = function () {
-      cb(reader.result);
-    };
-    reader.onerror = function (error) {
-      // console.log("Error: ", error);
-    };
-  };
   return (
     <>
       <Container style={{ borderRadius: 15, width: "100%", height: "100%" }}>
         <div className="d-flex justify-content-center">
           <img
-            src={showImage ? showImage : images.upLoadImg}
+            src={showFile ? showFile : showImage ? showImage : images.upLoadImg}
             className="rounded float-right"
             width={200}
             height={200}
@@ -168,24 +196,30 @@ function FormEditUser(props: any) {
         </div>
         <Form>
           {/*  */}
-          <Form.Group controlId="formFile" className="mb-3">
-            <Form.Label>Profile</Form.Label>
-            <Form.Control
-              accept="image/png,image/jpeg,image/jpg"
-              placeholder="เลือกรูปภาพ"
-              size="lg"
-              type="file"
-              onChange={(e: any) => {
-                // console.log(e.target.files[0]);
-                getBase64(e.target.files[0], (result: any) => {
-                  // console.log(result);
-                  setShowFile(result);
-                });
+          <div className="d-flex align-items-center justify-content-center">
+            <div>
+              <Form.Group controlId="formFile" className="mb-3 ">
+                <Form.Label></Form.Label>
+                <Form.Control
+                  // value={}
+                  accept="image/png,image/jpeg,image/jpg"
+                  placeholder="เลือกรูปภาพ"
+                  size="lg"
+                  type="file"
+                  onChange={(e: any) => {
+                    // console.log(e.target.files[0]);
+                    getBase64(e.target.files[0], (result: any) => {
+                      // console.log(result);
+                      setShowFile(result);
+                    });
+                    // console.log(e.target.files[0].name);
+                    setSelectedFile(e.target.files[0]);
+                  }}
+                />
+              </Form.Group>
+            </div>
+          </div>
 
-                setSelectedFile(e.target.files[0]);
-              }}
-            />
-          </Form.Group>
           {/* name */}
           <Form.Group className="mb-2">
             <Form.Label>Username</Form.Label>
