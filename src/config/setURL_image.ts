@@ -9,3 +9,8 @@ export const setURLItem = (name_image: string) => {
   const url: string = `${baseURL}${env.PATH_IMAGE_ITEM}${name_image}`;
   return url;
 };
+
+export const setURLItemDamaged = (name_image: string) => {
+  const url: string = `${baseURL}${env.PATH_IMAGE_ITEM_DAMAGED}${name_image}`;
+  return url;
+};

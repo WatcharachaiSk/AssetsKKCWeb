@@ -14,6 +14,7 @@ function ModalDetails(props: any) {
   const status_item: string = item?.status_item;
   const description = item?.description;
   const price = item?.price;
+  
   let urlProfile;
   if (item?.name_image_item) {
     urlProfile = setURLItem(item?.name_image_item);
