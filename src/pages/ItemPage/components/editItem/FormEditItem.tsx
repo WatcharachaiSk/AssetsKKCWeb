@@ -8,6 +8,9 @@ import checkToken from "../../../../config/checkToken";
 import _ from "lodash";
 import { sweet_basic } from "../../../../components/sweetalert2/sweet";
 import colors from "../../../../config/colors";
+import images from "../../../../config/index.images";
+import getBase64 from "../../../../config/getBase64";
+import { setURLItem } from "../../../../config/setURL_image";
 
 function FormEditItem(props: any) {
   const {
@@ -15,41 +18,88 @@ function FormEditItem(props: any) {
     setModalShowCheckEditItem,
     setPostEditItemCheck,
     setPostEditItem,
+    setuserUrl,
   } = props;
   const navigate = useNavigate();
+  const nameImage_delete = getItems?.name_image_item;
+  // console.log(nameImage_delete);
+  // const [nameImage_delete, setNameImage_delete] = useState<any>();
+
+  useEffect(() => {
+    setNameItem_Old(getItems?.name);
+    setNameItem(getItems?.name);
+
+    setCodeItem_Old(getItems?.code);
+    setCodeItem(getItems?.code);
+
+    setTypeItemTypeId_Old(getItems?.typeItemTypeId);
+    setTypeItemTypeId(getItems?.typeItemTypeId);
+
+    setCategoryCateId_Old(getItems?.category?.cate_id);
+    setCategoryCateId(getItems?.category?.cate_id);
+
+    setFacultyFId_Old(getItems?.facultyFId);
+    setFacultyFId(getItems?.facultyFId);
+
+    setDepartmentDId_Old(getItems?.departmentDId);
+    setDepartmentDId(getItems?.departmentDId);
+
+    setBuildingBId_Old(getItems?.buildingBId);
+    setBuildingBId(getItems?.buildingBId);
+
+    setDescription(getItems?.description);
+    setDescription_Old(getItems?.description);
+
+    setPrice(getItems?.price);
+    setPrice_Old(getItems?.price);
+
+    setFaculty_Old(getItems?.faculty);
+    setDepartment_Old(getItems?.department);
+    setBuilding_Old(getItems?.building);
+
+    setTypeItem_Old(getItems?.typeItem);
+    setCategory_Old(getItems?.category);
+    // setLocationLId(getItems?.locationLId);
+
+    if (getItems?.name_image_item) {
+      const urlProfile = setURLItem(getItems?.name_image_item);
+      setShowImage(urlProfile);
+    }
+  }, [getItems]);
+  //
   const [getFaculty, setGetFaculty] = useState<{}>({});
   const [getDepartment, setGetDepartment] = useState<{}>({});
   const [getBuilding, setGetBuilding] = useState<{}>({});
 
   const [getTypeItem, setGetTypeItem] = useState<{}>({});
 
-  const [nameItem_Old, setNameItem_Old] = useState<string>();
-  const [nameItem, setNameItem] = useState<string>();
+  const [nameItem_Old, setNameItem_Old] = useState<any>();
+  const [nameItem, setNameItem] = useState<any>();
   // console.log(nameItem);
-  const [description, setDescription] = useState<string>();
-  const [description_Old, setDescription_Old] = useState<string>();
-  const [price, setPrice] = useState<number>();
-  const [price_Old, setPrice_Old] = useState<number>();
+  const [description, setDescription] = useState<any>();
+  const [description_Old, setDescription_Old] = useState<any>();
+  const [price, setPrice] = useState<any>();
+  const [price_Old, setPrice_Old] = useState<any>();
 
-  const [codeItem_Old, setCodeItem_Old] = useState<string>();
-  const [codeItem, setCodeItem] = useState<string>();
+  const [codeItem_Old, setCodeItem_Old] = useState<any>();
+  const [codeItem, setCodeItem] = useState<any>();
 
-  const [typeItemTypeId_Old, setTypeItemTypeId_Old] = useState<number>(0);
-  const [typeItemTypeId, setTypeItemTypeId] = useState<number>(0);
+  const [typeItemTypeId_Old, setTypeItemTypeId_Old] = useState<any>(0);
+  const [typeItemTypeId, setTypeItemTypeId] = useState<any>(0);
 
-  const [nameCate, setnNameCate] = useState<string>();
+  const [nameCate, setnNameCate] = useState<any>();
 
-  const [categoryCateId_Old, setCategoryCateId_Old] = useState<number>(0);
-  const [categoryCateId, setCategoryCateId] = useState<number>(0);
+  const [categoryCateId_Old, setCategoryCateId_Old] = useState<any>(0);
+  const [categoryCateId, setCategoryCateId] = useState<any>(0);
 
-  const [facultyFId, setFacultyFId] = useState<number>(0);
-  const [facultyFId_Old, setFacultyFId_Old] = useState<number>(0);
+  const [facultyFId, setFacultyFId] = useState<any>(0);
+  const [facultyFId_Old, setFacultyFId_Old] = useState<any>(0);
 
-  const [departmentDId, setDepartmentDId] = useState<number>(0);
-  const [departmentDId_Old, setDepartmentDId_Old] = useState<number>(0);
+  const [departmentDId, setDepartmentDId] = useState<any>(0);
+  const [departmentDId_Old, setDepartmentDId_Old] = useState<any>(0);
 
-  const [buildingBId_Old, setBuildingBId_Old] = useState<number>(0);
-  const [buildingBId, setBuildingBId] = useState<number>(0);
+  const [buildingBId_Old, setBuildingBId_Old] = useState<any>(0);
+  const [buildingBId, setBuildingBId] = useState<any>(0);
 
   const [submit, setSubmit] = useState<any>();
 
@@ -123,43 +173,6 @@ function FormEditItem(props: any) {
 
   const [category_Old, setCategory_Old] = useState<any>();
   const [typeItem_Old, setTypeItem_Old] = useState<any>();
-
-  useEffect(() => {
-    setNameItem_Old(getItems?.name);
-    setNameItem(getItems?.name);
-
-    setCodeItem_Old(getItems?.code);
-    setCodeItem(getItems?.code);
-
-    setTypeItemTypeId_Old(getItems?.typeItemTypeId);
-    setTypeItemTypeId(getItems?.typeItemTypeId);
-
-    setCategoryCateId_Old(getItems?.category?.cate_id);
-    setCategoryCateId(getItems?.category?.cate_id);
-
-    setFacultyFId_Old(getItems?.facultyFId);
-    setFacultyFId(getItems?.facultyFId);
-
-    setDepartmentDId_Old(getItems?.departmentDId);
-    setDepartmentDId(getItems?.departmentDId);
-
-    setBuildingBId_Old(getItems?.buildingBId);
-    setBuildingBId(getItems?.buildingBId);
-
-    setDescription(getItems?.description);
-    setDescription_Old(getItems?.description);
-
-    setPrice(getItems?.price);
-    setPrice_Old(getItems?.price);
-
-    setFaculty_Old(getItems?.faculty);
-    setDepartment_Old(getItems?.department);
-    setBuilding_Old(getItems?.building);
-
-    setTypeItem_Old(getItems?.typeItem);
-    setCategory_Old(getItems?.category);
-    // setLocationLId(getItems?.locationLId);
-  }, [getItems]);
 
   // getFaculty
   useMemo(async () => {
@@ -241,7 +254,7 @@ function FormEditItem(props: any) {
       building: building,
       typeItem: typeItem,
     };
-    const dataform = {
+    const data = {
       name: !nameItem ? nameItem_Old : nameItem,
       code: !codeItem ? codeItem_Old : codeItem,
       description: !description ? description_Old : description,
@@ -260,18 +273,93 @@ function FormEditItem(props: any) {
           ? categoryCateId
           : categoryCateId_Old,
     };
+
+    var dataform = new FormData();
+    dataform.append("name", !nameItem ? nameItem_Old : nameItem);
+    dataform.append("code", !codeItem ? codeItem_Old : codeItem);
+    dataform.append("price", !price ? price_Old : price);
+    dataform.append(
+      "description",
+      !description ? description_Old : description
+    );
+    dataform.append(
+      "facultyFId",
+      facultyFId != facultyFId_Old ? facultyFId : facultyFId_Old
+    );
+    dataform.append(
+      "departmentDId",
+      departmentDId != departmentDId_Old ? departmentDId : departmentDId_Old
+    );
+    dataform.append(
+      "buildingBId",
+      buildingBId != buildingBId_Old ? buildingBId : buildingBId_Old
+    );
+    dataform.append(
+      "categoryCateId",
+      categoryCateId != categoryCateId_Old ? categoryCateId : categoryCateId_Old
+    );
+    dataform.append(
+      "typeItemTypeId",
+      typeItemTypeId != typeItemTypeId_Old ? typeItemTypeId : typeItemTypeId_Old
+    );
+    dataform.append("nameImage_delete", nameImage_delete);
+    dataform.append("images", selectedFile);
     // console.log("dataform = ", dataform);
 
     setPostEditItemCheck(obj);
-    setPostEditItem(dataform);
+    setuserUrl(selectedFile ? true : false);
+    setPostEditItem(selectedFile ? dataform : data);
     setModalShowCheckEditItem(true);
   };
+
+  const [showFile, setShowFile] = useState<any>();
+  const [showImage, setShowImage] = useState<any>();
+  // console.log("showImage = " + showImage);
+  const [selectedFile, setSelectedFile] = useState<any>();
 
   return (
     <Container style={{ borderRadius: 15, width: "100%", height: "100%" }}>
       {/*  */}
-
+      <div className="d-flex justify-content-center">
+        <img
+          src={showFile ? showFile : showImage ? showImage : images.upLoadImg}
+          className="rounded float-right"
+          width={200}
+          height={200}
+          style={{
+            objectFit: "cover",
+            borderRadius: 15,
+            borderColor: "#ced4da",
+            borderWidth: 1,
+            borderStyle: "solid",
+          }}
+        />
+      </div>
       <Form>
+        {/*  */}
+        <div className="d-flex align-items-center justify-content-center">
+          <div>
+            <Form.Group controlId="formFile" className="mb-3 ">
+              <Form.Label></Form.Label>
+              <Form.Control
+                // value={}
+                accept="image/png,image/jpeg,image/jpg"
+                placeholder="เลือกรูปภาพ"
+                size="lg"
+                type="file"
+                onChange={(e: any) => {
+                  // console.log(e.target.files[0]);
+                  getBase64(e.target.files[0], (result: any) => {
+                    // console.log(result);
+                    setShowFile(result);
+                  });
+                  // console.log(e.target.files[0].name);
+                  setSelectedFile(e.target.files[0]);
+                }}
+              />
+            </Form.Group>
+          </div>
+        </div>
         <Form.Group className="mb-2">
           <Form.Label>ชื่อ ครุภัณฑ์</Form.Label>
           <Form.Control

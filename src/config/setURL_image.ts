@@ -1,9 +1,11 @@
 import { baseURL } from "../axios/config";
 import env from "react-dotenv";
-const setURLProfile = (name_image: string) => {
+export const setURLProfile = (name_image: string) => {
   const url: string = `${baseURL}${env.PATH_IMAGE_PROFILE}${name_image}`;
-
   return url;
 };
 
-export default setURLProfile;
+export const setURLItem = (name_image: string) => {
+  const url: string = `${baseURL}${env.PATH_IMAGE_ITEM}${name_image}`;
+  return url;
+};

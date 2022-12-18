@@ -1,6 +1,6 @@
 import _ from "lodash";
 import { useNavigate } from "react-router-dom";
-import { Table, Button, Form } from "react-bootstrap";
+import { Table, Button, Form, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { AiFillEdit } from "react-icons/ai";
 import { GetKanitFont } from "../../config/fonts";
 import Moment from "react-moment";
@@ -8,7 +8,8 @@ import { IoQrCodeSharp } from "react-icons/io5";
 import colors from "../../config/colors";
 import ModalOneQr from "../modal/ModalQr/ModalOneQr";
 import ModalSelectQr from "../modal/ModalQr/ModalSelectQr";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import ModalDetails from "../modal/Details/ModalDetails";
 
 function TableListItem(props: any) {
   const { itemList, editPage } = props;
@@ -16,6 +17,8 @@ function TableListItem(props: any) {
   const [modalShowAll, setModalShowAll] = useState(false);
   const [getItem, setGetItem] = useState();
   const [selectItem, setSelectItem] = useState();
+
+  const [modalShowDetalis, setModalShowDetalis] = useState(false);
 
   // const [itemShow, setitemShow] = useState<any>();
   // console.log("itemShow = ", itemShow);
@@ -43,6 +46,13 @@ function TableListItem(props: any) {
           onHide={() => setModalShowAll(false)}
           items={itemList}
           idItems={selectItem}
+        />
+      )}
+      {modalShowDetalis && (
+        <ModalDetails
+          show={modalShowDetalis}
+          onHide={() => setModalShowDetalis(false)}
+          item={getItem}
         />
       )}
       <Table
@@ -91,7 +101,7 @@ function TableListItem(props: any) {
             <th>แก้ไข</th>
             <th>QR Code</th>
             <th>รหัสครุภัณฑ์</th>
-            <th>ชื่อ(ไทย)</th>
+            <th>ชื่อครุภัณฑ์</th>
             <th>หมวดหมู่</th>
             <th>ราคา</th>
             <th>สถานะ</th>
@@ -177,7 +187,24 @@ function TableListItem(props: any) {
                 {/*  */}
 
                 <td>{item?.code}</td>
-                <td>{item?.name}</td>
+                <OverlayTrigger
+                  overlay={
+                    <Tooltip id="tooltip-disabled">ดูรายละเอียด</Tooltip>
+                  }
+                >
+                  <td>
+                    <Button
+                      onClick={() => {
+                        setGetItem(item);
+                        setModalShowDetalis(true);
+                      }}
+                      style={{ fontSize: 20 }}
+                      variant="link"
+                    >
+                      {item?.name}
+                    </Button>
+                  </td>
+                </OverlayTrigger>
                 <td>{item?.category?.name}</td>
                 <td>{item?.price}</td>
                 <td style={{ color: item?.status_item ? "green" : "red" }}>

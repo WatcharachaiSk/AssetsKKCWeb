@@ -120,7 +120,8 @@ function FormAddUser(props: any) {
     dataform.append("departmentDId", departmentDId);
     dataform.append("images", selectedFile);
 
-    console.log(selectedFile);
+    // TODO
+    // console.log(selectedFile);
     // console.log(typeof data);
     // console.log(typeof dataform);
 

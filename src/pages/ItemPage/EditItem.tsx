@@ -28,6 +28,7 @@ function EditItem() {
   const [postUpdateItemCheck, setPostUpdateItemCheck] = useState<object>();
   const [postUpdateItem, setPostUpdateItem] = useState<object>();
   // console.log(postEditItem);
+  const [userUrl, setuserUrl] = useState<boolean>(false);
 
   useMemo(async () => {
     try {
@@ -44,10 +45,11 @@ function EditItem() {
 
   const onSubmitFnEditItem = async (status: number) => {
     setModalShowCheckEditItem(false);
+    let sendUrl = userUrl ? API.updateItemPhoto : API.updateItem;
     if (status == 1) {
       try {
         const res = await axios(
-          configAxios("put", `${API.updateItem}${state?.id}`, postEditItem)
+          configAxios("put", `${sendUrl}${state?.id}`, postEditItem)
         );
         checkStatus(res, "แก้ไขครุภัณฑ์สร็จสิ้น");
         setedit_updateEn(!edit_updateEn);
@@ -96,12 +98,15 @@ function EditItem() {
           title={"การย้ายสถานที่หรือเปลี่ยนสถานะ"}
         />
       )}
-      <FormEditItem
-        getItems={getItems}
-        setModalShowCheckEditItem={setModalShowCheckEditItem}
-        setPostEditItemCheck={setPostEditItemCheck}
-        setPostEditItem={setPostEditItem}
-      />
+      {getItems && (
+        <FormEditItem
+          getItems={getItems}
+          setModalShowCheckEditItem={setModalShowCheckEditItem}
+          setPostEditItemCheck={setPostEditItemCheck}
+          setPostEditItem={setPostEditItem}
+          setuserUrl={setuserUrl}
+        />
+      )}
       <div className="mt-5">
         <FormEditStatus
           getItems={getItems}

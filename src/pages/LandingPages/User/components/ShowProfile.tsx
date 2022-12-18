@@ -1,7 +1,7 @@
 import { Form, Container, Row, Col } from "react-bootstrap";
 import { useState, useEffect, useMemo } from "react";
 import images from "../../../../config/index.images";
-import setURLProfile from "../../../../config/setURL_image";
+import { setURLProfile } from "../../../../config/setURL_image";
 // import configAxios from "../../../../axios/configAxios";
 // import axios from "axios";
 // import { API } from "../../../../axios/swr/endpoint";

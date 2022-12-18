@@ -33,13 +33,17 @@ function NewItem() {
   // FormNewItem
   const [nameItem, setNameItem] = useState<string>("");
   const [codeItem, setCodeItem] = useState<string>("");
+  //
+  const [userUrl, setuserUrl] = useState<boolean>(false);
 
   // Submit
   const onSubmitFn = async (status: number) => {
     setModalShowCheck(false);
+    let sendUrl = userUrl ? API.createItemPhoto : API.createItem;
+    // console.log(sendUrl);
     if (status == 1) {
       try {
-        const res = await axios(configAxios("post", API.createItem, postItem));
+        const res = await axios(configAxios("post", sendUrl, postItem));
         checkStatus(res, "เพิ่มครุภัณฑ์เสร็จสิ้น");
       } catch (error: any) {
         checkToken(error.response.data.status, error.request.status, navigate);
@@ -98,9 +102,9 @@ function NewItem() {
       )}
       {modalShowCheckCate && (
         <ModalPostCate
-        modalShowCheckCate={modalShowCheckCate}
-        onSubmitFnCate={onSubmitFnCate}
-        chackDataCate={postItemCheckCate}
+          modalShowCheckCate={modalShowCheckCate}
+          onSubmitFnCate={onSubmitFnCate}
+          chackDataCate={postItemCheckCate}
         />
       )}
       {/*  */}
@@ -113,6 +117,7 @@ function NewItem() {
           setPostItemCheck={setPostItemCheck}
           setModalShowCheck={setModalShowCheck}
           setPostItem={setPostItem}
+          setuserUrl={setuserUrl}
         />
       )}
       {/*  */}
@@ -126,9 +131,9 @@ function NewItem() {
       {/*  */}
       {showFrom == "AddCategory" && (
         <FormAddCateItem
-        setModalShowCheckCate={setModalShowCheckCate}
-        setPostCate={setPostCate}
-        setPostItemCheckCate={setPostItemCheckCate}
+          setModalShowCheckCate={setModalShowCheckCate}
+          setPostCate={setPostCate}
+          setPostItemCheckCate={setPostItemCheckCate}
         />
       )}
     </div>

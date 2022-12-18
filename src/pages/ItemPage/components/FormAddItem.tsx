@@ -7,6 +7,8 @@ import checkToken from "../../../config/checkToken";
 import { useNavigate } from "react-router-dom";
 import _ from "lodash";
 import { sweet_basic } from "../../../components/sweetalert2/sweet";
+import images from "../../../config/index.images";
+import getBase64 from "../../../config/getBase64";
 
 function FormAddItem(props: any) {
   const {
@@ -17,6 +19,7 @@ function FormAddItem(props: any) {
     setModalShowCheck,
     setPostItemCheck,
     setPostItem,
+    setuserUrl,
   } = props;
 
   const navigate = useNavigate();
@@ -27,95 +30,30 @@ function FormAddItem(props: any) {
   const [getBuilding, setGetBuilding] = useState<{}>({});
   const [getLocation, setGetLocation] = useState<{}>({});
 
-  const [idFty, setIdFty] = useState<number>(0);
-  const [idDpm, setIdDpm] = useState<number>(0);
-  const [IdBud, setIdBul] = useState<number>(0);
-  const [idLocat, setIdLocat] = useState<number>(0);
-  const [idcate, setIdcate] = useState<number>(0);
-  const [idType, setIdType] = useState<number>(0);
+  const [idFty, setIdFty] = useState<any>(0);
+  const [idDpm, setIdDpm] = useState<any>(0);
+  const [IdBud, setIdBul] = useState<any>(0);
+  const [idLocat, setIdLocat] = useState<any>(0);
+  const [idcate, setIdcate] = useState<any>(0);
+  const [idType, setIdType] = useState<any>(0);
   //
-  useEffect(() => {
-    console.log("..........................");
-    console.log("idFty = ", idFty);
-    console.log("idDpm = ", idDpm);
-    console.log("IdBud = ", IdBud);
-    console.log("idLocat = ", idLocat);
-    console.log("idcate = ", idcate);
-    console.log("idType = ", idType);
-  }, [idFty, idDpm, IdBud, idLocat, idcate, idType]);
+  // useEffect(() => {
+  //   console.log("..........................");
+  //   console.log("idFty = ", idFty);
+  //   console.log("idDpm = ", idDpm);
+  //   console.log("IdBud = ", IdBud);
+  //   console.log("idLocat = ", idLocat);
+  //   console.log("idcate = ", idcate);
+  //   console.log("idType = ", idType);
+  // }, [idFty, idDpm, IdBud, idLocat, idcate, idType]);
 
   //
-  const [status, setStatus] = useState<number>(1);
-  const [nameCate, setNameCate] = useState<string>();
+  const [status, setStatus] = useState<any>(1);
+  const [nameCate, setNameCate] = useState<any>();
 
-  const [description, setDescription] = useState<string>();
-  const [price, setPrice] = useState<number>();
+  const [description, setDescription] = useState<any>();
+  const [price, setPrice] = useState<any>();
   //
-  const onSubmit = async (event: any) => {
-    event.preventDefault();
-    const obj = {
-      name: nameItem,
-      code: codeItem,
-      status_item: {
-        id: status,
-        name: status == 1 ? "ปกติ" : "ชำรุด",
-      },
-      description: description,
-      price: price,
-      faculty: {
-        id: idFty,
-        faculty: _.filter(getFaculty, (item: any) => {
-          return item.f_id == idFty;
-        }),
-      },
-      department: {
-        id: idDpm,
-        department: _.filter(getDepartment, (item: any) => {
-          return item.d_id == idDpm;
-        }),
-      },
-      building: {
-        id: IdBud,
-        building: _.filter(getBuilding, (item: any) => {
-          return item.b_id == IdBud;
-        }),
-      },
-      location: {
-        id: idLocat,
-        location: _.filter(getLocation, (item: any) => {
-          return item.l_id == idLocat;
-        }),
-      },
-      typeItemType: {
-        id: idType,
-        typeItem: _.filter(getTypeItem, (item: any) => {
-          return item.type_id == idType;
-        }),
-      },
-    };
-    const dataform = {
-      name: nameItem,
-      code: codeItem,
-      status_item: status,
-      description: description,
-      price: price,
-      facultyFId: idFty,
-      departmentDId: idDpm,
-      buildingBId: IdBud,
-      categoryCateId: idcate,
-      locationLId: idLocat,
-      typeItemTypeId: idType,
-    };
-    setPostItem(dataform);
-
-    setPostItemCheck(obj);
-
-    onSubmitChk();
-  };
-
-  const onSubmitChk = () => {
-    setModalShowCheck(true);
-  };
 
   // getFaculty
   useMemo(async () => {
@@ -233,14 +171,129 @@ function FormAddItem(props: any) {
     setIdType(id);
   };
 
+  // Image
+  const [selectedFile, setSelectedFile] = useState<any>();
+  const [showFile, setShowFile] = useState<any>();
+  // console.log(selectedFile);
+  // console.log("showFile = " + showFile);
+
+  const onSubmit = async (event: any) => {
+    event.preventDefault();
+    const obj = {
+      name: nameItem,
+      code: codeItem,
+      status_item: {
+        id: status,
+        name: status == 1 ? "ปกติ" : "ชำรุด",
+      },
+      description: description,
+      price: price,
+      faculty: {
+        id: idFty,
+        faculty: _.filter(getFaculty, (item: any) => {
+          return item.f_id == idFty;
+        }),
+      },
+      department: {
+        id: idDpm,
+        department: _.filter(getDepartment, (item: any) => {
+          return item.d_id == idDpm;
+        }),
+      },
+      building: {
+        id: IdBud,
+        building: _.filter(getBuilding, (item: any) => {
+          return item.b_id == IdBud;
+        }),
+      },
+      location: {
+        id: idLocat,
+        location: _.filter(getLocation, (item: any) => {
+          return item.l_id == idLocat;
+        }),
+      },
+      typeItemType: {
+        id: idType,
+        typeItem: _.filter(getTypeItem, (item: any) => {
+          return item.type_id == idType;
+        }),
+      },
+    };
+    const data = {
+      name: nameItem,
+      code: codeItem,
+      status_item: status,
+      description: description,
+      price: price,
+      facultyFId: idFty,
+      departmentDId: idDpm,
+      buildingBId: IdBud,
+      categoryCateId: idcate,
+      locationLId: idLocat,
+      typeItemTypeId: idType,
+    };
+
+    var dataform = new FormData();
+    dataform.append("name", nameItem);
+    dataform.append("code", codeItem);
+    dataform.append("status_item", status);
+    dataform.append("price", price);
+    dataform.append("description", description);
+    dataform.append("facultyFId", idFty);
+    dataform.append("departmentDId", idDpm);
+    dataform.append("buildingBId", IdBud);
+    dataform.append("categoryCateId", idcate);
+    dataform.append("locationLId", idLocat);
+    dataform.append("typeItemTypeId", idType);
+    dataform.append("images", selectedFile);
+
+    //  TODO
+    setPostItemCheck(obj);
+    setuserUrl(selectedFile ? true : false);
+    setPostItem(selectedFile ? dataform : data);
+    setModalShowCheck(true);
+  };
   // console.log("IdLocat = " + IdLocat);
 
   return (
     <Container style={{ borderRadius: 15, width: "100%", height: "100%" }}>
       {/*  */}
-
+      <div className="d-flex justify-content-center mt-3">
+        <img
+          src={showFile ? showFile : images.upLoadImg}
+          className="rounded float-right"
+          width={200}
+          height={200}
+          style={{
+            objectFit: "cover",
+            borderRadius: 15,
+            borderColor: "#ced4da",
+            borderWidth: 1,
+            borderStyle: "solid",
+          }}
+        />
+      </div>
       {/*  */}
       <Form>
+        <Form.Group controlId="formFile" className="mb-3">
+          <Form.Label>รูปครุภัณฑ์</Form.Label>
+          <Form.Control
+            accept="image/png,image/jpeg,image/jpg"
+            placeholder="เลือกรูปภาพ"
+            size="lg"
+            type="file"
+            onChange={(e: any) => {
+              // console.log(e.target.files[0]);
+              getBase64(e.target.files[0], (result: any) => {
+                // console.log(result);
+                setShowFile(result);
+              });
+
+              setSelectedFile(e.target.files[0]);
+            }}
+          />
+        </Form.Group>
+
         <Form.Group className="mb-2" controlId="formNameItem">
           <Form.Label>ชื่อครุภัณฑ์</Form.Label>
           <Form.Control
@@ -298,7 +351,7 @@ function FormAddItem(props: any) {
           <Form.Control
             size="lg"
             // style={{ height: "3rem" }}
-            type="number"
+            type="any"
             placeholder="ราคาครุภัณฑ์"
             value={price}
             onChange={(event: any) => {

@@ -16,7 +16,8 @@ import checkToken from "../../../../config/checkToken";
 import { useNavigate } from "react-router-dom";
 import { sweet_basic } from "../../../../components/sweetalert2/sweet";
 import images from "../../../../config/index.images";
-import setURLProfile from "../../../../config/setURL_image";
+import { setURLProfile } from "../../../../config/setURL_image";
+import getBase64 from "../../../../config/getBase64";
 
 function FormEditUser(props: any) {
   const {
@@ -112,19 +113,9 @@ function FormEditUser(props: any) {
   const [showImage, setShowImage] = useState<any>();
   // console.log(selectedFile);
   // console.log("showFile = " + showFile);
+  // console.log("showImage = " + showFile);
 
-  useEffect(() => {}, [showFile]);
-
-  const getBase64 = (file: any, cb: any) => {
-    let reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = function () {
-      cb(reader.result);
-    };
-    reader.onerror = function (error) {
-      // console.log("Error: ", error);
-    };
-  };
+  // useEffect(() => {}, [showFile]);
 
   const onSubmit = async (event: any) => {
     event.preventDefault();
@@ -170,6 +161,7 @@ function FormEditUser(props: any) {
     dataform.append("departmentDId", departmentDId);
     dataform.append("nameImage_delete", nameImage_delete);
     dataform.append("images", selectedFile);
+    // 
     setPostUserCheck(obj);
     setuserUrl(selectedFile ? true : false);
     setPostUser(selectedFile ? dataform : data);
