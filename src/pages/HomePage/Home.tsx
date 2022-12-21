@@ -1,6 +1,5 @@
 import { useState, useMemo } from "react";
 import NavbarTop from "../../components/navbar/NavbarTop";
-import styled from "styled-components";
 import CardList from "./components/CardList";
 import { useNavigate } from "react-router-dom";
 // import colors from "../../config/colors";
@@ -22,7 +21,6 @@ function Home() {
 
   const [dataFilter, setDataFilter] = useState<any>(undefined);
 
-  // console.log("dataFilter", dataFilter);
 
   useMemo(async () => {
     try {
@@ -36,17 +34,11 @@ function Home() {
     }
   }, []);
 
-  //console.log(category);
 
-  const Fullscreen = styled.div`
-    /* background: #fff no-repeat;
-    -webkit-background-size: cover;
-    background-size: cover; */
-  `;
 
   return (
     <>
-      <Fullscreen style={{ ...GetKanitFont("KanitLight") }}>
+      <div style={{ ...GetKanitFont("KanitLight") }}>
         <NavbarTop clickPage={clickPage} setClickPage={setClickPage} />
         <NavbarItem clickPage={clickPage} />
         <div className="d-flex justify-content-center mt-5 mb-2">
@@ -97,7 +89,7 @@ function Home() {
             pageShowItem={"/home/type_item"}
           />
         )}
-      </Fullscreen>
+      </div>
     </>
   );
 }

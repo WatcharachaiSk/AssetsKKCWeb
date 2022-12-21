@@ -8,7 +8,7 @@ function ModalPostEdit(props: any) {
     isEdit,
     title,
   } = props;
-  console.log(chackDataEdit);
+  //console.log(chackDataEdit);
 
   return (
     <Modal

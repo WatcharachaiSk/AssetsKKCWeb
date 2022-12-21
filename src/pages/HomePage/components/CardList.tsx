@@ -28,7 +28,7 @@ function CardList(props: any) {
     // console.log(arrvauleNormal);
     setgetVauleNormal(arrvauleNormal);
     setgetVauleNotNormal(arrvauleNotNormal);
-  }, []);
+  }, [listItem]);
 
   return (
     <>
