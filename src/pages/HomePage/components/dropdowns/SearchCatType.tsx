@@ -18,7 +18,7 @@ function SearchCatType(props: any) {
       }
       setDepartment(Array.from(new Set(arrDepartment)));
     }
-  }, []);
+  }, [getItems]);
 
   const [pickAll, setPickAll] = useState<string>("all");
   const [pickDepartment, setPickDepartment] = useState<string>("0");

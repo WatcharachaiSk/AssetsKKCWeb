@@ -18,9 +18,9 @@ function Items() {
   const [getItems, setGetItems] = useState<{}>({});
 
   // *
-// console.log(getItems)
+  // console.log(getItems)
   //
-  const [dataFilter, setDataFilter] = useState<any>(undefined);
+
   const [clickPage, setClickPage] = useState<string>("items");
 
   useMemo(async () => {
@@ -37,6 +37,9 @@ function Items() {
     navigate(page, { state: { id: idItem } });
   };
 
+  // const [itemFilter, setItemFilter] = useState<any>([]);
+  const [dataFilter, setDataFilter] = useState<any>(undefined);
+
   return (
     <div style={{ ...GetKanitFont("KanitLight") }}>
       <NavbarTop clickPage={clickPage} />
@@ -48,7 +51,11 @@ function Items() {
         <ButtonAdd pageAdd={"/items/newitem"} titleButton={"เพิ่มครุภัณฑ์"} />
       </div>
       <div className="d-flex justify-content-end flex-wrap">
-        <SearchItem getItems={getItems} setDataFilter={setDataFilter} />
+        <SearchItem
+          getItems={getItems}
+          dataFilter={dataFilter}
+          setDataFilter={setDataFilter}
+        />
       </div>
 
       <TableListItem

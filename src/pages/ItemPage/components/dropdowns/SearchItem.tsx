@@ -1,11 +1,10 @@
 import { useState, useEffect } from "react";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Row, Col } from "react-bootstrap";
 import styled from "styled-components";
 import _ from "lodash";
 
 function SearchItem(props: any) {
-  const { getItems, setDataFilter } = props;
-
+  const { getItems, setDataFilter, dataFilter } = props;
 
   const [items, setItems] = useState<object>(getItems);
   // console.log(items);
@@ -108,207 +107,300 @@ function SearchItem(props: any) {
     align-items: center;
   `;
 
+  const [search, setSearch] = useState("");
+  const [pickSearch, setPickSearch] = useState("");
+  // console.log(pickSearch);
+
+  const onChangeSearch = (text: string) => {
+    const items =
+      dataFilter == undefined || dataFilter[0] == undefined
+        ? getItems
+        : dataFilter;
+    // console.log(items);
+
+    if (text) {
+      // console.log(text);
+      if (pickSearch === "name") {
+        const newData = items.filter((item: any) => {
+          const itemData = item?.name
+            ? item.name.toLowerCase()
+            : "".toLowerCase();
+
+          const textData = text.toLowerCase();
+
+          return itemData.indexOf(textData) > -1;
+        });
+        setDataFilter(newData);
+        setSearch(text);
+      }
+      if (pickSearch === "code") {
+        const newData = items.filter((item: any) => {
+          const itemData = item?.code
+            ? item.code.toLowerCase()
+            : "".toLowerCase();
+
+          const textData = text.toLowerCase();
+
+          return itemData.indexOf(textData) > -1;
+        });
+        setDataFilter(newData);
+        setSearch(text);
+      }
+    } else {
+      setDataFilter(undefined);
+      setSearch(text);
+    }
+  };
   return (
-    <>
-      <BoxFlex>
-        <Button
-          className="d-inline mx-2 m-1"
-          onClick={() => {
-            setPickAll("all");
-            setPickFacultys("0");
-            setPickDepartment("0");
-            setPickBuilding("0");
-            setPickLocation("0");
-            setPickStatusItem("0");
+    <div>
+      <div className="d-flex flex-wrap">
+        <BoxFlex>
+          <Button
+            className="d-inline mx-2 m-1"
+            onClick={() => {
+              setPickAll("all");
+              setPickFacultys("0");
+              setPickDepartment("0");
+              setPickBuilding("0");
+              setPickLocation("0");
+              setPickStatusItem("0");
 
-            setSelected({
-              filter: "all",
-              value: "all",
-            });
-          }}
-          style={{
-            color: pickAll == "all" ? "#fff" : "#000",
-            borderColor: "#ced4da",
-          }}
-          variant={pickAll == "all" ? "secondary" : "outline-secondary"}
-        >
-          ค้นหาทั้งหมด
-        </Button>
-      </BoxFlex>
-
-      <BoxFlex>
-        <Form.Select
-          value={pickFacultys}
-          className="d-inline mx-2 m-1"
-          aria-label="Default select example"
-          onChange={(e) => {
-            setPickFacultys(e.target.value);
-            //
-            setPickDepartment("0");
-            setPickBuilding("0");
-            setPickLocation("0");
-            setPickStatusItem("0");
-            setPickAll("0");
-
-            //
-            if (e.target.value != "0") {
               setSelected({
-                filter: "facultys",
-                value: e.target.value,
+                filter: "all",
+                value: "all",
               });
-            } else {
-              setSelected("");
-            }
-          }}
-        >
-          <option value={"0"}>ค้นหาตามคณะ</option>
-          {_.map(facultys, (item: any, idx: number) => {
-            return (
-              <option key={idx} value={item}>
-                {item}
-              </option>
-            );
-          })}
-        </Form.Select>
-      </BoxFlex>
+            }}
+            style={{
+              color: pickAll == "all" ? "#fff" : "#000",
+              borderColor: "#ced4da",
+            }}
+            variant={pickAll == "all" ? "secondary" : "outline-secondary"}
+          >
+            ค้นหาทั้งหมด
+          </Button>
+        </BoxFlex>
 
-      <BoxFlex>
-        <Form.Select
-          className="d-inline mx-2 m-1"
-          aria-label="Default select example"
-          value={pickDepartment}
-          onChange={(e) => {
-            setPickDepartment(e.target.value);
-            setPickFacultys("0");
-            setPickBuilding("0");
-            setPickLocation("0");
-            setPickStatusItem("0");
-            setPickAll("0");
+        <BoxFlex>
+          <Form.Select
+            value={pickFacultys}
+            className="d-inline mx-2 m-1"
+            aria-label="Default select example"
+            onChange={(e) => {
+              setPickFacultys(e.target.value);
+              //
+              setPickDepartment("0");
+              setPickBuilding("0");
+              setPickLocation("0");
+              setPickStatusItem("0");
+              setPickAll("0");
 
-            if (e.target.value != "0") {
-              setSelected({
-                filter: "department",
-                value: e.target.value,
-              });
-            } else {
-              setSelected("");
-            }
-          }}
-        >
-          <option value={"0"}>ค้นหาตามสาขา</option>
-          {_.map(department, (item: any, idx: number) => {
-            return (
-              <option key={idx} value={item}>
-                {item}
-              </option>
-            );
-          })}
-        </Form.Select>
-      </BoxFlex>
+              //
+              if (e.target.value != "0") {
+                setSelected({
+                  filter: "facultys",
+                  value: e.target.value,
+                });
+              } else {
+                setSelected("");
+              }
+            }}
+          >
+            <option value={"0"}>ค้นหาตามคณะ</option>
+            {_.map(facultys, (item: any, idx: number) => {
+              return (
+                <option key={idx} value={item}>
+                  {item}
+                </option>
+              );
+            })}
+          </Form.Select>
+        </BoxFlex>
+
+        <BoxFlex>
+          <Form.Select
+            className="d-inline mx-2 m-1"
+            aria-label="Default select example"
+            value={pickDepartment}
+            onChange={(e) => {
+              setPickDepartment(e.target.value);
+              setPickFacultys("0");
+              setPickBuilding("0");
+              setPickLocation("0");
+              setPickStatusItem("0");
+              setPickAll("0");
+
+              if (e.target.value != "0") {
+                setSelected({
+                  filter: "department",
+                  value: e.target.value,
+                });
+              } else {
+                setSelected("");
+              }
+            }}
+          >
+            <option value={"0"}>ค้นหาตามสาขา</option>
+            {_.map(department, (item: any, idx: number) => {
+              return (
+                <option key={idx} value={item}>
+                  {item}
+                </option>
+              );
+            })}
+          </Form.Select>
+        </BoxFlex>
+        {/*  */}
+        <BoxFlex>
+          <Form.Select
+            className="d-inline mx-2 m-1"
+            aria-label="Default select example"
+            value={pickBuilding}
+            onChange={(e) => {
+              setPickBuilding(e.target.value);
+
+              setPickFacultys("0");
+              setPickDepartment("0");
+              setPickLocation("0");
+              setPickStatusItem("0");
+              setPickAll("0");
+
+              if (e.target.value != "0") {
+                setSelected({
+                  filter: "building",
+                  value: e.target.value,
+                });
+              } else {
+                setSelected("");
+              }
+            }}
+          >
+            <option value={"0"}>ค้นหาตามอาคาร</option>
+            {_.map(building, (item: any, idx: number) => {
+              return (
+                <option key={idx} value={item}>
+                  {item}
+                </option>
+              );
+            })}
+          </Form.Select>
+        </BoxFlex>
+        {/*  */}
+        <BoxFlex>
+          <Form.Select
+            className="d-inline mx-2 m-1"
+            aria-label="Default select example"
+            value={pickLocation}
+            onChange={(e) => {
+              setPickLocation(e.target.value);
+              setPickFacultys("0");
+              setPickDepartment("0");
+              setPickBuilding("0");
+              setPickStatusItem("0");
+              setPickAll("0");
+
+              if (e.target.value != "0") {
+                setSelected({
+                  filter: "location",
+                  value: e.target.value,
+                });
+              } else {
+                setSelected("");
+              }
+            }}
+          >
+            <option value={"0"}>ค้นหาตามสถานที่</option>
+            {_.map(location, (item: any, idx: number) => {
+              return (
+                <option key={idx} value={item}>
+                  {item}
+                </option>
+              );
+            })}
+          </Form.Select>
+        </BoxFlex>
+        <BoxFlex>
+          <Form.Select
+            className="d-inline mx-2 m-1"
+            aria-label="Default select example"
+            value={pickStatusItem}
+            onChange={(e: any) => {
+              const value = e.target.value;
+              setPickStatusItem(value);
+              setPickFacultys("0");
+              setPickDepartment("0");
+              setPickBuilding("0");
+              setPickLocation("0");
+              setPickAll("0");
+
+              if (e.target.value != "0") {
+                setSelected({
+                  filter: "status_item",
+                  value: e.target.value,
+                });
+              } else {
+                setSelected("");
+              }
+            }}
+          >
+            <option value={"0"}>ค้นหาตามสถานะ</option>
+            {_.map(statusItem, (item: any, idx: number) => {
+              return (
+                <option key={idx} value={item}>
+                  {item ? "ปกติ" : "ชำรุด"}
+                </option>
+              );
+            })}
+          </Form.Select>
+        </BoxFlex>
+      </div>
       {/*  */}
-      <BoxFlex>
-        <Form.Select
-          className="d-inline mx-2 m-1"
-          aria-label="Default select example"
-          value={pickBuilding}
-          onChange={(e) => {
-            setPickBuilding(e.target.value);
-
-            setPickFacultys("0");
-            setPickDepartment("0");
-            setPickLocation("0");
-            setPickStatusItem("0");
-            setPickAll("0");
-
-            if (e.target.value != "0") {
-              setSelected({
-                filter: "building",
-                value: e.target.value,
-              });
-            } else {
-              setSelected("");
-            }
-          }}
-        >
-          <option value={"0"}>ค้นหาตามอาคาร</option>
-          {_.map(building, (item: any, idx: number) => {
-            return (
-              <option key={idx} value={item}>
-                {item}
-              </option>
-            );
-          })}
-        </Form.Select>
-      </BoxFlex>
-      {/*  */}
-      <BoxFlex>
-        <Form.Select
-          className="d-inline mx-2 m-1"
-          aria-label="Default select example"
-          value={pickLocation}
-          onChange={(e) => {
-            setPickLocation(e.target.value);
-            setPickFacultys("0");
-            setPickDepartment("0");
-            setPickBuilding("0");
-            setPickStatusItem("0");
-            setPickAll("0");
-
-            if (e.target.value != "0") {
-              setSelected({
-                filter: "location",
-                value: e.target.value,
-              });
-            } else {
-              setSelected("");
-            }
-          }}
-        >
-          <option value={"0"}>ค้นหาตามสถานที่</option>
-          {_.map(location, (item: any, idx: number) => {
-            return (
-              <option key={idx} value={item}>
-                {item}
-              </option>
-            );
-          })}
-        </Form.Select>
-      </BoxFlex>
-      <BoxFlex>
-        <Form.Select
-          className="d-inline mx-2 m-1"
-          aria-label="Default select example"
-          value={pickStatusItem}
-          onChange={(e: any) => {
-            const value = e.target.value;
-            setPickStatusItem(value);
-            setPickFacultys("0");
-            setPickDepartment("0");
-            setPickBuilding("0");
-            setPickLocation("0");
-            setPickAll("0");
-
-            if (e.target.value != "0") {
-              setSelected({
-                filter: "status_item",
-                value: e.target.value,
-              });
-            } else {
-              setSelected("");
-            }
-          }}
-        >
-          <option value={"0"}>ค้นหาตามสถานะ</option>
-          {_.map(statusItem, (item: any, idx: number) => {
-            return (
-              <option key={idx} value={item}>
-                {item ? "ปกติ" : "ชำรุด"}
-              </option>
-            );
-          })}
-        </Form.Select>
-      </BoxFlex>
-    </>
+      <div className="d-flex justify-content-end ">
+        <div className="d-inline mx-2 m-1">
+          <Form.Group className="mt-1">
+            <Form.Control
+              value={search}
+              onChange={(event: any) => {
+                const value = event.target.value;
+                onChangeSearch(value);
+              }}
+              type="text"
+              placeholder="ค้นหา ชื่อ/รหัสครุภัณฑ์"
+            />
+          </Form.Group>
+        </div>
+        <fieldset className="d-flex align-self-center  mt-1">
+          <Form.Check
+            // checked={pickSearch == "" ? true : true}
+            className="m-1"
+            type="radio"
+            label="ค้าหาตามชื่อ"
+            name="formHorizontalRadios"
+            id="formHorizontalRadios1"
+            onChange={(event: any) => {
+              // console.log(event.target.checked);
+              if (event.target.checked) {
+                setPickSearch("name");
+              } else {
+              }
+            }}
+          />
+          <Form.Check
+            className="m-1"
+            type="radio"
+            label="ค้าหาตามรหัสครุภัณฑ์"
+            name="formHorizontalRadios"
+            id="formHorizontalRadios2"
+            onChange={(event: any) => {
+              // console.log(event.target.checked);
+              if (event.target.checked) {
+                setPickSearch("code");
+              } else {
+              }
+            }}
+          />
+        </fieldset>
+      </div>
+    </div>
   );
 }
 

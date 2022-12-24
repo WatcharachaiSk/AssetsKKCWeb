@@ -20,8 +20,9 @@ function ModalDetails(props: any) {
     urlProfile = setURLItem(item?.name_image_item);
     // console.log(urlProfile);
   }
+  
   const category = `${item?.category?.name}`;
-  const typeItem = `${item?.typeItem?.name}`;
+  const typeItem = `${item?.typeitem?.name}`;
 
   const faculty = `${item?.faculty?.nameTH} ${item?.faculty?.nameEN}`;
   const department = `${item?.department?.nameTH} ${item?.department?.nameEN}`;
@@ -29,9 +30,9 @@ function ModalDetails(props: any) {
   const location = `${item?.location?.nameTH} ${item?.location?.nameEN}`;
   const creator = item?.profile?.firstname + " " + item?.profile?.lastname;
   //
-  let up_Date_Statuses: object;
-  if (item?.up_Date_Statuses[0]) {
-    up_Date_Statuses = item?.up_Date_Statuses[0];
+  let up_date_statuses: object;
+  if (item?.up_date_statuses[0]) {
+    up_date_statuses = item?.up_date_statuses[0];
   }
   return (
     <>

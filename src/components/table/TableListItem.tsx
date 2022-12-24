@@ -72,7 +72,7 @@ function TableListItem(props: any) {
                 <Form.Check
                   // checked
                   onChange={(event: any) => {
-                    console.log(event.target.checked);
+                    // console.log(event.target.checked);
                     let arrPut: any = selectItem ? selectItem : [];
                     // if (event.target.checked) {
                     //   arrPut.push(event.target.value);

@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { sweet_confirm } from "../sweetalert2/sweet";
 import { GetKanitFont } from "../../config/fonts";
 import icons from "../../config/icons";
+import env from "react-dotenv";
 
 function NavbarTop(props: any) {
   const navigate = useNavigate();
@@ -88,7 +89,7 @@ function NavbarTop(props: any) {
               style={styles.fontNavLink}
               title={
                 <TitleAdmin color={clickPage}>
-                  {getProfile?.firstname} {"\n"} {getUserAdmin ? "Admin" : ""}
+                  {getProfile?.firstname} {"\n"} {getUserAdmin ? "Admin" : ""} {`(version ${env.REACT_APP_VERSION}) BETA`}
                 </TitleAdmin>
               }
             >
