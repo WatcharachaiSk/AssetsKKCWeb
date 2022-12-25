@@ -351,7 +351,7 @@ function FormAddItem(props: any) {
           <Form.Control
             size="lg"
             // style={{ height: "3rem" }}
-            type="any"
+            type="number"
             placeholder="ราคาครุภัณฑ์"
             value={price}
             onChange={(event: any) => {

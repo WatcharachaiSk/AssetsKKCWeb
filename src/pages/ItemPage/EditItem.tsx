@@ -11,7 +11,9 @@ import FormEditStatus from "./components/editItem/FormEditStatus";
 import HistoryItem from "./components/editItem/HistoryItem";
 import ModalPostEdit from "../../components/modal/ModalPostEdit";
 import checkStatus from "../../config/checkStatus";
+import DeleteItem from "../../components/buttons/DeleteItem";
 import { GetKanitFont } from "../../config/fonts";
+import ModalDeletel from "../../components/modal/ModalDeletel";
 
 function EditItem() {
   const navigate = useNavigate();
@@ -73,13 +75,39 @@ function EditItem() {
     }
   };
 
+  const [modalShowDeletel, setModalShowDeletel] = useState(false);
+  // // console.log(modalShowDeletel);
+  // const onSubmitFnDeletel = async (status: number) => {
+  //   setModalShowDeletel(false);
+  // };
+
   return (
     <div style={{ ...GetKanitFont("KanitLight") }}>
       <NavbarTop clickPage={state.isPage} />
-      <ButtonBack titleButton={"ย้อนกลับ"} />
+      <div className="d-flex justify-content-between">
+        <div>
+          <ButtonBack titleButton={"ย้อนกลับ"} />
+        </div>
+        <div>
+          <DeleteItem
+            titleButton={"ลบครุภัณฑ์"}
+            setModal={setModalShowDeletel}
+          />
+        </div>
+      </div>
+
       <div className="d-flex justify-content-center mt-5 mb-2">
         <h3>แก้ไขครุภัณฑ์</h3>
       </div>
+      {modalShowDeletel && (
+        <ModalDeletel
+          setModal={setModalShowDeletel}
+          modalShowDeletel={modalShowDeletel}
+          title={"ครุภัณฑ์"}
+          item={getItems}
+          isPage={"item"}
+        />
+      )}
       {modalShowCheckEditItem && (
         <ModalPostEdit
           onSubmitFnEdit={onSubmitFnEditItem}

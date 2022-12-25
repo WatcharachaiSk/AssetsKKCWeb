@@ -37,6 +37,9 @@ export const API = {
   createLocation: baseURL + `/createLocation`,
   updateStetus: baseURL + `/updateStetus`,
 
+  //Delete
+  deleteItem: baseURL + `/deleteItem`,
+
   //PUT
   updateUser: baseURL + `/updateUser/`,
   updateUserPhoto: baseURL + `/updateUserPhoto/`,

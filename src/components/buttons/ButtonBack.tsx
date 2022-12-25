@@ -12,13 +12,13 @@ function ButtonBack(props: any) {
     display: flex;
     /* border: 1px solid; */
     align-items: center;
-    margin-top: 50px;
-    margin: 50px;
+    /* margin-top: 50px;
+    margin: 50px; */
   `;
 
   return (
     <>
-      <BoxFlex>
+      <BoxFlex className="m-5">
         <div>
           <Button
             onClick={() => {
