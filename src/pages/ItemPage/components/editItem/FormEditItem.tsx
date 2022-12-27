@@ -22,7 +22,7 @@ function FormEditItem(props: any) {
   } = props;
   const navigate = useNavigate();
   const nameImage_delete = getItems?.name_image_item;
-  // console.log(nameImage_delete);
+  // console.log(getItems);
   // const [nameImage_delete, setNameImage_delete] = useState<any>();
 
   useEffect(() => {
@@ -57,7 +57,7 @@ function FormEditItem(props: any) {
     setDepartment_Old(getItems?.department);
     setBuilding_Old(getItems?.building);
 
-    setTypeItem_Old(getItems?.typeItem);
+    setTypeItem_Old(getItems?.typeitem);
     setCategory_Old(getItems?.category);
     // setLocationLId(getItems?.locationLId);
 
@@ -92,6 +92,9 @@ function FormEditItem(props: any) {
   const [categoryCateId_Old, setCategoryCateId_Old] = useState<any>(0);
   const [categoryCateId, setCategoryCateId] = useState<any>(0);
 
+  // console.log("typeItemTypeId = " + typeItemTypeId);
+  // console.log("typeItemTypeId != typeItemTypeId_Old && typeItemTypeId != 0 = " ,typeItemTypeId != typeItemTypeId_Old && typeItemTypeId != 0);
+
   const [facultyFId, setFacultyFId] = useState<any>(0);
   const [facultyFId_Old, setFacultyFId_Old] = useState<any>(0);
 
@@ -103,7 +106,6 @@ function FormEditItem(props: any) {
 
   const [submit, setSubmit] = useState<any>();
 
-  // console.log("facultyFId = " + facultyFId);
   // console.log("departmentDId = " + departmentDId);
   // console.log("buildingBId = " + buildingBId);
 
@@ -173,6 +175,7 @@ function FormEditItem(props: any) {
 
   const [category_Old, setCategory_Old] = useState<any>();
   const [typeItem_Old, setTypeItem_Old] = useState<any>();
+  // console.log(typeItem_Old);
 
   // getFaculty
   useMemo(async () => {
@@ -264,16 +267,17 @@ function FormEditItem(props: any) {
         departmentDId != departmentDId_Old ? departmentDId : departmentDId_Old,
       buildingBId:
         buildingBId != buildingBId_Old ? buildingBId : buildingBId_Old,
-      typeItemTypeId:
-        typeItemTypeId != typeItemTypeId_Old
+      typeitemTypeId:
+        typeItemTypeId != typeItemTypeId_Old && typeItemTypeId != 0
           ? typeItemTypeId
           : typeItemTypeId_Old,
       categoryCateId:
-        categoryCateId != categoryCateId_Old
+        categoryCateId != categoryCateId_Old && categoryCateId != 0
           ? categoryCateId
           : categoryCateId_Old,
     };
-
+    // console.log("obj", obj);
+    // console.log("dataform ", data);
     var dataform = new FormData();
     dataform.append("name", !nameItem ? nameItem_Old : nameItem);
     dataform.append("code", !codeItem ? codeItem_Old : codeItem);
@@ -296,11 +300,15 @@ function FormEditItem(props: any) {
     );
     dataform.append(
       "categoryCateId",
-      categoryCateId != categoryCateId_Old ? categoryCateId : categoryCateId_Old
+      categoryCateId != categoryCateId_Old && categoryCateId_Old != 0
+        ? categoryCateId
+        : categoryCateId_Old
     );
     dataform.append(
-      "typeItemTypeId",
-      typeItemTypeId != typeItemTypeId_Old ? typeItemTypeId : typeItemTypeId_Old
+      "typeitemTypeId",
+      typeItemTypeId != typeItemTypeId_Old && typeItemTypeId != 0
+        ? typeItemTypeId
+        : typeItemTypeId_Old
     );
     dataform.append("nameImage_delete", nameImage_delete);
     dataform.append("images", selectedFile);

@@ -53,7 +53,7 @@ function EditItem() {
         const res = await axios(
           configAxios("put", `${sendUrl}${state?.id}`, postEditItem)
         );
-        checkStatus(res, "แก้ไขครุภัณฑ์สร็จสิ้น");
+        checkStatus(res, "แก้ไขครุภัณฑ์เสร็จสิ้น");
         setedit_updateEn(!edit_updateEn);
       } catch (error: any) {
         checkToken(error.response.data.status, error.request.status, navigate);

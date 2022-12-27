@@ -35,6 +35,9 @@ import EditUser from "../pages/LandingPages/User/EditUser";
 import Profile from "../pages/LandingPages/User/Profile";
 import Users from "../pages/LandingPages/User/Users";
 
+// ApplicationDownload
+import ApplicationDownload from "../pages/ApplicationDownload/ApplicationDownload";
+
 //test
 import UpTestt from "../pages/upTest/UpTestt";
 
@@ -45,7 +48,9 @@ function RoutesPath() {
         <Route path="/" element={<Login />} />
         <Route path="/login" element={<Login />} />
         <Route path="/test_Up" element={<UpTestt />} />
+        <Route path="/application_download" element={<ApplicationDownload />} />
         
+
         {/* Home */}
         <Route path="/home" element={<Home />} />
         <Route path="/items" element={<Items />} />
@@ -79,7 +84,6 @@ function RoutesPath() {
         <Route path="/type_item/editTypeItem" element={<EditTypeItem />} />
         <Route path="/admin/editUser" element={<EditUser />} />
 
-        
         {/* User */}
         <Route path="/profile" element={<Profile />} />
         <Route path="/admin" element={<Users />} />

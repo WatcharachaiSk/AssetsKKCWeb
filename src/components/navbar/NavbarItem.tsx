@@ -36,6 +36,10 @@ function NavbarItem(props: any) {
     color: ${(props: any) =>
       props.color === "setting" ? colors.goldFC : colors.white};
   `;
+  const TitleDownload = styled.span`
+    color: ${(props: any) =>
+      props.color === "download" ? colors.goldFC : colors.white};
+  `;
 
   const styles = {
     fontNavBrand: {
@@ -135,6 +139,18 @@ function NavbarItem(props: any) {
                 ชนิดครุภัณฑ์
               </NavDropdown.Item>
             </NavDropdown>
+          </Nav>
+          <Nav>
+            <Nav.Link
+              onClick={() => {
+                navigatePage("/application_download");
+              }}
+              style={styles.fontNavLink}
+            >
+              <TitleDownload color={clickPage}>
+                ดาวน์โหลดแอปพลิเคชัน
+              </TitleDownload>
+            </Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>
