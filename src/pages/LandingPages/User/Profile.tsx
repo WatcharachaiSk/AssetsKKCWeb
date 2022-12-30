@@ -1,18 +1,32 @@
-import { useState, useEffect } from "react";
+import axios from "axios";
+import { useState, useMemo } from "react";
+import { useNavigate } from "react-router-dom";
+import configAxios from "../../../axios/configAxios";
+import { API } from "../../../axios/swr/endpoint";
 import NavbarItem from "../../../components/navbar/NavbarItem";
 import NavbarTop from "../../../components/navbar/NavbarTop";
+import checkToken from "../../../config/checkToken";
 import { GetKanitFont } from "../../../config/fonts";
 import ShowProfile from "./components/ShowProfile";
 
 function Profile() {
+  const navigate = useNavigate();
   const [clickPage, setClickPage] = useState<string>("admin");
   const [getProfile, setGetProfile] = useState<any>({});
   // console.log("getProfile = ",getProfile);
 
-  useEffect(() => {
-    let profile: any = localStorage.getItem("Profile");
-    profile = JSON.parse(profile);
-    setGetProfile(profile);
+  useMemo(async () => {
+    // let profile: any = localStorage.getItem("Profile");
+    // profile = JSON.parse(profile);
+    // setGetProfile(profile);
+
+    try {
+      const res = await axios(configAxios("get", API.getProfile));
+      setGetProfile(res.data);
+    } catch (error: any) {
+      // console.log("err = ", error.request.status);
+      checkToken(error.response.data.status, error.request.status, navigate);
+    }
   }, []);
 
   return (

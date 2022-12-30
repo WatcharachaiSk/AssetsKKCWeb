@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Table, Button } from "react-bootstrap";
 import { AiFillEdit } from "react-icons/ai";
 import { GetKanitFont } from "../../config/fonts";
+import { useEffect, useState } from "react";
 /*
 Faculty
 Department
@@ -17,6 +18,16 @@ function TableListLocat(props: any) {
   const navigatePage = (idItem?: any, item?: any) => {
     navigate(editPage, { state: { id: idItem, item: item } });
   };
+
+  const [getProfile, setGetProfile] = useState<any>({});
+  console.log(getProfile.departmentDId);
+
+  useEffect(() => {
+    let profile: any = localStorage.getItem("Profile");
+    profile = JSON.parse(profile);
+    setGetProfile(profile);
+  }, []);
+
   return (
     <div style={{ margin: 30 }}>
       <Table
@@ -75,6 +86,19 @@ function TableListLocat(props: any) {
                       }
 
                       // console.log("item.item_id = " + getId);
+                      // if (
+                      //   isPage === "l" &&
+                      //   item?.departmentDId == getProfile?.departmentDId
+                      // ) {
+                      //   navigatePage(getId, item);
+                      //   // console.log(getProfile?.departmentDId);
+                      //   // console.log(item?.departmentDId);
+                      // } else if (isPage !== "l") {
+                      //   // console.log(getProfile?.departmentDId);
+                      //   // console.log(item?.departmentDId);
+                      //   navigatePage(getId, item);
+                      // }
+
                       navigatePage(getId, item);
                     }}
                   >

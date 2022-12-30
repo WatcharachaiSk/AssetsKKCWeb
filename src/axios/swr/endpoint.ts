@@ -3,6 +3,7 @@ export const API = {
   login: baseURL + `/loginUser`,
   // GET
   getUsers: baseURL + `/getUsers`,
+  getProfile: baseURL + `/getProfile`,
   getItem: baseURL + `/getItem`,
   getCategory: baseURL + `/getCategory`,
   getFaculty: baseURL + `/getFaculty`,

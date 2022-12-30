@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import NavbarTop from "../../components/navbar/NavbarTop";
 import ButtonAdd from "../ItemPage/components/ButtonAdd";
 import TableListLocat from "../../components/table/TableListLocat";
@@ -25,6 +25,16 @@ function Department() {
       checkToken(error.response.data.status, error.request.status, navigate);
     }
   }, []);
+
+  const [getProfile, setGetProfile] = useState<any>({});
+  // console.log(getProfile);
+
+  useEffect(() => {
+    let profile: any = localStorage.getItem("Profile");
+    profile = JSON.parse(profile);
+    setGetProfile(profile);
+  }, []);
+
   return (
     <div style={{ ...GetKanitFont("KanitLight") }}>
       <NavbarTop clickPage={clickPage} />
@@ -32,10 +42,12 @@ function Department() {
       <div className="d-flex justify-content-center mt-5 mb-2">
         <h3>สาขา</h3>
       </div>
-      <ButtonAdd
-        titleButton={"เพิ่มสาขา"}
-        pageAdd={"/department/newdepartment"}
-      />
+      {getProfile?.user?.admin === true && (
+        <ButtonAdd
+          titleButton={"เพิ่มสาขา"}
+          pageAdd={"/department/newdepartment"}
+        />
+      )}
       <TableListLocat
         itemList={getDepartment}
         isPage={"d"}
