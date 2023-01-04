@@ -3,6 +3,7 @@ import postLogin from "../../../../axios/postLogin";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { Button, Form, Card, Container, Row, Col } from "react-bootstrap";
+import { sweet_mixin } from "../../../../components/sweetalert2/sweet";
 
 const MySwal = withReactContent(Swal);
 
@@ -25,15 +26,27 @@ function FormInput(props: any) {
     const res: any = await postLogin(inputs.username, inputs.password);
     if (res.status === 200 && res.status <= 201) {
       // console.log(res.data);
+      // MySwal.fire({
+      //   title: <strong>เสร็จสิ้น</strong>,
+      //   html: <i></i>,
+      //   icon: "success",
+      // }).then(
+      // (value: any) => {
 
-      MySwal.fire({
-        title: <strong>เสร็จสิ้น</strong>,
-        html: <i></i>,
-        icon: "success",
-      }).then((value: any) => {
+      //   // navigate("/home");
+      // },
+      await sweet_mixin(
+        "top-end",
+        "success",
+        "เข้าสู่ระบบเสร็จสิ้น",
+        "ระบบกำลังนำทาง",
+        3000
+      ).then(() => {
+        // console.log("123");
         setlocalStorage(res.data.user.web_token, res.data.user.admin, res.data);
-
-        navigate("/home");
+        setTimeout(() => {
+          navigate("/home");
+        }, 1000);
       });
     } else {
       MySwal.fire({

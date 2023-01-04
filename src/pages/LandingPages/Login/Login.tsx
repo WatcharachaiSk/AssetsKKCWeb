@@ -8,10 +8,10 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Carousel from "react-bootstrap/Carousel";
-import { sweet_popUpTimer } from "../../../components/sweetalert2/sweet";
+// import { sweet_popUpTimer } from "../../../components/sweetalert2/sweet";
 import axios from "axios";
 import configAxios from "../../../axios/configAxios";
-import checkToken from "../../../config/checkToken";
+// import checkToken from "../../../config/checkToken";
 import { API } from "../../../axios/swr/endpoint";
 
 function Login() {
@@ -45,14 +45,14 @@ function Login() {
     } else {
     }
   }, []);
-  const Fullscreen = styled.div`
-    /* display: flex; */
-    /* background: #fdfd no-repeat; */
-    /* -webkit-background-size: cover; */
-    /* background-size: cover; */
-    /* width: auto; */
-    /* height: 50vh; */
-  `;
+  // const Fullscreen = styled.div`
+  //   /* display: flex; */
+  //   /* background: #fdfd no-repeat; */
+  //   /* -webkit-background-size: cover; */
+  //   /* background-size: cover; */
+  //   /* width: auto; */
+  //   /* height: 50vh; */
+  // `;
   return (
     <>
       <NavbarTopLogin />

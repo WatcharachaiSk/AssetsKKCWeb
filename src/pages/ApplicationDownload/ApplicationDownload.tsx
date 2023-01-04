@@ -31,22 +31,22 @@ function ApplicationDownload() {
   // Function will execute on click of button
   const onButtonClick = () => {
     // using Java Script method to get PDF file
-    // fetch("MN-KAOPAT.zip").then((response) => {
-    //   response.blob().then((blob) => {
-    //     // Creating new object of PDF file
-    //     const fileURL = window.URL.createObjectURL(blob);
-    //     // Setting various property values
-    //     let alink = document.createElement("a");
-    //     alink.href = fileURL;
-    //     alink.download = "MN-KAOPAT.zip";
-    //     alink.click();
-    //   });
-    // });
-    sweet_basic(
-      "warning",
-      "ยังไม่สามารถดาวน์โหลดแอปพลิเคชันได้",
-      `ขออภัย (version ${env.REACT_APP_VERSION}) BETA ยังไม่สามารถดาวน์โหลดแอปพลิเคชันได้`
-    );
+    fetch("app-assetsKKC.apk").then((response) => {
+      response.blob().then((blob) => {
+        // Creating new object of PDF file
+        const fileURL = window.URL.createObjectURL(blob);
+        // Setting various property values
+        let alink = document.createElement("a");
+        alink.href = fileURL;
+        alink.download = "app-assetsKKC.apk";
+        alink.click();
+      });
+    });
+    // sweet_basic(
+    //   "warning",
+    //   "ยังไม่สามารถดาวน์โหลดแอปพลิเคชันได้",
+    //   `ขออภัย (version ${env.REACT_APP_VERSION}) BETA ยังไม่สามารถดาวน์โหลดแอปพลิเคชันได้`
+    // );
   };
   return (
     <>

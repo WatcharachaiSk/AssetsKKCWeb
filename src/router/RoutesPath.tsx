@@ -1,4 +1,5 @@
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
+// Link
 // HOME
 import Home from "../pages/HomePage/Home";
 import CategoryItem from "../pages/HomePage/CategoryItem";
@@ -49,7 +50,6 @@ function RoutesPath() {
         <Route path="/login" element={<Login />} />
         <Route path="/test_Up" element={<UpTestt />} />
         <Route path="/application_download" element={<ApplicationDownload />} />
-        
 
         {/* Home */}
         <Route path="/home" element={<Home />} />
