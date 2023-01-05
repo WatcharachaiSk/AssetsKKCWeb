@@ -20,7 +20,7 @@ function TableListLocat(props: any) {
   };
 
   const [getProfile, setGetProfile] = useState<any>({});
-  console.log(getProfile.departmentDId);
+  // console.log(getProfile.departmentDId);
 
   useEffect(() => {
     let profile: any = localStorage.getItem("Profile");

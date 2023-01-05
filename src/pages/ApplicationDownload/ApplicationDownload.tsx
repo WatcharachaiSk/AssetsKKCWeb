@@ -35,7 +35,7 @@ function ApplicationDownload() {
   const onButtonClick = async () => {
     // using Java Script method to get PDF file
     setModalShowModalDownload(true);
-    await fetch("app-assetsKKC.apk").then((response) => {
+    await fetch("app-assetsKKC(Version0.0.1)").then((response) => {
       response
         .blob()
         .then((blob) => {
@@ -44,7 +44,7 @@ function ApplicationDownload() {
           // Setting various property values
           let alink = document.createElement("a");
           alink.href = fileURL;
-          alink.download = "app-assetsKKC.apk";
+          alink.download = "app-assetsKKC(Version0.0.1)";
           alink.click();
         })
         .finally(() => {
