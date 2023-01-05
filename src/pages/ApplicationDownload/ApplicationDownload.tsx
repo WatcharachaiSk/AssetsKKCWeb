@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import NavbarItem from "../../components/navbar/NavbarItem";
 import NavbarTop from "../../components/navbar/NavbarTop";
 import { GetKanitFont } from "../../config/fonts";
@@ -7,11 +7,14 @@ import images from "../../config/index.images";
 import _ from "lodash";
 // import { GrAndroid } from "react-icons/gr";
 import { FaAndroid } from "react-icons/fa";
-import { sweet_basic } from "../../components/sweetalert2/sweet";
-import env from "react-dotenv";
-
+// import { sweet_basic } from "../../components/sweetalert2/sweet";
+// import env from "react-dotenv";
+import ModalDownload from "./components/ModalDownload";
 function ApplicationDownload() {
+  const [modalShowModalDownload, setModalShowModalDownload] = useState(false);
   const [index, setIndex] = useState(0);
+
+  //  console.log(modalShowModalDownload);
 
   const handleSelect = (selectedIndex: any, e: any) => {
     setIndex(selectedIndex);
@@ -29,18 +32,26 @@ function ApplicationDownload() {
   ];
 
   // Function will execute on click of button
-  const onButtonClick = () => {
+  const onButtonClick = async () => {
     // using Java Script method to get PDF file
-    fetch("app-assetsKKC.apk").then((response) => {
-      response.blob().then((blob) => {
-        // Creating new object of PDF file
-        const fileURL = window.URL.createObjectURL(blob);
-        // Setting various property values
-        let alink = document.createElement("a");
-        alink.href = fileURL;
-        alink.download = "app-assetsKKC.apk";
-        alink.click();
-      });
+    setModalShowModalDownload(true);
+    await fetch("app-assetsKKC.apk").then((response) => {
+      response
+        .blob()
+        .then((blob) => {
+          // Creating new object of PDF file
+          const fileURL = window.URL.createObjectURL(blob);
+          // Setting various property values
+          let alink = document.createElement("a");
+          alink.href = fileURL;
+          alink.download = "app-assetsKKC.apk";
+          alink.click();
+        })
+        .finally(() => {
+          setTimeout(() => {
+            setModalShowModalDownload(false);
+          }, 5000);
+        });
     });
     // sweet_basic(
     //   "warning",
@@ -53,6 +64,12 @@ function ApplicationDownload() {
       <div style={{ ...GetKanitFont("KanitLight") }}>
         <NavbarTop />
         <NavbarItem clickPage={"download"} />
+        {modalShowModalDownload && (
+          <ModalDownload
+            show={modalShowModalDownload}
+            onHide={() => setModalShowModalDownload(false)}
+          />
+        )}
         <div>
           <Container>
             <Row className="mt-5">
