@@ -1,26 +1,55 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
 import colors from "../../../config/colors";
 import { GetKanitFont } from "../../../config/fonts";
 import images from "../../../config/index.images";
 import { setURLItem } from "../../../config/setURL_image";
+import _ from "lodash";
 
 function ModalDetails(props: any) {
   const { item } = props;
   // console.log(item);
+  const [showImage, setShowImage] = useState<any>();
+  // console.log(showImage);
+
+  useEffect(() => {
+    let itemFilter: any = _.filter(item.img_items, (item: any, index: any) => {
+      return index >= 0 && index <= 1;
+    });
+
+    setShowImage(itemFilter);
+    // console.log(itemFilter);
+  }, []);
+
+  const filterMoreImage = () => {
+    // console.log(showImage?.length);
+
+    if (showImage?.length == 2) {
+      setShowImage(item.img_items);
+    } else {
+      let itemFilter: any = _.filter(
+        item.img_items,
+        (item: any, index: any) => {
+          return index >= 0 && index <= 1;
+        }
+      );
+
+      setShowImage(itemFilter);
+    }
+  };
 
   const name = item?.name;
   const code = item?.code;
   const status_item: string = item?.status_item;
   const description = item?.description;
   const price = item?.price;
-  
-  let urlProfile;
-  if (item?.name_image_item) {
-    urlProfile = setURLItem(item?.name_image_item);
-    // console.log(urlProfile);
-  }
-  
+
+  // let urlItem: any;
+  // if (item?.name_image_item) {
+  //   urlItem = setURLItem(item?.name_image_item);
+  //   // console.log(urlItem);
+  // }
+
   const category = `${item?.category?.name}`;
   const typeItem = `${item?.typeitem?.name}`;
 
@@ -41,6 +70,8 @@ function ModalDetails(props: any) {
         {...props}
         size="lg"
         aria-labelledby="contained-modal-title-vcenter"
+        keyboard={false}
+        backdrop="static"
         centered
       >
         <Modal.Header closeButton>
@@ -49,20 +80,41 @@ function ModalDetails(props: any) {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <div className="d-flex justify-content-center mt-3">
-            <img
-              src={urlProfile ? urlProfile : images.imageNotFound}
-              className="rounded float-right"
-              width={200}
-              height={200}
-              style={{
-                objectFit: "cover",
-                borderRadius: 15,
-                borderColor: "#ced4da",
-                borderWidth: 1,
-                borderStyle: "solid",
+          <div className="d-flex justify-content-center mt-1 flex-wrap">
+            {_.map(showImage, (item) => {
+              // console.log(item.name_image_item);
+              return (
+                <>
+                  <img
+                    src={
+                      item.name_image_item
+                        ? setURLItem(item.name_image_item)
+                        : images.imageNotFound
+                    }
+                    className="rounded float-right m-1"
+                    width={200}
+                    height={200}
+                    style={{
+                      objectFit: "cover",
+                      borderRadius: 15,
+                      borderColor: "#ced4da",
+                      borderWidth: 1,
+                      borderStyle: "solid",
+                    }}
+                  />
+                </>
+              );
+            })}
+          </div>
+          <div className="d-flex justify-content-center">
+            <Button
+              onClick={() => {
+                filterMoreImage();
               }}
-            />
+              variant="light"
+            >
+              ดูรูปเพิ่มเติม
+            </Button>
           </div>
           <Form>
             <Form.Group className="mb-2" controlId="formNameItem">
