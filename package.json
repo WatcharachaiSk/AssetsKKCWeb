@@ -32,6 +32,7 @@
     "react-qr-code": "^2.0.8",
     "react-router-dom": "^6.4.3",
     "react-scripts": "5.0.1",
+    "react-spring-lightbox": "^1.7.1",
     "react-to-print": "^2.14.10",
     "styled-components": "^5.3.6",
     "sweetalert2": "^11.6.8",

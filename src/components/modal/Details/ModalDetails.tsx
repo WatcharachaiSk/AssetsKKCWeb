@@ -5,7 +5,7 @@ import { GetKanitFont } from "../../../config/fonts";
 import images from "../../../config/index.images";
 import { setURLItem } from "../../../config/setURL_image";
 import _ from "lodash";
-
+import Lightbox, { ImagesListType } from "react-spring-lightbox";
 function ModalDetails(props: any) {
   const { item } = props;
   // console.log(item);
@@ -63,6 +63,32 @@ function ModalDetails(props: any) {
   if (item?.up_date_statuses[0]) {
     up_date_statuses = item?.up_date_statuses[0];
   }
+
+  const imagesTest: ImagesListType = [
+    {
+      src: "https://timellenberger.com/static/blog-content/dark-mode/win10-dark-mode.jpg",
+      loading: "lazy",
+      alt: "Windows 10 Dark Mode Setting",
+    },
+    {
+      src: "https://timellenberger.com/static/blog-content/dark-mode/macos-dark-mode.png",
+      loading: "lazy",
+      alt: "macOS Mojave Dark Mode Setting",
+    },
+    {
+      src: "https://timellenberger.com/static/blog-content/dark-mode/android-9-dark-mode.jpg",
+      loading: "lazy",
+      alt: "Android 9.0 Dark Mode Setting",
+    },
+  ];
+  const [currentImageIndex, setCurrentIndex] = useState(0);
+
+  const gotoPrevious = () =>
+    currentImageIndex > 0 && setCurrentIndex(currentImageIndex - 1);
+
+  const gotoNext = () =>
+    currentImageIndex + 1 < imagesTest.length &&
+    setCurrentIndex(currentImageIndex + 1);
   return (
     <>
       <Modal
@@ -81,6 +107,37 @@ function ModalDetails(props: any) {
         </Modal.Header>
         <Modal.Body>
           <div className="d-flex justify-content-center mt-1 flex-wrap">
+            <Lightbox
+              isOpen={true}
+              onPrev={gotoPrevious}
+              onNext={gotoNext}
+              images={imagesTest}
+              currentIndex={currentImageIndex}
+              /* Add your own UI */
+              // renderHeader={() => (<CustomHeader />)}
+              // renderFooter={() => (<CustomFooter />)}
+              // renderPrevButton={() => (<CustomLeftArrowButton />)}
+              // renderNextButton={() => (<CustomRightArrowButton />)}
+              // renderImageOverlay={() => (<ImageOverlayComponent >)}
+
+              /* Add styling */
+              // className="cool-class"
+              // style={{ background: "grey" }}
+
+              /* Handle closing */
+              // onClose={handleClose}
+
+              /* Use single or double click to zoom */
+              // singleClickToZoom
+
+              /* react-spring config for open/close animation */
+              // pageTransitionConfig={{
+              //   from: { transform: "scale(0.75)", opacity: 0 },
+              //   enter: { transform: "scale(1)", opacity: 1 },
+              //   leave: { transform: "scale(0.75)", opacity: 0 },
+              //   config: { mass: 1, tension: 320, friction: 32 }
+              // }}
+            />
             {_.map(showImage, (item) => {
               // console.log(item.name_image_item);
               return (
