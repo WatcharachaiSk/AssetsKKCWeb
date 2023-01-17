@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import configAxios from "../../axios/configAxios";
 import { API } from "../../axios/swr/endpoint";
@@ -14,10 +14,17 @@ import checkStatus from "../../config/checkStatus";
 import DeleteItem from "../../components/buttons/DeleteItem";
 import { GetKanitFont } from "../../config/fonts";
 import ModalDeletel from "../../components/modal/ModalDeletel";
-
+import FormEditImgItem from "./components/editItem/FormEditImgItem";
+import ModalUpImgItem from "../../components/modal/ModalUpImgItem";
 function EditItem() {
   const navigate = useNavigate();
   const { state } = useLocation();
+
+  useEffect(() => {
+    // console.log("state", state);
+    localStorage.setItem("itemItemEdit", state.id);
+  }, [state]);
+
   const [getItems, setGetItems] = useState<{}>({});
   const [edit_updateEn, setedit_updateEn] = useState(false);
 
@@ -34,9 +41,13 @@ function EditItem() {
 
   useMemo(async () => {
     try {
-      const res = await axios(
-        configAxios("get", `${API.getItemById}${state.id}`)
-      );
+      let id = localStorage.getItem("itemItemEdit");
+      let res;
+      if (id) {
+        res = await axios(configAxios("get", `${API.getItemById}${id}`));
+      } else {
+        res = await axios(configAxios("get", `${API.getItemById}${state.id}`));
+      }
 
       setGetItems(res.data);
     } catch (error: any) {
@@ -75,6 +86,27 @@ function EditItem() {
     }
   };
 
+  const [modalShowCheckUpImgItem, setModalShowCheckUpImgItem] = useState(false);
+  const [postEditImgItemCheck, setPostEditImgItemCheck] = useState<object>();
+  const [postEditImgItem, setPostEditImgItem] = useState<FormData>();
+  const [postEditImgItemFn, setPostEditImgItemFn] = useState<boolean>(false);
+  const onSubmitFnImgItem = async (status: number) => {
+    setModalShowCheckUpImgItem(false);
+
+    if (status == 1) {
+      try {
+        const res = await axios(
+          configAxios("post", API.createImgItems, postEditImgItem)
+        );
+        checkStatus(res, "เพิ่มรูปครุภัณฑ์สร็จสิ้น");
+        setedit_updateEn(!edit_updateEn);
+        setPostEditImgItemFn(!postEditImgItemFn);
+      } catch (error: any) {
+        checkToken(error.response.data.status, error.request.status, navigate);
+      }
+    }
+  };
+
   const [modalShowDeletel, setModalShowDeletel] = useState(false);
   // // console.log(modalShowDeletel);
   // const onSubmitFnDeletel = async (status: number) => {
@@ -99,6 +131,14 @@ function EditItem() {
       <div className="d-flex justify-content-center mt-5 mb-2">
         <h3>แก้ไขครุภัณฑ์</h3>
       </div>
+      {modalShowCheckUpImgItem && (
+        <ModalUpImgItem
+          onSubmitFnImgItem={onSubmitFnImgItem}
+          modalShowCheckUpImgItem={modalShowCheckUpImgItem}
+          title={"เพิ่มรูปครุภัณฑ์"}
+          chackImg={postEditImgItemCheck}
+        />
+      )}
       {modalShowDeletel && (
         <ModalDeletel
           setModal={setModalShowDeletel}
@@ -124,6 +164,17 @@ function EditItem() {
           chackDataEdit={postUpdateItemCheck}
           isEdit={"status"}
           title={"การย้ายสถานที่หรือเปลี่ยนสถานะ"}
+        />
+      )}
+      {getItems && (
+        <FormEditImgItem
+          getItems={getItems}
+          setModalShowCheckUpImgItem={setModalShowCheckUpImgItem}
+          setPostEditImgItemCheck={setPostEditImgItemCheck}
+          setPostEditImgItem={setPostEditImgItem}
+          postEditImgItemFn={postEditImgItemFn}
+          setedit_updateEn={setedit_updateEn}
+          edit_updateEn={edit_updateEn}
         />
       )}
       {getItems && (

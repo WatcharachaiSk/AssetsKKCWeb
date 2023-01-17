@@ -27,7 +27,7 @@ function ModalDeletel(props: any) {
         <Modal.Title>ลบ{title}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form>
+     
           <Form.Group className="mb-2">
             <Form.Label>
               กรุณากรอกชื่อ {title} ให้ตรงกันเพื่อลบ {title}{" "}
@@ -45,7 +45,7 @@ function ModalDeletel(props: any) {
               }}
             />
           </Form.Group>
-        </Form>
+      
         <div>
           <IoMdHelpCircleOutline size={15} color={colors.statusColor0} />
           <span

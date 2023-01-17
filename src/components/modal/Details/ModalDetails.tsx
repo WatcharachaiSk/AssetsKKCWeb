@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
-import { Button, Modal, Form } from "react-bootstrap";
+import { Button, Modal, Form, Figure } from "react-bootstrap";
 import colors from "../../../config/colors";
 import { GetKanitFont } from "../../../config/fonts";
-import images from "../../../config/index.images";
+// import images from "../../../config/index.images";
 import { setURLItem } from "../../../config/setURL_image";
 import _ from "lodash";
-import Lightbox, { ImagesListType } from "react-spring-lightbox";
+
 function ModalDetails(props: any) {
   const { item } = props;
   // console.log(item);
@@ -64,31 +64,6 @@ function ModalDetails(props: any) {
     up_date_statuses = item?.up_date_statuses[0];
   }
 
-  const imagesTest: ImagesListType = [
-    {
-      src: "https://timellenberger.com/static/blog-content/dark-mode/win10-dark-mode.jpg",
-      loading: "lazy",
-      alt: "Windows 10 Dark Mode Setting",
-    },
-    {
-      src: "https://timellenberger.com/static/blog-content/dark-mode/macos-dark-mode.png",
-      loading: "lazy",
-      alt: "macOS Mojave Dark Mode Setting",
-    },
-    {
-      src: "https://timellenberger.com/static/blog-content/dark-mode/android-9-dark-mode.jpg",
-      loading: "lazy",
-      alt: "Android 9.0 Dark Mode Setting",
-    },
-  ];
-  const [currentImageIndex, setCurrentIndex] = useState(0);
-
-  const gotoPrevious = () =>
-    currentImageIndex > 0 && setCurrentIndex(currentImageIndex - 1);
-
-  const gotoNext = () =>
-    currentImageIndex + 1 < imagesTest.length &&
-    setCurrentIndex(currentImageIndex + 1);
   return (
     <>
       <Modal
@@ -107,58 +82,19 @@ function ModalDetails(props: any) {
         </Modal.Header>
         <Modal.Body>
           <div className="d-flex justify-content-center mt-1 flex-wrap">
-            <Lightbox
-              isOpen={true}
-              onPrev={gotoPrevious}
-              onNext={gotoNext}
-              images={imagesTest}
-              currentIndex={currentImageIndex}
-              /* Add your own UI */
-              // renderHeader={() => (<CustomHeader />)}
-              // renderFooter={() => (<CustomFooter />)}
-              // renderPrevButton={() => (<CustomLeftArrowButton />)}
-              // renderNextButton={() => (<CustomRightArrowButton />)}
-              // renderImageOverlay={() => (<ImageOverlayComponent >)}
-
-              /* Add styling */
-              // className="cool-class"
-              // style={{ background: "grey" }}
-
-              /* Handle closing */
-              // onClose={handleClose}
-
-              /* Use single or double click to zoom */
-              // singleClickToZoom
-
-              /* react-spring config for open/close animation */
-              // pageTransitionConfig={{
-              //   from: { transform: "scale(0.75)", opacity: 0 },
-              //   enter: { transform: "scale(1)", opacity: 1 },
-              //   leave: { transform: "scale(0.75)", opacity: 0 },
-              //   config: { mass: 1, tension: 320, friction: 32 }
-              // }}
-            />
             {_.map(showImage, (item) => {
               // console.log(item.name_image_item);
               return (
                 <>
-                  <img
-                    src={
-                      item.name_image_item
-                        ? setURLItem(item.name_image_item)
-                        : images.imageNotFound
-                    }
-                    className="rounded float-right m-1"
-                    width={200}
-                    height={200}
-                    style={{
-                      objectFit: "cover",
-                      borderRadius: 15,
-                      borderColor: "#ced4da",
-                      borderWidth: 1,
-                      borderStyle: "solid",
-                    }}
-                  />
+                  <Figure>
+                    <Figure.Image
+                      className="m-1"
+                      width={190}
+                      height={210}
+                      alt="171x180"
+                      src={setURLItem(item.name_image_item)}
+                    />
+                  </Figure>
                 </>
               );
             })}
@@ -170,7 +106,8 @@ function ModalDetails(props: any) {
               }}
               variant="light"
             >
-              ดูรูปเพิ่มเติม
+              {showImage?.length == 2 ?"ดูรูปเพิ่มเติม" :'ปิดดูเพิ่มเติม'}
+              
             </Button>
           </div>
           <Form>

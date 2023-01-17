@@ -1,5 +1,5 @@
 import { sweet_basic } from "../components/sweetalert2/sweet";
-const checkToken = (isWant: string, status: number, navigate: any) => {
+const checkToken = (isWant: string, status: number, navigate?: any) => {
   if (isWant === "wantLogin" && status >= 400 && status < 500) {
     sweet_basic("error", "คุณยังไม่ได้เข้าสู่ระบบ", "กรุณาเข้าสู่ระบบ");
     navigate("/login");

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState, useMemo, useEffect } from "react";
-import { Button, Form, Container } from "react-bootstrap";
+import { Button, Form, Container  } from "react-bootstrap";
 import configAxios from "../../../../axios/configAxios";
 import { API } from "../../../../axios/swr/endpoint";
 import { useNavigate } from "react-router-dom";
@@ -8,9 +8,9 @@ import checkToken from "../../../../config/checkToken";
 import _ from "lodash";
 import { sweet_basic } from "../../../../components/sweetalert2/sweet";
 import colors from "../../../../config/colors";
-import images from "../../../../config/index.images";
-import getBase64 from "../../../../config/getBase64";
-import { setURLItem } from "../../../../config/setURL_image";
+// import images from "../../../../config/index.images";
+// import getBase64 from "../../../../config/getBase64";
+// import { setURLItem } from "../../../../config/setURL_image";
 
 function FormEditItem(props: any) {
   const {
@@ -60,11 +60,6 @@ function FormEditItem(props: any) {
     setTypeItem_Old(getItems?.typeitem);
     setCategory_Old(getItems?.category);
     // setLocationLId(getItems?.locationLId);
-
-    if (getItems?.name_image_item) {
-      const urlProfile = setURLItem(getItems?.name_image_item);
-      setShowImage(urlProfile);
-    }
   }, [getItems]);
   //
   const [getFaculty, setGetFaculty] = useState<{}>({});
@@ -319,55 +314,14 @@ function FormEditItem(props: any) {
     setPostEditItem(selectedFile ? dataform : data);
     setModalShowCheckEditItem(true);
   };
-
-  const [showFile, setShowFile] = useState<any>();
-  const [showImage, setShowImage] = useState<any>();
-  // console.log("showImage = " + showImage);
   const [selectedFile, setSelectedFile] = useState<any>();
-
   return (
     <Container style={{ borderRadius: 15, width: "100%", height: "100%" }}>
       {/*  */}
-      <div className="d-flex justify-content-center">
-        <img
-          src={showFile ? showFile : showImage ? showImage : images.upLoadImg}
-          className="rounded float-right"
-          width={200}
-          height={200}
-          style={{
-            objectFit: "cover",
-            borderRadius: 15,
-            borderColor: "#ced4da",
-            borderWidth: 1,
-            borderStyle: "solid",
-          }}
-        />
-      </div>
+
       <Form>
         {/*  */}
-        <div className="d-flex align-items-center justify-content-center">
-          <div>
-            <Form.Group controlId="formFile" className="mb-3 ">
-              <Form.Label></Form.Label>
-              <Form.Control
-                // value={}
-                accept="image/png,image/jpeg,image/jpg"
-                placeholder="เลือกรูปภาพ"
-                size="lg"
-                type="file"
-                onChange={(e: any) => {
-                  // console.log(e.target.files[0]);
-                  getBase64(e.target.files[0], (result: any) => {
-                    // console.log(result);
-                    setShowFile(result);
-                  });
-                  // console.log(e.target.files[0].name);
-                  setSelectedFile(e.target.files[0]);
-                }}
-              />
-            </Form.Group>
-          </div>
-        </div>
+       
         <Form.Group className="mb-2">
           <Form.Label>ชื่อ ครุภัณฑ์</Form.Label>
           <Form.Control
