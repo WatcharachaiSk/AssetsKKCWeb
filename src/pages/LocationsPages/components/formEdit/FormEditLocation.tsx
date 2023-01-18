@@ -186,6 +186,24 @@ function FormEditLocation(props: any) {
     setPostLocation(dataform);
     setModalShowCheckLocation(true);
   };
+
+  const [getUserAdmin, setGetUserAdmin] = useState<boolean>(true);
+  // console.log(getUserAdmin);
+  const [getProfile, setGetProfile] = useState<any>({});
+  useEffect(() => {
+    let userAdmin: any = localStorage.getItem("UserAdmin");
+    let profile: any = localStorage.getItem("Profile");
+    profile = JSON.parse(profile);
+    // console.log(profile);
+    setGetProfile(profile);
+
+    if (userAdmin == "true") {
+      setGetUserAdmin(true);
+    } else {
+      setGetUserAdmin(false);
+    }
+  }, []);
+
   return (
     <Container style={{ borderRadius: 15, width: "100%", height: "100%" }}>
       <Form>
@@ -266,17 +284,27 @@ function FormEditLocation(props: any) {
             }}
             size="lg"
           >
-            <option value={0}>เลือกเปลี่ยนคณะ</option>
-
-            {_.map(getFaculty, (item: any) => {
-              return (
-                <>
-                  <option key={item.f_id} value={item.f_id}>
-                    {item.nameTH} {item.nameEN}
-                  </option>
-                </>
-              );
-            })}
+            {getUserAdmin ? (
+              <>
+                <option value={0}>กรุณาเลือกคณะ</option>
+                {_.map(getFaculty, (item: any, idx) => {
+                  return (
+                    <>
+                      <option key={item.f_id} value={item.f_id}>
+                        {item.nameTH} {item.nameEN}
+                      </option>
+                    </>
+                  );
+                })}
+              </>
+            ) : (
+              <>
+                <option value={0}>กรุณาเลือกคณะ</option>
+                <option value={getProfile?.facultyFId}>
+                  {getProfile?.faculty?.nameTH} {getProfile?.faculty?.nameEN}
+                </option>
+              </>
+            )}
           </Form.Select>
         </Form.Group>
         {/*  */}
@@ -303,17 +331,37 @@ function FormEditLocation(props: any) {
             }}
             size="lg"
           >
-            <option value={0}>เลือกเปลี่ยนสาขา</option>
-
-            {_.map(getDepartment, (item: any) => {
-              return (
-                <>
-                  <option key={item.d_id} value={item.d_id}>
-                    {item.nameTH} {item.nameEN}
-                  </option>
-                </>
-              );
-            })}
+               {getUserAdmin ? (
+              <>
+                {facultyFId != 0 ? (
+                  <option value={0}>กรุณาเลือกสาขา</option>
+                ) : (
+                  <option value={0}>กรุณาเลือกคณะ</option>
+                )}
+                {_.map(getDepartment, (item: any, idx) => {
+                  return (
+                    <>
+                      <option key={item.d_id} value={item.d_id}>
+                        {item.nameTH} {item.nameEN}
+                      </option>
+                    </>
+                  );
+                })}
+              </>
+            ) : (
+              <>
+                {facultyFId != 0 ? (
+                  <>
+                    <option value={0}>กรุณาเลือกสาขา</option>
+                    <option value={getProfile?.departmentDId}>
+                      {getProfile?.department?.nameTH}
+                    </option>
+                  </>
+                ) : (
+                  <option value={0}>กรุณาเลือกคณะ</option>
+                )}
+              </>
+            )}
           </Form.Select>
         </Form.Group>
         {/*  */}

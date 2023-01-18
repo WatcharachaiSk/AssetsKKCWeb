@@ -142,6 +142,23 @@ function FormEditBuilding(props: any) {
     setPostBuilding(dataform);
     setModalShowCheckBuilding(true);
   };
+
+  const [getUserAdmin, setGetUserAdmin] = useState<boolean>(true);
+  // console.log(getUserAdmin);
+  // const [getProfile, setGetProfile] = useState<any>({});
+  useEffect(() => {
+    let userAdmin: any = localStorage.getItem("UserAdmin");
+    // let profile: any = localStorage.getItem("Profile");
+    // profile = JSON.parse(profile);
+    // console.log(profile);
+
+    if (userAdmin == "true") {
+      setGetUserAdmin(true);
+    } else {
+      setGetUserAdmin(false);
+    }
+  }, []);
+
   return (
     <Container style={{ borderRadius: 15, width: "100%", height: "100%" }}>
       <Form>
@@ -189,6 +206,7 @@ function FormEditBuilding(props: any) {
             </span>
           </Form.Label>
           <Form.Select
+            disabled={getUserAdmin == false ? true : false}
             style={{
               borderColor:
                 facultyFId != facultyFId_Old && facultyFId != 0
@@ -224,7 +242,7 @@ function FormEditBuilding(props: any) {
             </span>
           </Form.Label>
           <Form.Select
-            // disabled={facultyFId == 0 ? true : false}
+            disabled={getUserAdmin == false ? true : false}
             value={departmentDId}
             style={{
               borderColor:

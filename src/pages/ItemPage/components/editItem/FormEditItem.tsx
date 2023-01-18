@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState, useMemo, useEffect } from "react";
-import { Button, Form, Container  } from "react-bootstrap";
+import { Button, Form, Container } from "react-bootstrap";
 import configAxios from "../../../../axios/configAxios";
 import { API } from "../../../../axios/swr/endpoint";
 import { useNavigate } from "react-router-dom";
@@ -32,8 +32,8 @@ function FormEditItem(props: any) {
     setCodeItem_Old(getItems?.code);
     setCodeItem(getItems?.code);
 
-    setTypeItemTypeId_Old(getItems?.typeItemTypeId);
-    setTypeItemTypeId(getItems?.typeItemTypeId);
+    setTypeItemTypeId_Old(getItems?.typeitemTypeId);
+    setTypeItemTypeId(getItems?.typeitemTypeId);
 
     setCategoryCateId_Old(getItems?.category?.cate_id);
     setCategoryCateId(getItems?.category?.cate_id);
@@ -214,6 +214,8 @@ function FormEditItem(props: any) {
   }, [departmentDId]);
 
   const onSubmit = async (event: any) => {
+    event.preventDefault();
+
     const faculty = _.filter(getFaculty, (item: any) => {
       return (
         item.f_id ==
@@ -240,7 +242,7 @@ function FormEditItem(props: any) {
           : typeItemTypeId_Old)
       );
     });
-    event.preventDefault();
+
     const obj = {
       name: !nameItem ? nameItem_Old : nameItem,
       code: !codeItem ? codeItem_Old : codeItem,
@@ -250,18 +252,19 @@ function FormEditItem(props: any) {
       faculty: faculty,
       department: department,
       building: building,
+      //
       typeItem: typeItem,
     };
     const data = {
-      name: !nameItem ? nameItem_Old : nameItem,
-      code: !codeItem ? codeItem_Old : codeItem,
-      description: !description ? description_Old : description,
-      price: !price ? price_Old : price,
-      facultyFId: facultyFId != facultyFId_Old ? facultyFId : facultyFId_Old,
-      departmentDId:
-        departmentDId != departmentDId_Old ? departmentDId : departmentDId_Old,
-      buildingBId:
-        buildingBId != buildingBId_Old ? buildingBId : buildingBId_Old,
+      name: nameItem ? nameItem : "",
+      code: codeItem ? codeItem : "",
+      description: description ? description : "",
+      price: price ? price : "",
+
+      facultyFId: facultyFId != facultyFId_Old ? facultyFId : "",
+      departmentDId: departmentDId != departmentDId_Old ? departmentDId : "",
+      buildingBId: buildingBId != buildingBId_Old ? buildingBId : "",
+
       typeitemTypeId:
         typeItemTypeId != typeItemTypeId_Old && typeItemTypeId != 0
           ? typeItemTypeId
@@ -318,12 +321,13 @@ function FormEditItem(props: any) {
   return (
     <Container style={{ borderRadius: 15, width: "100%", height: "100%" }}>
       {/*  */}
+      <Form.Label style={{ fontSize: 22 }}>แก้ไขข้อมูลครุภัณฑ์</Form.Label>
 
       <Form>
         {/*  */}
-       
+
         <Form.Group className="mb-2">
-          <Form.Label>ชื่อ ครุภัณฑ์</Form.Label>
+          <Form.Label>ชื่อครุภัณฑ์</Form.Label>
           <Form.Control
             style={{
               borderColor:

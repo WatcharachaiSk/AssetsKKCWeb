@@ -54,6 +54,7 @@ export const API = {
   updateLocation: baseURL + `/updateLocation/`,
   updateCategory: baseURL + `/updateCategory/`,
   updateTypeItem: baseURL + `/updateTypeItem/`,
+  updateTypeItemByOne: baseURL + `/updateTypeItemByOne/`,
 };
 
 /*

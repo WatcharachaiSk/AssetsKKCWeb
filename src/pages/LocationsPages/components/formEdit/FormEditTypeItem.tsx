@@ -312,7 +312,7 @@ function FormEditTypeItem(props: any) {
     const dataform = {
       name: !inputNameType ? inputNameType_Old : inputNameType,
       code: !inputCode ? inputCode_Old : inputCode,
-      quantity: !quantity ? quantity_Old : quantity_Old,
+      quantity: !quantity ? quantity_Old : quantity,
       unit:
         unitItem != 0 && unitItem != -1
           ? unitItem

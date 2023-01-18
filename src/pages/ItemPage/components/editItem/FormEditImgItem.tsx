@@ -134,6 +134,7 @@ function FormEditImgItem(props: any) {
       </div>
       <div className="d-flex justify-content-center">
         <div>
+   
           <Form.Group controlId="formFile" className="">
             <Form.Label></Form.Label>
             <Form.Control
@@ -169,7 +170,7 @@ function FormEditImgItem(props: any) {
               type="submit"
               size="lg"
             >
-              {selectedFile ? "บันทึก" : "ยังไม่มีรูปภาพ"}
+              {selectedFile ? "บันทึก" : "ยังไม่ได้เพิ่มรูปภาพ"}
             </Button>
           </div>
         </div>

@@ -97,6 +97,7 @@ function ModalShowImgItem(props: any) {
                   variant="light"
                   onClick={() => {
                     setCilckDle(true);
+                    setShow(!show);
                   }}
                 >
                   <div className="d-flex">

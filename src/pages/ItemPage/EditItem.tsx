@@ -41,13 +41,10 @@ function EditItem() {
 
   useMemo(async () => {
     try {
-      let id = localStorage.getItem("itemItemEdit");
+      // let id = localStorage.getItem("itemItemEdit");
       let res;
-      if (id) {
-        res = await axios(configAxios("get", `${API.getItemById}${id}`));
-      } else {
-        res = await axios(configAxios("get", `${API.getItemById}${state.id}`));
-      }
+
+      res = await axios(configAxios("get", `${API.getItemById}${state.id}`));
 
       setGetItems(res.data);
     } catch (error: any) {
