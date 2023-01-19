@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Container, Card, Button } from "react-bootstrap";
 import Moment from "react-moment";
 import colors from "../../../config/colors";
+import colorsCate from "../../../config/colorsCate";
 function CardList(props: any) {
   const { listItem, pageShowItem, isShow } = props;
   const navigate = useNavigate();
@@ -34,7 +35,7 @@ function CardList(props: any) {
     <>
       <Container>
         <div className="d-flex flex-row justify-content-center flex-wrap bd-highlight mb-3">
-          {_.map(listItem, (item, index) => {
+          {_.map(listItem, (item, index: any) => {
             // console.log('index = '+index);
 
             return (
@@ -45,7 +46,10 @@ function CardList(props: any) {
                 {isShow === "cate" && (
                   <>
                     <Card.Header
-                      style={{ backgroundColor: "#868686cc", color: "#000" }}
+                      style={{
+                        backgroundColor: colorsCate[index],
+                        color: "#000",
+                      }}
                     >
                       <Card.Title style={{ fontSize: 20, textAlign: "center" }}>
                         {item?.name}
@@ -112,7 +116,7 @@ function CardList(props: any) {
                 )}
                 {isShow === "type" && (
                   <>
-                    <Card.Header style={{ backgroundColor: "#868686cc" }}>
+                    <Card.Header style={{ backgroundColor: colorsCate[index] }}>
                       <Card.Title style={{ fontSize: 20, textAlign: "center" }}>
                         {item?.name}
                       </Card.Title>

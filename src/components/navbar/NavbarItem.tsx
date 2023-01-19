@@ -24,6 +24,10 @@ function NavbarItem(props: any) {
     profile = JSON.parse(profile);
     setGetProfile(profile);
   }, []);
+  const TitleDashboard = styled.span`
+    color: ${(props: any) =>
+      props.color === "dashboard" ? colors.goldFC : colors.white};
+  `;
   const TitleHome = styled.span`
     color: ${(props: any) =>
       props.color === "home" ? colors.goldFC : colors.white};
@@ -68,11 +72,20 @@ function NavbarItem(props: any) {
           >
             <Nav.Link
               onClick={() => {
+                navigatePage("/dashboard");
+              }}
+              style={styles.fontNavLink}
+            >
+              <TitleDashboard color={clickPage}>Dashboard</TitleDashboard>
+            </Nav.Link>
+
+            <Nav.Link
+              onClick={() => {
                 navigatePage("/home");
               }}
               style={styles.fontNavLink}
             >
-              <TitleHome color={clickPage}>ครุภัณฑ์</TitleHome>
+              <TitleHome color={clickPage}>ครุภัณฑ์หมวดหมู่/ชนิด</TitleHome>
             </Nav.Link>
             <Nav.Link
               onClick={() => {
@@ -82,7 +95,10 @@ function NavbarItem(props: any) {
             >
               <TitleItem color={clickPage}>รายการครุภัณฑ์ทั้งหมด</TitleItem>
             </Nav.Link>
-            <NavDropdown
+           
+          </Nav>
+          <Nav>
+          <NavDropdown
               style={styles.fontNavDropdown}
               title={<TitleSetting color={clickPage}>ตั้งค่า</TitleSetting>}
               id="navbarScrollingDropdown"
@@ -139,8 +155,6 @@ function NavbarItem(props: any) {
                 ชนิดครุภัณฑ์
               </NavDropdown.Item>
             </NavDropdown>
-          </Nav>
-          <Nav>
             <Nav.Link
               onClick={() => {
                 navigatePage("/application_download");

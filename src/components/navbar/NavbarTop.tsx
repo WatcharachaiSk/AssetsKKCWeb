@@ -65,9 +65,9 @@ function NavbarTop(props: any) {
     >
       <Container>
         <Navbar.Brand
-          href={clickPage == "home" ? "" : "#"}
+          href={clickPage == "dashboard" ? "" : "#"}
           onClick={() => {
-            if (clickPage != "home") navigatePage("/home");
+            if (clickPage != "dashboard") navigatePage("/dashboard");
           }}
         >
           <img

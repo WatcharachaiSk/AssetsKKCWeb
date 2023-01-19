@@ -45,7 +45,7 @@ function FormInput(props: any) {
         // console.log("123");
         setlocalStorage(res.data.user.web_token, res.data.user.admin, res.data);
         setTimeout(() => {
-          navigate("/home");
+          navigate("/dashboard");
         }, 1000);
       });
     } else {

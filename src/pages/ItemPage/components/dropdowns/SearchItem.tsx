@@ -358,6 +358,7 @@ function SearchItem(props: any) {
         <div className="d-inline mx-2 m-1">
           <Form.Group className="mt-1">
             <Form.Control
+              disabled={!pickSearch ? true : false}
               value={search}
               onChange={(event: any) => {
                 const value = event.target.value;

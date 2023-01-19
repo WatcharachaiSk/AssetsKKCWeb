@@ -1,4 +1,4 @@
-import { Button, Modal, Container, Card } from "react-bootstrap";
+import { Button, Modal, Container, Card, Form } from "react-bootstrap";
 import QRCode from "react-qr-code";
 import { useReactToPrint } from "react-to-print";
 import { useRef, useEffect, useState } from "react";
@@ -9,6 +9,8 @@ function ModalSelectQr(props: any) {
   const { idItems, items } = props;
 
   const [getItem, setGetItem] = useState();
+  const [sizeQR, SetsizeQR] = useState<number>(120);
+  const [sizeFont, SetSizeFont] = useState<number>(11);
   useEffect(() => {
     let itemsMap: any = [];
     _.map(idItems, (value, key) => {
@@ -29,7 +31,7 @@ function ModalSelectQr(props: any) {
     content: () => componentRef?.current,
     documentTitle: `Assets Select`,
 
-    onAfterPrint: () => alert("Print Success"),
+    // onAfterPrint: () => alert("Print Success"),
   });
   return (
     <Modal
@@ -45,23 +47,64 @@ function ModalSelectQr(props: any) {
         </Container>
       </Modal.Header>
       <Modal.Body>
-        <Container className="d-flex flex-row-reverse bd-highligh">
-          <Button size="lg" variant="outline-primary" onClick={handlePrint}>
-            สั่งพิมพ์
-          </Button>
+        <Container>
+          <div className="d-flex flex-row-reverse bd-highligh">
+            <Button size="lg" variant="outline-primary" onClick={handlePrint}>
+              สั่งพิมพ์
+            </Button>
+          </div>
+          <div>
+            ปรับขนาด QR Code <span>[{sizeQR}]</span>
+            <div>
+              <Form.Range
+                value={sizeQR}
+                min="35"
+                max="300"
+                onChange={(event) => {
+                  // console.log(event.target.value);
+                  let range: any = Number(event.target.value);
+                  // console.log(range);
+
+                  SetsizeQR(range);
+                }}
+              />
+            </div>
+          </div>
+          <div>
+            ปรับขนาด รหัสครุภัณฑ์ <span>[{sizeFont}]</span>
+            <div>
+              <Form.Range
+                value={sizeFont}
+                min="6"
+                max="40"
+                onChange={(event) => {
+                  // console.log(event.target.value);
+                  let range: any = Number(event.target.value);
+                  // console.log(range);
+
+                  SetSizeFont(range);
+                }}
+              />
+            </div>
+          </div>
         </Container>
-        <Container ref={componentRef}>
+        <Container
+          style={{ width: 803, height: 1125, backgroundColor: "" }}
+          ref={componentRef}
+        >
           <div className="d-flex flex-row justify-content-center flex-wrap bd-highlight mb-3">
             {_.map(getItem, (item: any, idx) => {
               return (
                 <Card
-                  className="m-4 bd-highlight "
-                  style={{ width: "25%" }}
+                  className="m-1 d-flex justify-content-center"
+                  // style={{ width: "25%" }}
                   key={idx}
                 >
                   <Card.Body>
-                    <div className="d-flex justify-content-center ">
-                      <h6>รหัสครุภัณฑ์: {item?.code}</h6>
+                    <div className="d-flex justify-content-center flex-column">
+                      <span style={{ fontSize: sizeFont, textAlign: "center" }}>
+                        {item?.code}
+                      </span>
                     </div>
                     <div
                       style={{
@@ -69,9 +112,9 @@ function ModalSelectQr(props: any) {
                         // backgroundColor: "#fdf",
                         height: "auto",
                         margin: "0 auto",
-                        maxWidth: 120,
+                        maxWidth: sizeQR,
                         width: "100%",
-                        marginBottom: 30,
+                        // marginBottom: 30,
                       }}
                     >
                       <QRCode

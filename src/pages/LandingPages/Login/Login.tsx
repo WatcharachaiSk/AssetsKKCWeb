@@ -35,7 +35,7 @@ function Login() {
         // console.log(res.status);
         if (res.status == 200) {
           setTimeout(() => {
-            navigate("/home");
+            navigate("/dashboard");
           }, 100);
         }
       } catch (error: any) {

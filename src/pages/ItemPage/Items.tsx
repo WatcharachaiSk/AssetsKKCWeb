@@ -33,9 +33,9 @@ function Items() {
     }
   }, []);
 
-  const navigatePage = (page: string, idItem?: any) => {
-    navigate(page, { state: { id: idItem } });
-  };
+  // const navigatePage = (page: string, idItem?: any) => {
+  //   navigate(page, { state: { id: idItem } });
+  // };
 
   // const [itemFilter, setItemFilter] = useState<any>([]);
   const [dataFilter, setDataFilter] = useState<any>(undefined);

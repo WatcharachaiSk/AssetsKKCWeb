@@ -36,6 +36,8 @@ import EditUser from "../pages/LandingPages/User/EditUser";
 import Profile from "../pages/LandingPages/User/Profile";
 import Users from "../pages/LandingPages/User/Users";
 
+// Dashboard
+import Dashboard from "../pages/Dashboard/Dashboard";
 // ApplicationDownload
 import ApplicationDownload from "../pages/ApplicationDownload/ApplicationDownload";
 
@@ -52,6 +54,7 @@ function RoutesPath() {
         <Route path="/application_download" element={<ApplicationDownload />} />
 
         {/* Home */}
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/home" element={<Home />} />
         <Route path="/items" element={<Items />} />
         <Route path="/home/category_item" element={<CategoryItem />} />
