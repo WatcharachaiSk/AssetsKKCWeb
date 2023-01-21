@@ -318,6 +318,24 @@ function FormEditItem(props: any) {
     setModalShowCheckEditItem(true);
   };
   const [selectedFile, setSelectedFile] = useState<any>();
+
+  const [getUserAdmin, setGetUserAdmin] = useState<boolean>(true);
+  // const [getProfile, setGetProfile] = useState<any>({});
+  // console.log(getProfile);
+
+  useEffect(() => {
+    let userAdmin: any = localStorage.getItem("UserAdmin");
+    let profile: any = localStorage.getItem("Profile");
+    profile = JSON.parse(profile);
+    // console.log(profile);
+
+    // setGetProfile(profile);
+    if (userAdmin == "true") {
+      setGetUserAdmin(true);
+    } else {
+      setGetUserAdmin(false);
+    }
+  }, []);
   return (
     <Container style={{ borderRadius: 15, width: "100%", height: "100%" }}>
       {/*  */}
@@ -415,6 +433,7 @@ function FormEditItem(props: any) {
             </span>
           </Form.Label>
           <Form.Select
+            disabled={getUserAdmin == false ? true : false}
             // value={facultyFId}
             style={{
               borderColor:
@@ -453,7 +472,7 @@ function FormEditItem(props: any) {
           </Form.Label>
           <Form.Select
             // value={departmentDId}
-            disabled={facultyFId == 0 ? true : false}
+            disabled={facultyFId == 0 || getUserAdmin == false ? true : false}
             onChange={(event: any) => {
               const value = event.target.value;
               if (value == 0) {

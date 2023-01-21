@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import NavbarItem from "../../components/navbar/NavbarItem";
 import NavbarTop from "../../components/navbar/NavbarTop";
 import { GetKanitFont } from "../../config/fonts";
-// import { DataGrid, GridRowsProp, GridColDef } from "@mui/x-data-grid";
+import { DataGrid, GridRowsProp, GridColDef } from "@mui/x-data-grid";
 
 import { Pie, Bar } from "react-chartjs-2";
 import { Button, Card, Container } from "react-bootstrap";
@@ -14,6 +14,8 @@ import colorsCate from "../../config/colorsCate";
 import _ from "lodash";
 import { optionsPie } from "./options/pie";
 import { optionsBar } from "./options/bar";
+//
+import { BsBoxSeam, BsBox } from "react-icons/bs";
 
 import {
   Chart as ChartJS,
@@ -26,6 +28,7 @@ import {
   LinearScale,
   // ChartData,
 } from "chart.js";
+import colors from "../../config/colors";
 ChartJS.register(
   ArcElement,
   CategoryScale,
@@ -35,11 +38,12 @@ ChartJS.register(
   Tooltip,
   Legend
 );
+
 function Dashboard() {
   const clickPage = "dashboard";
 
   const [getCategory, setGetCategory] = useState<any>([]);
-  const [getTypeItem, setGetTypeItem] = useState<{}>({});
+  // const [getTypeItem, setGetTypeItem] = useState<{}>({});
 
   useMemo(async () => {
     try {
@@ -55,9 +59,9 @@ function Dashboard() {
 
   //
   const [sumItem, setSumItem] = useState<any>();
+  const [sumStatus_Item, setsumStatus_Item] = useState<any>([]);
+  const [rows_Grid, setRows_Grid] = useState<any>([]);
   useEffect(() => {
-    // console.log(getCategory);
-
     if (getCategory.length > 0) {
       let data_Labels = [],
         data_List = [],
@@ -73,27 +77,57 @@ function Dashboard() {
         name_Cate.push(getCategory[i]?.name);
       }
 
-      // console.log(name_Cate);
-      // console.log(data_List);
+      //TODO ลบ ชื่อซ้ำ
       name_Cate = Array.from(new Set(name_Cate));
 
       let data_ListValue = [];
+      let arrvauleNormal = [],
+        arrvauleNotNormal = [];
       for (let i = 0; i < name_Cate.length; i++) {
         const itemCate = _.filter(getCategory, (item: any, idx: any) => {
           return item.name === name_Cate[i];
         });
         // console.log(itemCate);
         let sumItem = 0;
+
         for (let j = 0; j < itemCate.length; j++) {
-          // console.log(itemCate[j]?.items.length);
+          let vauleNormal: any, vauleNotNormal: any;
+          vauleNormal = _.filter(itemCate[j]?.items, (item: any) => {
+            return item.status_item == true;
+          });
+          // console.log(vauleNormal);
+
+          vauleNotNormal = _.filter(itemCate[j]?.items, (item: any) => {
+            return item.status_item == false;
+          });
+          // console.log(vauleNotNormal);
+
+          arrvauleNormal.push(vauleNormal);
+          arrvauleNotNormal.push(vauleNotNormal);
           sumItem = sumItem + itemCate[j]?.items.length;
         }
-        // console.log(itemCate[0].name + " = " + sumItem);
 
         data_ListValue.push(sumItem);
       }
-      // console.log(name_Cate);
-      // console.log(data_ListValue);
+
+      let sumArrvauleNormal = 0,
+        sumArrvauleNotNormall = 0,
+        sumArrvauleStatus = [];
+      for (let i = 0; i < arrvauleNormal.length; i++) {
+        if (arrvauleNormal[i].length != 0) {
+          sumArrvauleNormal = sumArrvauleNormal + arrvauleNormal[i].length;
+        }
+      }
+      for (let i = 0; i < arrvauleNotNormal.length; i++) {
+        if (arrvauleNotNormal[i].length != 0) {
+          sumArrvauleNotNormall =
+            sumArrvauleNotNormall + arrvauleNotNormal[i].length;
+        }
+      }
+      sumArrvauleStatus.push(sumArrvauleNormal);
+      sumArrvauleStatus.push(sumArrvauleNotNormall);
+
+      setsumStatus_Item(sumArrvauleStatus);
 
       setSumItem(sum_item);
 
@@ -101,11 +135,25 @@ function Dashboard() {
       setDataList(data_ListValue);
 
       setColorList(color_List);
+
+      let rowsGrid = [];
+      for (let i = 0; i < name_Cate.length; i++) {
+        rowsGrid[i] = {
+          id: i,
+          col1: name_Cate[i],
+          col2: data_ListValue[i],
+        };
+      }
+      // console.log(rowsGrid);
+      setRows_Grid(rowsGrid);
     }
   }, [getCategory]);
 
-  const [dataList, setDataList] = useState<any>();
   const [data_Labels, setData_Labels] = useState<any>();
+  const [dataList, setDataList] = useState<any>();
+
+  // console.log("data_Labels", data_Labels);
+  // console.log("dataList", dataList);
   const [colorList, setColorList] = useState<any>();
   const dataPie = {
     labels: data_Labels,
@@ -118,35 +166,96 @@ function Dashboard() {
     ],
   };
 
-  const labels = ["ปกติ", "ชำรุด"];
+  const labelsBar = ["ปกติ", "ชำรุด"];
   const dataBar = {
-    labels: labels,
+    labels: labelsBar,
     datasets: [
       {
         label: "สถานะครุภัณฑ์",
-        data: [20, 30],
-        backgroundColor: ["rgba(75, 192, 192, 0.5)", "rgba(255, 99, 132, 0.5)"],
+        data: sumStatus_Item,
+        backgroundColor: [colors.statusColor1aa, colors.statusColor0ff],
       },
     ],
   };
+
+  const rows: GridRowsProp = rows_Grid;
+
+  const columns: GridColDef[] = [
+    { field: "col1", flex: 1, headerName: "ชื่อหมวดหมู่", width: 150 },
+    { field: "col2", headerName: "จำนวนครุภัณฑ์", width: 150 },
+  ];
   return (
     <div style={{ ...GetKanitFont("KanitLight") }}>
       <NavbarTop clickPage={clickPage} />
       <NavbarItem clickPage={clickPage} />
 
-      <div className="d-flex justify-content-center mt-5 mb-2">
-        <h3>Dashboard</h3>
+      <div className="d-flex justify-content-center mt-3 mb-2">
+        {/* <h3>Dashboard</h3> */}
       </div>
 
       {/* <div style={{ height: 300, width: "100%" }}>
         <DataGrid rows={rows} columns={columns} />
       </div> */}
-
+      {/*    <div className="m-3 d-flex justify-content-end">
+          <span>ครุภัณฑ์ในระบบทั้งหมด {sumItem} ชิ้น</span>
+        </div> */}
       <Container>
-        <div className="m-3 d-flex justify-content-end">
-          <span>ครุภัณฑ์ทั้งหมด {sumItem} ชิ้น</span>
+        <div className="mb-2 d-flex flex-row justify-content-center flex-wrap bd-highlight">
+          <Card
+            className="m-1 d-flex align-content-center justify-content-center"
+            style={{
+              width: "15rem",
+              height: "10rem",
+            }}
+          >
+            <div className="d-flex justify-content-center mb-2">
+              ครุภัณฑ์ในระบบทั้งหมด {sumItem} ชิ้น
+            </div>
+            <div className="d-flex justify-content-center">
+              <BsBoxSeam size={50} color={"#3e3e3e"} />
+            </div>
+          </Card>
+          <Card
+            className="m-1 d-flex align-content-center justify-content-center"
+            style={{
+              width: "15rem",
+              height: "10rem",
+            }}
+          >
+            <div className="d-flex justify-content-center mb-2">
+              ปกติทั้งหมด {sumStatus_Item[0]} ชิ้น
+            </div>
+            <div className="d-flex justify-content-center">
+              <BsBox size={50} color={colors.statusColor1aa} />
+            </div>
+          </Card>
+          <Card
+            className="m-1 d-flex align-content-center justify-content-center"
+            style={{
+              width: "15rem",
+              height: "10rem",
+            }}
+          >
+            <div className="d-flex justify-content-center mb-2">
+              ชำรุดทั้งหมด {sumStatus_Item[1]} ชิ้น
+            </div>
+            <div className="d-flex justify-content-center">
+              <BsBox size={50} color={colors.statusColor0ff} />
+            </div>
+          </Card>
         </div>
-        <div className="d-flex flex-row justify-content-start flex-wrap bd-highlight">
+      </Container>
+      {/*  */}
+      <Container>
+        <div className="d-flex flex-row justify-content-center flex-wrap bd-highlight">
+          <div style={{ height: 300, width: "100%" }}>
+            <DataGrid rows={rows} columns={columns} />
+          </div>
+        </div>
+      </Container>
+      {/*  */}
+      <Container>
+        <div className=" d-flex flex-row justify-content-start flex-wrap bd-highlight">
           <Card
             className="m-3"
             style={{
@@ -172,11 +281,23 @@ function Dashboard() {
               // height: "100%",
             }}
           >
-            {/* <div className="m-2 d-flex justify-content-end">
+            {/* <div className=" d-flex justify-content-end">
               <span>ครุภัณฑ์ทั้งหมด {sumItem} ชิ้น</span>
             </div> */}
             <div className="d-flex align-content-center justify-content-center">
-              <Bar className="mt-5" options={optionsBar} data={dataBar} />
+              <Bar options={optionsBar} data={dataBar} />
+            </div>
+            <div className="m-2 d-flex justify-content-end ">
+              <div className="d-flex flex-column">
+                <div>
+                  <span style={{ color: colors.statusColor1 }}>ปกติ</span>{" "}
+                  {sumStatus_Item[0]} ชิ้น
+                </div>
+                <div>
+                  <span style={{ color: colors.statusColor0 }}>ชำรุด</span>{" "}
+                  {sumStatus_Item[1]} ชิ้น
+                </div>
+              </div>
             </div>
           </Card>
         </div>

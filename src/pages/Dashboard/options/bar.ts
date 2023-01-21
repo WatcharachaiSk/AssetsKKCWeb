@@ -1,4 +1,4 @@
-import { ChartOptions } from "chart.js";
+// import { ChartOptions } from "chart.js";
 
 export const optionsBar = {
   responsive: true,

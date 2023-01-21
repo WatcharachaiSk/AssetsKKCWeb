@@ -2,11 +2,7 @@ import { Form, Container, Row, Col } from "react-bootstrap";
 import { useState, useEffect, useMemo } from "react";
 import images from "../../../../config/index.images";
 import { setURLProfile } from "../../../../config/setURL_image";
-// import configAxios from "../../../../axios/configAxios";
-// import axios from "axios";
-// import { API } from "../../../../axios/swr/endpoint";
-// import checkToken from "../../../../config/checkToken";
-// import { useNavigate } from "react-router-dom";
+
 /*
 "pf_id": 1,
 "firstname": "cbcb",
@@ -20,19 +16,25 @@ import { setURLProfile } from "../../../../config/setURL_image";
 "facultyFId": 1,
 "departmentDId": 1
 */
+
 function ShowProfile(props: any) {
+  const { getProfile } = props;
   // const navigate = useNavigate();
   const [showProfile, setShowProfile] = useState<any>();
   // console.log("showProfile = " + showProfile);
   const [showImage, setShowImage] = useState<any>();
-  useEffect(() => {
-    let profile: any = localStorage.getItem("Profile");
-    profile = JSON.parse(profile);
-    setShowProfile(profile);
+  // console.log(showImage);
+  // console.log(getProfile);
 
-    const urlProfile = setURLProfile(profile?.name_image);
-    setShowImage(urlProfile);
-  }, []);
+  useEffect(() => {
+    let profile: any = getProfile;
+    setShowProfile(profile);
+    // console.log(profile?.name_image);
+    if (profile?.name_image) {
+      const urlProfile = setURLProfile(profile?.name_image);
+      setShowImage(urlProfile);
+    }
+  }, [getProfile]);
 
   return (
     <Container style={{ borderRadius: 15, width: "100%", height: "100%" }}>

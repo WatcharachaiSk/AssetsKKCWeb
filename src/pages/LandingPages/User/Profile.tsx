@@ -12,8 +12,9 @@ import ShowProfile from "./components/ShowProfile";
 function Profile() {
   const navigate = useNavigate();
   const [clickPage, setClickPage] = useState<string>("admin");
-  const [getProfile, setGetProfile] = useState<any>({});
+  const [getProfile, setGetProfile] = useState<any>();
   // console.log("getProfile = ",getProfile);
+  // console.log(getProfile);
 
   useMemo(async () => {
     // let profile: any = localStorage.getItem("Profile");
@@ -36,7 +37,7 @@ function Profile() {
       <div className="d-flex justify-content-center mt-4 mb-2">
         <h3>Profile ของ {getProfile?.firstname}</h3>
       </div>
-      <ShowProfile />
+      {getProfile && <ShowProfile getProfile={getProfile} />}
     </div>
   );
 }

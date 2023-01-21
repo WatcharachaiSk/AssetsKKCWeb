@@ -10,6 +10,8 @@ const colors = {
   borderColorEditNOT: "red",
   statusColor1: "green",
   statusColor0: "red",
+  statusColor1aa: "#79db5e",
+  statusColor0ff: "#ff6969",
 };
 
 export default colors;

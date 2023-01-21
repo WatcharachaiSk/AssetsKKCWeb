@@ -275,7 +275,7 @@ function FormAddItem(props: any) {
   return (
     <Container style={{ borderRadius: 15, width: "100%", height: "100%" }}>
       {/*  */}
-      <div className="d-flex justify-content-center mt-3">
+      {/* <div className="d-flex justify-content-center mt-3">
         <img
           src={showFile ? showFile : images.upLoadImg}
           className="rounded float-right"
@@ -289,10 +289,10 @@ function FormAddItem(props: any) {
             borderStyle: "solid",
           }}
         />
-      </div>
+      </div> */}
       {/*  */}
       <Form>
-        <Form.Group controlId="formFile" className="mb-3">
+        {/* <Form.Group controlId="formFile" className="mb-3">
           <Form.Label>รูปครุภัณฑ์</Form.Label>
           <Form.Control
             accept="image/png,image/jpeg,image/jpg"
@@ -309,7 +309,7 @@ function FormAddItem(props: any) {
               setSelectedFile(e.target.files[0]);
             }}
           />
-        </Form.Group>
+        </Form.Group> */}
 
         <Form.Group className="mb-2" controlId="formNameItem">
           <Form.Label>ชื่อครุภัณฑ์</Form.Label>
