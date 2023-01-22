@@ -55,6 +55,9 @@ export const API = {
   updateCategory: baseURL + `/updateCategory/`,
   updateTypeItem: baseURL + `/updateTypeItem/`,
   updateTypeItemByOne: baseURL + `/updateTypeItemByOne/`,
+
+  // Block
+  updateUserBlock: baseURL + `/updateUserBlock`,
 };
 
 /*

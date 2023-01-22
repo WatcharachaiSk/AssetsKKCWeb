@@ -19,6 +19,7 @@ import { useEffect, useState } from "react";
 import ModalDetails from "../modal/Details/ModalDetails";
 import PaginationItem from "./components/PaginationItem";
 // import ReactPaginate from "react-paginate";
+import { BsClipboard } from "react-icons/bs";
 
 function TableListItem(props: any) {
   const { itemList, editPage } = props;
@@ -88,6 +89,24 @@ function TableListItem(props: any) {
     navigate(editPage, { state: { id: idItem, isPage: "items" } });
   };
 
+  const [getUserAdmin, setGetUserAdmin] = useState<boolean>(true);
+  // const [getProfile, setGetProfile] = useState<any>({});
+  // console.log(getProfile);
+
+  useEffect(() => {
+    let userAdmin: any = localStorage.getItem("UserAdmin");
+    let profile: any = localStorage.getItem("Profile");
+    profile = JSON.parse(profile);
+    // console.log(profile);
+
+    // setGetProfile(profile);
+    if (userAdmin == "true") {
+      setGetUserAdmin(true);
+    } else {
+      setGetUserAdmin(false);
+    }
+  }, []);
+
   return (
     <div style={{ margin: 30 }}>
       {modalShowOne && (
@@ -112,7 +131,14 @@ function TableListItem(props: any) {
           item={getItem}
         />
       )}
-      <Card>
+      <Card
+        style={{
+          width: "100%",
+          // height: 250,
+          display: "flex",
+          overflow: "auto",
+        }}
+      >
         <Card.Header>
           <div className="d-flex justify-content-end">
             รายการที่แสดง {itemListPaninat.length} รายการทั้งหมด{" "}
@@ -181,6 +207,7 @@ function TableListItem(props: any) {
                 </Form.Group>
               </th>
               <th>ลำดับ</th>
+              <th>รายละเอียด</th>
               <th>แก้ไข</th>
               <th>QR Code</th>
               <th>รหัสครุภัณฑ์</th>
@@ -188,8 +215,15 @@ function TableListItem(props: any) {
               <th>หมวดหมู่</th>
               <th>ราคา</th>
               <th>สถานะ</th>
-              <th>คณะ</th>
-              <th>สาขา</th>
+              {getUserAdmin ? (
+                <>
+                  <th>คณะ</th>
+                  <th>สาขา</th>
+                </>
+              ) : (
+                <></>
+              )}
+
               <th>อาคาร</th>
               <th>ชั้น</th>
               <th>สถานที่</th>
@@ -243,6 +277,27 @@ function TableListItem(props: any) {
                   </td>
                   <td>{idx + 1}</td>
                   {/*  */}
+
+                  <OverlayTrigger
+                    overlay={
+                      <Tooltip id="tooltip-disabled">ดูรายละเอียดครุภัณฑ์</Tooltip>
+                    }
+                  >
+                    <td>
+                      <Button
+                        size="lg"
+                        variant="outline-dark"
+                        onClick={() => {
+                          setGetItem(item);
+                          setModalShowDetalis(true);
+                        }}
+                      >
+                        <BsClipboard color={colors.black} size={20} />
+                      </Button>
+                    </td>
+                  </OverlayTrigger>
+
+                  {/*  */}
                   <td>
                     <Button
                       size="lg"
@@ -258,7 +313,7 @@ function TableListItem(props: any) {
                   <td>
                     <Button
                       size="lg"
-                      variant="outline-warning"
+                      variant="outline-dark"
                       onClick={() => {
                         setGetItem(item);
                         setModalShowOne(true);
@@ -270,31 +325,22 @@ function TableListItem(props: any) {
                   {/*  */}
 
                   <td>{item?.code}</td>
-                  <OverlayTrigger
-                    overlay={
-                      <Tooltip id="tooltip-disabled">ดูรายละเอียด</Tooltip>
-                    }
-                  >
-                    <td>
-                      <Button
-                        onClick={() => {
-                          setGetItem(item);
-                          setModalShowDetalis(true);
-                        }}
-                        style={{ fontSize: 20 }}
-                        variant="link"
-                      >
-                        {item?.name}
-                      </Button>
-                    </td>
-                  </OverlayTrigger>
+                  <td> {item?.name}</td>
+
                   <td>{item?.category?.name}</td>
                   <td>{item?.price}</td>
                   <td style={{ color: item?.status_item ? "green" : "red" }}>
                     {item?.status_item ? "ปกติ" : "ชำรุด"}
                   </td>
-                  <td>{item?.faculty?.nameTH}</td>
-                  <td>{item?.department?.nameTH}</td>
+                  {getUserAdmin ? (
+                    <>
+                      <td>{item?.faculty?.nameTH}</td>
+                      <td>{item?.department?.nameTH}</td>
+                    </>
+                  ) : (
+                    <></>
+                  )}
+
                   <td>{item?.building?.nameTH}</td>
                   <td>{item?.location.floor}</td>
                   <td>{item?.location?.nameTH}</td>
@@ -317,9 +363,9 @@ function TableListItem(props: any) {
         </Card.Footer>
       </Card>
       <Button
-      className="mt-2"
+        className="mt-2"
         size="lg"
-        variant="outline-primary"
+        variant="outline-dark"
         onClick={() => {
           setModalShowAll(true);
         }}

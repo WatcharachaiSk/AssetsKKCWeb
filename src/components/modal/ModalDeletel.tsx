@@ -27,25 +27,24 @@ function ModalDeletel(props: any) {
         <Modal.Title>ลบ{title}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-     
-          <Form.Group className="mb-2">
-            <Form.Label>
-              กรุณากรอกชื่อ {title} ให้ตรงกันเพื่อลบ {title}{" "}
-              <span style={{ color: colors.blue4C }}>({item.name})</span>
-            </Form.Label>
-            <Form.Control
-              size="lg"
-              // readOnly
-              type="text"
-              placeholder={`ชื่อ${title}`}
-              value={name}
-              onChange={(event: any) => {
-                const value = event.target.value;
-                setName(value);
-              }}
-            />
-          </Form.Group>
-      
+        <Form.Group className="mb-2">
+          <Form.Label>
+            กรุณากรอกชื่อ {title} ให้ตรงกันเพื่อลบ {title}{" "}
+            <span style={{ color: colors.blue4C }}>({item.name})</span>
+          </Form.Label>
+          <Form.Control
+            size="lg"
+            // readOnly
+            type="text"
+            placeholder={`ชื่อ${title}`}
+            value={name}
+            onChange={(event: any) => {
+              const value = event.target.value;
+              setName(value);
+            }}
+          />
+        </Form.Group>
+
         <div>
           <IoMdHelpCircleOutline size={15} color={colors.statusColor0} />
           <span

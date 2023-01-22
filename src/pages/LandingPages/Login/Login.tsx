@@ -32,8 +32,9 @@ function Login() {
     if (getToken) {
       try {
         const res = await axios(configAxios("get", API.checkToken));
-        // console.log(res.status);
+        // console.log(res);
         if (res.status == 200) {
+          // if
           setTimeout(() => {
             navigate("/dashboard");
           }, 100);

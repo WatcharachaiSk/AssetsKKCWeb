@@ -34,9 +34,10 @@ function NavbarTop(props: any) {
   useEffect(() => {
     if (isLogOut) {
       navigate("/login");
-      localStorage.removeItem("Token");
-      localStorage.removeItem("Profile");
-      localStorage.removeItem("UserAdmin");
+      // localStorage.removeItem("Token");
+      // localStorage.removeItem("Profile");
+      // localStorage.removeItem("UserAdmin");
+      localStorage.clear()
     }
   }, [isLogOut]);
 

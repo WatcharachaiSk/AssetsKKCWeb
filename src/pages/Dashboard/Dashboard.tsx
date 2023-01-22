@@ -249,7 +249,11 @@ function Dashboard() {
       <Container>
         <div className="d-flex flex-row justify-content-center flex-wrap bd-highlight">
           <div style={{ height: 300, width: "100%" }}>
-            <DataGrid rows={rows} columns={columns} />
+            <DataGrid
+              style={{ ...GetKanitFont("KanitLight") }}
+              rows={rows}
+              columns={columns}
+            />
           </div>
         </div>
       </Container>
