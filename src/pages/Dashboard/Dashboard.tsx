@@ -29,6 +29,8 @@ import {
   // ChartData,
 } from "chart.js";
 import colors from "../../config/colors";
+import checkToken from "../../config/checkToken";
+import { useNavigate } from "react-router-dom";
 ChartJS.register(
   ArcElement,
   CategoryScale,
@@ -40,6 +42,7 @@ ChartJS.register(
 );
 
 function Dashboard() {
+  const navigate = useNavigate();
   const clickPage = "dashboard";
 
   const [getCategory, setGetCategory] = useState<any>([]);
@@ -53,7 +56,7 @@ function Dashboard() {
       // setGetTypeItem(resType.data);
     } catch (error: any) {
       // console.log("err = ", error.request.status);
-      // checkToken(error.response.data.status, error.request.status, navigate);
+      checkToken(error.response.data.status, error.request.status, navigate);
     }
   }, []);
 
@@ -152,8 +155,6 @@ function Dashboard() {
   const [data_Labels, setData_Labels] = useState<any>();
   const [dataList, setDataList] = useState<any>();
 
-  // console.log("data_Labels", data_Labels);
-  // console.log("dataList", dataList);
   const [colorList, setColorList] = useState<any>();
   const dataPie = {
     labels: data_Labels,

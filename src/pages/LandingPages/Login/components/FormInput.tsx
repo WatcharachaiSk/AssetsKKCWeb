@@ -14,7 +14,8 @@ function FormInput(props: any) {
   const { navigate, setlocalStorage } = props;
 
   const [inputs, setInputs] = useState<any>({});
-  const [user, setUser] = useState<any>();
+  // const [user, setUser] = useState<any>();
+  console.log(inputs);
 
   const handleChange = (event: any) => {
     const name = event.target.name;
@@ -27,9 +28,9 @@ function FormInput(props: any) {
     event.preventDefault();
 
     const res: any = await postLogin(inputs.username, inputs.password);
-    console.log(res?.data?.user.user_status);
-    if (res?.data?.user.user_status) {
-      if (res.status === 200 && res.status <= 201) {
+    // console.log(res?.data?.user.user_status);
+    if (res.status === 200 && res.status <= 201) {
+      if (res?.data?.user.user_status) {
         await sweet_mixin(
           "top-end",
           "success",
@@ -48,21 +49,21 @@ function FormInput(props: any) {
           }, 1000);
         });
       } else {
-        MySwal.fire({
-          title: <strong>มีบางอย่างผิดปกติ</strong>,
-          html: <i></i>,
-          icon: "error",
-        }).then((value: any) => {});
+        sweet_basic(
+          "error",
+          "บัญชีถูกปิดการใช้งาน",
+          `กรุณาติดต่อผู้ดูแลเพื่อขอเปิดระบบใช้งานอีกรอบ`
+        );
       }
     } else {
-      sweet_basic(
-        "error",
-        "บัญชีถูกปิดการใช้งาน",
-        `กรุณาติดต่อผู้ดูแลเพื่อขอเปิดระบบใช้งานอีกรอบ`
-      );
+      MySwal.fire({
+        title: <strong>มีบางอย่างผิดปกติ</strong>,
+        html: <i></i>,
+        icon: "error",
+      }).then((value: any) => {});
     }
 
-    setUser(res);
+    // setUser(res);
   };
 
   const styles = {
@@ -106,15 +107,30 @@ function FormInput(props: any) {
           </Form.Group>
 
           <Container>
-            <Row>
-              <Col></Col>
-              <Col>
-                <Button variant="primary" type="submit" onClick={handleSubmit}>
-                  Login
-                </Button>
-              </Col>
-              <Col></Col>
-            </Row>
+            <div className="d-flex justify-content-center">
+              <Button
+                variant={
+                  inputs?.username && inputs?.password ? "success" : "secondary"
+                }
+                type="submit"
+                onClick={(event: any) => {
+                  if (inputs?.username && inputs?.password) {
+                    handleSubmit(event);
+                  } else {
+                    event.preventDefault();
+                    sweet_basic(
+                      "warning",
+                      "ข้อมูลไม่ครบ",
+                      `กรุณากรอกข้อมูลให้เรียบร้อย`
+                    );
+                  }
+                }}
+              >
+                {inputs?.username && inputs?.password
+                  ? "เข้าสู่ระบบ"
+                  : "ข้อมูลยังไม่ครบ"}
+              </Button>
+            </div>
           </Container>
         </Form>
       </Card>

@@ -7,8 +7,12 @@ import checkToken from "../../../config/checkToken";
 import { useNavigate } from "react-router-dom";
 import _ from "lodash";
 import { sweet_basic } from "../../../components/sweetalert2/sweet";
-import images from "../../../config/index.images";
-import getBase64 from "../../../config/getBase64";
+import {
+  chackStatusItem,
+  // chackStatusItemColor,
+} from "../../../config/chackStatusItem";
+// import images from "../../../config/index.images";
+// import getBase64 from "../../../config/getBase64";
 
 function FormAddItem(props: any) {
   const {
@@ -173,18 +177,21 @@ function FormAddItem(props: any) {
 
   // Image
   const [selectedFile, setSelectedFile] = useState<any>();
-  const [showFile, setShowFile] = useState<any>();
+  // const [showFile, setShowFile] = useState<any>();
   // console.log(selectedFile);
   // console.log("showFile = " + showFile);
 
   const onSubmit = async (event: any) => {
     event.preventDefault();
+    // console.log(chackStatusItem(status));
+    let statusItemString = chackStatusItem(status);
+
     const obj = {
       name: nameItem,
       code: codeItem,
       status_item: {
         id: status,
-        name: status == 1 ? "ปกติ" : "ชำรุด",
+        name: statusItemString,
       },
       description: description,
       price: price,
@@ -338,6 +345,7 @@ function FormAddItem(props: any) {
         <Form.Group className="mb-3" controlId="formStatusItem">
           <Form.Label>สภานะครุภัณฑ์</Form.Label>
           <Form.Select
+            // style={{ color: chackStatusItemColor(status) }}
             onChange={(event: any) => {
               handleChangeStatus(event);
             }}
@@ -345,6 +353,8 @@ function FormAddItem(props: any) {
           >
             <option value="1">ปกติ</option>
             <option value="0">ชำรุด</option>
+            <option value="2">รอจำหนาย</option>
+            <option value="3">จำหน่ายออก</option>
           </Form.Select>
         </Form.Group>
         {/*  */}

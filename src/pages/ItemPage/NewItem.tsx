@@ -16,6 +16,7 @@ import checkStatus from "../../config/checkStatus";
 import ModalPostCate from "../../components/modal/ModalPostCate";
 import ModalPostType from "../../components/modal/ModalPostType";
 import { GetKanitFont } from "../../config/fonts";
+import NavbarItem from "../../components/navbar/NavbarItem";
 
 function NewItem() {
   const navigate = useNavigate();
@@ -80,6 +81,7 @@ function NewItem() {
   return (
     <div style={{ ...GetKanitFont("KanitLight") }}>
       <NavbarTop clickPage={"items"} />
+      <NavbarItem clickPage={"items"} />
       <div className="d-flex justify-content-center mt-4 mb-2">
         <h3>เพิ่มครุภัณฑ์</h3>
       </div>
