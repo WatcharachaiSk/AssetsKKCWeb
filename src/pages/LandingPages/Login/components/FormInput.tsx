@@ -15,7 +15,7 @@ function FormInput(props: any) {
 
   const [inputs, setInputs] = useState<any>({});
   // const [user, setUser] = useState<any>();
-  console.log(inputs);
+  // console.log(inputs);
 
   const handleChange = (event: any) => {
     const name = event.target.name;

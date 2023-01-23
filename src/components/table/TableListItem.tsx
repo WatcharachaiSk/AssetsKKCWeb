@@ -20,6 +20,10 @@ import ModalDetails from "../modal/Details/ModalDetails";
 import PaginationItem from "./components/PaginationItem";
 // import ReactPaginate from "react-paginate";
 import { BsClipboard } from "react-icons/bs";
+import {
+  chackStatusItem,
+  chackStatusItemColor,
+} from "../../config/chackStatusItem";
 
 function TableListItem(props: any) {
   const { itemList, editPage } = props;
@@ -280,7 +284,9 @@ function TableListItem(props: any) {
 
                   <OverlayTrigger
                     overlay={
-                      <Tooltip id="tooltip-disabled">ดูรายละเอียดครุภัณฑ์</Tooltip>
+                      <Tooltip id="tooltip-disabled">
+                        ดูรายละเอียดครุภัณฑ์
+                      </Tooltip>
                     }
                   >
                     <td>
@@ -329,8 +335,11 @@ function TableListItem(props: any) {
 
                   <td>{item?.category?.name}</td>
                   <td>{item?.price}</td>
-                  <td style={{ color: item?.status_item ? "green" : "red" }}>
-                    {item?.status_item ? "ปกติ" : "ชำรุด"}
+                  <td
+                    style={{ color: chackStatusItemColor(item?.status_item) }}
+                  >
+                    {/* {item?.status_item ? "ปกติ" : "ชำรุด"} */}
+                    {chackStatusItem(item?.status_item)}
                   </td>
                   {getUserAdmin ? (
                     <>

@@ -2,6 +2,10 @@ import { useState, useEffect } from "react";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import styled from "styled-components";
 import _ from "lodash";
+import {
+  chackStatusItem,
+  chackStatusItemColor,
+} from "../../../../config/chackStatusItem";
 
 function SearchItem(props: any) {
   const { getItems, setDataFilter, dataFilter } = props;
@@ -89,10 +93,21 @@ function SearchItem(props: any) {
       });
       setDataFilter(dataItemLocate);
     } else if (selected?.filter === "status_item") {
+      // console.log(
+      //   "selected?.value = ",
+      //   selected?.value + typeof selected?.value
+      // );
+      // console.log(chackStatusItem(selected?.value));
+      // selected?.value === "true" ? true : false
+      let status_item: any;
+      if (selected?.value == "true" || selected?.value == "false") {
+        status_item = selected?.value === "true" ? true : false;
+      } else {
+        status_item = selected?.value;
+      }
+      // console.log("status_item = ", status_item + typeof status_item);
       const dataItemLocate = _.filter(getItems, (item: any) => {
-        return (
-          item?.status_item === (selected?.value === "true" ? true : false)
-        );
+        return item?.status_item == status_item;
       });
       setDataFilter(dataItemLocate);
     } else {
@@ -325,6 +340,8 @@ function SearchItem(props: any) {
             value={pickStatusItem}
             onChange={(e: any) => {
               const value = e.target.value;
+              // console.log(value);
+
               setPickStatusItem(value);
               setPickFacultys("0");
               setPickDepartment("0");
@@ -345,8 +362,12 @@ function SearchItem(props: any) {
             <option value={"0"}>ค้นหาตามสถานะ</option>
             {_.map(statusItem, (item: any, idx: number) => {
               return (
-                <option key={idx} value={item}>
-                  {item ? "ปกติ" : "ชำรุด"}
+                <option
+                  style={{ color: chackStatusItemColor(item) }}
+                  key={idx}
+                  value={item}
+                >
+                  {chackStatusItem(item)}
                 </option>
               );
             })}

@@ -1,5 +1,9 @@
 import { Button, Table, Modal } from "react-bootstrap";
 import colors from "../../config/colors";
+import {
+  chackStatusItem,
+  chackStatusItemColor,
+} from "../../config/chackStatusItem";
 function ModalPostEdit(props: any) {
   const {
     modalShowCheckEditItem,
@@ -104,19 +108,14 @@ function ModalPostEdit(props: any) {
                 <tr>
                   <td>สถานนะ</td>
                   <td>
-                    {chackDataEdit?.status == "1" ? (
-                      <span
-                        style={{ color: colors.statusColor1, fontSize: 18 }}
-                      >
-                        ปกติ
-                      </span>
-                    ) : (
-                      <span
-                        style={{ color: colors.statusColor0, fontSize: 18 }}
-                      >
-                        ชำรุด
-                      </span>
-                    )}
+                    <span
+                      style={{
+                        color: chackStatusItemColor(chackDataEdit?.status),
+                        fontSize: 18,
+                      }}
+                    >
+                      {chackStatusItem(chackDataEdit?.status)}
+                    </span>
                   </td>
                 </tr>
                 <tr>

@@ -11,7 +11,10 @@ import { GetKanitFont } from "../../../../config/fonts";
 import { CiImageOff, CiImageOn } from "react-icons/ci";
 import colors from "../../../../config/colors";
 import ModalShowDamaged from "../../../../components/modal/Details/ModalShowDamaged";
-
+import {
+  chackStatusItem,
+  chackStatusItemColor,
+} from "../../../../config/chackStatusItem";
 function HistoryItem(props: any) {
   const navigate = useNavigate();
   const { getItems } = props;
@@ -23,7 +26,9 @@ function HistoryItem(props: any) {
   useEffect(() => {
     setIdItem(getItems.item_id);
   }, [getItems]);
-  // console.log(idItem);
+  // console.log(getItems);
+
+  // console.log(historyStatus);
 
   useMemo(async () => {
     try {
@@ -80,13 +85,15 @@ function HistoryItem(props: any) {
               <tr key={item?.hs_id}>
                 <td>
                   {/* {item?.item.name_image_damaged}{" "} */}
-                  {idx == 0 ? (
+                  {item?.img_items_damageds?.length != 0 ? (
                     <Button
                       size="lg"
                       variant="warning"
                       onClick={() => {
                         setModalShowDamaged(true);
-                        setName_image_damaged(item?.item?.name_image_damaged);
+                        setName_image_damaged(
+                          item?.img_items_damageds[0]?.name_image_item_damaged
+                        );
                       }}
                     >
                       <CiImageOn color={colors.black} size={20} />
@@ -98,7 +105,7 @@ function HistoryItem(props: any) {
                   )}
                 </td>
                 <td>
-                  <Moment format="HH:mm:ss - DD/MM/YYYY ">
+                  <Moment format="DD/MM/YYYY - HH:mm:ss">
                     {item?.createdAt}
                   </Moment>
                 </td>
@@ -108,8 +115,8 @@ function HistoryItem(props: any) {
                 <td>
                   {item?.location?.nameTH} {item?.location?.nameEN}
                 </td>
-                <td style={{ color: item.status ? "green" : "red" }}>
-                  {item.status ? "ปกติ" : "ชำรุด"}
+                <td style={{ color: chackStatusItemColor(item.status) }}>
+                  {chackStatusItem(item.status)}
                 </td>
                 <td>{item?.note}</td>
               </tr>

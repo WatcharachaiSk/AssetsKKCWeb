@@ -8,6 +8,8 @@ import { useNavigate } from "react-router-dom";
 import _ from "lodash";
 import colors from "../../../../config/colors";
 import { sweet_basic } from "../../../../components/sweetalert2/sweet";
+import getBase64 from "../../../../config/getBase64";
+import images from "../../../../config/index.images";
 function FormEditStatus(props: any) {
   const navigate = useNavigate();
   const {
@@ -15,18 +17,19 @@ function FormEditStatus(props: any) {
     setModalShowCheckUpdateItem,
     setPostUpdateItemCheck,
     setPostUpdateItem,
+    setuserUrlStatus,
   } = props;
-  const [idItem, setIdItem] = useState<string>();
-  const [nameItem, setNameItem] = useState<string>();
-  const [codeItem, setCodeItem] = useState<string>();
+  const [idItem, setIdItem] = useState<any>();
+  const [nameItem, setNameItem] = useState<any>();
+  const [codeItem, setCodeItem] = useState<any>();
 
-  const [noteItem, setNoteItem] = useState<string>();
+  const [noteItem, setNoteItem] = useState<any>();
 
-  const [statusItem, setStatusItem] = useState<number>(-1);
-  const [statusItem_Old, setStatusItem_Old] = useState<number>();
+  const [statusItem, setStatusItem] = useState<any>(-1);
+  const [statusItem_Old, setStatusItem_Old] = useState<any>();
 
-  const [locationLId, setLocationLId] = useState<number>(0);
-  const [locationLId_Old, setLocationLId_Old] = useState<number>(0);
+  const [locationLId, setLocationLId] = useState<any>(0);
+  const [locationLId_Old, setLocationLId_Old] = useState<any>(0);
 
   const [getLocation, setGetgetLocation] = useState<string>();
 
@@ -34,7 +37,7 @@ function FormEditStatus(props: any) {
   // console.log("locationLId_Old = " + locationLId_Old);
   // console.log("noteItem = " + noteItem);
   // console.log("statusItem_Old = " + statusItem_Old);
-// console.log(getItems);
+  // console.log(getItems);
 
   useEffect(() => {
     setIdItem(getItems?.item_id);
@@ -43,6 +46,9 @@ function FormEditStatus(props: any) {
     setLocationLId(getItems?.locationLId);
     setLocationLId_Old(getItems?.locationLId);
     setStatusItem_Old(getItems?.status_item);
+
+    setSelectedFile(undefined);
+    setShowFile(undefined);
   }, [getItems]);
 
   useMemo(async () => {
@@ -76,7 +82,7 @@ function FormEditStatus(props: any) {
       status: statusItem != -1 ? statusItem : statusItem_Old,
       note: noteItem ? noteItem : "-",
     };
-    const dataform = {
+    const data = {
       itemItemId: idItem,
       locationLId:
         locationLId != locationLId_Old || locationLId != 0
@@ -87,11 +93,28 @@ function FormEditStatus(props: any) {
     };
     // console.log("dataform = ", dataform);
     // console.log("obj = ", obj);
+    let dataform = new FormData();
+    dataform.append("itemItemId", idItem);
+    dataform.append(
+      "locationLId",
+      locationLId != locationLId_Old || locationLId != 0
+        ? locationLId
+        : locationLId_Old
+    );
+    dataform.append("status", statusItem != -1 ? statusItem : statusItem_Old);
+    dataform.append("note", noteItem ? noteItem : "-");
+    dataform.append("images", selectedFile);
+
+    setuserUrlStatus(selectedFile ? true : false);
+    setPostUpdateItem(selectedFile ? dataform : data);
 
     setPostUpdateItemCheck(obj);
-    setPostUpdateItem(dataform);
     setModalShowCheckUpdateItem(true);
   };
+
+  // Image
+  const [selectedFile, setSelectedFile] = useState<any>();
+  const [showFile, setShowFile] = useState<any>();
   return (
     <Container>
       <Form>
@@ -183,9 +206,51 @@ function FormEditStatus(props: any) {
               <option value="-1">เลือกสถานะ</option>
               <option value="1">ปกติ</option>
               <option value="0">ชำรุด</option>
+              <option value="2">รอจำหนาย</option>
+              <option value="3">จำหน่ายออก</option>
             </Form.Select>
           </Form.Group>
         </Row>
+        {statusItem == 0 && (
+          <>
+            <div className="d-flex justify-content-center align-content-center">
+              <img
+                src={showFile ? showFile : images.upLoadImg}
+                className="rounded float-right"
+                width={200}
+                height={200}
+                style={{
+                  objectFit: "cover",
+                  borderRadius: 15,
+                  borderColor: "#ced4da",
+                  borderWidth: 1,
+                  borderStyle: "solid",
+                }}
+              />
+            </div>
+            <div className="d-flex justify-content-center ">
+              <Form.Group controlId="formFile" className="mb-3">
+                <Form.Label>ภาพประกอบการชำรุด</Form.Label>
+                <Form.Control
+                  accept="image/png,image/jpeg,image/jpg"
+                  placeholder="เลือกรูปภาพ"
+                  size="lg"
+                  type="file"
+                  onChange={(e: any) => {
+                    // console.log(e.target.files[0]);
+                    getBase64(e.target.files[0], (result: any) => {
+                      // console.log(result);
+                      setShowFile(result);
+                    });
+
+                    setSelectedFile(e.target.files[0]);
+                  }}
+                />
+              </Form.Group>
+            </div>
+          </>
+        )}
+
         <div className="d-flex justify-content-center">
           <Button
             // style={{}}

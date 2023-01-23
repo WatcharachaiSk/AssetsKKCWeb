@@ -15,7 +15,7 @@ import _ from "lodash";
 import { optionsPie } from "./options/pie";
 import { optionsBar } from "./options/bar";
 //
-import { BsBoxSeam, BsBox } from "react-icons/bs";
+import { BsBoxSeam, BsBox, BsCart, BsCartCheck } from "react-icons/bs";
 
 import {
   Chart as ChartJS,
@@ -64,6 +64,7 @@ function Dashboard() {
   const [sumItem, setSumItem] = useState<any>();
   const [sumStatus_Item, setsumStatus_Item] = useState<any>([]);
   const [rows_Grid, setRows_Grid] = useState<any>([]);
+
   useEffect(() => {
     if (getCategory.length > 0) {
       let data_Labels = [],
@@ -85,7 +86,10 @@ function Dashboard() {
 
       let data_ListValue = [];
       let arrvauleNormal = [],
-        arrvauleNotNormal = [];
+        arrvauleNotNormal = [],
+        arrVaulePendingSale = [],
+        arrVauleSoldOut = [];
+      //
       for (let i = 0; i < name_Cate.length; i++) {
         const itemCate = _.filter(getCategory, (item: any, idx: any) => {
           return item.name === name_Cate[i];
@@ -94,19 +98,29 @@ function Dashboard() {
         let sumItem = 0;
 
         for (let j = 0; j < itemCate.length; j++) {
-          let vauleNormal: any, vauleNotNormal: any;
+          let vauleNormal: any,
+            vauleNotNormal: any,
+            vaulePendingSale: any,
+            vauleSoldOut: any;
           vauleNormal = _.filter(itemCate[j]?.items, (item: any) => {
             return item.status_item == true;
           });
           // console.log(vauleNormal);
-
           vauleNotNormal = _.filter(itemCate[j]?.items, (item: any) => {
             return item.status_item == false;
+          });
+          vaulePendingSale = _.filter(itemCate[j]?.items, (item: any) => {
+            return item.status_item == 2;
+          });
+          vauleSoldOut = _.filter(itemCate[j]?.items, (item: any) => {
+            return item.status_item == 3;
           });
           // console.log(vauleNotNormal);
 
           arrvauleNormal.push(vauleNormal);
           arrvauleNotNormal.push(vauleNotNormal);
+          arrVaulePendingSale.push(vaulePendingSale);
+          arrVauleSoldOut.push(vauleSoldOut);
           sumItem = sumItem + itemCate[j]?.items.length;
         }
 
@@ -115,6 +129,8 @@ function Dashboard() {
 
       let sumArrvauleNormal = 0,
         sumArrvauleNotNormall = 0,
+        sumArrvaulePendingSalel = 0,
+        sumArrvauleSoldOut = 0,
         sumArrvauleStatus = [];
       for (let i = 0; i < arrvauleNormal.length; i++) {
         if (arrvauleNormal[i].length != 0) {
@@ -127,8 +143,24 @@ function Dashboard() {
             sumArrvauleNotNormall + arrvauleNotNormal[i].length;
         }
       }
+      for (let i = 0; i < arrVaulePendingSale.length; i++) {
+        if (arrVaulePendingSale[i].length != 0) {
+          sumArrvaulePendingSalel =
+            sumArrvaulePendingSalel + arrVaulePendingSale[i].length;
+        }
+      }
+      for (let i = 0; i < arrVauleSoldOut.length; i++) {
+        if (arrVaulePendingSale[i].length != 0) {
+          sumArrvauleSoldOut = sumArrvauleSoldOut + arrVauleSoldOut[i].length;
+        }
+      }
+
       sumArrvauleStatus.push(sumArrvauleNormal);
       sumArrvauleStatus.push(sumArrvauleNotNormall);
+      sumArrvauleStatus.push(sumArrvaulePendingSalel);
+      sumArrvauleStatus.push(sumArrvauleSoldOut);
+
+      // console.log(sumArrvauleStatus);
 
       setsumStatus_Item(sumArrvauleStatus);
 
@@ -167,14 +199,19 @@ function Dashboard() {
     ],
   };
 
-  const labelsBar = ["ปกติ", "ชำรุด"];
+  const labelsBar = ["ปกติ", "ชำรุด", "รอจำหน่าย", "จำนหน่ายแล้ว"];
   const dataBar = {
     labels: labelsBar,
     datasets: [
       {
         label: "สถานะครุภัณฑ์",
         data: sumStatus_Item,
-        backgroundColor: [colors.statusColor1aa, colors.statusColor0ff],
+        backgroundColor: [
+          colors.statusColor1aa,
+          colors.statusColor0ff,
+          colors.statusColor2,
+          colors.statusColor3,
+        ],
       },
     ],
   };
@@ -216,6 +253,7 @@ function Dashboard() {
               <BsBoxSeam size={50} color={"#3e3e3e"} />
             </div>
           </Card>
+          {/*  */}
           <Card
             className="m-1 d-flex align-content-center justify-content-center"
             style={{
@@ -230,6 +268,7 @@ function Dashboard() {
               <BsBox size={50} color={colors.statusColor1aa} />
             </div>
           </Card>
+          {/*  */}
           <Card
             className="m-1 d-flex align-content-center justify-content-center"
             style={{
@@ -242,6 +281,36 @@ function Dashboard() {
             </div>
             <div className="d-flex justify-content-center">
               <BsBox size={50} color={colors.statusColor0ff} />
+            </div>
+          </Card>
+          {/*  */}
+          <Card
+            className="m-1 d-flex align-content-center justify-content-center"
+            style={{
+              width: "15rem",
+              height: "10rem",
+            }}
+          >
+            <div className="d-flex justify-content-center mb-2">
+              รอจำหน่าย {sumStatus_Item[2]} ชิ้น
+            </div>
+            <div className="d-flex justify-content-center">
+              <BsCart size={50} color={colors.statusColor2} />
+            </div>
+          </Card>
+          {/*  */}
+          <Card
+            className="m-1 d-flex align-content-center justify-content-center"
+            style={{
+              width: "15rem",
+              height: "10rem",
+            }}
+          >
+            <div className="d-flex justify-content-center mb-2">
+              จำหน่ายออก {sumStatus_Item[3]} ชิ้น
+            </div>
+            <div className="d-flex justify-content-center">
+              <BsCartCheck size={50} color={colors.statusColor3} />
             </div>
           </Card>
         </div>
@@ -301,6 +370,14 @@ function Dashboard() {
                 <div>
                   <span style={{ color: colors.statusColor0 }}>ชำรุด</span>{" "}
                   {sumStatus_Item[1]} ชิ้น
+                </div>
+                <div>
+                  <span style={{ color: colors.statusColor2 }}>รอจำหน่าย</span>{" "}
+                  {sumStatus_Item[2]} ชิ้น
+                </div>
+                <div>
+                  <span style={{ color: colors.statusColor3 }}>จำหน่ายออก</span>{" "}
+                  {sumStatus_Item[3]} ชิ้น
                 </div>
               </div>
             </div>

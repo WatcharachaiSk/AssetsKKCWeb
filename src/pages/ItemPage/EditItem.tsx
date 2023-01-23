@@ -43,9 +43,7 @@ function EditItem() {
     try {
       // let id = localStorage.getItem("itemItemEdit");
       let res;
-
       res = await axios(configAxios("get", `${API.getItemById}${state.id}`));
-
       setGetItems(res.data);
     } catch (error: any) {
       // console.log("err = ", error.request.status);
@@ -68,13 +66,14 @@ function EditItem() {
       }
     }
   };
+  //
+  const [userUrlStatus, setuserUrlStatus] = useState<boolean>(false);
   const onSubmitFnUpdateItem = async (status: number) => {
     setModalShowCheckUpdateItem(false);
     if (status == 1) {
+      let sendUrl = userUrlStatus ? API.updateStetusPhoto : API.updateStetus;
       try {
-        const res = await axios(
-          configAxios("post", API.updateStetus, postUpdateItem)
-        );
+        const res = await axios(configAxios("post", sendUrl, postUpdateItem));
         checkStatus(res, "ย้ายสถานที่หรือเปลี่ยนถานะครุภัณฑ์สร็จสิ้น");
         setedit_updateEn(!edit_updateEn);
       } catch (error: any) {
@@ -184,16 +183,19 @@ function EditItem() {
         />
       )}
       <div className="mt-5">
-        <FormEditStatus
-          getItems={getItems}
-          setModalShowCheckUpdateItem={setModalShowCheckUpdateItem}
-          setPostUpdateItemCheck={setPostUpdateItemCheck}
-          setPostUpdateItem={setPostUpdateItem}
-        />
+        {getItems && (
+          <FormEditStatus
+            setuserUrlStatus={setuserUrlStatus}
+            getItems={getItems}
+            setModalShowCheckUpdateItem={setModalShowCheckUpdateItem}
+            setPostUpdateItemCheck={setPostUpdateItemCheck}
+            setPostUpdateItem={setPostUpdateItem}
+          />
+        )}
       </div>
 
       <div className="mt-5">
-        <HistoryItem getItems={getItems} />
+        {getItems && <HistoryItem getItems={getItems} />}
       </div>
     </div>
   );

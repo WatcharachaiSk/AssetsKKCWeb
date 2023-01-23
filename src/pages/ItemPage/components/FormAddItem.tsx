@@ -56,7 +56,7 @@ function FormAddItem(props: any) {
   const [nameCate, setNameCate] = useState<any>();
 
   const [description, setDescription] = useState<any>();
-  const [price, setPrice] = useState<any>();
+  const [price, setPrice] = useState<any>(0);
   //
 
   // getFaculty
@@ -194,7 +194,7 @@ function FormAddItem(props: any) {
         name: statusItemString,
       },
       description: description,
-      price: price,
+      price: price ? price : 0,
       faculty: {
         id: idFty,
         faculty: _.filter(getFaculty, (item: any) => {
@@ -231,7 +231,7 @@ function FormAddItem(props: any) {
       code: codeItem,
       status_item: status,
       description: description,
-      price: price,
+      price: price ? price : 0,
       facultyFId: idFty,
       departmentDId: idDpm,
       buildingBId: IdBud,
@@ -244,7 +244,7 @@ function FormAddItem(props: any) {
     dataform.append("name", nameItem);
     dataform.append("code", codeItem);
     dataform.append("status_item", status);
-    dataform.append("price", price);
+    dataform.append("price", price ? price : 0);
     dataform.append("description", description);
     dataform.append("facultyFId", idFty);
     dataform.append("departmentDId", idDpm);
@@ -377,6 +377,7 @@ function FormAddItem(props: any) {
           <Form.Label>ราคาครุภัณฑ์</Form.Label>
           <Form.Control
             size="lg"
+            min={"0"}
             // style={{ height: "3rem" }}
             type="number"
             placeholder="ราคาครุภัณฑ์"
@@ -571,6 +572,7 @@ function FormAddItem(props: any) {
                 nameItem &&
                 codeItem &&
                 description &&
+                price >= 0 &&
                 price
               ) {
                 onSubmit(event);
@@ -589,6 +591,7 @@ function FormAddItem(props: any) {
               nameItem &&
               codeItem &&
               description &&
+              price >= 0 &&
               price
                 ? "success"
                 : "secondary"
@@ -604,6 +607,7 @@ function FormAddItem(props: any) {
             nameItem &&
             codeItem &&
             description &&
+            price >= 0 &&
             price
               ? "Submit"
               : "กรุณากรอกข้อมูลให้ครบ"}
