@@ -126,6 +126,7 @@ function Dashboard() {
 
         data_ListValue.push(sumItem);
       }
+      // console.log(arrVauleSoldOut);
 
       let sumArrvauleNormal = 0,
         sumArrvauleNotNormall = 0,
@@ -149,11 +150,14 @@ function Dashboard() {
             sumArrvaulePendingSalel + arrVaulePendingSale[i].length;
         }
       }
+      // console.log("arrVauleSoldOut.length = " + arrVauleSoldOut.length);
+
       for (let i = 0; i < arrVauleSoldOut.length; i++) {
-        if (arrVaulePendingSale[i].length != 0) {
+        if (arrVauleSoldOut[i].length != 0) {
           sumArrvauleSoldOut = sumArrvauleSoldOut + arrVauleSoldOut[i].length;
         }
       }
+      // console.log(sumArrvauleSoldOut);
 
       sumArrvauleStatus.push(sumArrvauleNormal);
       sumArrvauleStatus.push(sumArrvauleNotNormall);

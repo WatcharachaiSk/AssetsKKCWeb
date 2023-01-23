@@ -5,6 +5,10 @@ import { GetKanitFont } from "../../../config/fonts";
 // import images from "../../../config/index.images";
 import { setURLItem } from "../../../config/setURL_image";
 import _ from "lodash";
+import {
+  chackStatusItem,
+  chackStatusItemColor,
+} from "../../../config/chackStatusItem";
 
 function ModalDetails(props: any) {
   const { item } = props;
@@ -106,8 +110,7 @@ function ModalDetails(props: any) {
               }}
               variant="light"
             >
-              {showImage?.length == 2 ?"ดูรูปเพิ่มเติม" :'ปิดดูเพิ่มเติม'}
-              
+              {showImage?.length == 2 ? "ดูรูปเพิ่มเติม" : "ปิดดูเพิ่มเติม"}
             </Button>
           </div>
           <Form>
@@ -137,15 +140,13 @@ function ModalDetails(props: any) {
               <Form.Label>สภานะครุภัณฑ์</Form.Label>
               <Form.Control
                 style={{
-                  color: status_item
-                    ? colors.statusColor1
-                    : colors.statusColor0,
+                  color: chackStatusItemColor(status_item),
                 }}
                 size="lg"
                 readOnly
                 placeholder="สถานะ"
                 type="text"
-                value={status_item ? "ปกติ" : "ชำรุด"}
+                value={chackStatusItem(status_item)}
               />
             </Form.Group>
             {/*  */}

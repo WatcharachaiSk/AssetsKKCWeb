@@ -10,6 +10,10 @@ import colors from "../../../../config/colors";
 import { sweet_basic } from "../../../../components/sweetalert2/sweet";
 import getBase64 from "../../../../config/getBase64";
 import images from "../../../../config/index.images";
+import {
+  chackStatusItem,
+  chackStatusItemColor,
+} from "../../../../config/chackStatusItem";
 function FormEditStatus(props: any) {
   const navigate = useNavigate();
   const {
@@ -182,15 +186,14 @@ function FormEditStatus(props: any) {
             {/* unit */}
             <Form.Label>
               สถานะครุภัณฑ์ ตอนนี้ (
-              {statusItem_Old ? (
-                <span style={{ color: colors.statusColor1, fontSize: 18 }}>
-                  ปกติ
-                </span>
-              ) : (
-                <span style={{ color: colors.statusColor0, fontSize: 18 }}>
-                  ชำรุด
-                </span>
-              )}
+              <span
+                style={{
+                  color: chackStatusItemColor(statusItem_Old),
+                  fontSize: 18,
+                }}
+              >
+                {chackStatusItem(statusItem_Old)}
+              </span>
               )
             </Form.Label>
             <Form.Select
