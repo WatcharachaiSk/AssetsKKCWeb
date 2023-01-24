@@ -30,6 +30,7 @@ import {
 } from "chart.js";
 import colors from "../../config/colors";
 import checkToken from "../../config/checkToken";
+import { toLocaleStringEn } from "../../config/number/formatEN";
 import { useNavigate } from "react-router-dom";
 ChartJS.register(
   ArcElement,
@@ -251,7 +252,7 @@ function Dashboard() {
             }}
           >
             <div className="d-flex justify-content-center mb-2">
-              ครุภัณฑ์ในระบบทั้งหมด {sumItem} ชิ้น
+              ครุภัณฑ์ในระบบทั้งหมด {toLocaleStringEn(sumItem)} ชิ้น
             </div>
             <div className="d-flex justify-content-center">
               <BsBoxSeam size={50} color={"#3e3e3e"} />
@@ -266,7 +267,7 @@ function Dashboard() {
             }}
           >
             <div className="d-flex justify-content-center mb-2">
-              ปกติทั้งหมด {sumStatus_Item[0]} ชิ้น
+              ปกติทั้งหมด {toLocaleStringEn(sumStatus_Item[0])} ชิ้น
             </div>
             <div className="d-flex justify-content-center">
               <BsBox size={50} color={colors.statusColor1aa} />
@@ -281,7 +282,7 @@ function Dashboard() {
             }}
           >
             <div className="d-flex justify-content-center mb-2">
-              ชำรุดทั้งหมด {sumStatus_Item[1]} ชิ้น
+              ชำรุดทั้งหมด {toLocaleStringEn(sumStatus_Item[1])} ชิ้น
             </div>
             <div className="d-flex justify-content-center">
               <BsBox size={50} color={colors.statusColor0ff} />
@@ -296,7 +297,7 @@ function Dashboard() {
             }}
           >
             <div className="d-flex justify-content-center mb-2">
-              รอจำหน่าย {sumStatus_Item[2]} ชิ้น
+              รอจำหน่าย {toLocaleStringEn(sumStatus_Item[2])} ชิ้น
             </div>
             <div className="d-flex justify-content-center">
               <BsCart size={50} color={colors.statusColor2} />
@@ -311,7 +312,7 @@ function Dashboard() {
             }}
           >
             <div className="d-flex justify-content-center mb-2">
-              จำหน่ายออก {sumStatus_Item[3]} ชิ้น
+              จำหน่ายออก {toLocaleStringEn(sumStatus_Item[3])} ชิ้น
             </div>
             <div className="d-flex justify-content-center">
               <BsCartCheck size={50} color={colors.statusColor3} />

@@ -28,7 +28,7 @@ function ModalShowImgItem(props: any) {
       const res = await axios(
         configAxios("post", API.deleteImgItems, postImgImgItem)
       );
-      checkStatus(res, "ลบรูปครุภัณฑ์สร็จสิ้น");
+      checkStatus(res, "ลบรูปครุภัณฑ์เสร็จสิ้น");
     } catch (error: any) {
       checkToken(error.response.data.status, error.request.status);
     }

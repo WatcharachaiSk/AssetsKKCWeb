@@ -209,7 +209,7 @@ function FormEditStatus(props: any) {
               <option value="-1">เลือกสถานะ</option>
               <option value="1">ปกติ</option>
               <option value="0">ชำรุด</option>
-              <option value="2">รอจำหนาย</option>
+              <option value="2">รอจำหน่าย</option>
               <option value="3">จำหน่ายออก</option>
             </Form.Select>
           </Form.Group>

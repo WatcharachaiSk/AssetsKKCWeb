@@ -24,7 +24,7 @@ function NewLocation() {
         const res = await axios(
           configAxios("post", API.createLocation, postLocation)
         );
-        checkStatus(res, "เพิ่มสถานที่สร็จสิ้น");
+        checkStatus(res, "เพิ่มสถานที่เสร็จสิ้น");
       } catch (error: any) {
         checkToken(error.response.data.status, error.request.status, navigate);
       }

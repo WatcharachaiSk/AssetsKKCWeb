@@ -24,6 +24,8 @@ import {
   chackStatusItem,
   chackStatusItemColor,
 } from "../../config/chackStatusItem";
+// import { NumericFormat } from "react-number-format";
+import { toLocaleStringEn } from "../../config/number/formatEN";
 
 function TableListItem(props: any) {
   const { itemList, editPage } = props;
@@ -334,7 +336,7 @@ function TableListItem(props: any) {
                   <td> {item?.name}</td>
 
                   <td>{item?.category?.name}</td>
-                  <td>{item?.price}</td>
+                  <td>{toLocaleStringEn(item?.price)}</td>
                   <td
                     style={{ color: chackStatusItemColor(item?.status_item) }}
                   >

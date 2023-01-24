@@ -71,7 +71,7 @@ function ModalDeletel(props: any) {
               }
               try {
                 const res = await axios(configAxios("post", api, data));
-                checkStatus(res, `ลบ${item.name}สร็จสิ้น`);
+                checkStatus(res, `ลบ${item.name}เสร็จสิ้น`);
                 setModal(false);
                 navigate(-1);
               } catch (error: any) {}

@@ -6,6 +6,7 @@ import Moment from "react-moment";
 import colors from "../../../config/colors";
 import colorsCate from "../../../config/colorsCate";
 import { filterStatus } from "../../../config/filterStatusArr";
+import { toLocaleStringEn } from "../../../config/number/formatEN";
 function CardList(props: any) {
   const { listItem, pageShowItem, isShow } = props;
   const navigate = useNavigate();
@@ -141,14 +142,18 @@ function CardList(props: any) {
                       <Card.Subtitle className="mb-2">
                         <Card.Text>
                           {" "}
-                          จำนวน: {item?.quantity} {item?.unit}
+                          จำนวน: {toLocaleStringEn(item?.quantity)} {item?.unit}
                         </Card.Text>
                       </Card.Subtitle>
                       <Card.Subtitle className="mb-2">
-                        <Card.Text>ราคา/หน่วย: {item?.price_unit}</Card.Text>
+                        <Card.Text>
+                          ราคา/หน่วย: {toLocaleStringEn(item?.price_unit)}
+                        </Card.Text>
                       </Card.Subtitle>
                       <Card.Subtitle className="mb-2">
-                        <Card.Text>ราคารวม: {item?.total_price}</Card.Text>
+                        <Card.Text>
+                          ราคารวม: {toLocaleStringEn(item?.total_price)}
+                        </Card.Text>
                       </Card.Subtitle>
                       <Card.Subtitle className="mb-2">
                         <Card.Text>

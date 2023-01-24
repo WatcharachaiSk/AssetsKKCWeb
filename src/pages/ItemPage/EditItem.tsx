@@ -74,7 +74,7 @@ function EditItem() {
       let sendUrl = userUrlStatus ? API.updateStetusPhoto : API.updateStetus;
       try {
         const res = await axios(configAxios("post", sendUrl, postUpdateItem));
-        checkStatus(res, "ย้ายสถานที่หรือเปลี่ยนถานะครุภัณฑ์สร็จสิ้น");
+        checkStatus(res, "ย้ายสถานที่หรือเปลี่ยนถานะครุภัณฑ์เสร็จสิ้น");
         setedit_updateEn(!edit_updateEn);
       } catch (error: any) {
         checkToken(error.response.data.status, error.request.status, navigate);
@@ -94,7 +94,7 @@ function EditItem() {
         const res = await axios(
           configAxios("post", API.createImgItems, postEditImgItem)
         );
-        checkStatus(res, "เพิ่มรูปครุภัณฑ์สร็จสิ้น");
+        checkStatus(res, "เพิ่มรูปครุภัณฑ์เสร็จสิ้น");
         setedit_updateEn(!edit_updateEn);
         setPostEditImgItemFn(!postEditImgItemFn);
       } catch (error: any) {

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Button, Modal, Form, Figure } from "react-bootstrap";
-import colors from "../../../config/colors";
+// import colors from "../../../config/colors";
 import { GetKanitFont } from "../../../config/fonts";
 // import images from "../../../config/index.images";
 import { setURLItem } from "../../../config/setURL_image";
@@ -9,6 +9,7 @@ import {
   chackStatusItem,
   chackStatusItemColor,
 } from "../../../config/chackStatusItem";
+import { toLocaleStringEn } from "../../../config/number/formatEN";
 
 function ModalDetails(props: any) {
   const { item } = props;
@@ -46,7 +47,7 @@ function ModalDetails(props: any) {
   const code = item?.code;
   const status_item: string = item?.status_item;
   const description = item?.description;
-  const price = item?.price;
+  const price = toLocaleStringEn(item?.price);
 
   // let urlItem: any;
   // if (item?.name_image_item) {
