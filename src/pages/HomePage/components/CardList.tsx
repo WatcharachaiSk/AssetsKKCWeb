@@ -5,30 +5,22 @@ import { Container, Card, Button } from "react-bootstrap";
 import Moment from "react-moment";
 import colors from "../../../config/colors";
 import colorsCate from "../../../config/colorsCate";
+import { filterStatus } from "../../../config/filterStatusArr";
 function CardList(props: any) {
   const { listItem, pageShowItem, isShow } = props;
   const navigate = useNavigate();
   const [getVauleNormal, setgetVauleNormal] = useState<any>();
   const [getVauleNotNormal, setgetVauleNotNormal] = useState<any>();
+  const [getVaulePendingSale, setgetVaulePendingSale] = useState<any>();
+  const [getVauleSoldOut, setgetVauleSoldOut] = useState<any>();
 
   useEffect(() => {
-    let arrvauleNormal = [],
-      arrvauleNotNormal = [];
-    for (let i = 0; i < listItem.length; i++) {
-      let vauleNormal: any, vauleNotNormal: any;
-      vauleNormal = _.filter(listItem[i].items, (item: any) => {
-        return item.status_item == true;
-      });
-      vauleNotNormal = _.filter(listItem[i].items, (item: any) => {
-        return item.status_item == false;
-      });
-
-      arrvauleNormal[i] = vauleNormal;
-      arrvauleNotNormal[i] = vauleNotNormal;
+    if (listItem) {
+      setgetVauleNormal(filterStatus(listItem, true));
+      setgetVauleNotNormal(filterStatus(listItem, false));
+      setgetVaulePendingSale(filterStatus(listItem, 2));
+      setgetVauleSoldOut(filterStatus(listItem, 3));
     }
-    // console.log(arrvauleNormal);
-    setgetVauleNormal(arrvauleNormal);
-    setgetVauleNotNormal(arrvauleNotNormal);
   }, [listItem]);
 
   return (
@@ -89,6 +81,27 @@ function CardList(props: any) {
                           {getVauleNotNormal == undefined
                             ? ""
                             : getVauleNotNormal[index]?.length}{" "}
+                          ชิ้น
+                        </Card.Text>
+                      </Card.Subtitle>
+                      <Card.Subtitle
+                        style={{ textAlign: "end" }}
+                        className="mt-1"
+                      >
+                        <Card.Text>
+                          <span style={{ color: colors.statusColor2 }}>
+                            รอจำหน่าย
+                          </span>{" "}
+                          {getVaulePendingSale == undefined
+                            ? ""
+                            : getVaulePendingSale[index]?.length}{" "}
+                          ชิ้น /{" "}
+                          <span style={{ color: colors.statusColor3 }}>
+                            จำหน่ายออก
+                          </span>{" "}
+                          {getVauleSoldOut == undefined
+                            ? ""
+                            : getVauleSoldOut[index]?.length}{" "}
                           ชิ้น
                         </Card.Text>
                       </Card.Subtitle>
@@ -185,8 +198,23 @@ function CardList(props: any) {
                           {getVauleNotNormal == undefined
                             ? ""
                             : getVauleNotNormal[index]?.length}{" "}
+                          ชิ้น {" / "}
+                          <span style={{ color: colors.statusColor2 }}>
+                            รอจำหน่าย
+                          </span>{" "}
+                          {getVaulePendingSale == undefined
+                            ? ""
+                            : getVaulePendingSale[index]?.length}{" "}
+                          ชิ้น /{" "}
+                          <span style={{ color: colors.statusColor3 }}>
+                            จำหน่ายออก
+                          </span>{" "}
+                          {getVauleSoldOut == undefined
+                            ? ""
+                            : getVauleSoldOut[index]?.length}{" "}
                           ชิ้น
                         </Card.Text>
+                        {/* <Card.Text></Card.Text> */}
                       </Card.Subtitle>
                     </Card.Body>
                     <Card.Footer className="d-flex flex-row-reverse bd-highligh">

@@ -6,35 +6,43 @@ import { AiFillEdit } from "react-icons/ai";
 import colors from "../../config/colors";
 import { useEffect, useState } from "react";
 import Moment from "react-moment";
+import { filterStatus } from "../../config/filterStatusArr";
+import { GetKanitFont } from "../../config/fonts";
 
 function TableListTypeCate(props: any) {
   const { itemList, editPage, isPage } = props;
   const navigate = useNavigate();
   const [getVauleNormal, setgetVauleNormal] = useState<any>();
   const [getVauleNotNormal, setgetVauleNotNormal] = useState<any>();
+  const [getVaulePendingSale, setgetVaulePendingSale] = useState<any>();
+  const [getVauleSoldOut, setgetVauleSoldOut] = useState<any>();
 
   useEffect(() => {
-    let arrvauleNormal = [],
-      arrvauleNotNormal = [];
-    for (let i = 0; i < itemList?.length; i++) {
-      let vauleNormal: any, vauleNotNormal: any;
-      vauleNormal = _.filter(itemList[i]?.items, (item: any) => {
-        return item.status_item == true;
-      });
-      vauleNotNormal = _.filter(itemList[i]?.items, (item: any) => {
-        return item.status_item == false;
-      });
-
-      arrvauleNormal[i] = vauleNormal;
-      arrvauleNotNormal[i] = vauleNotNormal;
+    if (itemList) {
+      setgetVauleNormal(filterStatus(itemList, true));
+      setgetVauleNotNormal(filterStatus(itemList, false));
+      setgetVaulePendingSale(filterStatus(itemList, 2));
+      setgetVauleSoldOut(filterStatus(itemList, 3));
     }
-    // console.log(arrvauleNormal);
-    setgetVauleNormal(arrvauleNormal);
-    setgetVauleNotNormal(arrvauleNotNormal);
   }, [itemList]);
   const navigatePage = (page: string, idItem: any, item: any) => {
     navigate(page, { state: { id: idItem, item: item } });
   };
+
+  const [getUserAdmin, setGetUserAdmin] = useState<boolean>(true);
+  // const [getProfile, setGetProfile] = useState<any>({});
+  // console.log(getProfile);
+
+  useEffect(() => {
+    let userAdmin: any = localStorage.getItem("UserAdmin");
+    let profile: any = localStorage.getItem("Profile");
+    profile = JSON.parse(profile);
+    if (userAdmin == "true") {
+      setGetUserAdmin(true);
+    } else {
+      setGetUserAdmin(false);
+    }
+  }, []);
   return (
     <div style={{ margin: 30 }}>
       <Card
@@ -51,139 +59,190 @@ function TableListTypeCate(props: any) {
           </div>
         </Card.Header>
         <Table
-        style={{ paddingTop: 50, textAlign: "center", fontSize: 22 }}
-        responsive="sm"
-        //striped
-        bordered
-        hover
-      >
-        {/*  */}
-        <thead>
-          <tr>
-            {isPage === "Type" && (
-              <>
-                <th>ลำดับที่</th>
-                <th>แก้ไข</th>
-                <th>ชื่อรายการ</th>
-                <th>รหัสครุภัณฑ์</th>
-                <th>จำนวน</th>
-                <th>หน่วยนับ</th>
-                <th>ราคา/หน่วย</th>
-                <th>ราคารวม</th>
-                <th>หน่วยงาน</th>
-                <th>หมวดหมู่</th>
-                <th>อยู่ในระบบ</th>
-                <th style={{ color: colors.statusColor1 }}>ปกติ</th>
-                <th style={{ color: colors.statusColor0 }}>ชำรุด</th>
-                <th>วันที่ซื้อ</th>
-              </>
-            )}
-            {isPage === "cate" && (
-              <>
-                <th>ลำดับที่</th>
-                <th>แก้ไข</th>
-                <th>ชื่อ</th>
-                <th>หน่วยงาน</th>
-                <th>อยู่ในระบบ</th>
-                <th style={{ color: colors.statusColor1 }}>ปกติ</th>
-                <th style={{ color: colors.statusColor0 }}>ชำรุด</th>
-              </>
-            )}
-          </tr>
-        </thead>
-        {/*  */}
-        <tbody>
-          {_.map(itemList, (item, idx: string) => {
-            return (
-              <tr key={idx}>
-                {isPage === "Type" && (
-                  <>
-                    <td>{idx + 1}</td>
-                    <td>
-                      <Button
-                        variant="warning"
-                        onClick={() => {
-                          //console.log("item.Type = " + item?.type_id);
-                          navigatePage(
-                            "/type_item/editTypeItem",
-                            item.type_id,
-                            item
-                          );
-                        }}
-                      >
-                        <AiFillEdit color={colors.black} size={20} />
-                      </Button>
-                    </td>
-                    <td>{item?.name}</td>
-                    <td>{item?.code}</td>
-                    <td>{item?.quantity}</td>
-                    <td>{item?.unit}</td>
-                    <td>{item?.price_unit}</td>
-                    <td>{item?.total_price}</td>
-                    <td>{item?.department?.nameTH}</td>
-                    <td>{item?.category?.name}</td>
-                    <td>{item?.items?.length}</td>
-                    <td style={{ color: colors.statusColor1 }}>
-                      {getVauleNormal == undefined
-                        ? ""
-                        : getVauleNormal[idx]?.length}{" "}
-                    </td>
-                    <td style={{ color: colors.statusColor0 }}>
-                      {getVauleNotNormal == undefined
-                        ? ""
-                        : getVauleNotNormal[idx]?.length}
-                    </td>
-                    <td>
-                      <Moment format="DD/MM/YYYY">{item?.purchase_date}</Moment>
-                    </td>
-                  </>
-                )}
-                {isPage == "cate" && (
-                  <>
-                    <td>{idx + 1}</td>
-                    <td>
-                      <Button
-                        variant="warning"
-                        onClick={() => {
-                          //  console.log("item.cate = " + item?.cate_id);
-                          navigatePage(
-                            "/category/editCategory",
-                            item.cate_id,
-                            item
-                          );
-                        }}
-                      >
-                        <AiFillEdit color={colors.black} size={20} />
-                      </Button>
-                    </td>
-                    <td>{item.name}</td>
-                    <td>{item?.department?.nameTH}</td>
-                    <td>{item?.items?.length}</td>
-                    <td style={{ color: colors.statusColor1 }}>
-                      {getVauleNormal == undefined
-                        ? ""
-                        : getVauleNormal[idx]?.length}{" "}
-                    </td>
-                    <td style={{ color: colors.statusColor0 }}>
-                      {getVauleNotNormal == undefined
-                        ? ""
-                        : getVauleNotNormal[idx]?.length}
-                    </td>
-                  </>
-                )}
-              </tr>
-            );
-          })}
-        </tbody>
-        {/*  */}
-      </Table>
+          style={{ paddingTop: 50, textAlign: "center", fontSize: 20 }}
+          responsive="sm"
+          //striped
+          bordered
+          hover
+        >
+          {/*  */}
+          <thead style={{ ...GetKanitFont("KanitMedium") }}>
+            <tr>
+              {isPage === "Type" && (
+                <>
+                  <th>ลำดับที่</th>
+                  <th>แก้ไข</th>
+                  <th>ชื่อรายการ</th>
+                  <th>รหัสครุภัณฑ์</th>
+                  <th>จำนวน</th>
+                  <th>หน่วยนับ</th>
+                  <th>ราคา/หน่วย</th>
+                  <th>ราคารวม</th>
+                  {getUserAdmin ? (
+                    <>
+                      <th>หน่วยงาน</th>
+                    </>
+                  ) : (
+                    <></>
+                  )}
+                  <th>หมวดหมู่</th>
+                  <th>อยู่ในระบบ</th>
+                  <th style={{ color: colors.statusColor1 }}>ปกติ</th>
+                  <th style={{ color: colors.statusColor0 }}>ชำรุด</th>
+                  <th style={{ color: colors.statusColor2 }}>รอจำหน่าย</th>
+                  <th style={{ color: colors.statusColor3 }}>จำหน่ายออก</th>
+                  <th>วันที่ซื้อ</th>
+                </>
+              )}
+              {isPage === "cate" && (
+                <>
+                  <th>ลำดับที่</th>
+                  <th>แก้ไข</th>
+                  <th>ชื่อ</th>
+                  {getUserAdmin ? (
+                    <>
+                      <th>หน่วยงาน</th>
+                    </>
+                  ) : (
+                    <></>
+                  )}
+
+                  <th>อยู่ในระบบ</th>
+                  <th style={{ color: colors.statusColor1 }}>ปกติ</th>
+                  <th style={{ color: colors.statusColor0 }}>ชำรุด</th>
+                  <th style={{ color: colors.statusColor2 }}>รอจำหน่าย</th>
+                  <th style={{ color: colors.statusColor3 }}>จำหน่ายออก</th>
+                </>
+              )}
+            </tr>
+          </thead>
+          {/*  */}
+          <tbody style={{ fontSize: 18 }}>
+            {_.map(itemList, (item, idx: string) => {
+              return (
+                <tr key={idx}>
+                  {isPage === "Type" && (
+                    <>
+                      <td>{idx + 1}</td>
+                      <td>
+                        <Button
+                          variant="warning"
+                          onClick={() => {
+                            //console.log("item.Type = " + item?.type_id);
+                            navigatePage(
+                              "/type_item/editTypeItem",
+                              item.type_id,
+                              item
+                            );
+                          }}
+                        >
+                          <AiFillEdit color={colors.black} size={20} />
+                        </Button>
+                      </td>
+                      <td>{item?.name}</td>
+                      <td>{item?.code}</td>
+                      <td>{item?.quantity}</td>
+                      <td>{item?.unit}</td>
+                      <td>{item?.price_unit}</td>
+                      <td>{item?.total_price}</td>
+                      {getUserAdmin ? (
+                        <>
+                          <td>{item?.department?.nameTH}</td>
+                        </>
+                      ) : (
+                        <></>
+                      )}
+                      <td>{item?.category?.name}</td>
+                      <td>{item?.items?.length}</td>
+                      <td style={{ color: colors.statusColor1 }}>
+                        {getVauleNormal == undefined
+                          ? ""
+                          : getVauleNormal[idx]?.length}{" "}
+                      </td>
+                      <td style={{ color: colors.statusColor0 }}>
+                        {getVauleNotNormal == undefined
+                          ? ""
+                          : getVauleNotNormal[idx]?.length}
+                      </td>
+                      <td style={{ color: colors.statusColor2 }}>
+                        {getVaulePendingSale == undefined
+                          ? ""
+                          : getVaulePendingSale[idx]?.length}
+                      </td>
+                      <td style={{ color: colors.statusColor3 }}>
+                        {getVauleSoldOut == undefined
+                          ? ""
+                          : getVauleSoldOut[idx]?.length}
+                      </td>
+                      <td>
+                        <Moment format="DD/MM/YYYY">
+                          {item?.purchase_date}
+                        </Moment>
+                      </td>
+                    </>
+                  )}
+                  {isPage == "cate" && (
+                    <>
+                      <td>{idx + 1}</td>
+                      <td>
+                        <Button
+                          variant="warning"
+                          onClick={() => {
+                            //  console.log("item.cate = " + item?.cate_id);
+                            navigatePage(
+                              "/category/editCategory",
+                              item.cate_id,
+                              item
+                            );
+                          }}
+                        >
+                          <AiFillEdit color={colors.black} size={20} />
+                        </Button>
+                      </td>
+                      <td>{item.name}</td>
+                      {getUserAdmin ? (
+                        <>
+                          <td>{item?.department?.nameTH}</td>
+                        </>
+                      ) : (
+                        <></>
+                      )}
+
+                      <td>{item?.items?.length}</td>
+                      <td style={{ color: colors.statusColor1 }}>
+                        {getVauleNormal == undefined
+                          ? ""
+                          : getVauleNormal[idx]?.length}{" "}
+                      </td>
+                      <td style={{ color: colors.statusColor0 }}>
+                        {getVauleNotNormal == undefined
+                          ? ""
+                          : getVauleNotNormal[idx]?.length}
+                      </td>
+                      <td style={{ color: colors.statusColor2 }}>
+                        {getVaulePendingSale == undefined
+                          ? ""
+                          : getVaulePendingSale[idx]?.length}
+                      </td>
+                      <td style={{ color: colors.statusColor3 }}>
+                        {getVauleSoldOut == undefined
+                          ? ""
+                          : getVauleSoldOut[idx]?.length}
+                      </td>
+                    </>
+                  )}
+                </tr>
+              );
+            })}
+          </tbody>
+          {/*  */}
+        </Table>
         <Card.Footer>
           <div className="d-flex justify-content-end">
             {itemList.length} / {itemList.length}
           </div>
         </Card.Footer>
       </Card>
-    
     </div>
   );
 }

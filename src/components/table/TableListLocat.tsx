@@ -45,7 +45,7 @@ function TableListLocat(props: any) {
           </div>
         </Card.Header>
         <Table
-          style={{ paddingTop: 50, textAlign: "center", fontSize: 22 }}
+          style={{ paddingTop: 50, textAlign: "center", fontSize: 20 }}
           responsive="sm"
           // striped
           bordered
@@ -80,7 +80,7 @@ function TableListLocat(props: any) {
             </tr>
           </thead>
           {/*  */}
-          <tbody>
+          <tbody style={{ fontSize: 18 }}>
             {_.map(itemList, (item, idx: string) => {
               return (
                 <tr key={idx}>
