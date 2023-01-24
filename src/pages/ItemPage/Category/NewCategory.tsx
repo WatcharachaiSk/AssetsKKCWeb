@@ -35,7 +35,7 @@ function NewCateItem() {
     <div style={{ ...GetKanitFont("KanitLight") }}>
       <NavbarTop />
       <div className="d-flex justify-content-center mt-4 mb-2">
-        <h3>เพิ่มชนิดครุภัณฑ์</h3>
+        <h3>เพิ่มหมวดหมู่ครุภัณฑ์</h3>
       </div>
       <ButtonBack titleButton={"ย้อนกลับ"} />
       {modalShowCheckCate && (

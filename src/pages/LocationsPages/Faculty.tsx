@@ -32,11 +32,13 @@ function Faculty() {
         <h3>คณะ</h3>
       </div>
       <ButtonAdd titleButton={"เพิ่มคณะ"} pageAdd={"/faculty/newfaculty"} />
-      <TableListLocat
-        itemList={getFaculty}
-        isPage="f"
-        editPage={"/faculty/editfaculty"}
-      />
+      {getFaculty && (
+        <TableListLocat
+          itemList={getFaculty}
+          isPage="f"
+          editPage={"/faculty/editfaculty"}
+        />
+      )}
     </div>
   );
 }

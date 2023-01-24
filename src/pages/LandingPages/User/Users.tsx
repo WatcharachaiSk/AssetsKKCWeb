@@ -33,11 +33,13 @@ function Users() {
         <h3>สำหรับผู้ดูแลระบบ</h3>
       </div>
       <ButtonAdd pageAdd={"/admin/new_user"} titleButton={"เพิ่มผู้ใช้งาน"} />
-      <TableListUsers
-        itemList={getUsers}
-        setResetUsers={setResetUsers}
-        resetUsers={resetUsers}
-      />
+      {getUsers && (
+        <TableListUsers
+          itemList={getUsers}
+          setResetUsers={setResetUsers}
+          resetUsers={resetUsers}
+        />
+      )}
     </div>
   );
 }

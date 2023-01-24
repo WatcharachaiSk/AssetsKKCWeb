@@ -1,8 +1,7 @@
 import { Form, Container, Row, Col } from "react-bootstrap";
-import { useState, useEffect, useMemo } from "react";
-import images from "../../../../config/index.images";
+import { useState, useEffect } from "react";
 import { setURLProfile } from "../../../../config/setURL_image";
-
+// import UpdateImgProfile from "../../../../components/modal/UpdateProfile/UpdateImgProfile";
 /*
 "pf_id": 1,
 "firstname": "cbcb",
@@ -22,9 +21,7 @@ function ShowProfile(props: any) {
   // const navigate = useNavigate();
   const [showProfile, setShowProfile] = useState<any>();
   // console.log("showProfile = " + showProfile);
-  const [showImage, setShowImage] = useState<any>();
-  // console.log(showImage);
-  // console.log(getProfile);
+  // const [showImage, setShowImage] = useState<any>();
 
   useEffect(() => {
     let profile: any = getProfile;
@@ -32,27 +29,12 @@ function ShowProfile(props: any) {
     // console.log(profile?.name_image);
     if (profile?.name_image) {
       const urlProfile = setURLProfile(profile?.name_image);
-      setShowImage(urlProfile);
+      // setShowImage(urlProfile);
     }
   }, [getProfile]);
 
   return (
     <Container style={{ borderRadius: 15, width: "100%", height: "100%" }}>
-      <div className="d-flex justify-content-center">
-        <img
-          src={showImage ? showImage : images.imageNotFound}
-          className="rounded float-right"
-          width={200}
-          height={200}
-          style={{
-            objectFit: "cover",
-            borderRadius: 15,
-            borderColor: "#ced4da",
-            borderWidth: 1,
-            borderStyle: "solid",
-          }}
-        />
-      </div>
       <Form>
         {/* ชื่อ */}
         <Form.Group className="mb-2" controlId="formNameItem">

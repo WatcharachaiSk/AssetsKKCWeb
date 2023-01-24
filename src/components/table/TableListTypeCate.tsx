@@ -1,6 +1,6 @@
 import _ from "lodash";
 import { useNavigate } from "react-router-dom";
-import { Table, Button } from "react-bootstrap";
+import { Table, Button, Card } from "react-bootstrap";
 import { AiFillEdit } from "react-icons/ai";
 // import { HiCheck, HiXMark } from "react-icons/hi2";
 import colors from "../../config/colors";
@@ -37,7 +37,20 @@ function TableListTypeCate(props: any) {
   };
   return (
     <div style={{ margin: 30 }}>
-      <Table
+      <Card
+        style={{
+          width: "100%",
+          // height: 250,
+          display: "flex",
+          overflow: "auto",
+        }}
+      >
+        <Card.Header>
+          <div className="d-flex justify-content-end">
+            รายการที่แสดง {itemList.length} รายการทั้งหมด {itemList.length}
+          </div>
+        </Card.Header>
+        <Table
         style={{ paddingTop: 50, textAlign: "center", fontSize: 22 }}
         responsive="sm"
         //striped
@@ -88,7 +101,7 @@ function TableListTypeCate(props: any) {
                     <td>{idx + 1}</td>
                     <td>
                       <Button
-                        variant="outline-secondary"
+                        variant="warning"
                         onClick={() => {
                           //console.log("item.Type = " + item?.type_id);
                           navigatePage(
@@ -98,7 +111,7 @@ function TableListTypeCate(props: any) {
                           );
                         }}
                       >
-                        <AiFillEdit color="red" size={20} />
+                        <AiFillEdit color={colors.black} size={20} />
                       </Button>
                     </td>
                     <td>{item?.name}</td>
@@ -130,9 +143,9 @@ function TableListTypeCate(props: any) {
                     <td>{idx + 1}</td>
                     <td>
                       <Button
-                        variant="outline-secondary"
+                        variant="warning"
                         onClick={() => {
-                        //  console.log("item.cate = " + item?.cate_id);
+                          //  console.log("item.cate = " + item?.cate_id);
                           navigatePage(
                             "/category/editCategory",
                             item.cate_id,
@@ -140,7 +153,7 @@ function TableListTypeCate(props: any) {
                           );
                         }}
                       >
-                        <AiFillEdit color="red" size={20} />
+                        <AiFillEdit color={colors.black} size={20} />
                       </Button>
                     </td>
                     <td>{item.name}</td>
@@ -164,6 +177,13 @@ function TableListTypeCate(props: any) {
         </tbody>
         {/*  */}
       </Table>
+        <Card.Footer>
+          <div className="d-flex justify-content-end">
+            {itemList.length} / {itemList.length}
+          </div>
+        </Card.Footer>
+      </Card>
+    
     </div>
   );
 }
