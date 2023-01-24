@@ -27,8 +27,8 @@ function Users() {
   }, [resetUsers]);
   return (
     <div style={{ ...GetKanitFont("KanitLight") }}>
-      <NavbarTop clickPage={"admin"} />
-      <NavbarItem clickPage={"admin"} />
+      <NavbarTop clickPage={"editUser"} />
+      <NavbarItem clickPage={"editUser"} />
       <div className="d-flex justify-content-center mt-4 mb-2">
         <h3>สำหรับผู้ดูแลระบบ</h3>
       </div>

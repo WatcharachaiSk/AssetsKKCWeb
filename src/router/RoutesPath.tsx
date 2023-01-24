@@ -5,7 +5,8 @@ import Home from "../pages/HomePage/Home";
 import CategoryItem from "../pages/HomePage/CategoryItem";
 import TypeItems from "../pages/HomePage/TypeItems";
 import Items from "../pages/ItemPage/Items";
-
+import HomeCate from "../pages/HomePage/HomeCate";
+import HomeType from "../pages/HomePage/HomeType";
 import Login from "../pages/LandingPages/Login/Login";
 
 import Faculty from "../pages/LocationsPages/Faculty";
@@ -55,7 +56,11 @@ function RoutesPath() {
 
         {/* Home */}
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/home" element={<Home />} />
+        <Route path="/home" element={<Dashboard />} />
+        {/* <Route path="/home" element={<Home />} /> */}
+        <Route path="/homeCate" element={<HomeCate />} />
+        <Route path="/homeType" element={<HomeType />} />
+
         <Route path="/items" element={<Items />} />
         <Route path="/home/category_item" element={<CategoryItem />} />
         <Route path="/home/type_item" element={<TypeItems />} />

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import colors from "../../config/colors";
 // import { FiSettings } from "react-icons/fi";
+import pathRoutesPage from "../../router/pathPage";
 
 function NavbarItem(props: any) {
   const navigate = useNavigate();
@@ -28,9 +29,9 @@ function NavbarItem(props: any) {
     color: ${(props: any) =>
       props.color === "dashboard" ? colors.goldFC : colors.white};
   `;
-  const TitleHome = styled.span`
+  const EditUser = styled.span`
     color: ${(props: any) =>
-      props.color === "home" ? colors.goldFC : colors.white};
+      props.color === "editUser" ? colors.goldFC : colors.white};
   `;
   const TitleItem = styled.span`
     color: ${(props: any) =>
@@ -72,42 +73,60 @@ function NavbarItem(props: any) {
           >
             <Nav.Link
               onClick={() => {
-                navigatePage("/dashboard");
+                navigatePage(pathRoutesPage.Dashboard);
               }}
               style={styles.fontNavLink}
             >
               <TitleDashboard color={clickPage}>Dashboard</TitleDashboard>
             </Nav.Link>
-
-            <Nav.Link
-              onClick={() => {
-                navigatePage("/home");
-              }}
-              style={styles.fontNavLink}
-            >
-              <TitleHome color={clickPage}>ครุภัณฑ์หมวดหมู่/ชนิด</TitleHome>
-            </Nav.Link>
-            <Nav.Link
-              onClick={() => {
-                navigatePage("/items");
-              }}
-              style={styles.fontNavLink}
-            >
-              <TitleItem color={clickPage}>รายการครุภัณฑ์ทั้งหมด</TitleItem>
-            </Nav.Link>
-           
-          </Nav>
-          <Nav>
-          <NavDropdown
+            {/*  */}
+            {/*  */}
+            <NavDropdown
               style={styles.fontNavDropdown}
-              title={<TitleSetting color={clickPage}>ตั้งค่า</TitleSetting>}
+              title={<TitleItem color={clickPage}>ครุภัณฑ์</TitleItem>}
+              id="navbarScrollingDropdown"
+            >
+              {/*  */}
+              <NavDropdown.Item
+                style={styles.fontNavLink}
+                onClick={() => {
+                  navigatePage(pathRoutesPage.Items);
+                }}
+              >
+                รายการครุภัณฑ์
+              </NavDropdown.Item>
+              {/*  */}
+              <NavDropdown.Item
+                style={styles.fontNavLink}
+                onClick={() => {
+                  navigatePage(pathRoutesPage.HomeCate);
+                }}
+              >
+                หมวดหมู่ครุภัณฑ์
+              </NavDropdown.Item>
+              {/*  */}
+              <NavDropdown.Item
+                style={styles.fontNavLink}
+                onClick={() => {
+                  navigatePage(pathRoutesPage.HomeType);
+                }}
+              >
+                ชนิดครุภัณฑ์
+              </NavDropdown.Item>
+            </NavDropdown>
+            {/*  */}
+            <NavDropdown
+              style={styles.fontNavDropdown}
+              title={
+                <TitleSetting color={clickPage}>จัดการสถานที่</TitleSetting>
+              }
               id="navbarScrollingDropdown"
             >
               {getUserAdmin && (
                 <NavDropdown.Item
                   style={styles.fontNavLink}
                   onClick={() => {
-                    navigatePage("/faculty");
+                    navigatePage(pathRoutesPage.Faculty);
                   }}
                 >
                   คณะ
@@ -117,15 +136,15 @@ function NavbarItem(props: any) {
               <NavDropdown.Item
                 style={styles.fontNavLink}
                 onClick={() => {
-                  navigatePage("/department");
+                  navigatePage(pathRoutesPage.Department);
                 }}
               >
-                สาขาวิชา
+                สาขา
               </NavDropdown.Item>
               <NavDropdown.Item
                 style={styles.fontNavLink}
                 onClick={() => {
-                  navigatePage("/building");
+                  navigatePage(pathRoutesPage.Building);
                 }}
               >
                 อาคาร
@@ -133,7 +152,7 @@ function NavbarItem(props: any) {
               <NavDropdown.Item
                 style={styles.fontNavLink}
                 onClick={() => {
-                  navigatePage("/location");
+                  navigatePage(pathRoutesPage.Location);
                 }}
               >
                 สถานที่
@@ -141,7 +160,7 @@ function NavbarItem(props: any) {
               <NavDropdown.Item
                 style={styles.fontNavLink}
                 onClick={() => {
-                  navigatePage("/category");
+                  navigatePage(pathRoutesPage.CategorySetting);
                 }}
               >
                 หมวดหมู่ครุภัณฑ์
@@ -149,15 +168,39 @@ function NavbarItem(props: any) {
               <NavDropdown.Item
                 style={styles.fontNavLink}
                 onClick={() => {
-                  navigatePage("/type_item");
+                  navigatePage(pathRoutesPage.TypeItemSetting);
                 }}
               >
                 ชนิดครุภัณฑ์
               </NavDropdown.Item>
             </NavDropdown>
+            {/*  */}
+            {getUserAdmin && (
+              <Nav.Link
+                onClick={() => {
+                  navigatePage(pathRoutesPage.Users);
+                }}
+                style={styles.fontNavLink}
+              >
+                <EditUser color={clickPage}>จัดการผู้ใช้งาน</EditUser>
+              </Nav.Link>
+            )}
+
+            {/*  */}
+            {/* <Nav.Link
+              onClick={() => {
+                navigatePage("/items");
+              }}
+              style={styles.fontNavLink}
+            >
+              <TitleItem color={clickPage}>รายการครุภัณฑ์ทั้งหมด</TitleItem>
+            </Nav.Link> */}
+            {/*  */}
+          </Nav>
+          <Nav>
             <Nav.Link
               onClick={() => {
-                navigatePage("/application_download");
+                navigatePage(pathRoutesPage.ApplicationDownload);
               }}
               style={styles.fontNavLink}
             >

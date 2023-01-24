@@ -100,19 +100,19 @@ function NavbarTop(props: any) {
                   navigatePage("/profile");
                 }}
               >
-                Profile
+                ข้อมูลส่วนตัว
               </NavDropdown.Item>
               {/*  */}
-              {getUserAdmin && (
+              {/* {getUserAdmin && (
                 <NavDropdown.Item
                   style={styles.fontNavLink}
                   onClick={() => {
                     navigatePage("/admin");
                   }}
                 >
-                  User
+                  จัดการผู้ใช้งาน
                 </NavDropdown.Item>
-              )}
+              )} */}
               <NavDropdown.Item
                 style={styles.fontNavLink}
                 onClick={async () => {
@@ -130,7 +130,7 @@ function NavbarTop(props: any) {
                   );
                 }}
               >
-                Log Out
+                ออกจากระบบ
               </NavDropdown.Item>
             </NavDropdown>
           </Nav>
