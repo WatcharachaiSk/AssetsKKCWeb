@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 // Link
 // HOME
-import Home from "../pages/HomePage/Home";
+// import Home from "../pages/HomePage/Home";
 import CategoryItem from "../pages/HomePage/CategoryItem";
 import TypeItems from "../pages/HomePage/TypeItems";
 import Items from "../pages/ItemPage/Items";

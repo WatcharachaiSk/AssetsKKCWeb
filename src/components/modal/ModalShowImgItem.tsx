@@ -84,7 +84,8 @@ function ModalShowImgItem(props: any) {
               <FiMoreVertical size={20} />
             </Button>
           </div>
-          <Overlay
+          {/*  */}
+         <Overlay
             show={show}
             target={target}
             placement="bottom"
@@ -110,7 +111,8 @@ function ModalShowImgItem(props: any) {
                 </Button>
               </Popover.Body>
             </Popover>
-          </Overlay>
+          </Overlay> 
+          {/*  */}
         </div>
         <div className="d-flex align-items-center justify-content-center">
           <img

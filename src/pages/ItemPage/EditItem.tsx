@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState, useMemo, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import configAxios from "../../axios/configAxios";
 import { API } from "../../axios/swr/endpoint";
 import ButtonBack from "../../components/buttons/ButtonBack";
@@ -16,14 +16,18 @@ import { GetKanitFont } from "../../config/fonts";
 import ModalDeletel from "../../components/modal/ModalDeletel";
 import FormEditImgItem from "./components/editItem/FormEditImgItem";
 import ModalUpImgItem from "../../components/modal/ModalUpImgItem";
+import isPageEdit from "../../config/editpage/isPageEdit";
 function EditItem() {
   const navigate = useNavigate();
-  const { state } = useLocation();
+  // const { state } = useLocation();
 
+  let idItem = localStorage.getItem("itemItemEdit");
+  let isEdit = localStorage.getItem("itemItemEditIs");
   useEffect(() => {
     // console.log("state", state);
-    localStorage.setItem("itemItemEdit", state.id);
-  }, [state]);
+    // localStorage.setItem("itemItemEdit", state.id);
+    //  console.log(idItem);
+  }, [localStorage.getItem("itemItemEdit")]);
 
   const [getItems, setGetItems] = useState<{}>({});
   const [edit_updateEn, setedit_updateEn] = useState(false);
@@ -41,9 +45,8 @@ function EditItem() {
 
   useMemo(async () => {
     try {
-      // let id = localStorage.getItem("itemItemEdit");
       let res;
-      res = await axios(configAxios("get", `${API.getItemById}${state.id}`));
+      res = await axios(configAxios("get", `${API.getItemById}${idItem}`));
       setGetItems(res.data);
     } catch (error: any) {
       // console.log("err = ", error.request.status);
@@ -57,7 +60,7 @@ function EditItem() {
     if (status == 1) {
       try {
         const res = await axios(
-          configAxios("put", `${sendUrl}${state?.id}`, postEditItem)
+          configAxios("put", `${sendUrl}${idItem}`, postEditItem)
         );
         checkStatus(res, "แก้ไขครุภัณฑ์เสร็จสิ้น");
         setedit_updateEn(!edit_updateEn);
@@ -111,7 +114,7 @@ function EditItem() {
 
   return (
     <div style={{ ...GetKanitFont("KanitLight") }}>
-      <NavbarTop clickPage={state.isPage} />
+      <NavbarTop clickPage={"items"} />
       <div className="d-flex justify-content-between">
         <div>
           <ButtonBack titleButton={"ย้อนกลับ"} />
@@ -162,7 +165,7 @@ function EditItem() {
           title={"การย้ายสถานที่หรือเปลี่ยนสถานะ"}
         />
       )}
-      {getItems && (
+      {isEdit === isPageEdit.image && getItems && (
         <FormEditImgItem
           getItems={getItems}
           setModalShowCheckUpImgItem={setModalShowCheckUpImgItem}
@@ -173,7 +176,7 @@ function EditItem() {
           edit_updateEn={edit_updateEn}
         />
       )}
-      {getItems && (
+      {isEdit === isPageEdit.details && getItems && (
         <FormEditItem
           getItems={getItems}
           setModalShowCheckEditItem={setModalShowCheckEditItem}
@@ -183,7 +186,7 @@ function EditItem() {
         />
       )}
       <div className="mt-5">
-        {getItems && (
+        {isEdit === isPageEdit.status && getItems && (
           <FormEditStatus
             setuserUrlStatus={setuserUrlStatus}
             getItems={getItems}
@@ -195,7 +198,9 @@ function EditItem() {
       </div>
 
       <div className="mt-5">
-        {getItems && <HistoryItem getItems={getItems} />}
+        {isEdit === isPageEdit.status && getItems && (
+          <HistoryItem getItems={getItems} />
+        )}
       </div>
     </div>
   );

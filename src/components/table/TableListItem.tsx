@@ -7,6 +7,8 @@ import {
   OverlayTrigger,
   Tooltip,
   Card,
+  Overlay,
+  Popover,
 } from "react-bootstrap";
 import { AiFillEdit } from "react-icons/ai";
 import { GetKanitFont } from "../../config/fonts";
@@ -15,7 +17,7 @@ import { IoQrCodeSharp } from "react-icons/io5";
 import colors from "../../config/colors";
 import ModalOneQr from "../modal/ModalQr/ModalOneQr";
 import ModalSelectQr from "../modal/ModalQr/ModalSelectQr";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import ModalDetails from "../modal/Details/ModalDetails";
 import PaginationItem from "./components/PaginationItem";
 // import ReactPaginate from "react-paginate";
@@ -26,9 +28,11 @@ import {
 } from "../../config/chackStatusItem";
 // import { NumericFormat } from "react-number-format";
 import { toLocaleStringEn } from "../../config/number/formatEN";
+import ListButton from "./components/ListButton";
 
 function TableListItem(props: any) {
   const { itemList, editPage } = props;
+
   const [modalShowOne, setModalShowOne] = useState(false);
   const [modalShowAll, setModalShowAll] = useState(false);
   const [getItem, setGetItem] = useState();
@@ -113,6 +117,14 @@ function TableListItem(props: any) {
     }
   }, []);
 
+  const [show, setShow] = useState(false);
+  const [target, setTarget] = useState(null);
+  const ref = useRef(null);
+
+  const handleClick = (event: any) => {
+    setShow(!show);
+    setTarget(event.target);
+  };
   return (
     <div style={{ margin: 30 }}>
       {modalShowOne && (
@@ -307,16 +319,34 @@ function TableListItem(props: any) {
 
                   {/*  */}
                   <td>
-                    <Button
-                      size="lg"
-                      variant="warning"
-                      onClick={() => {
-                        navigatePage(item?.item_id);
-                        //console.log("item.item_id = " + item?.item_id);
-                      }}
-                    >
-                      <AiFillEdit color={colors.black} size={20} />
-                    </Button>
+                    <div ref={ref}>
+                      <Button
+                        size="lg"
+                        variant="warning"
+                        onClick={(event: any) => {
+                          handleClick(event);
+                          localStorage.setItem("itemItemEdit", item?.item_id);
+
+                          // navigatePage(item?.item_id);
+                          //console.log("item.item_id = " + item?.item_id);
+                        }}
+                      >
+                        <AiFillEdit color={colors.black} size={20} />
+                      </Button>
+                      <Overlay
+                        show={show}
+                        target={target}
+                        placement="bottom"
+                        container={ref}
+                        containerPadding={30}
+                      >
+                        <Popover id="popover-contained">
+                          <Popover.Body>
+                            <ListButton setShow={setShow} show={show} />
+                          </Popover.Body>
+                        </Popover>
+                      </Overlay>
+                    </div>
                   </td>
                   <td>
                     <Button
