@@ -1,12 +1,14 @@
 import Moment from "react-moment";
 import { Button, Table, Modal } from "react-bootstrap";
-
+import { GetKanitFont } from "../../config/fonts";
+import { toLocaleStringEn } from "../../config/number/formatEN";
 function ModalPostType(props: any) {
   const { modalShowCheckType, onSubmitFnType, chackDataType, isPage } = props;
   // console.log(chackDataType);
 
   return (
     <Modal
+      style={{ ...GetKanitFont("KanitLight") }}
       show={modalShowCheckType}
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
@@ -21,7 +23,7 @@ function ModalPostType(props: any) {
         </div>
         <div className="d-flex justify-content-center flex-column"></div>
         <Table bordered hover variant="light">
-          <thead>
+          <thead style={{ ...GetKanitFont("KanitMedium") }}>
             <tr>
               <th>ชนิดช้อมูล</th>
               <th>ข้อมูล</th>
@@ -38,7 +40,7 @@ function ModalPostType(props: any) {
             </tr>
             <tr>
               <td>จำนวน/หน่วยนับ</td>
-              <td>{chackDataType?.quantity}</td>
+              <td>{toLocaleStringEn(chackDataType?.quantity)}</td>
             </tr>
             <tr>
               <td>หน่วยนับ</td>
@@ -46,11 +48,11 @@ function ModalPostType(props: any) {
             </tr>
             <tr>
               <td>ราคา/หน่วย</td>
-              <td>{chackDataType?.price_unit}</td>
+              <td>{toLocaleStringEn(chackDataType?.price_unit)}</td>
             </tr>
             <tr>
               <td>ราคารวม</td>
-              <td>{chackDataType?.total_price}</td>
+              <td>{toLocaleStringEn(chackDataType?.total_price)}</td>
             </tr>
             <tr>
               <td>สาขา</td>

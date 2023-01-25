@@ -1,10 +1,12 @@
 import { Button, Table, Modal } from "react-bootstrap";
+import { GetKanitFont } from "../../config/fonts";
 
 function ModalPostCate(props: any) {
   const { modalShowCheckCate, onSubmitFnCate, chackDataCate } = props;
   // console.log(chackDataCate);
   return (
     <Modal
+      style={{ ...GetKanitFont("KanitLight") }}
       show={modalShowCheckCate}
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
@@ -19,7 +21,7 @@ function ModalPostCate(props: any) {
         </div>
         <div className="d-flex justify-content-center flex-column"></div>
         <Table bordered hover variant="light">
-          <thead>
+          <thead style={{ ...GetKanitFont("KanitMedium") }}>
             <tr>
               <th>ชนิดช้อมูล</th>
               <th>ข้อมูล</th>

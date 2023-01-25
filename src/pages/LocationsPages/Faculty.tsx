@@ -12,7 +12,7 @@ import NavbarItem from "../../components/navbar/NavbarItem";
 
 function Faculty() {
   const navigate = useNavigate();
-  const [clickPage, setClickPage] = useState<string>("setting");
+  const clickPage = "setting";
   const [getFaculty, setGetFaculty] = useState<{}>({});
 
   useMemo(async () => {

@@ -10,6 +10,7 @@ import configAxios from "../../../axios/configAxios";
 import { API } from "../../../axios/swr/endpoint";
 import checkStatus from "../../../config/checkStatus";
 import checkToken from "../../../config/checkToken";
+import NavbarItem from "../../../components/navbar/NavbarItem";
 function EditCategory() {
   const { state } = useLocation();
   const navigate = useNavigate();
@@ -36,13 +37,15 @@ function EditCategory() {
       }
     }
   };
+  const clickPage = "setting";
   return (
     <div style={{ ...GetKanitFont("KanitLight") }}>
-      <NavbarTop clickPage={"setting"} />
+      <NavbarTop clickPage={clickPage} />
+      <NavbarItem clickPage={clickPage} />
       <div className="d-flex justify-content-center mt-5 mb-2">
         <h3>แก้ไขหมวดหมู่</h3>
       </div>
-      <ButtonBack titleButton={"ย้อนกลับ"} />
+      {/* <ButtonBack titleButton={"ย้อนกลับ"} /> */}
       {modalShowCheckCate && (
         <ModalPostCate
           modalShowCheckCate={modalShowCheckCate}

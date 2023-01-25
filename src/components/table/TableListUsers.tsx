@@ -8,6 +8,7 @@ import { useState } from "react";
 import ModalBlockUser from "../modal/BlockUser/ModalBlockUser";
 import { CiImageOn } from "react-icons/ci";
 import ModalShowImgProfile from "../modal/UpdateProfile/ModalShowImgProfile";
+import { GetKanitFont } from "../../config/fonts";
 function TableListUsers(props: any) {
   const { itemList, editPage, setResetUsers, resetUsers } = props;
   const [modalShowImgProfile, setModalShowImgProfile] = useState(false);
@@ -66,7 +67,7 @@ function TableListUsers(props: any) {
           hover
         >
           {/*  */}
-          <thead>
+          <thead style={{...GetKanitFont('KanitMedium')}}>
             <tr>
               <th>แก้ไข</th>
               <th>รูปโปรไฟล์</th>

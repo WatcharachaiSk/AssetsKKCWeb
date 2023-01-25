@@ -41,12 +41,6 @@ function TableListItem(props: any) {
   const [checkedAll, setCheckedAll] = useState(false);
   const [modalShowDetalis, setModalShowDetalis] = useState(false);
 
-  //   console.log(checkedAll);
-  // console.log(selectItem);
-
-  // const [itemShow, setitemShow] = useState<any>();
-  // console.log("itemShow = ", itemShow);
-
   const [paginationCount, setPaginationCount] = useState<any>();
   const [itemListPaninat, setItemListPaninat] = useState<any>(itemList);
   // console.log(itemListPaninat);
@@ -100,9 +94,6 @@ function TableListItem(props: any) {
   };
 
   const [getUserAdmin, setGetUserAdmin] = useState<boolean>(true);
-  // const [getProfile, setGetProfile] = useState<any>({});
-  // console.log(getProfile);
-
   useEffect(() => {
     let userAdmin: any = localStorage.getItem("UserAdmin");
     let profile: any = localStorage.getItem("Profile");

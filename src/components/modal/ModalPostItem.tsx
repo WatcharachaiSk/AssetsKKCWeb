@@ -1,11 +1,13 @@
 import { Button, Table, Modal } from "react-bootstrap";
-
+import { GetKanitFont } from "../../config/fonts";
+import { toLocaleStringEn } from "../../config/number/formatEN";
 function ModalPostItem(props: any) {
   const { modalShowCheck, onSubmitFn, chackData } = props;
   // console.log(chackData);
 
   return (
     <Modal
+      style={{ ...GetKanitFont("KanitLight") }}
       show={modalShowCheck}
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
@@ -20,7 +22,7 @@ function ModalPostItem(props: any) {
         </div>
         <div className="d-flex justify-content-center flex-column"></div>
         <Table bordered hover variant="light">
-          <thead>
+          <thead style={{...GetKanitFont('KanitMedium')}}>
             <tr>
               <th>ชนิดช้อมูล</th>
               <th>ข้อมูล</th>
@@ -45,7 +47,7 @@ function ModalPostItem(props: any) {
             </tr>
             <tr>
               <td>ราคาครุภัณฑ์</td>
-              <td>{chackData?.price}</td>
+              <td>{toLocaleStringEn(chackData?.price)}</td>
             </tr>
             <tr>
               <td>ชนิดครุภัณฑ์</td>

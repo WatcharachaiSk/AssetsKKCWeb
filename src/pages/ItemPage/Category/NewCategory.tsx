@@ -10,6 +10,7 @@ import checkStatus from "../../../config/checkStatus";
 import checkToken from "../../../config/checkToken";
 import FormAddCateItem from "../components/FormAddCateItem";
 import ModalPostCate from "../../../components/modal/ModalPostCate";
+import NavbarItem from "../../../components/navbar/NavbarItem";
 
 function NewCateItem() {
   const navigate = useNavigate();
@@ -31,13 +32,15 @@ function NewCateItem() {
       }
     }
   };
+  const clickPage = "setting";
   return (
     <div style={{ ...GetKanitFont("KanitLight") }}>
       <NavbarTop />
+      <NavbarItem clickPage={clickPage} />
       <div className="d-flex justify-content-center mt-4 mb-2">
         <h3>เพิ่มหมวดหมู่ครุภัณฑ์</h3>
       </div>
-      <ButtonBack titleButton={"ย้อนกลับ"} />
+      {/* <ButtonBack titleButton={"ย้อนกลับ"} /> */}
       {modalShowCheckCate && (
         <ModalPostCate
           modalShowCheckCate={modalShowCheckCate}

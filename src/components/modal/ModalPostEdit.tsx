@@ -1,9 +1,11 @@
 import { Button, Table, Modal } from "react-bootstrap";
-import colors from "../../config/colors";
+// import colors from "../../config/colors";
 import {
   chackStatusItem,
   chackStatusItemColor,
 } from "../../config/chackStatusItem";
+import { GetKanitFont } from "../../config/fonts";
+import { toLocaleStringEn } from "../../config/number/formatEN";
 function ModalPostEdit(props: any) {
   const {
     modalShowCheckEditItem,
@@ -12,10 +14,12 @@ function ModalPostEdit(props: any) {
     isEdit,
     title,
   } = props;
-  //console.log(chackDataEdit);
+  // console.log(typeof chackDataEdit?.price);
+  // console.log(toLocaleStringEn(chackDataEdit?.price));
 
   return (
     <Modal
+      style={{ ...GetKanitFont("KanitLight") }}
       show={modalShowCheckEditItem}
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
@@ -31,7 +35,7 @@ function ModalPostEdit(props: any) {
         <div className="d-flex justify-content-center flex-column"></div>
         <Table bordered hover variant="light">
           <thead>
-            <tr>
+            <tr style={{ ...GetKanitFont("KanitMedium") }}>
               <th>ชนิดช้อมูล</th>
               <th>ข้อมูล</th>
             </tr>
@@ -53,7 +57,7 @@ function ModalPostEdit(props: any) {
                 </tr>
                 <tr>
                   <td>ราคาครุภัณฑ์</td>
-                  <td>{chackDataEdit?.price}</td>
+                  <td>{toLocaleStringEn(chackDataEdit?.price)}</td>
                 </tr>
                 <tr>
                   <td>เลือกชนิดครุภัณฑ์</td>

@@ -10,6 +10,7 @@ import checkStatus from "../../../../config/checkStatus";
 import checkToken from "../../../../config/checkToken";
 import configAxios from "../../../../axios/configAxios";
 import { GetKanitFont } from "../../../../config/fonts";
+import NavbarItem from "../../../../components/navbar/NavbarItem";
 function EditBuilding() {
   const { state } = useLocation();
   const navigate = useNavigate();
@@ -44,14 +45,15 @@ function EditBuilding() {
       }
     }
   };
-
+  const clickPage = "setting";
   return (
     <div style={{ ...GetKanitFont("KanitLight") }}>
-      <NavbarTop clickPage={"setting"} />
+      <NavbarTop clickPage={clickPage} />
+      <NavbarItem clickPage={clickPage} />
       <div className="d-flex justify-content-center mt-5 mb-2">
         <h3>แก้ไขอาคาร</h3>
       </div>
-      <ButtonBack titleButton={"ย้อนกลับ"} />
+      {/* <ButtonBack titleButton={"ย้อนกลับ"} /> */}
       {modalShowCheckBuilding && (
         <ModalPostLocate
           onSubmitFnLocate={onSubmitFnBuilding}

@@ -10,6 +10,7 @@ import { API } from "../../../axios/swr/endpoint";
 import checkStatus from "../../../config/checkStatus";
 import checkToken from "../../../config/checkToken";
 import ModalPostType from "../../../components/modal/ModalPostType";
+import NavbarItem from "../../../components/navbar/NavbarItem";
 
 function NewTypeItem() {
   const navigate = useNavigate();
@@ -31,13 +32,15 @@ function NewTypeItem() {
       }
     }
   };
+  const clickPage = "setting";
   return (
     <div style={{ ...GetKanitFont("KanitLight") }}>
-      <NavbarTop />
+      <NavbarTop clickPage={clickPage} />
+      <NavbarItem clickPage={clickPage} />
       <div className="d-flex justify-content-center mt-4 mb-2">
         <h3>เพิ่มชนิดครุภัณฑ์</h3>
       </div>
-      <ButtonBack titleButton={"ย้อนกลับ"} />
+      {/* <ButtonBack titleButton={"ย้อนกลับ"} /> */}
       {modalShowCheckType && (
         <ModalPostType
           chackDataType={postItemCheckType}

@@ -8,10 +8,7 @@ import checkToken from "../../../../config/checkToken";
 import _ from "lodash";
 import { sweet_basic } from "../../../../components/sweetalert2/sweet";
 import colors from "../../../../config/colors";
-// import images from "../../../../config/index.images";
-// import getBase64 from "../../../../config/getBase64";
-// import { setURLItem } from "../../../../config/setURL_image";
-
+import { toLocaleStringEn } from "../../../../config/number/formatEN";
 function FormEditItem(props: any) {
   const {
     getItems,
@@ -22,8 +19,6 @@ function FormEditItem(props: any) {
   } = props;
   const navigate = useNavigate();
   const nameImage_delete = getItems?.name_image_item;
-  // console.log(getItems);
-  // const [nameImage_delete, setNameImage_delete] = useState<any>();
 
   useEffect(() => {
     setNameItem_Old(getItems?.name);
@@ -149,6 +144,21 @@ function FormEditItem(props: any) {
       // console.log("buildingBId ไม่เหมือน");
       arrCh.push(1);
     }
+    if (description !== description_Old && description) {
+      // console.log("buildingBId เหมือน");
+      arrCh.push(1);
+    } else {
+      // console.log("buildingBId ไม่เหมือน");
+      // arrCh.push(1);
+    }
+    if (price_Old != price && price) {
+      // console.log("buildingBId เหมือน");
+      arrCh.push(1);
+    } else {
+      // console.log("buildingBId ไม่เหมือน");
+      // arrCh.push(1);
+    }
+
     // console.log(arrCh);
     if (arrCh) {
       setSubmit(arrCh[0]);
@@ -162,6 +172,8 @@ function FormEditItem(props: any) {
     facultyFId,
     departmentDId,
     buildingBId,
+    description,
+    price,
   ]);
 
   const [faculty_Old, setFaculty_Old] = useState<any>();
@@ -406,7 +418,10 @@ function FormEditItem(props: any) {
           />
         </Form.Group>
         <Form.Group className="mb-3" controlId="formCodeItem">
-          <Form.Label>ราคาครุภัณฑ์</Form.Label>
+          <Form.Label>
+            ราคาครุภัณฑ์ [
+            <span style={{ fontSize: 20 }}>{toLocaleStringEn(price)}</span>]
+          </Form.Label>
           <Form.Control
             size="lg"
             style={{

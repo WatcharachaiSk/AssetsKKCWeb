@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import Moment from "react-moment";
 import { filterStatus } from "../../config/filterStatusArr";
 import { GetKanitFont } from "../../config/fonts";
-
+import { toLocaleStringEn } from "../../config/number/formatEN";
 function TableListTypeCate(props: any) {
   const { itemList, editPage, isPage } = props;
   const navigate = useNavigate();
@@ -141,10 +141,10 @@ function TableListTypeCate(props: any) {
                       </td>
                       <td>{item?.name}</td>
                       <td>{item?.code}</td>
-                      <td>{item?.quantity}</td>
+                      <td>{toLocaleStringEn(item?.quantity)}</td>
                       <td>{item?.unit}</td>
-                      <td>{item?.price_unit}</td>
-                      <td>{item?.total_price}</td>
+                      <td>{toLocaleStringEn(item?.price_unit)}</td>
+                      <td>{toLocaleStringEn(item?.total_price)}</td>
                       {getUserAdmin ? (
                         <>
                           <td>{item?.department?.nameTH}</td>

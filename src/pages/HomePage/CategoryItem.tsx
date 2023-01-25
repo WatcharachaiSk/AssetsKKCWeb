@@ -12,6 +12,7 @@ import _ from "lodash";
 import { GetKanitFont } from "../../config/fonts";
 import ButtonBack from "../../components/buttons/ButtonBack";
 import SearchItem from "../ItemPage/components/dropdowns/SearchItem";
+import NavbarItem from "../../components/navbar/NavbarItem";
 
 function CategoryItem() {
   const { state } = useLocation();
@@ -32,14 +33,15 @@ function CategoryItem() {
       checkToken(error.response.data.status, error.request.status, navigate);
     }
   }, []);
-
+  const clickPage = "items";
   return (
     <div style={{ ...GetKanitFont("KanitLight") }}>
-      <NavbarTop clickPage={"home"} />
+      <NavbarTop clickPage={clickPage} />
+      <NavbarItem clickPage={clickPage} />
       <div className="d-flex justify-content-center mt-5 mb-2">
         <h3>{state.name}</h3>
       </div>
-      <ButtonBack titleButton={"ย้อนกลับ"} />
+      {/* <ButtonBack titleButton={"ย้อนกลับ"} /> */}
       <div className="d-flex justify-content-end flex-wrap">
         <SearchItem getItems={getItems} setDataFilter={setDataFilter} />
       </div>

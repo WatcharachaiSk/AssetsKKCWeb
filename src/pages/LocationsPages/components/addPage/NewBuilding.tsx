@@ -10,8 +10,10 @@ import checkToken from "../../../../config/checkToken";
 import FormInputBuilding from "../formInput/FormInputBuilding";
 import ModalPostLocate from "../../../../components/modal/ModalPostLocate";
 import { GetKanitFont } from "../../../../config/fonts";
+import NavbarItem from "../../../../components/navbar/NavbarItem";
 
 function NewBuilding() {
+  const clickPage = "setting";
   const navigate = useNavigate();
   const [modalShowCheckBuilding, setModalShowCheckBuilding] = useState(false);
   const [postBuildingCheck, setPostBuildingCheck] = useState<object>();
@@ -32,11 +34,12 @@ function NewBuilding() {
   };
   return (
     <div style={{ ...GetKanitFont("KanitLight") }}>
-      <NavbarTop clickPage={"setting"} />
+      <NavbarTop clickPage={clickPage} />
+      <NavbarItem clickPage={clickPage} />
       <div className="d-flex justify-content-center mt-4 mb-2">
         <h3>เพิ่มอาคาร</h3>
       </div>
-      <ButtonBack titleButton={"ย้อนกลับ"} />
+      {/* <ButtonBack titleButton={"ย้อนกลับ"} /> */}
       {/*  */}
       {modalShowCheckBuilding && (
         <ModalPostLocate

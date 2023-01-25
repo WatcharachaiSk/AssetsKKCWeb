@@ -9,7 +9,8 @@ import { sweet_basic } from "../../../../components/sweetalert2/sweet";
 import { Button, Form, Container, Row, Col } from "react-bootstrap";
 import dateFormat from "dateformat";
 import colors from "../../../../config/colors";
-
+import { toLocaleStringEn } from "../../../../config/number/formatEN";
+import Moment from "react-moment";
 function FormEditTypeItem(props: any) {
   const {
     setModalShowCheckType,
@@ -382,7 +383,11 @@ function FormEditTypeItem(props: any) {
         <Row className="mb-2">
           {/* quantity */}
           <Form.Group as={Col} controlId="formQuantity">
-            <Form.Label>จำนวน/หน่วยนับ</Form.Label>
+            <Form.Label>
+              จำนวน/หน่วยนับ [
+              <span style={{ fontSize: 20 }}>{toLocaleStringEn(quantity)}</span>
+              ]
+            </Form.Label>
             <Form.Control
               onChange={handleChangeQty}
               style={{
@@ -446,7 +451,13 @@ function FormEditTypeItem(props: any) {
         <Row className="mb-2">
           {/* price_unit */}
           <Form.Group as={Col} controlId="formQuantity">
-            <Form.Label>ราคาต่อหน่วย</Form.Label>
+            <Form.Label>
+              ราคาต่อหน่วย [
+              <span style={{ fontSize: 20 }}>
+                {toLocaleStringEn(priceUnit)}
+              </span>
+              ]
+            </Form.Label>
             <Form.Control
               onChange={handleChangePUT}
               style={{
@@ -463,7 +474,13 @@ function FormEditTypeItem(props: any) {
           </Form.Group>
           {/* total_price */}
           <Form.Group as={Col} controlId="formQuantity">
-            <Form.Label>ราคารวม</Form.Label>
+            <Form.Label>
+              ราคารวม [
+              <span style={{ fontSize: 20 }}>
+                {toLocaleStringEn(totalPrice)}
+              </span>
+              ]
+            </Form.Label>
             <Form.Control
               size="lg"
               type="number"
@@ -557,7 +574,15 @@ function FormEditTypeItem(props: any) {
 
         <Row className="mb-2">
           <Form.Group as={Col} className="mb-2" controlId="formFaculty">
-            <Form.Label>วันที่ซื้อ</Form.Label>
+            <Form.Label>
+              วันที่ซื้อ [
+              <span style={{ fontSize: 20 }}>
+                <Moment format="DD/MM/YYYY">
+                  {startDate ? startDate : typeItem_Old?.purchase_date}
+                </Moment>
+              </span>
+              ]
+            </Form.Label>
             <Form.Control
               style={{
                 borderColor: startDate ? colors.borderColorEdit : "",
@@ -584,7 +609,7 @@ function FormEditTypeItem(props: any) {
               placeholder="MM/DD/YYYY"
               size="lg"
               type="text"
-              value={dateFormat(typeItem_Old?.purchase_date, "mm/dd/yyyy")}
+              value={dateFormat(typeItem_Old?.purchase_date, "dd/mm/yyyy")}
               disabled
               readOnly
             />

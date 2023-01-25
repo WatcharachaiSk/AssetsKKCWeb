@@ -13,6 +13,7 @@ function UpdateImgProfile(props: any) {
   const [selectedFile, setSelectedFile] = useState<any>();
   // const [showImage, setShowImage] = useState<any>();
   // console.log(getProfile?.pf_id);
+  // console.log(selectedFile);
 
   const upDateImgProfile = async () => {
     try {

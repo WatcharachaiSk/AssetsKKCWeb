@@ -17,6 +17,7 @@ import ModalDeletel from "../../components/modal/ModalDeletel";
 import FormEditImgItem from "./components/editItem/FormEditImgItem";
 import ModalUpImgItem from "../../components/modal/ModalUpImgItem";
 import isPageEdit from "../../config/editpage/isPageEdit";
+import NavbarItem from "../../components/navbar/NavbarItem";
 function EditItem() {
   const navigate = useNavigate();
   // const { state } = useLocation();
@@ -111,14 +112,13 @@ function EditItem() {
   // const onSubmitFnDeletel = async (status: number) => {
   //   setModalShowDeletel(false);
   // };
-
+  const clickPage = "items";
   return (
     <div style={{ ...GetKanitFont("KanitLight") }}>
-      <NavbarTop clickPage={"items"} />
+      <NavbarTop clickPage={clickPage} />
+      <NavbarItem clickPage={clickPage} />
       <div className="d-flex justify-content-between">
-        <div>
-          <ButtonBack titleButton={"ย้อนกลับ"} />
-        </div>
+        <div>{/* <ButtonBack titleButton={"ย้อนกลับ"} /> */}</div>
         <div>
           <DeleteItem
             titleButton={"ลบครุภัณฑ์"}

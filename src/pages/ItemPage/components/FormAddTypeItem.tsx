@@ -8,7 +8,8 @@ import { API } from "../../../axios/swr/endpoint";
 import { useNavigate } from "react-router-dom";
 // import dateFormat from "dateformat";
 import { sweet_basic } from "../../../components/sweetalert2/sweet";
-
+import { toLocaleStringEn } from "../../../config/number/formatEN";
+import Moment from "react-moment";
 function FormAddTypeItem(props: any) {
   const { setModalShowCheckType, setPostItemCheckType, setPostTypeItem } =
     props;
@@ -195,7 +196,11 @@ function FormAddTypeItem(props: any) {
         <Row className="mb-2">
           {/* quantity */}
           <Form.Group as={Col} controlId="formQuantity">
-            <Form.Label>จำนวน/หน่วยนับ</Form.Label>
+            <Form.Label>
+              จำนวน/หน่วยนับ [
+              <span style={{ fontSize: 20 }}>{toLocaleStringEn(quantity)}</span>
+              ]
+            </Form.Label>
             <Form.Control
               onChange={handleChangeQty}
               size="lg"
@@ -241,7 +246,10 @@ function FormAddTypeItem(props: any) {
         <Row className="mb-2">
           {/* price_unit */}
           <Form.Group as={Col} controlId="formQuantity">
-            <Form.Label>ราคาต่อหน่วย</Form.Label>
+            <Form.Label>
+              ราคาต่อหน่วย [
+              <span style={{}}>{toLocaleStringEn(priceUnit)}</span>]
+            </Form.Label>
             <Form.Control
               onChange={handleChangePUT}
               value={priceUnit}
@@ -252,7 +260,9 @@ function FormAddTypeItem(props: any) {
           </Form.Group>
           {/* total_price */}
           <Form.Group as={Col} controlId="formQuantity">
-            <Form.Label>ราคารวม</Form.Label>
+            <Form.Label>
+              ราคารวม [<span style={{}}>{toLocaleStringEn(totalPrice)}</span>]
+            </Form.Label>
             <Form.Control
               size="lg"
               type="number"
@@ -314,7 +324,13 @@ function FormAddTypeItem(props: any) {
 
         <Row className="mb-2">
           <Form.Group as={Col} className="mb-2" controlId="formFaculty">
-            <Form.Label>วันที่ซื้อ</Form.Label>
+            <Form.Label>
+              วันที่ซื้อ [
+              <span style={{ fontSize: 20 }}>
+                {startDate && <Moment format="DD/MM/YYYY">{startDate}</Moment>}
+              </span>
+              ]
+            </Form.Label>
             <Form.Control
               // value={startDate}
               onChange={(e: any) => {

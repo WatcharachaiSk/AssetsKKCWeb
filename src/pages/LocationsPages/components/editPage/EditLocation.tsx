@@ -10,6 +10,7 @@ import checkToken from "../../../../config/checkToken";
 import FormEditLocation from "../formEdit/FormEditLocation";
 import ModalPostLocate from "../../../../components/modal/ModalPostLocate";
 import { GetKanitFont } from "../../../../config/fonts";
+import NavbarItem from "../../../../components/navbar/NavbarItem";
 
 function EditLocation() {
   const { state } = useLocation();
@@ -52,13 +53,15 @@ function EditLocation() {
       }
     }
   };
+  const clickPage = "setting";
   return (
     <div style={{ ...GetKanitFont("KanitLight") }}>
-      <NavbarTop clickPage={"setting"} />
+      <NavbarTop clickPage={clickPage} />
+      <NavbarItem clickPage={clickPage} />
       <div className="d-flex justify-content-center mt-5 mb-2">
         <h3>แก้ไขสถานที่</h3>
       </div>
-      <ButtonBack titleButton={"ย้อนกลับ"} />
+      {/* <ButtonBack titleButton={"ย้อนกลับ"} /> */}
       {modalShowCheckLocation && (
         <ModalPostLocate
           onSubmitFnLocate={onSubmitFnLocation}

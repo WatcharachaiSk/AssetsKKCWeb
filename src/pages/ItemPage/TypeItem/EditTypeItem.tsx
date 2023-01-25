@@ -10,6 +10,8 @@ import checkToken from "../../../config/checkToken";
 import { GetKanitFont } from "../../../config/fonts";
 import FormEditTypeItem from "../../LocationsPages/components/formEdit/FormEditTypeItem";
 import ModalPostType from "../../../components/modal/ModalPostType";
+import NavbarItem from "../../../components/navbar/NavbarItem";
+
 function EditTypeItem() {
   const { state } = useLocation();
   const navigate = useNavigate();
@@ -32,13 +34,15 @@ function EditTypeItem() {
       }
     }
   };
+  const clickPage = "setting";
   return (
     <div style={{ ...GetKanitFont("KanitLight") }}>
-      <NavbarTop clickPage={"setting"} />
+      <NavbarTop clickPage={clickPage} />
+      <NavbarItem clickPage={clickPage} />
       <div className="d-flex justify-content-center mt-5 mb-2">
         <h3>แก้ไขชนิดครุภัณฑ์</h3>
       </div>
-      <ButtonBack titleButton={"ย้อนกลับ"} />
+      {/* <ButtonBack titleButton={"ย้อนกลับ"} /> */}
       {modalShowCheckType && (
         <ModalPostType
           chackDataType={postItemCheckType}

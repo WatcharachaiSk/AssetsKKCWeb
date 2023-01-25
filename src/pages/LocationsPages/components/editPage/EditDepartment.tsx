@@ -10,7 +10,9 @@ import configAxios from "../../../../axios/configAxios";
 import { API } from "../../../../axios/swr/endpoint";
 import checkStatus from "../../../../config/checkStatus";
 import checkToken from "../../../../config/checkToken";
+import NavbarItem from "../../../../components/navbar/NavbarItem";
 function EditDepartment() {
+  const clickPage = "setting";
   const navigate = useNavigate();
   const { state } = useLocation();
   const [nameTH_Old, setnameTH_Old] = useState<string>(state?.item?.nameTH);
@@ -48,11 +50,12 @@ function EditDepartment() {
 
   return (
     <div style={{ ...GetKanitFont("KanitLight") }}>
-      <NavbarTop clickPage={"setting"} />
+      <NavbarTop clickPage={clickPage} />
+      <NavbarItem clickPage={clickPage} />
       <div className="d-flex justify-content-center mt-5 mb-2">
         <h3>แก้ไขสาขา</h3>
       </div>
-      <ButtonBack titleButton={"ย้อนกลับ"} />
+      {/* <ButtonBack titleButton={"ย้อนกลับ"} /> */}
       {modalShowCheckDepartment && (
         <ModalPostLocate
           onSubmitFnLocate={onSubmitFnDepartment}

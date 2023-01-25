@@ -13,6 +13,7 @@ import {
 } from "../../../config/chackStatusItem";
 // import images from "../../../config/index.images";
 // import getBase64 from "../../../config/getBase64";
+import { toLocaleStringEn } from "../../../config/number/formatEN";
 
 function FormAddItem(props: any) {
   const {
@@ -374,7 +375,10 @@ function FormAddItem(props: any) {
           />
         </Form.Group>
         <Form.Group className="mb-3" controlId="formCodeItem">
-          <Form.Label>ราคาครุภัณฑ์</Form.Label>
+          <Form.Label>
+            ราคาครุภัณฑ์ [
+            <span style={{ fontSize: 20 }}>{toLocaleStringEn(price)}</span>]
+          </Form.Label>
           <Form.Control
             size="lg"
             min={"0"}

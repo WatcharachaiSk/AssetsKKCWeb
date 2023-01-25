@@ -1,9 +1,9 @@
 export const toLocaleStringEn = (value: any) => {
   let formatEn;
-  // console.log(value);
-
+  //  console.log("value = " + value + typeof value);
+  let numberValue = Number(value);
   if (value !== undefined) {
-    formatEn = value.toLocaleString("en-US");
+    formatEn = numberValue.toLocaleString("en-US");
   } else {
     formatEn = 0;
   }
