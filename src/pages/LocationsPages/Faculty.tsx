@@ -9,11 +9,13 @@ import checkToken from "../../config/checkToken";
 import { useNavigate } from "react-router-dom";
 import { GetKanitFont } from "../../config/fonts";
 import NavbarItem from "../../components/navbar/NavbarItem";
-
+import SearchFaculty from "./components/search/SearchFaculty";
+import { Container } from "react-bootstrap";
 function Faculty() {
   const navigate = useNavigate();
   const clickPage = "setting";
   const [getFaculty, setGetFaculty] = useState<{}>({});
+  const [dataFilter, setDataFilter] = useState<any>(undefined);
 
   useMemo(async () => {
     try {
@@ -28,13 +30,25 @@ function Faculty() {
     <div style={{ ...GetKanitFont("KanitLight") }}>
       <NavbarTop clickPage={clickPage} />
       <NavbarItem clickPage={clickPage} />
-      <div className="d-flex justify-content-center mt-5 mb-2">
+      <div className="d-flex justify-content-center mt-5">
         <h3>คณะ</h3>
       </div>
       <ButtonAdd titleButton={"เพิ่มคณะ"} pageAdd={"/faculty/newfaculty"} />
       {getFaculty && (
+        
+          <div className="d-flex justify-content-end flex-wrap">
+            <SearchFaculty
+              getFaculty={getFaculty}
+              dataFilter={dataFilter}
+              setDataFilter={setDataFilter}
+            />
+          </div>
+ 
+      )}
+
+      {getFaculty && (
         <TableListLocat
-          itemList={getFaculty}
+          itemList={dataFilter ? dataFilter : getFaculty}
           isPage="f"
           editPage={"/faculty/editfaculty"}
         />

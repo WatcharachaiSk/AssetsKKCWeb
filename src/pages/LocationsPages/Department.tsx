@@ -11,10 +11,12 @@ import { useNavigate } from "react-router-dom";
 import { GetKanitFont } from "../../config/fonts";
 import NavbarItem from "../../components/navbar/NavbarItem";
 
+import SearchDepartment from "./components/search/SearchDepartment";
 function Department() {
   const navigate = useNavigate();
-  const [clickPage, setClickPage] = useState<string>("setting");
+  const clickPage = "setting";
   const [getDepartment, setGetDepartment] = useState<{}>({});
+  const [dataFilter, setDataFilter] = useState<any>(undefined);
 
   useMemo(async () => {
     try {
@@ -48,11 +50,23 @@ function Department() {
           pageAdd={"/department/newdepartment"}
         />
       )}
-      <TableListLocat
-        itemList={getDepartment}
-        isPage={"d"}
-        editPage={"/departmen/editdepartmen"}
-      />
+
+      {getProfile?.user?.admin && getDepartment && (
+        <div className="d-flex justify-content-end flex-wrap">
+          <SearchDepartment
+            getDepartment={getDepartment}
+            dataFilter={dataFilter}
+            setDataFilter={setDataFilter}
+          />
+        </div>
+      )}
+      {getDepartment && (
+        <TableListLocat
+          itemList={dataFilter ? dataFilter : getDepartment}
+          isPage={"d"}
+          editPage={"/departmen/editdepartmen"}
+        />
+      )}
     </div>
   );
 }

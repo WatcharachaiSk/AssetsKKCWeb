@@ -83,7 +83,7 @@ function FormEditImgItem(props: any) {
           className=""
           style={{
             width: "85%",
-            height: 250,
+            height: 350,
             display: "flex",
             overflow: "auto",
           }}
@@ -134,9 +134,10 @@ function FormEditImgItem(props: any) {
       </div>
       <div className="d-flex justify-content-center">
         <div>
-   
-          <Form.Group controlId="formFile" className="">
-            <Form.Label></Form.Label>
+          <Form.Group controlId="formFile" className="mt-2">
+            <Form.Label>
+              <span style={{fontSize:18}}>แนะนำอัตราส่วนภาพ 1 : 1</span>
+            </Form.Label>
             <Form.Control
               // value={}
               accept="image/png,image/jpeg,image/jpg"

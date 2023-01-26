@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Form, Button, Row, Col } from "react-bootstrap";
+import { Form, Button, OverlayTrigger, Tooltip } from "react-bootstrap";
 import styled from "styled-components";
 import _ from "lodash";
 import {
@@ -27,6 +27,7 @@ function SearchItem(props: any) {
   const [pickBuilding, setPickBuilding] = useState<string>("0");
   const [pickLocation, setPickLocation] = useState<string>("0");
   const [pickStatusItem, setPickStatusItem] = useState<any>("0");
+  const [pickUnderrated, setPickUnderrated] = useState<any>("0");
   const [selected, setSelected] = useState<any>({
     filter: "all",
     value: "all",
@@ -93,12 +94,6 @@ function SearchItem(props: any) {
       });
       setDataFilter(dataItemLocate);
     } else if (selected?.filter === "status_item") {
-      // console.log(
-      //   "selected?.value = ",
-      //   selected?.value + typeof selected?.value
-      // );
-      // console.log(chackStatusItem(selected?.value));
-      // selected?.value === "true" ? true : false
       let status_item: any;
       if (selected?.value == "true" || selected?.value == "false") {
         status_item = selected?.value === "true" ? true : false;
@@ -108,6 +103,11 @@ function SearchItem(props: any) {
       // console.log("status_item = ", status_item + typeof status_item);
       const dataItemLocate = _.filter(getItems, (item: any) => {
         return item?.status_item == status_item;
+      });
+      setDataFilter(dataItemLocate);
+    } else if (selected?.filter === "underrated") {
+      const dataItemLocate = _.filter(getItems, (item: any) => {
+        return item?.price < 5000;
       });
       setDataFilter(dataItemLocate);
     } else {
@@ -179,7 +179,7 @@ function SearchItem(props: any) {
               setPickBuilding("0");
               setPickLocation("0");
               setPickStatusItem("0");
-
+              setPickUnderrated("0");
               setSelected({
                 filter: "all",
                 value: "all",
@@ -194,6 +194,44 @@ function SearchItem(props: any) {
             ค้นหาทั้งหมด
           </Button>
         </BoxFlex>
+        <OverlayTrigger
+          overlay={
+            <Tooltip id="tooltip-disabled">
+              ครุภัณฑ์ต่ำกว่าเกณฑ์ มีมูลค่าต่ำกว่า 5,000 บาท
+            </Tooltip>
+          }
+        >
+          <BoxFlex>
+            <Button
+              className="d-inline mx-2 m-1"
+              onClick={() => {
+                setPickUnderrated("underrated");
+                setPickAll("0");
+                setPickFacultys("0");
+                setPickDepartment("0");
+                setPickBuilding("0");
+                setPickLocation("0");
+                setPickStatusItem("0");
+
+                setSelected({
+                  filter: "underrated",
+                  value: "underrated",
+                });
+              }}
+              style={{
+                color: pickUnderrated == "underrated" ? "#fff" : "#000",
+                borderColor: "#ced4da",
+              }}
+              variant={
+                pickUnderrated == "underrated"
+                  ? "secondary"
+                  : "outline-secondary"
+              }
+            >
+              ครุภัณฑ์ต่ำกว่าเกณฑ์
+            </Button>
+          </BoxFlex>
+        </OverlayTrigger>
 
         <BoxFlex>
           <Form.Select
@@ -208,7 +246,7 @@ function SearchItem(props: any) {
               setPickLocation("0");
               setPickStatusItem("0");
               setPickAll("0");
-
+              setPickUnderrated("0");
               //
               if (e.target.value != "0") {
                 setSelected({
@@ -243,6 +281,7 @@ function SearchItem(props: any) {
               setPickLocation("0");
               setPickStatusItem("0");
               setPickAll("0");
+              setPickUnderrated("0");
 
               if (e.target.value != "0") {
                 setSelected({
@@ -278,6 +317,7 @@ function SearchItem(props: any) {
               setPickLocation("0");
               setPickStatusItem("0");
               setPickAll("0");
+              setPickUnderrated("0");
 
               if (e.target.value != "0") {
                 setSelected({
@@ -312,6 +352,7 @@ function SearchItem(props: any) {
               setPickBuilding("0");
               setPickStatusItem("0");
               setPickAll("0");
+              setPickUnderrated("0");
 
               if (e.target.value != "0") {
                 setSelected({
@@ -348,6 +389,7 @@ function SearchItem(props: any) {
               setPickBuilding("0");
               setPickLocation("0");
               setPickAll("0");
+              setPickUnderrated("0");
 
               if (e.target.value != "0") {
                 setSelected({
@@ -400,6 +442,7 @@ function SearchItem(props: any) {
             id="formHorizontalRadios1"
             onChange={(event: any) => {
               // console.log(event.target.checked);
+              setPickUnderrated("0");
               if (event.target.checked) {
                 setPickSearch("name");
               } else {
@@ -414,6 +457,7 @@ function SearchItem(props: any) {
             id="formHorizontalRadios2"
             onChange={(event: any) => {
               // console.log(event.target.checked);
+              setPickUnderrated("0");
               if (event.target.checked) {
                 setPickSearch("code");
               } else {

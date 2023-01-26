@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState, useMemo, useContext, createContext } from "react";
+import { useState, useMemo } from "react";
 import configAxios from "../../../axios/configAxios";
 import { API } from "../../../axios/swr/endpoint";
 import NavbarTop from "../../../components/navbar/NavbarTop";
@@ -9,12 +9,13 @@ import { useNavigate } from "react-router-dom";
 import checkToken from "../../../config/checkToken";
 import { GetKanitFont } from "../../../config/fonts";
 import NavbarItem from "../../../components/navbar/NavbarItem";
-
+import SearchUser from "./components/SearchUser";
 // const UserContext = createContext<any>();
 function Users() {
   const navigate = useNavigate();
   const [getUsers, setGetUsers] = useState<object>({});
   const [resetUsers, setResetUsers] = useState<boolean>(false);
+  const [dataFilter, setDataFilter] = useState<any>(undefined);
 
   // setGetUsers
   useMemo(async () => {
@@ -34,8 +35,18 @@ function Users() {
       </div>
       <ButtonAdd pageAdd={"/admin/new_user"} titleButton={"เพิ่มผู้ใช้งาน"} />
       {getUsers && (
+        <div className="d-flex justify-content-end flex-wrap">
+          <SearchUser
+            getUsers={getUsers}
+            dataFilter={dataFilter}
+            setDataFilter={setDataFilter}
+          />
+        </div>
+      )}
+
+      {getUsers && (
         <TableListUsers
-          itemList={getUsers}
+          itemList={dataFilter ? dataFilter : getUsers}
           setResetUsers={setResetUsers}
           resetUsers={resetUsers}
         />

@@ -117,19 +117,24 @@ function EditItem() {
     <div style={{ ...GetKanitFont("KanitLight") }}>
       <NavbarTop clickPage={clickPage} />
       <NavbarItem clickPage={clickPage} />
-      <div className="d-flex justify-content-between">
-        <div>{/* <ButtonBack titleButton={"ย้อนกลับ"} /> */}</div>
-        <div>
-          <DeleteItem
-            titleButton={"ลบครุภัณฑ์"}
-            setModal={setModalShowDeletel}
-          />
-        </div>
-      </div>
-
       <div className="d-flex justify-content-center mt-5 mb-2">
-        <h3>แก้ไขครุภัณฑ์</h3>
+        {/* <h3>แก้ไขครุภัณฑ์</h3> */}
+        {isEdit === isPageEdit.image && <h3>แก้ไขรูปภาพครุภัณฑ์</h3>}
+        {isEdit === isPageEdit.details && <h3>แก้ไขรายละเอียดครุภัณฑ์</h3>}
+        {isEdit === isPageEdit.status && <h3>แก้ไขสถานะครุภัณฑ์</h3>}
       </div>
+      {isEdit === isPageEdit.details && (
+        <div className="d-flex justify-content-between">
+          <div>{/* <ButtonBack titleButton={"ย้อนกลับ"} /> */}</div>
+          <div>
+            <DeleteItem
+              titleButton={"ลบครุภัณฑ์"}
+              setModal={setModalShowDeletel}
+            />
+          </div>
+        </div>
+      )}
+
       {modalShowCheckUpImgItem && (
         <ModalUpImgItem
           onSubmitFnImgItem={onSubmitFnImgItem}
