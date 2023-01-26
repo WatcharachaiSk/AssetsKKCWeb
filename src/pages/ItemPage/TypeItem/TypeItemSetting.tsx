@@ -9,10 +9,11 @@ import axios from "axios";
 import { API } from "../../../axios/swr/endpoint";
 import configAxios from "../../../axios/configAxios";
 import checkToken from "../../../config/checkToken";
-
+import SearchTypeItem from "./components/SearchTypeItem";
 function TypeItemSetting() {
   const navigate = useNavigate();
   const [getTypeItem, setGetTypeItem] = useState<{}>({});
+  const [dataFilter, setDataFilter] = useState<any>(undefined);
 
   useMemo(async () => {
     try {
@@ -34,7 +35,21 @@ function TypeItemSetting() {
         titleButton={"เพิ่มชนิดครุภัณฑ์"}
         pageAdd={"/type_item/newTypeItem"}
       />
-      <TableListTypeCate itemList={getTypeItem} isPage={"Type"} />
+      {getTypeItem && (
+        <div className="d-flex justify-content-end flex-wrap">
+          <SearchTypeItem
+            getTypeItem={getTypeItem}
+            dataFilter={dataFilter}
+            setDataFilter={setDataFilter}
+          />
+        </div>
+      )}
+      {getTypeItem && (
+        <TableListTypeCate
+          itemList={dataFilter ? dataFilter : getTypeItem}
+          isPage={"Type"}
+        />
+      )}
     </div>
   );
 }

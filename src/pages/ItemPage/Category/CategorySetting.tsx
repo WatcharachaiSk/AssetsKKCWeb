@@ -9,10 +9,11 @@ import axios from "axios";
 import { API } from "../../../axios/swr/endpoint";
 import configAxios from "../../../axios/configAxios";
 import checkToken from "../../../config/checkToken";
-
+import SearchCategory from "./components/SearchCategory";
 function CategorySetting() {
   const navigate = useNavigate();
   const [getCategory, setGetCategory] = useState<{}>({});
+  const [dataFilter, setDataFilter] = useState<any>(undefined);
   useMemo(async () => {
     try {
       const res = await axios(configAxios("get", API.getCategory));
@@ -32,7 +33,21 @@ function CategorySetting() {
         titleButton={"เพิ่มหมวดหมู่ครุภัณฑ์"}
         pageAdd={"/category/newCategory"}
       />
-      <TableListTypeCate itemList={getCategory} isPage={"cate"} />
+      {getCategory && (
+        <div className="d-flex justify-content-end flex-wrap">
+          <SearchCategory
+            getCategory={getCategory}
+            dataFilter={dataFilter}
+            setDataFilter={setDataFilter}
+          />
+        </div>
+      )}
+      {getCategory && (
+        <TableListTypeCate
+          itemList={dataFilter ? dataFilter : getCategory}
+          isPage={"cate"}
+        />
+      )}
     </div>
   );
 }

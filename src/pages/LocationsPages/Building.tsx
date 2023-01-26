@@ -47,11 +47,13 @@ function Building() {
           />
         </div>
       )}
-      <TableListLocat
-        isPage={"b"}
-        itemList={dataFilter ? dataFilter : getBuilding}
-        editPage={"/building/editbuilding"}
-      />
+      {getBuilding && (
+        <TableListLocat
+          isPage={"b"}
+          itemList={dataFilter ? dataFilter : getBuilding}
+          editPage={"/building/editbuilding"}
+        />
+      )}
     </div>
   );
 }

@@ -70,8 +70,8 @@ function TableListTypeCate(props: any) {
             <tr>
               {isPage === "Type" && (
                 <>
-                  <th>ลำดับที่</th>
                   <th>แก้ไข</th>
+                  <th>ลำดับ</th>
                   <th>ชื่อรายการ</th>
                   <th>รหัสครุภัณฑ์</th>
                   <th>จำนวน</th>
@@ -96,8 +96,8 @@ function TableListTypeCate(props: any) {
               )}
               {isPage === "cate" && (
                 <>
-                  <th>ลำดับที่</th>
                   <th>แก้ไข</th>
+                  <th>ลำดับ</th>
                   <th>ชื่อ</th>
                   {getUserAdmin ? (
                     <>
@@ -123,7 +123,6 @@ function TableListTypeCate(props: any) {
                 <tr key={idx}>
                   {isPage === "Type" && (
                     <>
-                      <td>{idx + 1}</td>
                       <td>
                         <Button
                           variant="warning"
@@ -139,6 +138,7 @@ function TableListTypeCate(props: any) {
                           <AiFillEdit color={colors.black} size={20} />
                         </Button>
                       </td>
+                      <td>{idx + 1}</td>
                       <td>{item?.name}</td>
                       <td>{item?.code}</td>
                       <td>{toLocaleStringEn(item?.quantity)}</td>
@@ -183,7 +183,6 @@ function TableListTypeCate(props: any) {
                   )}
                   {isPage == "cate" && (
                     <>
-                      <td>{idx + 1}</td>
                       <td>
                         <Button
                           variant="warning"
@@ -199,6 +198,7 @@ function TableListTypeCate(props: any) {
                           <AiFillEdit color={colors.black} size={20} />
                         </Button>
                       </td>
+                      <td>{idx + 1}</td>
                       <td>{item.name}</td>
                       {getUserAdmin ? (
                         <>

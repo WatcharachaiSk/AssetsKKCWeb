@@ -46,11 +46,13 @@ function Location() {
           />
         </div>
       )}
-      <TableListLocat
-        isPage={"l"}
-        itemList={dataFilter ? dataFilter : getLocation}
-        editPage={"/location/editlocation"}
-      />
+      {getLocation && (
+        <TableListLocat
+          isPage={"l"}
+          itemList={dataFilter ? dataFilter : getLocation}
+          editPage={"/location/editlocation"}
+        />
+      )}
     </div>
   );
 }
