@@ -11,6 +11,7 @@ import configAxios from "../../../axios/configAxios";
 import checkToken from "../../../config/checkToken";
 import SearchCategory from "./components/SearchCategory";
 import LoaderTable from "../../../components/lottiefiles/LoaderTable";
+import pathRoutesPage from "../../../router/pathPage";
 function CategorySetting() {
   const navigate = useNavigate();
   const [getCategory, setGetCategory] = useState<{}>();
@@ -32,7 +33,7 @@ function CategorySetting() {
       </div>
       <ButtonAdd
         titleButton={"เพิ่มหมวดหมู่ครุภัณฑ์"}
-        pageAdd={"/category/newCategory"}
+        pageAdd={pathRoutesPage.NewCateItem}
       />
 
       {getCategory ? (

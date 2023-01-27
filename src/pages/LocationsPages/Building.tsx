@@ -13,6 +13,7 @@ import { GetKanitFont } from "../../config/fonts";
 import NavbarItem from "../../components/navbar/NavbarItem";
 import SearchBuilding from "./components/search/SearchBuilding";
 import LoaderTable from "../../components/lottiefiles/LoaderTable";
+import pathRoutesPage from "../../router/pathPage";
 function Building() {
   const navigate = useNavigate();
   const clickPage = "setting";
@@ -36,7 +37,10 @@ function Building() {
       <div className="d-flex justify-content-center mt-5 mb-2">
         <h3>อาคาร</h3>
       </div>
-      <ButtonAdd titleButton={"เพิ่มอาคาร"} pageAdd={"/building/newbuilding"} />
+      <ButtonAdd
+        titleButton={"เพิ่มอาคาร"}
+        pageAdd={pathRoutesPage.NewBuilding}
+      />
 
       {getBuilding ? (
         <>

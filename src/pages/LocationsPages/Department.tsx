@@ -13,6 +13,7 @@ import NavbarItem from "../../components/navbar/NavbarItem";
 
 import SearchDepartment from "./components/search/SearchDepartment";
 import LoaderTable from "../../components/lottiefiles/LoaderTable";
+import pathRoutesPage from "../../router/pathPage";
 function Department() {
   const navigate = useNavigate();
   const clickPage = "setting";
@@ -48,7 +49,7 @@ function Department() {
       {getProfile?.user?.admin === true && (
         <ButtonAdd
           titleButton={"เพิ่มสาขา"}
-          pageAdd={"/department/newdepartment"}
+          pageAdd={pathRoutesPage.NewDepartment}
         />
       )}
 

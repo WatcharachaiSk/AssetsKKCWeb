@@ -74,13 +74,13 @@ function RoutesPath() {
         <Route path="/category" element={<CategorySetting />} />
 
         {/* Add */}
-        <Route path="/items/newitem" element={<NewItem />} />
-        <Route path="/faculty/newfaculty" element={<NewFaculty />} />
-        <Route path="/department/newdepartment" element={<NewDepartment />} />
-        <Route path="/building/newbuilding" element={<NewBuilding />} />
-        <Route path="/location/newlocation" element={<NewLocation />} />
-        <Route path="/type_item/newTypeItem" element={<NewTypeItem />} />
-        <Route path="/category/newCategory" element={<NewCateItem />} />
+        <Route path="/newitem" element={<NewItem />} />
+        <Route path="/newfaculty" element={<NewFaculty />} />
+        <Route path="/newdepartment" element={<NewDepartment />} />
+        <Route path="/newbuilding" element={<NewBuilding />} />
+        <Route path="/newlocation" element={<NewLocation />} />
+        <Route path="/newTypeItem" element={<NewTypeItem />} />
+        <Route path="/newCategory" element={<NewCateItem />} />
 
         {/* Edit */}
         <Route path="/items/editItem" element={<EditItem />} />

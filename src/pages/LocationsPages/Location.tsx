@@ -12,6 +12,7 @@ import { GetKanitFont } from "../../config/fonts";
 import NavbarItem from "../../components/navbar/NavbarItem";
 import SearchLocation from "./components/search/SearchLocation";
 import LoaderTable from "../../components/lottiefiles/LoaderTable";
+import pathRoutesPage from "../../router/pathPage";
 function Location() {
   const navigate = useNavigate();
   const [clickPage, setClickPage] = useState<string>("setting");
@@ -36,7 +37,7 @@ function Location() {
       </div>
       <ButtonAdd
         titleButton={"เพิ่มสถานที่"}
-        pageAdd={"/location/newlocation"}
+        pageAdd={pathRoutesPage.NewLocation}
       />
 
       {getLocation ? (

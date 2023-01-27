@@ -13,6 +13,7 @@ import NavbarItem from "../../components/navbar/NavbarItem";
 import _ from "lodash";
 import SearchItem from "./components/dropdowns/SearchItem";
 import LoaderTable from "../../components/lottiefiles/LoaderTable";
+import pathRoutesPage from "../../router/pathPage";
 function Items() {
   const navigate = useNavigate();
   const [getItems, setGetItems] = useState<{}>();
@@ -48,7 +49,10 @@ function Items() {
         <h3>ครุภัณฑ์ทั้งหมด</h3>
       </div>
       <div className="d-flex justify-content-between">
-        <ButtonAdd pageAdd={"/items/newitem"} titleButton={"เพิ่มครุภัณฑ์"} />
+        <ButtonAdd
+          pageAdd={pathRoutesPage.NewItem}
+          titleButton={"เพิ่มครุภัณฑ์"}
+        />
       </div>
 
       {getItems ? (

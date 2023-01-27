@@ -11,6 +11,7 @@ import configAxios from "../../../axios/configAxios";
 import checkToken from "../../../config/checkToken";
 import SearchTypeItem from "./components/SearchTypeItem";
 import LoaderTable from "../../../components/lottiefiles/LoaderTable";
+import pathRoutesPage from "../../../router/pathPage";
 function TypeItemSetting() {
   const navigate = useNavigate();
   const [getTypeItem, setGetTypeItem] = useState<{}>();
@@ -34,7 +35,7 @@ function TypeItemSetting() {
       </div>
       <ButtonAdd
         titleButton={"เพิ่มชนิดครุภัณฑ์"}
-        pageAdd={"/type_item/newTypeItem"}
+        pageAdd={pathRoutesPage.NewTypeItem}
       />
 
       {getTypeItem ? (

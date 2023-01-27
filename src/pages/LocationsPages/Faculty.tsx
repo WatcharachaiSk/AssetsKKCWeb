@@ -12,6 +12,7 @@ import NavbarItem from "../../components/navbar/NavbarItem";
 import SearchFaculty from "./components/search/SearchFaculty";
 // import { Container } from "react-bootstrap";
 import LoaderTable from "../../components/lottiefiles/LoaderTable";
+import pathRoutesPage from "../../router/pathPage";
 function Faculty() {
   const navigate = useNavigate();
   const clickPage = "setting";
@@ -34,7 +35,7 @@ function Faculty() {
       <div className="d-flex justify-content-center mt-5">
         <h3>คณะ</h3>
       </div>
-      <ButtonAdd titleButton={"เพิ่มคณะ"} pageAdd={"/faculty/newfaculty"} />
+      <ButtonAdd titleButton={"เพิ่มคณะ"} pageAdd={pathRoutesPage.NewFaculty} />
       {getFaculty ? (
         <>
           <div className="d-flex justify-content-end flex-wrap">
