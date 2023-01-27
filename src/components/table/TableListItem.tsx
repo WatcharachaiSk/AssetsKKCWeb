@@ -29,6 +29,7 @@ import {
 // import { NumericFormat } from "react-number-format";
 import { toLocaleStringEn } from "../../config/number/formatEN";
 import ListButton from "./components/ListButton";
+// import pathRoutesPage from "../../router/pathPage";
 
 function TableListItem(props: any) {
   const { itemList, editPage, isPage } = props;

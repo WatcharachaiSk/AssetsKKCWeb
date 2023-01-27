@@ -44,7 +44,7 @@ function EditUser() {
       <div className="d-flex justify-content-center mt-5 mb-2">
         <h3>แก้ไขผู้ใช้งาน</h3>
       </div>
-      <ButtonBack titleButton={"ย้อนกลับ"} />
+      {/* <ButtonBack titleButton={"ย้อนกลับ"} /> */}
       {modalShowCheckUser && (
         <ModalPostUser
           modalShow={modalShowCheckUser}

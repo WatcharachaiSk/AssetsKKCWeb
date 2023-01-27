@@ -52,7 +52,7 @@ function Location() {
           <TableListLocat
             isPage={"l"}
             itemList={dataFilter ? dataFilter : getLocation}
-            editPage={"/location/editlocation"}
+            editPage={pathRoutesPage.EditLocation}
           />
         </>
       ) : (

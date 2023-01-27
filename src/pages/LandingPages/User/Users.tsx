@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import configAxios from "../../../axios/configAxios";
 import { API } from "../../../axios/swr/endpoint";
 import NavbarTop from "../../../components/navbar/NavbarTop";
@@ -12,6 +12,7 @@ import NavbarItem from "../../../components/navbar/NavbarItem";
 import SearchUser from "./components/SearchUser";
 // const UserContext = createContext<any>();
 import LoaderTable from "../../../components/lottiefiles/LoaderTable";
+import pathRoutesPage from "../../../router/pathPage";
 function Users() {
   const navigate = useNavigate();
   const [getUsers, setGetUsers] = useState<object>({});
@@ -27,6 +28,13 @@ function Users() {
       checkToken(error.response.data.status, error.request.status, navigate);
     }
   }, [resetUsers]);
+
+  useEffect(() => {
+    let userAdmin: any = localStorage.getItem("UserAdmin");
+    if (userAdmin !== "true") {
+      navigate(pathRoutesPage.Dashboard);
+    }
+  }, []);
   return (
     <div style={{ ...GetKanitFont("KanitLight") }}>
       <NavbarTop clickPage={"editUser"} />
@@ -34,7 +42,10 @@ function Users() {
       <div className="d-flex justify-content-center mt-4 mb-2">
         <h3>สำหรับผู้ดูแลระบบ</h3>
       </div>
-      <ButtonAdd pageAdd={"/admin/new_user"} titleButton={"เพิ่มผู้ใช้งาน"} />
+      <ButtonAdd
+        pageAdd={pathRoutesPage.NewUser}
+        titleButton={"เพิ่มผู้ใช้งาน"}
+      />
 
       {getUsers ? (
         <>

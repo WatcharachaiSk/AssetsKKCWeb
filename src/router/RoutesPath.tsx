@@ -83,19 +83,19 @@ function RoutesPath() {
         <Route path="/newCategory" element={<NewCateItem />} />
 
         {/* Edit */}
-        <Route path="/items/editItem" element={<EditItem />} />
-        <Route path="/faculty/editfaculty" element={<EditFaculty />} />
-        <Route path="/departmen/editdepartmen" element={<EditDepartment />} />
-        <Route path="/building/editbuilding" element={<EditBuilding />} />
-        <Route path="/location/editlocation" element={<EditLocation />} />
-        <Route path="/category/editCategory" element={<EditCategory />} />
-        <Route path="/type_item/editTypeItem" element={<EditTypeItem />} />
-        <Route path="/admin/editUser" element={<EditUser />} />
+        <Route path="/editItem" element={<EditItem />} />
+        <Route path="/editfaculty" element={<EditFaculty />} />
+        <Route path="/editdepartmen" element={<EditDepartment />} />
+        <Route path="/editbuilding" element={<EditBuilding />} />
+        <Route path="/editlocation" element={<EditLocation />} />
+        <Route path="/editCategory" element={<EditCategory />} />
+        <Route path="/editTypeItem" element={<EditTypeItem />} />
+        <Route path="/editUser" element={<EditUser />} />
 
         {/* User */}
         <Route path="/profile" element={<Profile />} />
         <Route path="/admin" element={<Users />} />
-        <Route path="/admin/new_user" element={<NewUser />} />
+        <Route path="/new_user" element={<NewUser />} />
       </Routes>
     </>
   );

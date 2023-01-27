@@ -22,17 +22,18 @@ const pathRoutesPage = {
   NewTypeItem: "/newTypeItem",
   NewCateItem: "/newCategory",
   //
-  EditItem: "/items/editItem",
-  EditFaculty: "/faculty/editfaculty",
-  EditDepartment: "/departmen/editdepartmen",
-  EditBuilding: "/building/editbuilding",
-  EditLocation: "/location/editlocation",
-  EditCategory: "/category/editCategory",
-  EditTypeItem: "/type_item/editTypeItem",
-  EditUser: "/admin/editUser",
+  EditItem: "/editItem",
+  EditFaculty: "/editfaculty",
+  EditDepartment: "/editdepartmen",
+  EditBuilding: "/editbuilding",
+  EditLocation: "/editlocation",
+  EditCategory: "/editCategory",
+  EditTypeItem: "/editTypeItem",
+  EditUser: "/editUser",
+  // 
   Profile: "/profile",
   Users: "/admin",
-  NewUser: "/admin/new_user",
+  NewUser: "/new_user",
 };
 
 export default pathRoutesPage;

@@ -9,6 +9,7 @@ import ModalBlockUser from "../modal/BlockUser/ModalBlockUser";
 import { CiImageOn } from "react-icons/ci";
 import ModalShowImgProfile from "../modal/UpdateProfile/ModalShowImgProfile";
 import { GetKanitFont } from "../../config/fonts";
+import pathRoutesPage from "../../router/pathPage";
 function TableListUsers(props: any) {
   const { itemList, editPage, setResetUsers, resetUsers } = props;
   const [modalShowImgProfile, setModalShowImgProfile] = useState(false);
@@ -67,7 +68,7 @@ function TableListUsers(props: any) {
           hover
         >
           {/*  */}
-          <thead style={{...GetKanitFont('KanitMedium')}}>
+          <thead style={{ ...GetKanitFont("KanitMedium") }}>
             <tr>
               <th>แก้ไข</th>
               <th>รูปโปรไฟล์</th>
@@ -93,7 +94,11 @@ function TableListUsers(props: any) {
                       variant="warning"
                       onClick={() => {
                         //console.log("item.item_id = " + item?.userUserId);
-                        navigatePage("/admin/editUser", item?.userUserId, item);
+                        navigatePage(
+                          pathRoutesPage.EditUser,
+                          item?.userUserId,
+                          item
+                        );
                       }}
                     >
                       <AiFillEdit color={colors.black} size={20} />

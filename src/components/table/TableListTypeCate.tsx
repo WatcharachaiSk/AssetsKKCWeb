@@ -9,6 +9,7 @@ import Moment from "react-moment";
 import { filterStatus } from "../../config/filterStatusArr";
 import { GetKanitFont } from "../../config/fonts";
 import { toLocaleStringEn } from "../../config/number/formatEN";
+import pathRoutesPage from "../../router/pathPage";
 function TableListTypeCate(props: any) {
   const { itemList, editPage, isPage } = props;
   const navigate = useNavigate();
@@ -129,7 +130,7 @@ function TableListTypeCate(props: any) {
                           onClick={() => {
                             //console.log("item.Type = " + item?.type_id);
                             navigatePage(
-                              "/type_item/editTypeItem",
+                              pathRoutesPage.EditTypeItem,
                               item.type_id,
                               item
                             );
@@ -189,7 +190,7 @@ function TableListTypeCate(props: any) {
                           onClick={() => {
                             //  console.log("item.cate = " + item?.cate_id);
                             navigatePage(
-                              "/category/editCategory",
+                              pathRoutesPage.EditCategory,
                               item.cate_id,
                               item
                             );

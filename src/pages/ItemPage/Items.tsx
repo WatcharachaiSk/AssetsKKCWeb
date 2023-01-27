@@ -14,6 +14,7 @@ import _ from "lodash";
 import SearchItem from "./components/dropdowns/SearchItem";
 import LoaderTable from "../../components/lottiefiles/LoaderTable";
 import pathRoutesPage from "../../router/pathPage";
+
 function Items() {
   const navigate = useNavigate();
   const [getItems, setGetItems] = useState<{}>();
@@ -66,7 +67,7 @@ function Items() {
           </div>
           <TableListItem
             itemList={dataFilter ? dataFilter : getItems}
-            editPage={"/items/editItem"}
+            editPage={pathRoutesPage.EditItem}
           />
         </>
       ) : (

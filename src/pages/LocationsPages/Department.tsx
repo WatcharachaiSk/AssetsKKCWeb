@@ -66,7 +66,7 @@ function Department() {
         <TableListLocat
           itemList={dataFilter ? dataFilter : getDepartment}
           isPage={"d"}
-          editPage={"/departmen/editdepartmen"}
+          editPage={pathRoutesPage.EditDepartment}
         />
       ) : (
         <LoaderTable />

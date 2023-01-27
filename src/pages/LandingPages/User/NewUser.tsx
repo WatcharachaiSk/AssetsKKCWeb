@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import configAxios from "../../../axios/configAxios";
 import { API } from "../../../axios/swr/endpoint";
@@ -9,6 +9,7 @@ import checkStatus from "../../../config/checkStatus";
 import checkToken from "../../../config/checkToken";
 import FormAddUser from "./components/FormAddUser";
 import ModalPostUser from "../../../components/modal/ModalPostUser";
+import pathRoutesPage from "../../../router/pathPage";
 
 function NewUser() {
   const navigate = useNavigate();
@@ -33,13 +34,19 @@ function NewUser() {
     }
   };
 
+  useEffect(() => {
+    let userAdmin: any = localStorage.getItem("UserAdmin");
+    if (userAdmin !== "true") {
+      navigate(pathRoutesPage.Dashboard);
+    }
+  }, []);
   return (
     <>
       <NavbarTop clickPage={"admin"} />
       <div className="d-flex justify-content-center mt-4 mb-2">
         <h3>สร้างผู้ใช้งาน (สำหรับผู้ดูแลระบบ)</h3>
       </div>
-      <ButtonBack titleButton={"ย้อนกลับ"} />
+      {/* <ButtonBack titleButton={"ย้อนกลับ"} /> */}
       {modalShowCheckUser && (
         <ModalPostUser
           modalShow={modalShowCheckUser}

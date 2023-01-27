@@ -99,20 +99,6 @@ function TableListLocat(props: any) {
                           getId = item.l_id;
                         }
 
-                        // console.log("item.item_id = " + getId);
-                        // if (
-                        //   isPage === "l" &&
-                        //   item?.departmentDId == getProfile?.departmentDId
-                        // ) {
-                        //   navigatePage(getId, item);
-                        //   // console.log(getProfile?.departmentDId);
-                        //   // console.log(item?.departmentDId);
-                        // } else if (isPage !== "l") {
-                        //   // console.log(getProfile?.departmentDId);
-                        //   // console.log(item?.departmentDId);
-                        //   navigatePage(getId, item);
-                        // }
-
                         navigatePage(getId, item);
                       }}
                     >

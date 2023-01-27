@@ -13,6 +13,7 @@ import SearchFaculty from "./components/search/SearchFaculty";
 // import { Container } from "react-bootstrap";
 import LoaderTable from "../../components/lottiefiles/LoaderTable";
 import pathRoutesPage from "../../router/pathPage";
+
 function Faculty() {
   const navigate = useNavigate();
   const clickPage = "setting";
@@ -48,7 +49,7 @@ function Faculty() {
           <TableListLocat
             itemList={dataFilter ? dataFilter : getFaculty}
             isPage="f"
-            editPage={"/faculty/editfaculty"}
+            editPage={pathRoutesPage.EditFaculty}
           />
         </>
       ) : (

@@ -54,7 +54,7 @@ function Building() {
           <TableListLocat
             isPage={"b"}
             itemList={dataFilter ? dataFilter : getBuilding}
-            editPage={"/building/editbuilding"}
+            editPage={pathRoutesPage.EditBuilding}
           />
         </>
       ) : (
