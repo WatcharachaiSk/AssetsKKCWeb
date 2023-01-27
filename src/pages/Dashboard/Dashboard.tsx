@@ -364,26 +364,26 @@ function Dashboard() {
                 {/* <div className=" d-flex justify-content-end">
               <span>ครุภัณฑ์ทั้งหมด {sumItem} ชิ้น</span>
             </div> */}
-                <div className="d-flex align-content-center justify-content-center">
+                <div className="mt-5 d-flex align-content-center justify-content-center">
                   <Bar options={optionsBar} data={dataBar} />
                 </div>
-                <div className="m-2 d-flex justify-content-end ">
-                  <div className="d-flex flex-column">
-                    <div>
+                <div className="m-2 d-flex justify-content-end flex-wrap ">
+                  <div className="d-flex  flex-wrap">
+                    <div className="mx-2">
                       <span style={{ color: colors.statusColor1 }}>ปกติ</span>{" "}
                       {sumStatus_Item[0]} ชิ้น
                     </div>
-                    <div>
+                    <div className="mx-2">
                       <span style={{ color: colors.statusColor0 }}>ชำรุด</span>{" "}
                       {sumStatus_Item[1]} ชิ้น
                     </div>
-                    <div>
+                    <div className="mx-2">
                       <span style={{ color: colors.statusColor2 }}>
                         รอจำหน่าย
                       </span>{" "}
                       {sumStatus_Item[2]} ชิ้น
                     </div>
-                    <div>
+                    <div className="mx-2">
                       <span style={{ color: colors.statusColor3 }}>
                         จำหน่ายออก
                       </span>{" "}

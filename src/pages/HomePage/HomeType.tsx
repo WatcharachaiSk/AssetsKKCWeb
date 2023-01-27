@@ -15,7 +15,7 @@ import pathRoutesPage from "../../router/pathPage";
 function HomeType() {
   const navigate = useNavigate();
   const clickPage = "items";
-  const [getTypeItem, setGetTypeItem] = useState<{}>();
+  const [getTypeItem, setGetTypeItem] = useState<any>();
   const [dataFilter, setDataFilter] = useState<any>(undefined);
   // console.log(getTypeItem);
   useMemo(async () => {
@@ -39,7 +39,7 @@ function HomeType() {
           titleButton={"เพิ่มชนิดครุภัณฑ์"}
           pageAdd={pathRoutesPage.NewTypeItem}
         />
-        {getTypeItem ? (
+        {getTypeItem && getTypeItem.length != 0 ? (
           <>
             <div className="mt-3 d-flex justify-content-end flex-wrap">
               <SearchCatType
@@ -54,7 +54,12 @@ function HomeType() {
             />
           </>
         ) : (
-          <LoaderCard />
+          <>
+            <div className="mt-3" style={{ textAlign: "center", fontSize: 22 }}>
+              ยังไม่มีข้อมูลชนิดครุภัณฑ์
+            </div>
+            <LoaderCard />
+          </>
         )}
       </div>
     </>

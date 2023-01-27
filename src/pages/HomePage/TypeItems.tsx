@@ -13,6 +13,7 @@ import { GetKanitFont } from "../../config/fonts";
 import ButtonBack from "../../components/buttons/ButtonBack";
 import SearchItem from "../ItemPage/components/dropdowns/SearchItem";
 import NavbarItem from "../../components/navbar/NavbarItem";
+import LoaderTable from "../../components/lottiefiles/LoaderTable";
 
 function TypeItems() {
   // const { state } = useLocation();
@@ -42,7 +43,7 @@ function TypeItems() {
     <div style={{ ...GetKanitFont("KanitLight") }}>
       <NavbarTop clickPage={clickPage} />
       <NavbarItem clickPage={clickPage} />
-      {getItems && (
+      {getItems && getItems.length != 0 ? (
         <>
           <div className="d-flex justify-content-center mt-5 mb-2">
             <h3>{getItems[0].typeitem.name}</h3>
@@ -55,6 +56,13 @@ function TypeItems() {
             itemList={dataFilter ? dataFilter : getItems}
             editPage={"/items/editItem"}
           />
+        </>
+      ) : (
+        <>
+          <div className="mt-3" style={{ textAlign: "center", fontSize: 26 }}>
+            ยังไม่มีข้อมูลครุภัณฑ์
+          </div>
+          <LoaderTable />
         </>
       )}
     </div>

@@ -1,14 +1,22 @@
-// import { ChartOptions } from "chart.js";
+import { ChartOptions } from "chart.js";
 
-export const optionsBar = {
+export const optionsBar: ChartOptions = {
   responsive: true,
   plugins: {
     legend: {
-      position: "top" as const,
-    },
-    title: {
-      display: true,
-      text: "",
+      display: false,
+      position: "bottom",
+      align: "center",
+      labels: {
+        // padding: 15,
+        // boxHeight: 20,
+        // boxWidth: 50,
+        // boxPadding: 10,
+        font: {
+          size: 10,
+          family: "KanitLight",
+        },
+      },
     },
   },
 };

@@ -16,8 +16,10 @@ import pathRoutesPage from "../../router/pathPage";
 function HomeCate() {
   const clickPage = "items";
   const navigate = useNavigate();
-  const [getCategory, setGetCategory] = useState<{}>();
+  const [getCategory, setGetCategory] = useState<any>();
   const [dataFilter, setDataFilter] = useState<any>(undefined);
+  // console.log(getCategory);
+
   useMemo(async () => {
     try {
       const res = await axios(configAxios("get", API.getCategory));
@@ -41,7 +43,7 @@ function HomeCate() {
           pageAdd={pathRoutesPage.NewCateItem}
         />
 
-        {getCategory ? (
+        {getCategory && getCategory.length != 0 ? (
           <>
             <div className="mt-3 d-flex justify-content-end flex-wrap">
               <SearchCatType
@@ -56,7 +58,12 @@ function HomeCate() {
             />
           </>
         ) : (
-          <LoaderCard />
+          <>
+            <div className="mt-3" style={{ textAlign: "center", fontSize: 22 }}>
+              ยังไม่มีข้อมูลหมวดหมู่ครุภัณฑ์
+            </div>
+            <LoaderCard />
+          </>
         )}
       </div>
     </>

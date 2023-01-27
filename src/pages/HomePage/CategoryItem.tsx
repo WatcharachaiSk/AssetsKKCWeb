@@ -13,10 +13,13 @@ import { GetKanitFont } from "../../config/fonts";
 // import ButtonBack from "../../components/buttons/ButtonBack";
 import SearchItem from "../ItemPage/components/dropdowns/SearchItem";
 import NavbarItem from "../../components/navbar/NavbarItem";
+import LoaderTable from "../../components/lottiefiles/LoaderTable";
 
 function CategoryItem() {
   // const { state } = useLocation();
   const [getItems, setgetItems] = useState<any>();
+  // console.log(getItems);
+
   // const [itemList, setItemList] = useState<any>([]);
   const [dataFilter, setDataFilter] = useState<any>(undefined);
   const navigate = useNavigate();
@@ -44,7 +47,7 @@ function CategoryItem() {
       <NavbarItem clickPage={clickPage} />
 
       {/* <ButtonBack titleButton={"ย้อนกลับ"} /> */}
-      {getItems && (
+      {getItems && getItems.length != 0 ? (
         <>
           <div className="d-flex justify-content-center mt-5 mb-2">
             <h3>{getItems[0].category.name}</h3>
@@ -57,6 +60,13 @@ function CategoryItem() {
             editPage={"/items/editItem"}
             isPage={"category_item"}
           />
+        </>
+      ) : (
+        <>
+          <div className="mt-3" style={{ textAlign: "center", fontSize: 26 }}>
+            ยังไม่มีข้อมูลครุภัณฑ์
+          </div>
+          <LoaderTable />
         </>
       )}
     </div>
