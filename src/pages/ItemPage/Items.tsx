@@ -12,16 +12,16 @@ import { GetKanitFont } from "../../config/fonts";
 import NavbarItem from "../../components/navbar/NavbarItem";
 import _ from "lodash";
 import SearchItem from "./components/dropdowns/SearchItem";
-
+import LoaderTable from "../../components/lottiefiles/LoaderTable";
 function Items() {
   const navigate = useNavigate();
-  const [getItems, setGetItems] = useState<{}>({});
+  const [getItems, setGetItems] = useState<{}>();
 
   // *
   // console.log(getItems)
   //
 
-  const [clickPage, setClickPage] = useState<string>("items");
+  const clickPage = "items";
 
   useMemo(async () => {
     try {
@@ -50,18 +50,24 @@ function Items() {
       <div className="d-flex justify-content-between">
         <ButtonAdd pageAdd={"/items/newitem"} titleButton={"เพิ่มครุภัณฑ์"} />
       </div>
-      <div className="d-flex justify-content-end flex-wrap">
-        <SearchItem
-          getItems={getItems}
-          dataFilter={dataFilter}
-          setDataFilter={setDataFilter}
-        />
-      </div>
 
-      <TableListItem
-        itemList={dataFilter ? dataFilter : getItems}
-        editPage={"/items/editItem"}
-      />
+      {getItems ? (
+        <>
+          <div className="d-flex justify-content-end flex-wrap">
+            <SearchItem
+              getItems={getItems}
+              dataFilter={dataFilter}
+              setDataFilter={setDataFilter}
+            />
+          </div>
+          <TableListItem
+            itemList={dataFilter ? dataFilter : getItems}
+            editPage={"/items/editItem"}
+          />
+        </>
+      ) : (
+        <LoaderTable />
+      )}
     </div>
   );
 }

@@ -12,10 +12,11 @@ import { GetKanitFont } from "../../config/fonts";
 import NavbarItem from "../../components/navbar/NavbarItem";
 
 import SearchDepartment from "./components/search/SearchDepartment";
+import LoaderTable from "../../components/lottiefiles/LoaderTable";
 function Department() {
   const navigate = useNavigate();
   const clickPage = "setting";
-  const [getDepartment, setGetDepartment] = useState<{}>({});
+  const [getDepartment, setGetDepartment] = useState<{}>();
   const [dataFilter, setDataFilter] = useState<any>(undefined);
 
   useMemo(async () => {
@@ -60,12 +61,14 @@ function Department() {
           />
         </div>
       )}
-      {getDepartment && (
+      {getDepartment ? (
         <TableListLocat
           itemList={dataFilter ? dataFilter : getDepartment}
           isPage={"d"}
           editPage={"/departmen/editdepartmen"}
         />
+      ) : (
+        <LoaderTable />
       )}
     </div>
   );

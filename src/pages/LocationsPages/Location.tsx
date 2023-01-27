@@ -11,6 +11,7 @@ import checkToken from "../../config/checkToken";
 import { GetKanitFont } from "../../config/fonts";
 import NavbarItem from "../../components/navbar/NavbarItem";
 import SearchLocation from "./components/search/SearchLocation";
+import LoaderTable from "../../components/lottiefiles/LoaderTable";
 function Location() {
   const navigate = useNavigate();
   const [clickPage, setClickPage] = useState<string>("setting");
@@ -37,21 +38,24 @@ function Location() {
         titleButton={"เพิ่มสถานที่"}
         pageAdd={"/location/newlocation"}
       />
-      {getLocation && (
-        <div className="d-flex justify-content-end flex-wrap">
-          <SearchLocation
-            getLocation={getLocation}
-            dataFilter={dataFilter}
-            setDataFilter={setDataFilter}
+
+      {getLocation ? (
+        <>
+          <div className="d-flex justify-content-end flex-wrap">
+            <SearchLocation
+              getLocation={getLocation}
+              dataFilter={dataFilter}
+              setDataFilter={setDataFilter}
+            />
+          </div>
+          <TableListLocat
+            isPage={"l"}
+            itemList={dataFilter ? dataFilter : getLocation}
+            editPage={"/location/editlocation"}
           />
-        </div>
-      )}
-      {getLocation && (
-        <TableListLocat
-          isPage={"l"}
-          itemList={dataFilter ? dataFilter : getLocation}
-          editPage={"/location/editlocation"}
-        />
+        </>
+      ) : (
+        <LoaderTable />
       )}
     </div>
   );

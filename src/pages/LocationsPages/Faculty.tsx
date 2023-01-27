@@ -10,11 +10,12 @@ import { useNavigate } from "react-router-dom";
 import { GetKanitFont } from "../../config/fonts";
 import NavbarItem from "../../components/navbar/NavbarItem";
 import SearchFaculty from "./components/search/SearchFaculty";
-import { Container } from "react-bootstrap";
+// import { Container } from "react-bootstrap";
+import LoaderTable from "../../components/lottiefiles/LoaderTable";
 function Faculty() {
   const navigate = useNavigate();
   const clickPage = "setting";
-  const [getFaculty, setGetFaculty] = useState<{}>({});
+  const [getFaculty, setGetFaculty] = useState<{}>();
   const [dataFilter, setDataFilter] = useState<any>(undefined);
 
   useMemo(async () => {
@@ -34,8 +35,8 @@ function Faculty() {
         <h3>คณะ</h3>
       </div>
       <ButtonAdd titleButton={"เพิ่มคณะ"} pageAdd={"/faculty/newfaculty"} />
-      {getFaculty && (
-        
+      {getFaculty ? (
+        <>
           <div className="d-flex justify-content-end flex-wrap">
             <SearchFaculty
               getFaculty={getFaculty}
@@ -43,15 +44,14 @@ function Faculty() {
               setDataFilter={setDataFilter}
             />
           </div>
- 
-      )}
-
-      {getFaculty && (
-        <TableListLocat
-          itemList={dataFilter ? dataFilter : getFaculty}
-          isPage="f"
-          editPage={"/faculty/editfaculty"}
-        />
+          <TableListLocat
+            itemList={dataFilter ? dataFilter : getFaculty}
+            isPage="f"
+            editPage={"/faculty/editfaculty"}
+          />
+        </>
+      ) : (
+        <LoaderTable />
       )}
     </div>
   );

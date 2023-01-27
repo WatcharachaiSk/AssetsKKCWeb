@@ -31,14 +31,17 @@ import { toLocaleStringEn } from "../../config/number/formatEN";
 import ListButton from "./components/ListButton";
 
 function TableListItem(props: any) {
-  const { itemList, editPage } = props;
+  const { itemList, editPage, isPage } = props;
 
   const [modalShowOne, setModalShowOne] = useState(false);
   const [modalShowAll, setModalShowAll] = useState(false);
   const [getItem, setGetItem] = useState();
-  const [selectItem, setSelectItem] = useState();
+  const [selectItem, setSelectItem] = useState<any>([]);
+  const [selectItemAll, setSelectItemAll] = useState();
+  // console.log(selectItem);
+  // console.log(selectItemAll);
 
-  const [checkedAll, setCheckedAll] = useState(false);
+  // const [checkedAll, setCheckedAll] = useState(false);
   const [modalShowDetalis, setModalShowDetalis] = useState(false);
 
   const [paginationCount, setPaginationCount] = useState<any>();
@@ -130,7 +133,7 @@ function TableListItem(props: any) {
           show={modalShowAll}
           onHide={() => setModalShowAll(false)}
           items={itemList}
-          idItems={selectItem}
+          idItems={selectItemAll ? selectItemAll : selectItem}
         />
       )}
       {modalShowDetalis && (
@@ -170,13 +173,12 @@ function TableListItem(props: any) {
           <thead style={{ ...GetKanitFont("KanitMedium") }}>
             <tr>
               <th>
-                เลือก{" "}
+                เลือก
                 <Form.Group className="mb-3">
                   <Form.Check
                     // checked
                     onChange={(event: any) => {
                       // console.log(event.target.checked);
-                      setCheckedAll(event.target.checked);
                       let arrPut: any = [];
                       // console.log("arrPut = ", arrPut);
 
@@ -185,33 +187,11 @@ function TableListItem(props: any) {
                           arrPut.push(itemListPaninat[i].item_id);
                         }
                       } else {
-                        arrPut = [];
+                        arrPut = undefined;
                       }
-                      setSelectItem(arrPut);
-                      // console.log(arrPut);
-
-                      // console.log(arrPut);
-
-                      // if (event.target.checked) {
-                      //   arrPut.push(event.target.value);
-                      //   setSelectItem(arrPut);
-                      // } else {
-                      //   for (var i = 0; i < arrPut.length; i++) {
-                      //     if (arrPut[i] === event.target.value) {
-                      //       arrPut.splice(i, 1);
-                      //     }
-                      //   }
-
-                      //   setSelectItem(arrPut);
-                      // }
-                      // console.log("arrPut = ", arrPut);
+                      setSelectItemAll(arrPut);
+                      // setSelectItem(arrPut);
                     }}
-                    // value={item.item_id}
-                    // onClick={(event: any) => {
-                    //   // console.log("event.target.value = ", event);
-
-                    //   console.log(item.item_id);
-                    // }}
                   />
                 </Form.Group>
               </th>
@@ -221,7 +201,8 @@ function TableListItem(props: any) {
               <th>QR Code</th>
               <th>รหัสครุภัณฑ์</th>
               <th>ชื่อครุภัณฑ์</th>
-              <th>หมวดหมู่</th>
+              {isPage != "category_item" && <th>หมวดหมู่</th>}
+
               <th>ราคา</th>
               <th>สถานะ</th>
               {getUserAdmin ? (
@@ -256,7 +237,7 @@ function TableListItem(props: any) {
                     <Form.Group className="mb-3">
                       <Form.Check
                         // checked={checkedAll ? true : false}
-                        disabled={checkedAll ? true : false}
+                        disabled={selectItemAll ? true : false}
                         value={item?.item_id}
                         onChange={(event: any) => {
                           // console.log(event.target.checked);
@@ -275,12 +256,6 @@ function TableListItem(props: any) {
                           }
                           // console.log("arrPut = ", arrPut);
                         }}
-
-                        // onClick={(event: any) => {
-                        //   // console.log("event.target.value = ", event);
-
-                        //   console.log(item.item_id);
-                        // }}
                       />
                     </Form.Group>
                   </td>
@@ -356,7 +331,8 @@ function TableListItem(props: any) {
                   <td>{item?.code}</td>
                   <td> {item?.name}</td>
 
-                  <td>{item?.category?.name}</td>
+                  {isPage != "category_item" && <td>{item?.category?.name}</td>}
+
                   <td>{toLocaleStringEn(item?.price)}</td>
                   <td
                     style={{ color: chackStatusItemColor(item?.status_item) }}
@@ -397,7 +373,7 @@ function TableListItem(props: any) {
       <Button
         className="mt-2"
         size="lg"
-        variant="outline-dark"
+        variant={"outline-primary"}
         onClick={() => {
           setModalShowAll(true);
         }}

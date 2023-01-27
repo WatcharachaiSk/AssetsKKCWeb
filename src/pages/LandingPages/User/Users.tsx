@@ -11,6 +11,7 @@ import { GetKanitFont } from "../../../config/fonts";
 import NavbarItem from "../../../components/navbar/NavbarItem";
 import SearchUser from "./components/SearchUser";
 // const UserContext = createContext<any>();
+import LoaderTable from "../../../components/lottiefiles/LoaderTable";
 function Users() {
   const navigate = useNavigate();
   const [getUsers, setGetUsers] = useState<object>({});
@@ -34,22 +35,24 @@ function Users() {
         <h3>สำหรับผู้ดูแลระบบ</h3>
       </div>
       <ButtonAdd pageAdd={"/admin/new_user"} titleButton={"เพิ่มผู้ใช้งาน"} />
-      {getUsers && (
-        <div className="d-flex justify-content-end flex-wrap">
-          <SearchUser
-            getUsers={getUsers}
-            dataFilter={dataFilter}
-            setDataFilter={setDataFilter}
-          />
-        </div>
-      )}
 
-      {getUsers && (
-        <TableListUsers
-          itemList={dataFilter ? dataFilter : getUsers}
-          setResetUsers={setResetUsers}
-          resetUsers={resetUsers}
-        />
+      {getUsers ? (
+        <>
+          <div className="d-flex justify-content-end flex-wrap">
+            <SearchUser
+              getUsers={getUsers}
+              dataFilter={dataFilter}
+              setDataFilter={setDataFilter}
+            />
+          </div>
+          <TableListUsers
+            itemList={dataFilter ? dataFilter : getUsers}
+            setResetUsers={setResetUsers}
+            resetUsers={resetUsers}
+          />
+        </>
+      ) : (
+        <LoaderTable />
       )}
     </div>
   );

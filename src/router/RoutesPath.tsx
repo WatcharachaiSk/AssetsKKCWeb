@@ -62,8 +62,8 @@ function RoutesPath() {
         <Route path="/homeType" element={<HomeType />} />
 
         <Route path="/items" element={<Items />} />
-        <Route path="/home/category_item" element={<CategoryItem />} />
-        <Route path="/home/type_item" element={<TypeItems />} />
+        <Route path="/category_item" element={<CategoryItem />} />
+        <Route path="/typeItem_item" element={<TypeItems />} />
 
         {/* Setting */}
         <Route path="/faculty" element={<Faculty />} />

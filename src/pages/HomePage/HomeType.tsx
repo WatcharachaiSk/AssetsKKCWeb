@@ -10,11 +10,12 @@ import { GetKanitFont } from "../../config/fonts";
 import SearchCatType from "./components/dropdowns/SearchCatType";
 import NavbarItem from "../../components/navbar/NavbarItem";
 import ButtonAdd from "../ItemPage/components/ButtonAdd";
-
+import LoaderCard from "../../components/lottiefiles/LoaderCard";
+import pathRoutesPage from "../../router/pathPage";
 function HomeType() {
   const navigate = useNavigate();
   const clickPage = "items";
-  const [getTypeItem, setGetTypeItem] = useState<{}>({});
+  const [getTypeItem, setGetTypeItem] = useState<{}>();
   const [dataFilter, setDataFilter] = useState<any>(undefined);
   // console.log(getTypeItem);
   useMemo(async () => {
@@ -38,21 +39,22 @@ function HomeType() {
           titleButton={"เพิ่มชนิดครุภัณฑ์"}
           pageAdd={"/type_item/newTypeItem"}
         />
-        <div className="mt-3 d-flex justify-content-end flex-wrap">
-          {getTypeItem && (
-            <SearchCatType
-              getItems={getTypeItem}
-              setDataFilter={setDataFilter}
+        {getTypeItem ? (
+          <>
+            <div className="mt-3 d-flex justify-content-end flex-wrap">
+              <SearchCatType
+                getItems={getTypeItem}
+                setDataFilter={setDataFilter}
+              />
+            </div>
+            <CardList
+              listItem={dataFilter ? dataFilter : getTypeItem}
+              isShow={"type"}
+              pageShowItem={pathRoutesPage.TypeItems}
             />
-          )}
-        </div>
-
-        {getTypeItem && (
-          <CardList
-            listItem={dataFilter ? dataFilter : getTypeItem}
-            isShow={"type"}
-            pageShowItem={"/home/type_item"}
-          />
+          </>
+        ) : (
+          <LoaderCard />
         )}
       </div>
     </>

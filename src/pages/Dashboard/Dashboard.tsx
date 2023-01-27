@@ -32,6 +32,7 @@ import colors from "../../config/colors";
 import checkToken from "../../config/checkToken";
 import { toLocaleStringEn } from "../../config/number/formatEN";
 import { useNavigate } from "react-router-dom";
+import LoaderDashboard from "../../components/lottiefiles/LoaderDashboard";
 ChartJS.register(
   ArcElement,
   CategoryScale,
@@ -47,9 +48,13 @@ function Dashboard() {
   const clickPage = "dashboard";
 
   const [getCategory, setGetCategory] = useState<any>([]);
+  const [loaderDashboard, setLoaderDashboard] = useState<boolean>(false);
+
   // const [getTypeItem, setGetTypeItem] = useState<{}>({});
+  // console.log(loaderDashboard);
 
   useMemo(async () => {
+    setLoaderDashboard(false);
     try {
       const res = await axios(configAxios("get", API.getCategory));
       setGetCategory(res.data);
@@ -187,6 +192,7 @@ function Dashboard() {
       // console.log(rowsGrid);
       setRows_Grid(rowsGrid);
     }
+    setLoaderDashboard(true);
   }, [getCategory]);
 
   const [data_Labels, setData_Labels] = useState<any>();
@@ -235,160 +241,163 @@ function Dashboard() {
       <div className="d-flex justify-content-center mt-3 mb-2">
         {/* <h3>Dashboard</h3> */}
       </div>
-
-      {/* <div style={{ height: 300, width: "100%" }}>
-        <DataGrid rows={rows} columns={columns} />
-      </div> */}
-      {/*    <div className="m-3 d-flex justify-content-end">
-          <span>ครุภัณฑ์ในระบบทั้งหมด {sumItem} ชิ้น</span>
-        </div> */}
-      <Container>
-        <div className="mb-2 d-flex flex-row justify-content-center flex-wrap bd-highlight">
-          <Card
-            className="m-1 d-flex align-content-center justify-content-center"
-            style={{
-              width: "15rem",
-              height: "10rem",
-            }}
-          >
-            <div className="d-flex justify-content-center mb-2">
-              ครุภัณฑ์ในระบบทั้งหมด {toLocaleStringEn(sumItem)} ชิ้น
-            </div>
-            <div className="d-flex justify-content-center">
-              <BsBoxSeam size={50} color={"#3e3e3e"} />
-            </div>
-          </Card>
-          {/*  */}
-          <Card
-            className="m-1 d-flex align-content-center justify-content-center"
-            style={{
-              width: "15rem",
-              height: "10rem",
-            }}
-          >
-            <div className="d-flex justify-content-center mb-2">
-              ปกติทั้งหมด {toLocaleStringEn(sumStatus_Item[0])} ชิ้น
-            </div>
-            <div className="d-flex justify-content-center">
-              <BsBox size={50} color={colors.statusColor1aa} />
-            </div>
-          </Card>
-          {/*  */}
-          <Card
-            className="m-1 d-flex align-content-center justify-content-center"
-            style={{
-              width: "15rem",
-              height: "10rem",
-            }}
-          >
-            <div className="d-flex justify-content-center mb-2">
-              ชำรุดทั้งหมด {toLocaleStringEn(sumStatus_Item[1])} ชิ้น
-            </div>
-            <div className="d-flex justify-content-center">
-              <BsBox size={50} color={colors.statusColor0ff} />
-            </div>
-          </Card>
-          {/*  */}
-          <Card
-            className="m-1 d-flex align-content-center justify-content-center"
-            style={{
-              width: "15rem",
-              height: "10rem",
-            }}
-          >
-            <div className="d-flex justify-content-center mb-2">
-              รอจำหน่าย {toLocaleStringEn(sumStatus_Item[2])} ชิ้น
-            </div>
-            <div className="d-flex justify-content-center">
-              <BsCart size={50} color={colors.statusColor2} />
-            </div>
-          </Card>
-          {/*  */}
-          <Card
-            className="m-1 d-flex align-content-center justify-content-center"
-            style={{
-              width: "15rem",
-              height: "10rem",
-            }}
-          >
-            <div className="d-flex justify-content-center mb-2">
-              จำหน่ายออก {toLocaleStringEn(sumStatus_Item[3])} ชิ้น
-            </div>
-            <div className="d-flex justify-content-center">
-              <BsCartCheck size={50} color={colors.statusColor3} />
-            </div>
-          </Card>
-        </div>
-      </Container>
-      {/*  */}
-      <Container>
-        <div className="d-flex flex-row justify-content-center flex-wrap bd-highlight">
-          <div style={{ height: 300, width: "100%" }}>
-            <DataGrid
-              style={{ ...GetKanitFont("KanitLight") }}
-              rows={rows}
-              columns={columns}
-            />
-          </div>
-        </div>
-      </Container>
-      {/*  */}
-      <Container>
-        <div className=" d-flex flex-row justify-content-start flex-wrap bd-highlight">
-          <Card
-            className="m-3"
-            style={{
-              width: "35rem",
-              // height: "100%",
-            }}
-          >
-            <Pie
-              style={{
-                width: "100%",
-                // height: "100%",
-              }}
-              data={dataPie}
-              options={optionsPie}
-            />
-          </Card>
-          {/*  */}
-
-          <Card
-            className="m-3 d-flex align-content-center justify-content-center"
-            style={{
-              width: "40rem",
-              // height: "100%",
-            }}
-          >
-            {/* <div className=" d-flex justify-content-end">
-              <span>ครุภัณฑ์ทั้งหมด {sumItem} ชิ้น</span>
-            </div> */}
-            <div className="d-flex align-content-center justify-content-center">
-              <Bar options={optionsBar} data={dataBar} />
-            </div>
-            <div className="m-2 d-flex justify-content-end ">
-              <div className="d-flex flex-column">
-                <div>
-                  <span style={{ color: colors.statusColor1 }}>ปกติ</span>{" "}
-                  {sumStatus_Item[0]} ชิ้น
+      {loaderDashboard ? (
+        <>
+          <Container>
+            <div className="mb-2 d-flex flex-row justify-content-center flex-wrap bd-highlight">
+              <Card
+                className="m-1 d-flex align-content-center justify-content-center"
+                style={{
+                  width: "15rem",
+                  height: "10rem",
+                }}
+              >
+                <div className="d-flex justify-content-center mb-2">
+                  ครุภัณฑ์ในระบบทั้งหมด {toLocaleStringEn(sumItem)} ชิ้น
                 </div>
-                <div>
-                  <span style={{ color: colors.statusColor0 }}>ชำรุด</span>{" "}
-                  {sumStatus_Item[1]} ชิ้น
+                <div className="d-flex justify-content-center">
+                  <BsBoxSeam size={50} color={"#3e3e3e"} />
                 </div>
-                <div>
-                  <span style={{ color: colors.statusColor2 }}>รอจำหน่าย</span>{" "}
-                  {sumStatus_Item[2]} ชิ้น
+              </Card>
+              {/*  */}
+              <Card
+                className="m-1 d-flex align-content-center justify-content-center"
+                style={{
+                  width: "15rem",
+                  height: "10rem",
+                }}
+              >
+                <div className="d-flex justify-content-center mb-2">
+                  ปกติทั้งหมด {toLocaleStringEn(sumStatus_Item[0])} ชิ้น
                 </div>
-                <div>
-                  <span style={{ color: colors.statusColor3 }}>จำหน่ายออก</span>{" "}
-                  {sumStatus_Item[3]} ชิ้น
+                <div className="d-flex justify-content-center">
+                  <BsBox size={50} color={colors.statusColor1aa} />
                 </div>
+              </Card>
+              {/*  */}
+              <Card
+                className="m-1 d-flex align-content-center justify-content-center"
+                style={{
+                  width: "15rem",
+                  height: "10rem",
+                }}
+              >
+                <div className="d-flex justify-content-center mb-2">
+                  ชำรุดทั้งหมด {toLocaleStringEn(sumStatus_Item[1])} ชิ้น
+                </div>
+                <div className="d-flex justify-content-center">
+                  <BsBox size={50} color={colors.statusColor0ff} />
+                </div>
+              </Card>
+              {/*  */}
+              <Card
+                className="m-1 d-flex align-content-center justify-content-center"
+                style={{
+                  width: "15rem",
+                  height: "10rem",
+                }}
+              >
+                <div className="d-flex justify-content-center mb-2">
+                  รอจำหน่าย {toLocaleStringEn(sumStatus_Item[2])} ชิ้น
+                </div>
+                <div className="d-flex justify-content-center">
+                  <BsCart size={50} color={colors.statusColor2} />
+                </div>
+              </Card>
+              {/*  */}
+              <Card
+                className="m-1 d-flex align-content-center justify-content-center"
+                style={{
+                  width: "15rem",
+                  height: "10rem",
+                }}
+              >
+                <div className="d-flex justify-content-center mb-2">
+                  จำหน่ายออก {toLocaleStringEn(sumStatus_Item[3])} ชิ้น
+                </div>
+                <div className="d-flex justify-content-center">
+                  <BsCartCheck size={50} color={colors.statusColor3} />
+                </div>
+              </Card>
+            </div>
+          </Container>
+          {/*  */}
+          <Container>
+            <div className="d-flex flex-row justify-content-center flex-wrap bd-highlight">
+              <div style={{ height: 300, width: "100%" }}>
+                <DataGrid
+                  style={{ ...GetKanitFont("KanitLight") }}
+                  rows={rows}
+                  columns={columns}
+                />
               </div>
             </div>
-          </Card>
-        </div>
-      </Container>
+          </Container>
+          {/*  */}
+          <Container>
+            <div className=" d-flex flex-row justify-content-start flex-wrap bd-highlight">
+              <Card
+                className="m-3"
+                style={{
+                  width: "35rem",
+                  // height: "100%",
+                }}
+              >
+                <Pie
+                  style={{
+                    width: "100%",
+                    // height: "100%",
+                  }}
+                  data={dataPie}
+                  options={optionsPie}
+                />
+              </Card>
+              {/*  */}
+
+              <Card
+                className="m-3 d-flex align-content-center justify-content-center"
+                style={{
+                  width: "40rem",
+                  // height: "100%",
+                }}
+              >
+                {/* <div className=" d-flex justify-content-end">
+              <span>ครุภัณฑ์ทั้งหมด {sumItem} ชิ้น</span>
+            </div> */}
+                <div className="d-flex align-content-center justify-content-center">
+                  <Bar options={optionsBar} data={dataBar} />
+                </div>
+                <div className="m-2 d-flex justify-content-end ">
+                  <div className="d-flex flex-column">
+                    <div>
+                      <span style={{ color: colors.statusColor1 }}>ปกติ</span>{" "}
+                      {sumStatus_Item[0]} ชิ้น
+                    </div>
+                    <div>
+                      <span style={{ color: colors.statusColor0 }}>ชำรุด</span>{" "}
+                      {sumStatus_Item[1]} ชิ้น
+                    </div>
+                    <div>
+                      <span style={{ color: colors.statusColor2 }}>
+                        รอจำหน่าย
+                      </span>{" "}
+                      {sumStatus_Item[2]} ชิ้น
+                    </div>
+                    <div>
+                      <span style={{ color: colors.statusColor3 }}>
+                        จำหน่ายออก
+                      </span>{" "}
+                      {sumStatus_Item[3]} ชิ้น
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            </div>
+          </Container>
+        </>
+      ) : (
+        <LoaderDashboard />
+      )}
     </div>
   );
 }

@@ -136,6 +136,20 @@ function FormAddUser(props: any) {
     { name: "User", value: "0" },
   ];
 
+  const [validated, setValidated] = useState(false);
+  // console.log(validated);
+
+  const handleSubmit = (event: any) => {
+    const form = event.currentTarget;
+    // console.log(form);
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
+    setValidated(true);
+  };
+
   return (
     <Container style={{ borderRadius: 15, width: "100%", height: "100%" }}>
       <div className="d-flex justify-content-center">
@@ -153,7 +167,7 @@ function FormAddUser(props: any) {
           }}
         />
       </div>
-      <Form>
+      <Form noValidate validated={validated} onSubmit={handleSubmit}>
         <Form.Group controlId="formFile" className="mb-3">
           <Form.Label>Profile</Form.Label>
           <Form.Control
@@ -176,6 +190,7 @@ function FormAddUser(props: any) {
         <Form.Group className="mb-2">
           <Form.Label>Username</Form.Label>
           <Form.Control
+            required
             size="lg"
             type="text"
             placeholder="Username"
@@ -190,6 +205,7 @@ function FormAddUser(props: any) {
         <Form.Group className="mb-2">
           <Form.Label>Password</Form.Label>
           <Form.Control
+            required
             size="lg"
             type="password"
             placeholder="password"
@@ -204,6 +220,7 @@ function FormAddUser(props: any) {
         <Form.Group className="mb-2">
           <Form.Label>Password Confirmation</Form.Label>
           <Form.Control
+            required
             style={{
               borderColor: checkPassword
                 ? password != checkPassword
@@ -225,6 +242,7 @@ function FormAddUser(props: any) {
         <Form.Group className="mb-2">
           <Form.Label>Firstname</Form.Label>
           <Form.Control
+            required
             size="lg"
             type="text"
             placeholder="Firstname"
@@ -239,6 +257,7 @@ function FormAddUser(props: any) {
         <Form.Group className="mb-2">
           <Form.Label>Lastname</Form.Label>
           <Form.Control
+            required
             size="lg"
             type="text"
             placeholder="Lastname"
@@ -253,6 +272,7 @@ function FormAddUser(props: any) {
         <Form.Group className="mb-2">
           <Form.Label>Nickname</Form.Label>
           <Form.Control
+            required
             size="lg"
             type="text"
             placeholder="Nickname"
@@ -268,6 +288,7 @@ function FormAddUser(props: any) {
         <Form.Group className="mb-2">
           <Form.Label>Telephone</Form.Label>
           <Form.Control
+            required
             size="lg"
             type="text"
             placeholder="Telephone"
@@ -282,6 +303,7 @@ function FormAddUser(props: any) {
         <Form.Group className="mb-2">
           <Form.Label>Email</Form.Label>
           <Form.Control
+            required
             size="lg"
             type="email"
             placeholder="Email"
@@ -319,6 +341,7 @@ function FormAddUser(props: any) {
         <Form.Group className="mb-3" controlId="formFaculty">
           <Form.Label>เลือกคณะ</Form.Label>
           <Form.Select
+            // required
             onChange={(event: any) => {
               const eFacultyFId = event.target.value;
               setFacultyFId(eFacultyFId);
@@ -341,6 +364,7 @@ function FormAddUser(props: any) {
         <Form.Group className="mb-3" controlId="formDepartment">
           <Form.Label>เลือกสาขา</Form.Label>
           <Form.Select
+            // required
             disabled={facultyFId == 0 ? true : false}
             onChange={(event: any) => {
               const eDepartmentDId = event.target.value;
@@ -370,6 +394,7 @@ function FormAddUser(props: any) {
         <div className="d-flex justify-content-center">
           <Button
             // style={{}}
+
             onClick={(event) => {
               if (
                 username &&
@@ -385,6 +410,7 @@ function FormAddUser(props: any) {
               ) {
                 onSubmit(event);
               } else {
+                handleSubmit(event);
                 event.preventDefault();
                 sweet_basic("warning", "ข้อมูลไม่ครบ", "กรุณากรอกข้อมูลให้ครบ");
               }

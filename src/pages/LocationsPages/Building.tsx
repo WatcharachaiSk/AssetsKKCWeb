@@ -11,12 +11,12 @@ import { API } from "../../axios/swr/endpoint";
 import checkToken from "../../config/checkToken";
 import { GetKanitFont } from "../../config/fonts";
 import NavbarItem from "../../components/navbar/NavbarItem";
-
 import SearchBuilding from "./components/search/SearchBuilding";
+import LoaderTable from "../../components/lottiefiles/LoaderTable";
 function Building() {
   const navigate = useNavigate();
   const clickPage = "setting";
-  const [getBuilding, setGetBuilding] = useState<{}>({});
+  const [getBuilding, setGetBuilding] = useState<{}>();
   const [dataFilter, setDataFilter] = useState<any>(undefined);
 
   useMemo(async () => {
@@ -38,21 +38,23 @@ function Building() {
       </div>
       <ButtonAdd titleButton={"เพิ่มอาคาร"} pageAdd={"/building/newbuilding"} />
 
-      {getBuilding && (
-        <div className="d-flex justify-content-end flex-wrap">
-          <SearchBuilding
-            getBuilding={getBuilding}
-            dataFilter={dataFilter}
-            setDataFilter={setDataFilter}
+      {getBuilding ? (
+        <>
+          <div className="d-flex justify-content-end flex-wrap">
+            <SearchBuilding
+              getBuilding={getBuilding}
+              dataFilter={dataFilter}
+              setDataFilter={setDataFilter}
+            />
+          </div>
+          <TableListLocat
+            isPage={"b"}
+            itemList={dataFilter ? dataFilter : getBuilding}
+            editPage={"/building/editbuilding"}
           />
-        </div>
-      )}
-      {getBuilding && (
-        <TableListLocat
-          isPage={"b"}
-          itemList={dataFilter ? dataFilter : getBuilding}
-          editPage={"/building/editbuilding"}
-        />
+        </>
+      ) : (
+        <LoaderTable />
       )}
     </div>
   );

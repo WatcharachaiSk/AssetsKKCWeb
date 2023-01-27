@@ -10,46 +10,55 @@ import TableListItem from "../../components/table/TableListItem";
 // import { thTable } from "../ItemPage/components/dataItem";
 import _ from "lodash";
 import { GetKanitFont } from "../../config/fonts";
-import ButtonBack from "../../components/buttons/ButtonBack";
+// import ButtonBack from "../../components/buttons/ButtonBack";
 import SearchItem from "../ItemPage/components/dropdowns/SearchItem";
 import NavbarItem from "../../components/navbar/NavbarItem";
 
 function CategoryItem() {
-  const { state } = useLocation();
-  const [getItems, setgetItems] = useState<any>({});
+  // const { state } = useLocation();
+  const [getItems, setgetItems] = useState<any>();
   // const [itemList, setItemList] = useState<any>([]);
   const [dataFilter, setDataFilter] = useState<any>(undefined);
   const navigate = useNavigate();
   // console.log(state);
-
+  // console.log(localStorage.getItem("pickCateId"));
   useMemo(async () => {
-    try {
-      const res = await axios(
-        configAxios("get", `${API.getItemCategory}${state.id}`)
-      );
-      setgetItems(res.data);
-    } catch (error: any) {
-      // console.log("err = ", error);
-      checkToken(error.response.data.status, error.request.status, navigate);
+    if (!getItems) {
+      try {
+        let id = localStorage.getItem("pickCateId");
+        const res = await axios(
+          configAxios("get", `${API.getItemCategory}${id}`)
+        );
+        setgetItems(res.data);
+      } catch (error: any) {
+        // console.log("err = ", error);
+        checkToken(error.response.data.status, error.request.status, navigate);
+      }
     }
-  }, []);
+  }, [getItems]);
+
   const clickPage = "items";
   return (
     <div style={{ ...GetKanitFont("KanitLight") }}>
       <NavbarTop clickPage={clickPage} />
       <NavbarItem clickPage={clickPage} />
-      <div className="d-flex justify-content-center mt-5 mb-2">
-        <h3>{state.name}</h3>
-      </div>
-      {/* <ButtonBack titleButton={"ย้อนกลับ"} /> */}
-      <div className="d-flex justify-content-end flex-wrap">
-        <SearchItem getItems={getItems} setDataFilter={setDataFilter} />
-      </div>
 
-      <TableListItem
-        itemList={dataFilter ? dataFilter : getItems}
-        editPage={"/items/editItem"}
-      />
+      {/* <ButtonBack titleButton={"ย้อนกลับ"} /> */}
+      {getItems && (
+        <>
+          <div className="d-flex justify-content-center mt-5 mb-2">
+            <h3>{getItems[0].category.name}</h3>
+          </div>
+          <div className="d-flex justify-content-end flex-wrap">
+            <SearchItem getItems={getItems} setDataFilter={setDataFilter} />
+          </div>
+          <TableListItem
+            itemList={dataFilter ? dataFilter : getItems}
+            editPage={"/items/editItem"}
+            isPage={"category_item"}
+          />
+        </>
+      )}
     </div>
   );
 }

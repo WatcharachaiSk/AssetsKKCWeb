@@ -11,11 +11,12 @@ import SearchCatType from "./components/dropdowns/SearchCatType";
 import NavbarItem from "../../components/navbar/NavbarItem";
 import ButtonAdd from "../ItemPage/components/ButtonAdd";
 // import { Container } from "react-bootstrap";
-
+import LoaderCard from "../../components/lottiefiles/LoaderCard";
+import pathRoutesPage from "../../router/pathPage";
 function HomeCate() {
   const clickPage = "items";
   const navigate = useNavigate();
-  const [getCategory, setGetCategory] = useState<{}>({});
+  const [getCategory, setGetCategory] = useState<{}>();
   const [dataFilter, setDataFilter] = useState<any>(undefined);
   useMemo(async () => {
     try {
@@ -40,20 +41,22 @@ function HomeCate() {
           pageAdd={"/category/newCategory"}
         />
 
-        <div className="mt-3 d-flex justify-content-end flex-wrap">
-          {getCategory && (
-            <SearchCatType
-              getItems={getCategory}
-              setDataFilter={setDataFilter}
+        {getCategory ? (
+          <>
+            <div className="mt-3 d-flex justify-content-end flex-wrap">
+              <SearchCatType
+                getItems={getCategory}
+                setDataFilter={setDataFilter}
+              />
+            </div>
+            <CardList
+              listItem={dataFilter ? dataFilter : getCategory}
+              isShow={"cate"}
+              pageShowItem={pathRoutesPage.CategoryItem}
             />
-          )}
-        </div>
-        {getCategory && (
-          <CardList
-            listItem={dataFilter ? dataFilter : getCategory}
-            isShow={"cate"}
-            pageShowItem={"/home/category_item"}
-          />
+          </>
+        ) : (
+          <LoaderCard />
         )}
       </div>
     </>

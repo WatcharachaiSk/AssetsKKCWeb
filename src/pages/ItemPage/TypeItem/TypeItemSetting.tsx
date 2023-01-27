@@ -10,9 +10,10 @@ import { API } from "../../../axios/swr/endpoint";
 import configAxios from "../../../axios/configAxios";
 import checkToken from "../../../config/checkToken";
 import SearchTypeItem from "./components/SearchTypeItem";
+import LoaderTable from "../../../components/lottiefiles/LoaderTable";
 function TypeItemSetting() {
   const navigate = useNavigate();
-  const [getTypeItem, setGetTypeItem] = useState<{}>({});
+  const [getTypeItem, setGetTypeItem] = useState<{}>();
   const [dataFilter, setDataFilter] = useState<any>(undefined);
 
   useMemo(async () => {
@@ -35,20 +36,23 @@ function TypeItemSetting() {
         titleButton={"เพิ่มชนิดครุภัณฑ์"}
         pageAdd={"/type_item/newTypeItem"}
       />
-      {getTypeItem && (
-        <div className="d-flex justify-content-end flex-wrap">
-          <SearchTypeItem
-            getTypeItem={getTypeItem}
-            dataFilter={dataFilter}
-            setDataFilter={setDataFilter}
+
+      {getTypeItem ? (
+        <>
+          <div className="d-flex justify-content-end flex-wrap">
+            <SearchTypeItem
+              getTypeItem={getTypeItem}
+              dataFilter={dataFilter}
+              setDataFilter={setDataFilter}
+            />
+          </div>
+          <TableListTypeCate
+            itemList={dataFilter ? dataFilter : getTypeItem}
+            isPage={"Type"}
           />
-        </div>
-      )}
-      {getTypeItem && (
-        <TableListTypeCate
-          itemList={dataFilter ? dataFilter : getTypeItem}
-          isPage={"Type"}
-        />
+        </>
+      ) : (
+        <LoaderTable />
       )}
     </div>
   );

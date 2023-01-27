@@ -1,7 +1,7 @@
-import { Button, Modal, Card, Container } from "react-bootstrap";
+import { Button, Modal, Card, Container, Form } from "react-bootstrap";
 import QRCode from "react-qr-code";
 import { useReactToPrint } from "react-to-print";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { GetKanitFont } from "../../../config/fonts";
 
 function ModalOneQr(props: any) {
@@ -11,8 +11,10 @@ function ModalOneQr(props: any) {
   const handlePrint = useReactToPrint({
     content: () => componentRef?.current,
     documentTitle: `Assets ${item?.code}`,
-    onAfterPrint: () => alert("Print Success"),
+    // onAfterPrint: () => alert("Print Success"),
   });
+  const [sizeQR, SetsizeQR] = useState<number>(120);
+  const [sizeFont, SetSizeFont] = useState<number>(11);
 
   const urlQr = `getItem/${item?.item_id}`;
   return (
@@ -29,16 +31,57 @@ function ModalOneQr(props: any) {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Container className="d-flex justify-content-center ">
+        <Container>
+          <div>
+            ปรับขนาด QR Code <span>[{sizeQR}]</span>
+            <div>
+              <Form.Range
+                value={sizeQR}
+                min="35"
+                max="300"
+                onChange={(event: any) => {
+                  // console.log(event.target.value);
+                  let range: any = Number(event.target.value);
+                  // console.log(range);
+
+                  SetsizeQR(range);
+                }}
+              />
+            </div>
+          </div>
+          <div>
+            ปรับขนาด รหัสครุภัณฑ์ <span>[{sizeFont}]</span>
+            <div>
+              <Form.Range
+                value={sizeFont}
+                min="6"
+                max="40"
+                onChange={(event: any) => {
+                  // console.log(event.target.value);
+                  let range: any = Number(event.target.value);
+                  // console.log(range);
+
+                  SetSizeFont(range);
+                }}
+              />
+            </div>
+          </div>
+        </Container>
+        {/*  */}
+        <Container
+          className="d-flex justify-content-center "
+          ref={componentRef}
+        >
           <Card
-            ref={componentRef}
             className="m-4 bd-highlight "
-            style={{ width: "25%" }}
+            // style={{ width: "25%" }}
           >
             <Card.Body>
-              <div ref={componentRef}>
+              <div>
                 <div className="d-flex justify-content-center ">
-                  <h4>รหัสครุภัณฑ์: {item?.code}</h4>
+                  <span style={{ fontSize: sizeFont, textAlign: "center" }}>
+                    {item?.code}
+                  </span>
                 </div>
                 <div
                   style={{
@@ -46,13 +89,13 @@ function ModalOneQr(props: any) {
                     // backgroundColor: "#fdf",
                     height: "auto",
                     margin: "0 auto",
-                    maxWidth: 120,
+                    maxWidth: sizeQR,
                     width: "100%",
-                    marginBottom: 30,
+                    // marginBottom: 30,
                   }}
                 >
                   <QRCode
-                    size={256}
+                    size={230}
                     style={{ height: "auto", maxWidth: "100%", width: "100%" }}
                     value={urlQr}
                     viewBox={`0 0 256 256`}

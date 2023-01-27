@@ -113,13 +113,11 @@ function CardList(props: any) {
                         variant="warning"
                         onClick={() => {
                           if (isShow === "cate") {
-                            navigate(pageShowItem, {
-                              state: { id: item.cate_id, name: item.name },
-                            });
+                            localStorage.setItem("pickCateId", item.cate_id);
+                            navigate(pageShowItem);
                           } else {
-                            navigate(pageShowItem, {
-                              state: { id: item.type_id, name: item.name },
-                            });
+                            // localStorage.setItem("pickTypeId", item.type_id);
+                            // navigate(pageShowItem);
                           }
                         }}
                       >
@@ -226,14 +224,10 @@ function CardList(props: any) {
                       <Button
                         variant="warning"
                         onClick={() => {
-                          if (isShow === "cate") {
-                            navigate(pageShowItem, {
-                              state: { id: item.cate_id, name: item.name },
-                            });
+                          if (isShow === "type") {
+                            localStorage.setItem("pickTypeId", item.type_id);
+                            navigate(pageShowItem);
                           } else {
-                            navigate(pageShowItem, {
-                              state: { id: item.type_id, name: item.name },
-                            });
                           }
                         }}
                       >
