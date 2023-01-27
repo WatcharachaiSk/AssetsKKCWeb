@@ -37,7 +37,7 @@ function HomeType() {
         </div>
         <ButtonAdd
           titleButton={"เพิ่มชนิดครุภัณฑ์"}
-          pageAdd={"/type_item/newTypeItem"}
+          pageAdd={pathRoutesPage.NewTypeItem}
         />
         {getTypeItem ? (
           <>

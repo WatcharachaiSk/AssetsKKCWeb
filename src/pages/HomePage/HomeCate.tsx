@@ -38,7 +38,7 @@ function HomeCate() {
 
         <ButtonAdd
           titleButton={"เพิ่มหมวดหมู่ครุภัณฑ์"}
-          pageAdd={"/category/newCategory"}
+          pageAdd={pathRoutesPage.NewCateItem}
         />
 
         {getCategory ? (

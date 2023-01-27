@@ -10,6 +10,7 @@ import checkToken from "../../../config/checkToken";
 import FormAddUser from "./components/FormAddUser";
 import ModalPostUser from "../../../components/modal/ModalPostUser";
 import pathRoutesPage from "../../../router/pathPage";
+import { GetKanitFont } from "../../../config/fonts";
 
 function NewUser() {
   const navigate = useNavigate();
@@ -41,7 +42,7 @@ function NewUser() {
     }
   }, []);
   return (
-    <>
+    <div style={{ ...GetKanitFont("KanitLight") }}>
       <NavbarTop clickPage={"admin"} />
       <div className="d-flex justify-content-center mt-4 mb-2">
         <h3>สร้างผู้ใช้งาน (สำหรับผู้ดูแลระบบ)</h3>
@@ -62,7 +63,7 @@ function NewUser() {
         setPostUser={setPostUser}
         setuserUrl={setuserUrl}
       />
-    </>
+    </div>
   );
 }
 
