@@ -2,7 +2,13 @@
 import { Button, Modal } from "react-bootstrap";
 import { GetKanitFont } from "../../config/fonts";
 function ModalUpImgItem(props: any) {
-  const { onSubmitFnImgItem, modalShowCheckUpImgItem, title, chackImg } = props;
+  const {
+    onSubmitFnImgItem,
+    modalShowCheckUpImgItem,
+    title,
+    chackImg,
+    getItems,
+  } = props;
   return (
     <Modal
       style={{ ...GetKanitFont("KanitLight") }}

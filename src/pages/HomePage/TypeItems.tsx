@@ -10,10 +10,10 @@ import TableListItem from "../../components/table/TableListItem";
 // import { thTable } from "../ItemPage/components/dataItem";
 import _ from "lodash";
 import { GetKanitFont } from "../../config/fonts";
-import ButtonBack from "../../components/buttons/ButtonBack";
+// import ButtonBack from "../../components/buttons/ButtonBack";
 import SearchItem from "../ItemPage/components/dropdowns/SearchItem";
 import NavbarItem from "../../components/navbar/NavbarItem";
-import LoaderTable from "../../components/lottiefiles/LoaderTable";
+// import LoaderTable from "../../components/lottiefiles/LoaderTable";
 
 function TypeItems() {
   // const { state } = useLocation();
@@ -62,7 +62,7 @@ function TypeItems() {
           <div className="mt-3" style={{ textAlign: "center", fontSize: 26 }}>
             ยังไม่มีข้อมูลครุภัณฑ์
           </div>
-          <LoaderTable />
+          {/* <LoaderTable /> */}
         </>
       )}
     </div>

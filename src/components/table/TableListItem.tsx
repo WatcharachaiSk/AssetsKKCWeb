@@ -29,8 +29,8 @@ import {
 // import { NumericFormat } from "react-number-format";
 import { toLocaleStringEn } from "../../config/number/formatEN";
 import ListButton from "./components/ListButton";
-// import pathRoutesPage from "../../router/pathPage";
-
+import pathRoutesPage from "../../router/pathPage";
+import ModalShowPick from "./components/ModalShowPick";
 function TableListItem(props: any) {
   const { itemList, editPage, isPage } = props;
 
@@ -92,11 +92,6 @@ function TableListItem(props: any) {
     setItemListPaninat(itemListPT);
   };
 
-  const navigate = useNavigate();
-  const navigatePage = (idItem?: any) => {
-    navigate(editPage, { state: { id: idItem, isPage: "items" } });
-  };
-
   const [getUserAdmin, setGetUserAdmin] = useState<boolean>(true);
   useEffect(() => {
     let userAdmin: any = localStorage.getItem("UserAdmin");
@@ -112,16 +107,26 @@ function TableListItem(props: any) {
     }
   }, []);
 
-  const [show, setShow] = useState(false);
-  const [target, setTarget] = useState(null);
-  const ref = useRef(null);
+  // const [show, setShow] = useState(false);
+  // console.log(show);
+  // const [target, setTarget] = useState(null);
+  // const ref = useRef(null);
 
-  const handleClick = (event: any) => {
-    setShow(!show);
-    setTarget(event.target);
-  };
+  // const handleClick = (event: any) => {
+  //   setShow(!show);
+  //   setTarget(event.target);
+  // };
+  const [modalShowPick, setModalShowPick] = useState(false);
+  const [pickItem, setPickItem] = useState();
   return (
-    <div style={{ margin: 30 }}>
+    <div className="mx-3">
+      {modalShowPick && (
+        <ModalShowPick
+          pickItem={pickItem}
+          show={modalShowPick}
+          onHide={() => setModalShowPick(false)}
+        />
+      )}
       {modalShowOne && (
         <ModalOneQr
           show={modalShowOne}
@@ -154,8 +159,13 @@ function TableListItem(props: any) {
       >
         <Card.Header>
           <div className="d-flex justify-content-end">
-            รายการที่แสดง {itemListPaninat.length} รายการทั้งหมด{" "}
-            {itemList.length}
+            <span
+              style={{ textAlign: "end" }}
+              className="d-flex justify-content-end"
+            >
+              รายการที่แสดง {itemListPaninat.length} รายการทั้งหมด{" "}
+              {itemList.length}
+            </span>
           </div>
         </Card.Header>
         <Table
@@ -196,7 +206,7 @@ function TableListItem(props: any) {
                   />
                 </Form.Group>
               </th>
-              <th>ลำดับ</th>
+              {/* <th>ลำดับ</th> */}
               <th>รายละเอียด</th>
               <th>แก้ไข</th>
               <th>QR Code</th>
@@ -260,7 +270,7 @@ function TableListItem(props: any) {
                       />
                     </Form.Group>
                   </td>
-                  <td>{idx + 1}</td>
+                  {/* <td>{idx + 1}</td> */}
                   {/*  */}
 
                   <OverlayTrigger
@@ -286,20 +296,18 @@ function TableListItem(props: any) {
 
                   {/*  */}
                   <td>
-                    <div ref={ref}>
-                      <Button
-                        size="lg"
-                        variant="warning"
-                        onClick={(event: any) => {
-                          handleClick(event);
-                          localStorage.setItem("itemItemEdit", item?.item_id);
-
-                          // navigatePage(item?.item_id);
-                          //console.log("item.item_id = " + item?.item_id);
-                        }}
-                      >
-                        <AiFillEdit color={colors.black} size={20} />
-                      </Button>
+                    <Button
+                      size="lg"
+                      variant="warning"
+                      onClick={(event: any) => {
+                        setPickItem(item);
+                        localStorage.setItem("itemItemEdit", item?.item_id);
+                        setModalShowPick(true);
+                      }}
+                    >
+                      <AiFillEdit color={colors.black} size={20} />
+                    </Button>
+                    {/* <div ref={ref}>
                       <Overlay
                         show={show}
                         target={target}
@@ -313,7 +321,7 @@ function TableListItem(props: any) {
                           </Popover.Body>
                         </Popover>
                       </Overlay>
-                    </div>
+                    </div> */}
                   </td>
                   <td>
                     <Button

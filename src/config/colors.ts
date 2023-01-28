@@ -12,6 +12,7 @@ const colors = {
   statusColor0: "red",
   statusColor2: "#FCBF1E",
   statusColor3: "#175dff",
+  statusColor4: "#FF8800",
   //
   statusColor1aa: "#79db5e",
   statusColor0ff: "#ff6969",

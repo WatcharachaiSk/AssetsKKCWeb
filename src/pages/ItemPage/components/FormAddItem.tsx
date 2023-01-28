@@ -56,7 +56,7 @@ function FormAddItem(props: any) {
   const [status, setStatus] = useState<any>(1);
   const [nameCate, setNameCate] = useState<any>();
 
-  const [description, setDescription] = useState<any>();
+  const [description, setDescription] = useState<any>("");
   const [price, setPrice] = useState<any>(0);
   //
 
@@ -356,6 +356,7 @@ function FormAddItem(props: any) {
             <option value="0">ชำรุด</option>
             <option value="2">รอจำหน่าย</option>
             <option value="3">จำหน่ายออก</option>
+            <option value="4">รอหมายเลขครุภัณฑ์</option>
           </Form.Select>
         </Form.Group>
         {/*  */}
@@ -365,9 +366,17 @@ function FormAddItem(props: any) {
             onChange={(event: any) => {
               const value = event.target.value;
               // console.log(value);
-
+              // setDescription(value);
               setDescription(value);
+              // if (description.length < 244) {
+              //   console.log("ยัง 244 " + description.length);
+           
+              // } else {
+              //   console.log(description.length);
+              //   setDescription(value);
+              // }
             }}
+            value={description}
             size="lg"
             placeholder="สี/ขนาดจอ/ความสูง/ความกว้าง/ยี่ห้อ"
             as="textarea"
@@ -613,7 +622,7 @@ function FormAddItem(props: any) {
             description &&
             price >= 0 &&
             price
-              ? "Submit"
+              ? "บันทึก"
               : "กรุณากรอกข้อมูลให้ครบ"}
           </Button>
         </div>

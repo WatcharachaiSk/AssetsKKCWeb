@@ -67,7 +67,7 @@ function FormEditImgItem(props: any) {
     <Container style={{ borderRadius: 15, width: "100%", height: "100%" }}>
       {modalShowImg && (
         <ModalShowImgItem
-          title={"รูปครุภัณฑ์"}
+          title={"รูปครุภัณฑ์ " + getItems?.name}
           showImg={modalShowImgArr}
           show={modalShowImg}
           onHide={(status: number) => {
@@ -136,7 +136,7 @@ function FormEditImgItem(props: any) {
         <div>
           <Form.Group controlId="formFile" className="mt-2">
             <Form.Label>
-              <span style={{fontSize:18}}>แนะนำอัตราส่วนภาพ 1 : 1</span>
+              <span style={{ fontSize: 18 }}>แนะนำอัตราส่วนภาพ 1 : 1</span>
             </Form.Label>
             <Form.Control
               // value={}

@@ -65,6 +65,7 @@ function Items() {
               setDataFilter={setDataFilter}
             />
           </div>
+          {/* <div className="mx-3">บน/ล่าง</div> */}
           <TableListItem
             itemList={dataFilter ? dataFilter : getItems}
             editPage={pathRoutesPage.EditItem}

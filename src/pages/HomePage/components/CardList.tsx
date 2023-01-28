@@ -14,6 +14,7 @@ function CardList(props: any) {
   const [getVauleNotNormal, setgetVauleNotNormal] = useState<any>();
   const [getVaulePendingSale, setgetVaulePendingSale] = useState<any>();
   const [getVauleSoldOut, setgetVauleSoldOut] = useState<any>();
+  const [getVauleWaitNumber, setgetVauleWaitNumber] = useState<any>();
 
   useEffect(() => {
     if (listItem) {
@@ -21,6 +22,7 @@ function CardList(props: any) {
       setgetVauleNotNormal(filterStatus(listItem, false));
       setgetVaulePendingSale(filterStatus(listItem, 2));
       setgetVauleSoldOut(filterStatus(listItem, 3));
+      setgetVauleWaitNumber(filterStatus(listItem, 4));
     }
   }, [listItem]);
 
@@ -66,6 +68,18 @@ function CardList(props: any) {
                           </span>{" "}
                           ชิ้น
                         </Card.Text>
+                      </Card.Subtitle>
+                      <Card.Subtitle
+                        className="mb-1"
+                        style={{ textAlign: "end" }}
+                      >
+                        <span style={{ color: colors.statusColor4 }}>
+                          รอหมายเลขครุภัณฑ์
+                        </span>{" "}
+                        {getVauleWaitNumber == undefined
+                          ? ""
+                          : getVauleWaitNumber[index]?.length}{" "}
+                        ชิ้น {/*  */}
                       </Card.Subtitle>
                       <Card.Subtitle style={{ textAlign: "end" }}>
                         <Card.Text>
@@ -182,7 +196,18 @@ function CardList(props: any) {
                           ชิ้น
                         </Card.Text>
                       </Card.Subtitle>
-
+                      <Card.Subtitle
+                        className="mb-1"
+                        style={{ textAlign: "end" }}
+                      >
+                        <span style={{ color: colors.statusColor4 }}>
+                          รอหมายเลขครุภัณฑ์
+                        </span>{" "}
+                        {getVauleWaitNumber == undefined
+                          ? ""
+                          : getVauleWaitNumber[index]?.length}{" "}
+                        ชิ้น {/*  */}
+                      </Card.Subtitle>
                       <Card.Subtitle
                         className="mb-2"
                         style={{ textAlign: "end" }}

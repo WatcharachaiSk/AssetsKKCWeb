@@ -16,6 +16,7 @@ import { optionsPie } from "./options/pie";
 import { optionsBar } from "./options/bar";
 //
 import { BsBoxSeam, BsBox, BsCart, BsCartCheck } from "react-icons/bs";
+import { MdEditNote } from "react-icons/md";
 
 import {
   Chart as ChartJS,
@@ -94,7 +95,8 @@ function Dashboard() {
       let arrvauleNormal = [],
         arrvauleNotNormal = [],
         arrVaulePendingSale = [],
-        arrVauleSoldOut = [];
+        arrVauleSoldOut = [],
+        arrWaitNumber = [];
       //
       for (let i = 0; i < name_Cate.length; i++) {
         const itemCate = _.filter(getCategory, (item: any, idx: any) => {
@@ -107,7 +109,8 @@ function Dashboard() {
           let vauleNormal: any,
             vauleNotNormal: any,
             vaulePendingSale: any,
-            vauleSoldOut: any;
+            vauleSoldOut: any,
+            vauleWaitNumber;
           vauleNormal = _.filter(itemCate[j]?.items, (item: any) => {
             return item.status_item == true;
           });
@@ -121,12 +124,16 @@ function Dashboard() {
           vauleSoldOut = _.filter(itemCate[j]?.items, (item: any) => {
             return item.status_item == 3;
           });
-          // console.log(vauleNotNormal);
+          vauleWaitNumber = _.filter(itemCate[j]?.items, (item: any) => {
+            return item.status_item == 4;
+          });
+          // console.log(vauleWaitNumber);
 
           arrvauleNormal.push(vauleNormal);
           arrvauleNotNormal.push(vauleNotNormal);
           arrVaulePendingSale.push(vaulePendingSale);
           arrVauleSoldOut.push(vauleSoldOut);
+          arrWaitNumber.push(vauleWaitNumber);
           sumItem = sumItem + itemCate[j]?.items.length;
         }
 
@@ -138,6 +145,7 @@ function Dashboard() {
         sumArrvauleNotNormall = 0,
         sumArrvaulePendingSalel = 0,
         sumArrvauleSoldOut = 0,
+        sumArrvauleWaitNumber = 0,
         sumArrvauleStatus = [];
       for (let i = 0; i < arrvauleNormal.length; i++) {
         if (arrvauleNormal[i].length != 0) {
@@ -163,8 +171,14 @@ function Dashboard() {
           sumArrvauleSoldOut = sumArrvauleSoldOut + arrVauleSoldOut[i].length;
         }
       }
-      // console.log(sumArrvauleSoldOut);
-
+      for (let i = 0; i < arrWaitNumber.length; i++) {
+        if (arrWaitNumber[i].length != 0) {
+          sumArrvauleWaitNumber =
+            sumArrvauleWaitNumber + arrWaitNumber[i].length;
+        }
+      }
+      // console.log(sumArrvauleWaitNumber);
+      sumArrvauleStatus.push(sumArrvauleWaitNumber);
       sumArrvauleStatus.push(sumArrvauleNormal);
       sumArrvauleStatus.push(sumArrvauleNotNormall);
       sumArrvauleStatus.push(sumArrvaulePendingSalel);
@@ -210,7 +224,13 @@ function Dashboard() {
     ],
   };
 
-  const labelsBar = ["ปกติ", "ชำรุด", "รอจำหน่าย", "จำนหน่ายแล้ว"];
+  const labelsBar = [
+    "รอหมายเลขครุภัณฑ์",
+    "ปกติ",
+    "ชำรุด",
+    "รอจำหน่าย",
+    "จำนหน่ายแล้ว",
+  ];
   const dataBar = {
     labels: labelsBar,
     datasets: [
@@ -218,6 +238,7 @@ function Dashboard() {
         label: "สถานะครุภัณฑ์",
         data: sumStatus_Item,
         backgroundColor: [
+          colors.statusColor4,
           colors.statusColor1aa,
           colors.statusColor0ff,
           colors.statusColor2,
@@ -228,6 +249,7 @@ function Dashboard() {
   };
 
   const rows: GridRowsProp = rows_Grid;
+  // console.log(sumStatus_Item[4]);
 
   const columns: GridColDef[] = [
     { field: "col1", flex: 1, headerName: "ชื่อหมวดหมู่", width: 150 },
@@ -243,12 +265,15 @@ function Dashboard() {
       </div>
       {loaderDashboard ? (
         <>
-          <Container>
-            <div className="mb-2 d-flex flex-row justify-content-center flex-wrap bd-highlight">
+          <div
+            style={{ overflow: "auto", display: "flex" }}
+            className="justify-content-center m-5"
+          >
+            <div className="mb-2 d-flex flex-row justify-content-center bd-highlight flex-wrap">
               <Card
                 className="m-1 d-flex align-content-center justify-content-center"
                 style={{
-                  width: "15rem",
+                  width: "13rem",
                   height: "10rem",
                 }}
               >
@@ -263,12 +288,26 @@ function Dashboard() {
               <Card
                 className="m-1 d-flex align-content-center justify-content-center"
                 style={{
-                  width: "15rem",
+                  width: "13rem",
                   height: "10rem",
                 }}
               >
                 <div className="d-flex justify-content-center mb-2">
-                  ปกติทั้งหมด {toLocaleStringEn(sumStatus_Item[0])} ชิ้น
+                  รอหมายเลขครุภัณฑ์ {toLocaleStringEn(sumStatus_Item[0])} ชิ้น
+                </div>
+                <div className="d-flex justify-content-center">
+                  <MdEditNote size={50} color={colors.statusColor4} />
+                </div>
+              </Card>
+              <Card
+                className="m-1 d-flex align-content-center justify-content-center"
+                style={{
+                  width: "13rem",
+                  height: "10rem",
+                }}
+              >
+                <div className="d-flex justify-content-center mb-2">
+                  ปกติทั้งหมด {toLocaleStringEn(sumStatus_Item[1])} ชิ้น
                 </div>
                 <div className="d-flex justify-content-center">
                   <BsBox size={50} color={colors.statusColor1aa} />
@@ -278,12 +317,12 @@ function Dashboard() {
               <Card
                 className="m-1 d-flex align-content-center justify-content-center"
                 style={{
-                  width: "15rem",
+                  width: "13rem",
                   height: "10rem",
                 }}
               >
                 <div className="d-flex justify-content-center mb-2">
-                  ชำรุดทั้งหมด {toLocaleStringEn(sumStatus_Item[1])} ชิ้น
+                  ชำรุดทั้งหมด {toLocaleStringEn(sumStatus_Item[2])} ชิ้น
                 </div>
                 <div className="d-flex justify-content-center">
                   <BsBox size={50} color={colors.statusColor0ff} />
@@ -293,12 +332,12 @@ function Dashboard() {
               <Card
                 className="m-1 d-flex align-content-center justify-content-center"
                 style={{
-                  width: "15rem",
+                  width: "13rem",
                   height: "10rem",
                 }}
               >
                 <div className="d-flex justify-content-center mb-2">
-                  รอจำหน่าย {toLocaleStringEn(sumStatus_Item[2])} ชิ้น
+                  รอจำหน่าย {toLocaleStringEn(sumStatus_Item[3])} ชิ้น
                 </div>
                 <div className="d-flex justify-content-center">
                   <BsCart size={50} color={colors.statusColor2} />
@@ -308,19 +347,19 @@ function Dashboard() {
               <Card
                 className="m-1 d-flex align-content-center justify-content-center"
                 style={{
-                  width: "15rem",
+                  width: "13rem",
                   height: "10rem",
                 }}
               >
                 <div className="d-flex justify-content-center mb-2">
-                  จำหน่ายออก {toLocaleStringEn(sumStatus_Item[3])} ชิ้น
+                  จำหน่ายออก {toLocaleStringEn(sumStatus_Item[4])} ชิ้น
                 </div>
                 <div className="d-flex justify-content-center">
                   <BsCartCheck size={50} color={colors.statusColor3} />
                 </div>
               </Card>
             </div>
-          </Container>
+          </div>
           {/*  */}
           <Container>
             <div className="d-flex flex-row justify-content-center flex-wrap bd-highlight">
@@ -334,7 +373,7 @@ function Dashboard() {
             </div>
           </Container>
           {/*  */}
-          <Container>
+          <div className="d-flex flex-row justify-content-center">
             <div className=" d-flex flex-row justify-content-start flex-wrap bd-highlight">
               <Card
                 className="m-3"
@@ -370,30 +409,36 @@ function Dashboard() {
                 <div className="m-2 d-flex justify-content-end flex-wrap ">
                   <div className="d-flex  flex-wrap">
                     <div className="mx-2">
-                      <span style={{ color: colors.statusColor1 }}>ปกติ</span>{" "}
+                      <span style={{ color: colors.statusColor4 }}>
+                        รอหมายเลขครุภัณฑ์
+                      </span>{" "}
                       {sumStatus_Item[0]} ชิ้น
                     </div>
                     <div className="mx-2">
-                      <span style={{ color: colors.statusColor0 }}>ชำรุด</span>{" "}
+                      <span style={{ color: colors.statusColor1 }}>ปกติ</span>{" "}
                       {sumStatus_Item[1]} ชิ้น
+                    </div>
+                    <div className="mx-2">
+                      <span style={{ color: colors.statusColor0 }}>ชำรุด</span>{" "}
+                      {sumStatus_Item[2]} ชิ้น
                     </div>
                     <div className="mx-2">
                       <span style={{ color: colors.statusColor2 }}>
                         รอจำหน่าย
                       </span>{" "}
-                      {sumStatus_Item[2]} ชิ้น
+                      {sumStatus_Item[3]} ชิ้น
                     </div>
                     <div className="mx-2">
                       <span style={{ color: colors.statusColor3 }}>
                         จำหน่ายออก
                       </span>{" "}
-                      {sumStatus_Item[3]} ชิ้น
+                      {sumStatus_Item[4]} ชิ้น
                     </div>
                   </div>
                 </div>
               </Card>
             </div>
-          </Container>
+          </div>
         </>
       ) : (
         <LoaderDashboard />

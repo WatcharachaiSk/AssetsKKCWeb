@@ -230,7 +230,7 @@ function FormInputBuilding(props: any) {
             nameBuildingEN &&
             facultyFId != 0 &&
             departmentDId != 0
-              ? "Submit"
+              ? "บันทึก"
               : "กรุณากรอกข้อมูลให้ครบ"}
           </Button>
         </div>

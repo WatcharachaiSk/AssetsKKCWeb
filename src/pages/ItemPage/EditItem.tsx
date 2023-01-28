@@ -30,7 +30,7 @@ function EditItem() {
     //  console.log(idItem);
   }, [localStorage.getItem("itemItemEdit")]);
 
-  const [getItems, setGetItems] = useState<{}>({});
+  const [getItems, setGetItems] = useState<any>();
   const [edit_updateEn, setedit_updateEn] = useState(false);
 
   const [modalShowCheckEditItem, setModalShowCheckEditItem] = useState(false);
@@ -119,9 +119,17 @@ function EditItem() {
       <NavbarItem clickPage={clickPage} />
       <div className="d-flex justify-content-center mt-5 mb-2">
         {/* <h3>แก้ไขครุภัณฑ์</h3> */}
-        {isEdit === isPageEdit.image && <h3>แก้ไขรูปภาพครุภัณฑ์</h3>}
-        {isEdit === isPageEdit.details && <h3>แก้ไขรายละเอียดครุภัณฑ์</h3>}
-        {isEdit === isPageEdit.status && <h3>แก้ไขสถานะครุภัณฑ์</h3>}
+        {getItems && (
+          <>
+            {isEdit === isPageEdit.image && (
+              <h3>แก้ไขรูปภาพครุภัณฑ์ {getItems?.name}</h3>
+            )}
+            {isEdit === isPageEdit.details && <h3>แก้ไขรายละเอียดครุภัณฑ์</h3>}
+            {isEdit === isPageEdit.status && (
+              <h3>แก้ไขสถานะครุภัณฑ์ {getItems?.name}</h3>
+            )}
+          </>
+        )}
       </div>
       {isEdit === isPageEdit.details && (
         <div className="d-flex justify-content-between">

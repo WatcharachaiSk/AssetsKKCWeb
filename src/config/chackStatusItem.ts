@@ -10,6 +10,8 @@ export const chackStatusItem = (status: any) => {
     statusItemString = "รอจำหน่าย";
   } else if (status == 3) {
     statusItemString = "จำหน่ายออก";
+  } else if (status == 4) {
+    statusItemString = "รอหมายเลขครุภัณฑ์";
   }
   return statusItemString;
 };
@@ -24,6 +26,8 @@ export const chackStatusItemColor = (status: any) => {
     statusItemColor = colors.statusColor2;
   } else if (status == 3) {
     statusItemColor = colors.statusColor3;
+  } else if (status == 4) {
+    statusItemColor = colors.statusColor4;
   } else {
     statusItemColor = "#000000";
   }

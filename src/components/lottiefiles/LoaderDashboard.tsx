@@ -6,7 +6,7 @@ function LoaderDashboard() {
   const defaultOptions = {
     loop: true,
     autoplay: true,
-    animationData: jsons.loader_dashboard,
+    animationData: jsons.loader_dashboardData,
     // rendererSettings: {
     //   preserveAspectRatio: "xMidYMid slice",
     // },

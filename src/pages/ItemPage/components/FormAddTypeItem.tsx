@@ -405,7 +405,7 @@ function FormAddTypeItem(props: any) {
             idDpm &&
             idcate &&
             startDate
-              ? "Submit"
+              ? "บันทึก"
               : "กรุณากรอกข้อมูลให้ครบ"}
           </Button>
         </div>

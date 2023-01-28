@@ -300,7 +300,7 @@ function FormInputLocation(props: any) {
             facultyFId != 0 &&
             departmentDId != 0 &&
             buildingBId != 0
-              ? "Submit"
+              ? "บันทึก"
               : "กรุณากรอกข้อมูลให้ครบ"}
           </Button>
         </div>

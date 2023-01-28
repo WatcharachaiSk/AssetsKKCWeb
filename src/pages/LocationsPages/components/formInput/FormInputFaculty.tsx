@@ -68,7 +68,7 @@ function FormInputFaculty(props: any) {
             size="lg"
           >
             {nameFacultyTH && nameFacultyEN
-              ? "Submit"
+              ? "บันทึก"
               : "กรุณากรอกข้อมูลให้ครบ"}
           </Button>
         </div>

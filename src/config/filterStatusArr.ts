@@ -33,6 +33,13 @@ export const filterStatus = (listItem: any, status: any) => {
       });
       statusItemArr.push(vauleSoldOut);
     }
+  } else if (status == 4) {
+    for (let i = 0; i < listItem.length; i++) {
+      let vauleSoldOut = _.filter(listItem[i].items, (item: any) => {
+        return item.status_item == 4;
+      });
+      statusItemArr.push(vauleSoldOut);
+    }
   }
   return statusItemArr;
 };

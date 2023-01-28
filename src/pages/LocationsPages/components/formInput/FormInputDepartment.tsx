@@ -127,7 +127,7 @@ function FormInputDepartment(props: any) {
             size="lg"
           >
             {nameDepartmentTH && nameDepartmentEN && facultyFId != 0
-              ? "Submit"
+              ? "บันทึก"
               : "กรุณากรอกข้อมูลให้ครบ"}
           </Button>
         </div>

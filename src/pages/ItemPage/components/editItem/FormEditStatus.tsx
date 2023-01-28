@@ -211,6 +211,7 @@ function FormEditStatus(props: any) {
               <option value="0">ชำรุด</option>
               <option value="2">รอจำหน่าย</option>
               <option value="3">จำหน่ายออก</option>
+              <option value="4">รอหมายเลขครุภัณฑ์</option>
             </Form.Select>
           </Form.Group>
         </Row>
@@ -280,7 +281,7 @@ function FormEditStatus(props: any) {
           >
             {(locationLId_Old != locationLId && locationLId != 0) ||
             statusItem != -1
-              ? "Submit"
+              ? "บันทึก"
               : "ยังไม่มีข้อมูลที่เปลี่ยนแปลงหรือข้อมูลไม่ครบ"}
           </Button>
         </div>
