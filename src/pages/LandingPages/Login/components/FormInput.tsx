@@ -83,7 +83,7 @@ function FormInput(props: any) {
   };
   return (
     <>
-      <Card style={styles.card_box}>
+      <Card className="my-2" style={styles.card_box}>
         <h3 style={{ textAlign: "center" }}>เข้าสู่ระบบ</h3>
         <Form>
           <Form.Group className="mb-3" controlId="formBasicEmail">

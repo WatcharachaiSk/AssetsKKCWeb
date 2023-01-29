@@ -68,6 +68,7 @@ function ApplicationDownload() {
           <ModalDownload
             show={modalShowModalDownload}
             onHide={() => setModalShowModalDownload(false)}
+            isPage={"app"}
           />
         )}
         <div>

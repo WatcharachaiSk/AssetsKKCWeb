@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-// import styled from "styled-components";
+import styled from "styled-components";
 import { GetKanitFont } from "../../../config/fonts";
 import FormInput from "./components/FormInput";
 import NavbarTopLogin from "../../../components/navbar/NavbarTopLogin";

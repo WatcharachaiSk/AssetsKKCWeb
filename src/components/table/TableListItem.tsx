@@ -169,6 +169,7 @@ function TableListItem(props: any) {
         <ModalDownload
           show={modalShowModalDownload}
           onHide={() => setModalShowModalDownload(false)}
+          isPage={"csv"}
         />
       )}
       {modalShowPick && (
@@ -457,10 +458,13 @@ function TableListItem(props: any) {
             onClick={(event: any) => {
               // console.log("You click the link");
               setModalShowModalDownload(true);
+              setTimeout(() => {
+                setModalShowModalDownload(false);
+              }, 10000);
               return true; // 👍🏻 You are stopping the handling of component
             }}
           >
-            <SiMicrosoftexcel size={23} /> ดาวน์โหลดไฟล์ .CSV
+            <SiMicrosoftexcel size={23} /> ดาวน์โหลดไฟล์ .csv
           </CSVLink>
         </Button>
       )}
