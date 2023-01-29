@@ -93,6 +93,9 @@ function TableListItem(props: any) {
         building: itemList[i]?.building?.nameTH,
         location: itemList[i]?.location?.nameTH,
         floor: itemList[i]?.location?.floor,
+        purchase_date: moment(itemList[i]?.typeitem?.purchase_date).format(
+          "DD/MM/YYYY"
+        ),
       });
     }
     // console.log(arrData);
@@ -157,6 +160,7 @@ function TableListItem(props: any) {
     { label: "อาคาร", key: "building" },
     { label: "สถานที่", key: "location" },
     { label: "ชั้น", key: "floor" },
+    { label: "วันที่ซื้อ", key: "purchase_date" },
   ];
   const [modalShowModalDownload, setModalShowModalDownload] = useState(false);
   return (
