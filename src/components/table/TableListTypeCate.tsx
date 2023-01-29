@@ -17,6 +17,7 @@ function TableListTypeCate(props: any) {
   const [getVauleNotNormal, setgetVauleNotNormal] = useState<any>();
   const [getVaulePendingSale, setgetVaulePendingSale] = useState<any>();
   const [getVauleSoldOut, setgetVauleSoldOut] = useState<any>();
+  const [getVauleWaitNumber, setgetVauleWaitNumber] = useState<any>();
 
   useEffect(() => {
     if (itemList) {
@@ -24,6 +25,7 @@ function TableListTypeCate(props: any) {
       setgetVauleNotNormal(filterStatus(itemList, false));
       setgetVaulePendingSale(filterStatus(itemList, 2));
       setgetVauleSoldOut(filterStatus(itemList, 3));
+      setgetVauleWaitNumber(filterStatus(itemList, 4));
     }
   }, [itemList]);
   const navigatePage = (page: string, idItem: any, item: any) => {
@@ -88,6 +90,7 @@ function TableListTypeCate(props: any) {
                   )}
                   <th>หมวดหมู่</th>
                   <th>อยู่ในระบบ</th>
+                  <th style={{ color: colors.statusColor4 }}>รอหมายเลขครุภัณฑ์</th>
                   <th style={{ color: colors.statusColor1 }}>ปกติ</th>
                   <th style={{ color: colors.statusColor0 }}>ชำรุด</th>
                   <th style={{ color: colors.statusColor2 }}>รอจำหน่าย</th>
@@ -109,6 +112,7 @@ function TableListTypeCate(props: any) {
                   )}
 
                   <th>อยู่ในระบบ</th>
+                  <th style={{ color: colors.statusColor4 }}>รอหมายเลขครุภัณฑ์</th>
                   <th style={{ color: colors.statusColor1 }}>ปกติ</th>
                   <th style={{ color: colors.statusColor0 }}>ชำรุด</th>
                   <th style={{ color: colors.statusColor2 }}>รอจำหน่าย</th>
@@ -155,6 +159,11 @@ function TableListTypeCate(props: any) {
                       )}
                       <td>{item?.category?.name}</td>
                       <td>{item?.items?.length}</td>
+                      <td style={{ color: colors.statusColor4 }}>
+                        {getVauleWaitNumber == undefined
+                          ? ""
+                          : getVauleWaitNumber[idx]?.length}{" "}
+                      </td>
                       <td style={{ color: colors.statusColor1 }}>
                         {getVauleNormal == undefined
                           ? ""
@@ -210,6 +219,11 @@ function TableListTypeCate(props: any) {
                       )}
 
                       <td>{item?.items?.length}</td>
+                      <td style={{ color: colors.statusColor4 }}>
+                        {getVauleWaitNumber == undefined
+                          ? ""
+                          : getVauleWaitNumber[idx]?.length}{" "}
+                      </td>
                       <td style={{ color: colors.statusColor1 }}>
                         {getVauleNormal == undefined
                           ? ""

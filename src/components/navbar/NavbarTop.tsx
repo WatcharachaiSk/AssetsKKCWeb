@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 import { sweet_confirm } from "../sweetalert2/sweet";
 import { GetKanitFont } from "../../config/fonts";
 import icons from "../../config/icons";
-import env from "react-dotenv";
 
 function NavbarTop(props: any) {
   const navigate = useNavigate();
@@ -37,7 +36,7 @@ function NavbarTop(props: any) {
       // localStorage.removeItem("Token");
       // localStorage.removeItem("Profile");
       // localStorage.removeItem("UserAdmin");
-      localStorage.clear()
+      localStorage.clear();
     }
   }, [isLogOut]);
 
@@ -90,7 +89,8 @@ function NavbarTop(props: any) {
               style={styles.fontNavLink}
               title={
                 <TitleAdmin color={clickPage}>
-                  {getProfile?.firstname} {"\n"} {getUserAdmin ? "Admin" : ""} {`(version ${env.REACT_APP_VERSION}) BETA`}
+                  {getProfile?.firstname}{" "}
+                  <span style={{color : colors.goldFC}}>{getUserAdmin ? "[Admin]" : ""}</span>
                 </TitleAdmin>
               }
             >

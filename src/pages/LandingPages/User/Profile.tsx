@@ -9,6 +9,8 @@ import checkToken from "../../../config/checkToken";
 import { GetKanitFont } from "../../../config/fonts";
 import ShowProfile from "./components/ShowProfile";
 import ShowImgProfile from "./components/ShowImgProfile";
+import env from "react-dotenv";
+// {`(version ${env.REACT_APP_VERSION}) BETA`}
 
 function Profile() {
   const navigate = useNavigate();
@@ -44,6 +46,9 @@ function Profile() {
         />
       )}
       {getProfile && <ShowProfile getProfile={getProfile} />}
+      <div className="d-flex justify-content-end">
+        version {env.REACT_APP_VERSION}
+      </div>
     </div>
   );
 }

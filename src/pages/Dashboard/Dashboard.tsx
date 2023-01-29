@@ -373,11 +373,20 @@ function Dashboard() {
             </div>
           </Container>
           {/*  */}
-          <div className="d-flex flex-row justify-content-center">
-            <div className=" d-flex flex-row justify-content-start flex-wrap bd-highlight">
+          <Container
+            className="d-flex flex-row justify-content-center flex-wrap"
+            style={{
+              width: "100%",
+              display: "flex",
+              overflow: "auto",
+            }}
+          >
+            {/* <div className=" d-flex flex-row justify-content-start flex-wrap bd-highlight"> */}
               <Card
                 className="m-3"
                 style={{
+                  display: "flex",
+                  overflow: "auto",
                   width: "35rem",
                   // height: "100%",
                 }}
@@ -437,8 +446,8 @@ function Dashboard() {
                   </div>
                 </div>
               </Card>
-            </div>
-          </div>
+            {/* </div> */}
+          </Container>
         </>
       ) : (
         <LoaderDashboard />
