@@ -28,9 +28,13 @@ import {
 } from "../../config/chackStatusItem";
 // import { NumericFormat } from "react-number-format";
 import { toLocaleStringEn } from "../../config/number/formatEN";
-import ListButton from "./components/ListButton";
-import pathRoutesPage from "../../router/pathPage";
+// import ListButton from "./components/ListButton";
+// import pathRoutesPage from "../../router/pathPage";
 import ModalShowPick from "./components/ModalShowPick";
+import moment from "moment";
+import { CSVLink } from "react-csv";
+import { SiMicrosoftexcel } from "react-icons/si";
+import ModalDownload from "../../pages/ApplicationDownload/components/ModalDownload";
 function TableListItem(props: any) {
   const { itemList, editPage, isPage } = props;
 
@@ -48,6 +52,10 @@ function TableListItem(props: any) {
   const [paginationCount, setPaginationCount] = useState<any>();
   const [itemListPaninat, setItemListPaninat] = useState<any>(itemList);
   // console.log(itemListPaninat);
+
+  // Todo
+  const [dataItem, setDataItem] = useState<any>();
+  // console.log("dataItem = ", dataItem);
 
   useEffect(() => {
     let countPage = [];
@@ -71,6 +79,24 @@ function TableListItem(props: any) {
     });
     setItemListPaninat(itemListPT);
     // console.log(itemListPT.length, itemListPT);
+    let arrData = [];
+    for (let i = 0; i < itemList?.length; i++) {
+      arrData.push({
+        code: itemList[i]?.code,
+        name: itemList[i]?.name,
+        price: itemList[i]?.price,
+        category: itemList[i]?.category?.name,
+        typeitem: itemList[i]?.typeitem?.name,
+        status_item: chackStatusItem(itemList[i]?.status_item),
+        faculty: itemList[i]?.faculty?.nameTH,
+        department: itemList[i]?.department?.nameTH,
+        building: itemList[i]?.building?.nameTH,
+        location: itemList[i]?.location?.nameTH,
+        floor: itemList[i]?.location?.floor,
+      });
+    }
+    // console.log(arrData);
+    setDataItem(arrData);
   }, [itemList]);
 
   const setItemList = (page: number) => {
@@ -118,8 +144,29 @@ function TableListItem(props: any) {
   // };
   const [modalShowPick, setModalShowPick] = useState(false);
   const [pickItem, setPickItem] = useState();
+
+  const headers = [
+    { label: "หมายเลขครุภัณฑ์", key: "code" },
+    { label: "ชื่อครุภัณฑ์", key: "name" },
+    { label: "ราคาครุภัณฑ์", key: "price" },
+    { label: "หมวดหมู่ครุภัณฑ์", key: "category" },
+    { label: "ชนิดครุภัณฑ์", key: "typeitem" },
+    { label: "สถานะครุภัณฑ์", key: "status_item" },
+    { label: "คณะ", key: "faculty" },
+    { label: "สาขา", key: "department" },
+    { label: "อาคาร", key: "building" },
+    { label: "สถานที่", key: "location" },
+    { label: "ชั้น", key: "floor" },
+  ];
+  const [modalShowModalDownload, setModalShowModalDownload] = useState(false);
   return (
     <div className="mx-3">
+      {modalShowModalDownload && (
+        <ModalDownload
+          show={modalShowModalDownload}
+          onHide={() => setModalShowModalDownload(false)}
+        />
+      )}
       {modalShowPick && (
         <ModalShowPick
           pickItem={pickItem}
@@ -380,7 +427,8 @@ function TableListItem(props: any) {
         </Card.Footer>
       </Card>
       <Button
-        className="mt-2"
+        style={{ color: colors.black }}
+        className="m-2"
         size="lg"
         variant={"outline-primary"}
         onClick={() => {
@@ -389,6 +437,30 @@ function TableListItem(props: any) {
       >
         สั่งพิมพ์ที่เลือก
       </Button>
+      {dataItem && itemList && (
+        <Button
+          className="m-2"
+          size="lg"
+          variant={"outline-success"}
+          onClick={() => {}}
+        >
+          <CSVLink
+            style={{ textDecoration: "none", color: "#000000" }}
+            filename={`${moment().format("DD_MM_YYYY-HH:mm")}_Assets_KKC.csv`}
+            headers={headers}
+            data={dataItem}
+            target="_blank"
+            onClick={(event: any) => {
+              // console.log("You click the link");
+              setModalShowModalDownload(true);
+              return true; // 👍🏻 You are stopping the handling of component
+            }}
+          >
+            <SiMicrosoftexcel size={23} /> ดาวน์โหลดไฟล์ .CSV
+          </CSVLink>
+        </Button>
+      )}
+
       <div className="d-flex justify-content-center">
         {paginationCount && (
           <PaginationItem
