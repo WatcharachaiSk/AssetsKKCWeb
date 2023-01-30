@@ -85,14 +85,12 @@ function TableListItem(props: any) {
     let arrData = [];
     for (let i = 0; i < itemList?.length; i++) {
       arrData.push({
-        code: itemList[i]?.code,
+        code: itemList[i]?.code + chackCodeStatusCo(itemList[i]?.code),
         name: itemList[i]?.name,
         price: itemList[i]?.price,
         category: itemList[i]?.category?.name,
         typeitem: itemList[i]?.typeitem?.name,
-        status_item:
-          chackStatusItem(itemList[i]?.status_item) +
-          chackCodeStatusCo(itemList[i]?.code),
+        status_item: chackStatusItem(itemList[i]?.status_item),
         faculty: itemList[i]?.faculty?.nameTH,
         department: itemList[i]?.department?.nameTH,
         building: itemList[i]?.building?.nameTH,
