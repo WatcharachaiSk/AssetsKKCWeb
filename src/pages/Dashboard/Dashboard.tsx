@@ -125,7 +125,11 @@ function Dashboard() {
             return item.status_item == 3;
           });
           vauleWaitNumber = _.filter(itemCate[j]?.items, (item: any) => {
-            return item.status_item == 4;
+            return (
+              item?.code.length <= 9 ||
+              item?.code.length == "-" ||
+              item?.code.length == "ไม่มี"
+            );
           });
           // console.log(vauleWaitNumber);
 
@@ -184,7 +188,7 @@ function Dashboard() {
       sumArrvauleStatus.push(sumArrvaulePendingSalel);
       sumArrvauleStatus.push(sumArrvauleSoldOut);
 
-      // console.log(sumArrvauleStatus);
+      // WaitNumbe
 
       setsumStatus_Item(sumArrvauleStatus);
 
@@ -382,70 +386,70 @@ function Dashboard() {
             }}
           >
             {/* <div className=" d-flex flex-row justify-content-start flex-wrap bd-highlight"> */}
-              <Card
-                className="m-3"
+            <Card
+              className="m-3"
+              style={{
+                display: "flex",
+                overflow: "auto",
+                width: "35rem",
+                // height: "100%",
+              }}
+            >
+              <Pie
                 style={{
-                  display: "flex",
-                  overflow: "auto",
-                  width: "35rem",
+                  width: "100%",
                   // height: "100%",
                 }}
-              >
-                <Pie
-                  style={{
-                    width: "100%",
-                    // height: "100%",
-                  }}
-                  data={dataPie}
-                  options={optionsPie}
-                />
-              </Card>
-              {/*  */}
+                data={dataPie}
+                options={optionsPie}
+              />
+            </Card>
+            {/*  */}
 
-              <Card
-                className="m-3 d-flex align-content-center justify-content-center"
-                style={{
-                  width: "40rem",
-                  // height: "100%",
-                }}
-              >
-                {/* <div className=" d-flex justify-content-end">
+            <Card
+              className="m-3 d-flex align-content-center justify-content-center"
+              style={{
+                width: "40rem",
+                // height: "100%",
+              }}
+            >
+              {/* <div className=" d-flex justify-content-end">
               <span>ครุภัณฑ์ทั้งหมด {sumItem} ชิ้น</span>
             </div> */}
-                <div className="mt-5 d-flex align-content-center justify-content-center">
-                  <Bar options={optionsBar} data={dataBar} />
-                </div>
-                <div className="m-2 d-flex justify-content-end flex-wrap ">
-                  <div className="d-flex  flex-wrap">
-                    <div className="mx-2">
-                      <span style={{ color: colors.statusColor4 }}>
-                        รอหมายเลขครุภัณฑ์
-                      </span>{" "}
-                      {sumStatus_Item[0]} ชิ้น
-                    </div>
-                    <div className="mx-2">
-                      <span style={{ color: colors.statusColor1 }}>ปกติ</span>{" "}
-                      {sumStatus_Item[1]} ชิ้น
-                    </div>
-                    <div className="mx-2">
-                      <span style={{ color: colors.statusColor0 }}>ชำรุด</span>{" "}
-                      {sumStatus_Item[2]} ชิ้น
-                    </div>
-                    <div className="mx-2">
-                      <span style={{ color: colors.statusColor2 }}>
-                        รอจำหน่าย
-                      </span>{" "}
-                      {sumStatus_Item[3]} ชิ้น
-                    </div>
-                    <div className="mx-2">
-                      <span style={{ color: colors.statusColor3 }}>
-                        จำหน่ายออก
-                      </span>{" "}
-                      {sumStatus_Item[4]} ชิ้น
-                    </div>
+              <div className="mt-5 d-flex align-content-center justify-content-center">
+                <Bar options={optionsBar} data={dataBar} />
+              </div>
+              <div className="m-2 d-flex justify-content-end flex-wrap ">
+                <div className="d-flex  flex-wrap">
+                  <div className="mx-2">
+                    <span style={{ color: colors.statusColor4 }}>
+                      รอหมายเลขครุภัณฑ์
+                    </span>{" "}
+                    {sumStatus_Item[0]} ชิ้น
+                  </div>
+                  <div className="mx-2">
+                    <span style={{ color: colors.statusColor1 }}>ปกติ</span>{" "}
+                    {sumStatus_Item[1]} ชิ้น
+                  </div>
+                  <div className="mx-2">
+                    <span style={{ color: colors.statusColor0 }}>ชำรุด</span>{" "}
+                    {sumStatus_Item[2]} ชิ้น
+                  </div>
+                  <div className="mx-2">
+                    <span style={{ color: colors.statusColor2 }}>
+                      รอจำหน่าย
+                    </span>{" "}
+                    {sumStatus_Item[3]} ชิ้น
+                  </div>
+                  <div className="mx-2">
+                    <span style={{ color: colors.statusColor3 }}>
+                      จำหน่ายออก
+                    </span>{" "}
+                    {sumStatus_Item[4]} ชิ้น
                   </div>
                 </div>
-              </Card>
+              </div>
+            </Card>
             {/* </div> */}
           </Container>
         </>

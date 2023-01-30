@@ -25,6 +25,9 @@ import { BsClipboard } from "react-icons/bs";
 import {
   chackStatusItem,
   chackStatusItemColor,
+  chackCodeStatus,
+  chackCodeStatusColor,
+  chackCodeStatusCo,
 } from "../../config/chackStatusItem";
 // import { NumericFormat } from "react-number-format";
 import { toLocaleStringEn } from "../../config/number/formatEN";
@@ -87,7 +90,9 @@ function TableListItem(props: any) {
         price: itemList[i]?.price,
         category: itemList[i]?.category?.name,
         typeitem: itemList[i]?.typeitem?.name,
-        status_item: chackStatusItem(itemList[i]?.status_item),
+        status_item:
+          chackStatusItem(itemList[i]?.status_item) +
+          chackCodeStatusCo(itemList[i]?.code),
         faculty: itemList[i]?.faculty?.nameTH,
         department: itemList[i]?.department?.nameTH,
         building: itemList[i]?.building?.nameTH,
@@ -100,6 +105,10 @@ function TableListItem(props: any) {
     }
     // console.log(arrData);
     setDataItem(arrData);
+    // console.log("1 =   " + chackCodeStatus("3156-3333-025-96-1"));
+    // console.log("2 =  " + chackCodeStatus("3156-3333"));
+    // console.log("3 =  " + chackCodeStatus("-"));
+    // console.log("4 =  " + chackCodeStatus("ไม่มี"));
   }, [itemList]);
 
   const setItemList = (page: number) => {
@@ -162,6 +171,7 @@ function TableListItem(props: any) {
     { label: "ชั้น", key: "floor" },
     { label: "วันที่ซื้อ", key: "purchase_date" },
   ];
+
   const [modalShowModalDownload, setModalShowModalDownload] = useState(false);
   return (
     <div className="mx-3">
@@ -359,21 +369,6 @@ function TableListItem(props: any) {
                     >
                       <AiFillEdit color={colors.black} size={20} />
                     </Button>
-                    {/* <div ref={ref}>
-                      <Overlay
-                        show={show}
-                        target={target}
-                        placement="bottom"
-                        container={ref}
-                        containerPadding={30}
-                      >
-                        <Popover id="popover-contained">
-                          <Popover.Body>
-                            <ListButton setShow={setShow} show={show} />
-                          </Popover.Body>
-                        </Popover>
-                      </Overlay>
-                    </div> */}
                   </td>
                   <td>
                     <Button
@@ -389,7 +384,12 @@ function TableListItem(props: any) {
                   </td>
                   {/*  */}
 
-                  <td>{item?.code}</td>
+                  <td style={{ color: chackCodeStatusColor(item?.code) }}>
+                    {item?.code}{" "}
+                    <span style={{ color: colors.statusColor4 }}>
+                      {chackCodeStatusCo(item?.code)}
+                    </span>
+                  </td>
                   <td> {item?.name}</td>
 
                   {isPage != "category_item" && <td>{item?.category?.name}</td>}

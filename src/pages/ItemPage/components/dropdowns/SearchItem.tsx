@@ -28,6 +28,7 @@ function SearchItem(props: any) {
   const [pickLocation, setPickLocation] = useState<string>("0");
   const [pickStatusItem, setPickStatusItem] = useState<any>("0");
   const [pickUnderrated, setPickUnderrated] = useState<any>("0");
+  const [pickWaitNumbe, setPickWaitNumbe] = useState<any>("0");
   const [selected, setSelected] = useState<any>({
     filter: "all",
     value: "all",
@@ -110,6 +111,15 @@ function SearchItem(props: any) {
         return item?.price < 5000;
       });
       setDataFilter(dataItemLocate);
+    } else if (selected?.filter === "WaitNumbe") {
+      const dataItemLocate = _.filter(getItems, (item: any) => {
+        return (
+          item?.code.length <= 9 ||
+          item?.code.length == "-" ||
+          item?.code.length == "ไม่มี"
+        );
+      });
+      setDataFilter(dataItemLocate);
     } else {
       setDataFilter(undefined);
     }
@@ -180,6 +190,7 @@ function SearchItem(props: any) {
               setPickLocation("0");
               setPickStatusItem("0");
               setPickUnderrated("0");
+              setPickWaitNumbe("0");
               setSelected({
                 filter: "all",
                 value: "all",
@@ -194,6 +205,37 @@ function SearchItem(props: any) {
             ค้นหาทั้งหมด
           </Button>
         </BoxFlex>
+
+        {/*  */}
+        <BoxFlex>
+          <Button
+            className="d-inline mx-2 m-1"
+            onClick={() => {
+              setPickWaitNumbe("WaitNumbe");
+              setPickAll("0");
+              setPickFacultys("0");
+              setPickDepartment("0");
+              setPickBuilding("0");
+              setPickLocation("0");
+              setPickStatusItem("0");
+              setPickUnderrated("0");
+              setSelected({
+                filter: "WaitNumbe",
+                value: "WaitNumbe",
+              });
+            }}
+            style={{
+              color: pickWaitNumbe == "WaitNumbe" ? "#fff" : "#000",
+              borderColor: "#ced4da",
+            }}
+            variant={
+              pickWaitNumbe == "WaitNumbe" ? "secondary" : "outline-secondary"
+            }
+          >
+            รอหมายเลขครุภัณฑ์
+          </Button>
+        </BoxFlex>
+        {/*  */}
         <OverlayTrigger
           overlay={
             <Tooltip id="tooltip-disabled">
@@ -207,6 +249,7 @@ function SearchItem(props: any) {
               onClick={() => {
                 setPickUnderrated("underrated");
                 setPickAll("0");
+                setPickWaitNumbe("0");
                 setPickFacultys("0");
                 setPickDepartment("0");
                 setPickBuilding("0");
@@ -232,7 +275,7 @@ function SearchItem(props: any) {
             </Button>
           </BoxFlex>
         </OverlayTrigger>
-
+        {/*  */}
         <BoxFlex>
           <Form.Select
             value={pickFacultys}
@@ -246,6 +289,7 @@ function SearchItem(props: any) {
               setPickLocation("0");
               setPickStatusItem("0");
               setPickAll("0");
+              setPickWaitNumbe("0");
               setPickUnderrated("0");
               //
               if (e.target.value != "0") {
@@ -281,6 +325,7 @@ function SearchItem(props: any) {
               setPickLocation("0");
               setPickStatusItem("0");
               setPickAll("0");
+              setPickWaitNumbe("0");
               setPickUnderrated("0");
 
               if (e.target.value != "0") {
@@ -317,6 +362,7 @@ function SearchItem(props: any) {
               setPickLocation("0");
               setPickStatusItem("0");
               setPickAll("0");
+              setPickWaitNumbe("0");
               setPickUnderrated("0");
 
               if (e.target.value != "0") {
@@ -352,6 +398,7 @@ function SearchItem(props: any) {
               setPickBuilding("0");
               setPickStatusItem("0");
               setPickAll("0");
+              setPickWaitNumbe("0");
               setPickUnderrated("0");
 
               if (e.target.value != "0") {
@@ -389,6 +436,7 @@ function SearchItem(props: any) {
               setPickBuilding("0");
               setPickLocation("0");
               setPickAll("0");
+              setPickWaitNumbe("0");
               setPickUnderrated("0");
 
               if (e.target.value != "0") {

@@ -36,7 +36,11 @@ export const filterStatus = (listItem: any, status: any) => {
   } else if (status == 4) {
     for (let i = 0; i < listItem.length; i++) {
       let vauleSoldOut = _.filter(listItem[i].items, (item: any) => {
-        return item.status_item == 4;
+        return (
+          item?.code.length <= 9 ||
+          item?.code.length == "-" ||
+          item?.code.length == "ไม่มี"
+        );
       });
       statusItemArr.push(vauleSoldOut);
     }

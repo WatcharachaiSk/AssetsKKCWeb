@@ -9,6 +9,7 @@ import _ from "lodash";
 import { sweet_basic } from "../../../../components/sweetalert2/sweet";
 import colors from "../../../../config/colors";
 import { toLocaleStringEn } from "../../../../config/number/formatEN";
+import { IoMdHelpCircleOutline } from "react-icons/io";
 function FormEditItem(props: any) {
   const {
     getItems,
@@ -377,7 +378,14 @@ function FormEditItem(props: any) {
         </Form.Group>
         {/*  */}
         <Form.Group className="mb-3">
-          <Form.Label>รหัสครุภัณฑ์</Form.Label>
+          <Form.Label>
+            รหัสครุภัณฑ์{" "}
+            <span style={{ color: colors.statusColor0ff }}>
+              (<IoMdHelpCircleOutline size={15} color={colors.statusColor0ff} />{" "}
+              กรณีรอหมายเลขครุภัณฑ์กรุณาใส่ " - " , " ไม่มี "
+              หรือใส่ไม่เกิน10คำ)
+            </span>
+          </Form.Label>
           <Form.Control
             size="lg"
             style={{

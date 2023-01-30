@@ -14,6 +14,8 @@ import {
 // import images from "../../../config/index.images";
 // import getBase64 from "../../../config/getBase64";
 import { toLocaleStringEn } from "../../../config/number/formatEN";
+import colors from "../../../config/colors";
+import { IoMdHelpCircleOutline } from "react-icons/io";
 
 function FormAddItem(props: any) {
   const {
@@ -332,7 +334,14 @@ function FormAddItem(props: any) {
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formCodeItem">
-          <Form.Label>รหัสครุภัณฑ์</Form.Label>
+          <Form.Label>
+            รหัสครุภัณฑ์{" "}
+            <span style={{ color: colors.statusColor0ff }}>
+              (<IoMdHelpCircleOutline size={15} color={colors.statusColor0ff} />{" "}
+              กรณีรอหมายเลขครุภัณฑ์กรุณาใส่ " - " , " ไม่มี "
+              หรือใส่ไม่เกิน10คำ)
+            </span>
+          </Form.Label>
           <Form.Control
             size="lg"
             // style={{ height: "3rem" }}
@@ -356,7 +365,7 @@ function FormAddItem(props: any) {
             <option value="0">ชำรุด</option>
             <option value="2">รอจำหน่าย</option>
             <option value="3">จำหน่ายออก</option>
-            <option value="4">รอหมายเลขครุภัณฑ์</option>
+            {/* <option value="4">รอหมายเลขครุภัณฑ์</option> */}
           </Form.Select>
         </Form.Group>
         {/*  */}
@@ -370,7 +379,7 @@ function FormAddItem(props: any) {
               setDescription(value);
               // if (description.length < 244) {
               //   console.log("ยัง 244 " + description.length);
-           
+
               // } else {
               //   console.log(description.length);
               //   setDescription(value);

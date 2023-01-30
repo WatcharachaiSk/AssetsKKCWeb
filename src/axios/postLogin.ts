@@ -23,9 +23,9 @@ const postLogin = async (username?: string, password?: string) => {
     const res = await axios(config);
     // console.log("res = ", res.data);
     return res;
-  } catch (error) {
+  } catch (error: any) {
     //console.log("Err = ", error);
-    return error;
+    return error.response;
   }
 };
 

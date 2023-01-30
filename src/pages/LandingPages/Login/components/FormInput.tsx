@@ -29,7 +29,9 @@ function FormInput(props: any) {
 
     const res: any = await postLogin(inputs.username, inputs.password);
     // console.log(res?.data?.user.user_status);
-    if (res.status === 200 && res.status <= 201) {
+    // console.log(res);
+
+    if (res.status == 200 && res.status <= 201) {
       if (res?.data?.user.user_status) {
         await sweet_mixin(
           "top-end",
@@ -55,6 +57,12 @@ function FormInput(props: any) {
           `กรุณาติดต่อผู้ดูแลเพื่อขอเปิดระบบใช้งานอีกรอบ`
         );
       }
+    } else if (res.status >= 400 && res.status <= 450) {
+      sweet_basic(
+        "error",
+        "รหัสผิดพลาด",
+        `กรุณาตรวจสอบ Username และ Password ของท่านอีกรอบ`
+      );
     } else {
       MySwal.fire({
         title: <strong>มีบางอย่างผิดปกติ</strong>,

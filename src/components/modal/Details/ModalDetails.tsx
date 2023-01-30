@@ -6,10 +6,12 @@ import { GetKanitFont } from "../../../config/fonts";
 import { setURLItem } from "../../../config/setURL_image";
 import _ from "lodash";
 import {
+  chackCodeStatusColor,
   chackStatusItem,
   chackStatusItemColor,
 } from "../../../config/chackStatusItem";
 import { toLocaleStringEn } from "../../../config/number/formatEN";
+import { chackCodeStatusCo } from "../../../config/chackStatusItem";
 
 function ModalDetails(props: any) {
   const { item } = props;
@@ -129,11 +131,12 @@ function ModalDetails(props: any) {
             <Form.Group className="mb-3">
               <Form.Label>รหัสครุภัณฑ์</Form.Label>
               <Form.Control
+                style={{ color: chackCodeStatusColor(code) }}
                 size="lg"
                 readOnly
                 type="text"
                 placeholder="Code"
-                value={code}
+                value={code + chackCodeStatusCo(code)}
               />
             </Form.Group>
             {/*  */}
