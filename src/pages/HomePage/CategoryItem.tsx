@@ -18,13 +18,9 @@ import NavbarItem from "../../components/navbar/NavbarItem";
 function CategoryItem() {
   // const { state } = useLocation();
   const [getItems, setgetItems] = useState<any>();
-  // console.log(getItems);
-
-  // const [itemList, setItemList] = useState<any>([]);
   const [dataFilter, setDataFilter] = useState<any>(undefined);
   const navigate = useNavigate();
-  // console.log(state);
-  // console.log(localStorage.getItem("pickCateId"));
+
   useMemo(async () => {
     if (!getItems) {
       try {
@@ -57,7 +53,7 @@ function CategoryItem() {
           </div>
           <TableListItem
             itemList={dataFilter ? dataFilter : getItems}
-            editPage={"/items/editItem"}
+            // editPage={"/items/editItem"}
             isPage={"category_item"}
           />
         </>

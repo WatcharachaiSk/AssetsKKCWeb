@@ -13,6 +13,7 @@ import { GetKanitFont } from "../../config/fonts";
 // import ButtonBack from "../../components/buttons/ButtonBack";
 import SearchItem from "../ItemPage/components/dropdowns/SearchItem";
 import NavbarItem from "../../components/navbar/NavbarItem";
+import { Button } from "react-bootstrap";
 // import LoaderTable from "../../components/lottiefiles/LoaderTable";
 
 function TypeItems() {
@@ -62,6 +63,10 @@ function TypeItems() {
           <div className="mt-3" style={{ textAlign: "center", fontSize: 26 }}>
             ยังไม่มีข้อมูลครุภัณฑ์
           </div>
+          {/* <div className="d-flex justify-content-center mt-1">
+            <Button variant="danger">ลบชนิดครุภัณฑ์</Button>
+          </div> */}
+
           {/* <LoaderTable /> */}
         </>
       )}

@@ -1,14 +1,17 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import _ from "lodash";
 import { useNavigate } from "react-router-dom";
-import { Container, Card, Button } from "react-bootstrap";
+import { Container, Card, Button, Overlay, Popover } from "react-bootstrap";
 import Moment from "react-moment";
 import colors from "../../../config/colors";
 import colorsCate from "../../../config/colorsCate";
 import { filterStatus } from "../../../config/filterStatusArr";
 import { toLocaleStringEn } from "../../../config/number/formatEN";
+import { FiMoreVertical } from "react-icons/fi";
+import ModalDeletelType from "../../../components/modal/ModalDeletelType";
+import { BiTrash } from "react-icons/bi";
 function CardList(props: any) {
-  const { listItem, pageShowItem, isShow } = props;
+  const { listItem, pageShowItem, isShow, setGetTypeItem } = props;
   const navigate = useNavigate();
   const [getVauleNormal, setgetVauleNormal] = useState<any>();
   const [getVauleNotNormal, setgetVauleNotNormal] = useState<any>();
@@ -26,8 +29,27 @@ function CardList(props: any) {
     }
   }, [listItem]);
 
+  //
+  const [modalShowDel, setModalShowDel] = useState(false);
+
+  const [itemDel, setitemDel] = useState();
+
+  const loadData = () => {
+    setGetTypeItem(undefined);
+  };
+
   return (
     <>
+      {modalShowDel && (
+        <ModalDeletelType
+          show={modalShowDel}
+          onHide={() => setModalShowDel(false)}
+          isPage={"type"}
+          item={itemDel}
+          title={"ชนิดครุภัณฑ์"}
+          loadData={loadData}
+        />
+      )}
       <Container>
         <div className="d-flex flex-row justify-content-center flex-wrap bd-highlight mb-3">
           {_.map(listItem, (item, index: any) => {
@@ -144,7 +166,11 @@ function CardList(props: any) {
                   <>
                     <Card.Header style={{ backgroundColor: colorsCate[index] }}>
                       <Card.Title style={{ fontSize: 20, textAlign: "center" }}>
-                        {item?.name}
+                        <div className="d-flex justify-content-between">
+                          <div></div>
+                          <div>{item?.name}</div>
+                          <div></div>
+                        </div>
                       </Card.Title>
                     </Card.Header>
                     <Card.Body>
@@ -245,19 +271,42 @@ function CardList(props: any) {
                         {/* <Card.Text></Card.Text> */}
                       </Card.Subtitle>
                     </Card.Body>
-                    <Card.Footer className="d-flex flex-row-reverse bd-highligh">
-                      <Button
-                        variant="warning"
-                        onClick={() => {
-                          if (isShow === "type") {
-                            localStorage.setItem("pickTypeId", item.type_id);
-                            navigate(pageShowItem);
-                          } else {
-                          }
-                        }}
-                      >
-                        ดูรายการครุภัณฑ์
-                      </Button>
+                    <Card.Footer className="">
+                      <div className="d-flex justify-content-between">
+                        <div>
+                          {item?.items?.length == 0 && (
+                            <Button
+                              variant="link"
+                              style={{ color: colors.black }}
+                              onClick={(e: any) => {
+                                // console.log(item);
+                                setitemDel(item);
+                                setModalShowDel(true);
+                              }}
+                            >
+                              <BiTrash size={20} />
+                            </Button>
+                          )}
+                        </div>
+                        <div></div>
+                        <div>
+                          <Button
+                            variant="warning"
+                            onClick={() => {
+                              if (isShow === "type") {
+                                localStorage.setItem(
+                                  "pickTypeId",
+                                  item.type_id
+                                );
+                                navigate(pageShowItem);
+                              } else {
+                              }
+                            }}
+                          >
+                            ดูรายการครุภัณฑ์
+                          </Button>
+                        </div>
+                      </div>
                     </Card.Footer>
                   </>
                 )}

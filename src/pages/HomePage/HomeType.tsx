@@ -19,14 +19,16 @@ function HomeType() {
   const [dataFilter, setDataFilter] = useState<any>(undefined);
   // console.log(getTypeItem);
   useMemo(async () => {
-    try {
-      const resType = await axios(configAxios("get", API.getTypeItem));
-      setGetTypeItem(resType.data);
-    } catch (error: any) {
-      // console.log("err = ", error.request.status);
-      checkToken(error.response.data.status, error.request.status, navigate);
+    if (!getTypeItem) {
+      try {
+        const resType = await axios(configAxios("get", API.getTypeItem));
+        setGetTypeItem(resType.data);
+      } catch (error: any) {
+        // console.log("err = ", error.request.status);
+        checkToken(error.response.data.status, error.request.status, navigate);
+      }
     }
-  }, []);
+  }, [getTypeItem]);
   return (
     <>
       <div style={{ ...GetKanitFont("KanitLight") }}>
@@ -48,6 +50,7 @@ function HomeType() {
               />
             </div>
             <CardList
+              setGetTypeItem={setGetTypeItem}
               listItem={dataFilter ? dataFilter : getTypeItem}
               isShow={"type"}
               pageShowItem={pathRoutesPage.TypeItems}
