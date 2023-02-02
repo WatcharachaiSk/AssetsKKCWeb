@@ -31,7 +31,7 @@ function PaginationItem(props: any) {
 
   return (
     <>
-      <Pagination >
+      <Pagination>
         {_.map(paginationCount, (item, idx) => {
           return (
             <div key={idx + 1}>
@@ -39,8 +39,10 @@ function PaginationItem(props: any) {
                 <Pagination.Item active>{idx + 1}</Pagination.Item>
               ) : (
                 <Pagination.Item
+                  // href="#"
                   onClick={() => {
                     setActivePage(idx + 1, idx, item);
+                    // location.reload();
                   }}
                 >
                   {idx + 1}

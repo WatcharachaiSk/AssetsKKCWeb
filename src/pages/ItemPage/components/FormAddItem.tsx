@@ -338,8 +338,7 @@ function FormAddItem(props: any) {
             รหัสครุภัณฑ์{" "}
             <span style={{ color: colors.statusColor0ff }}>
               (<IoMdHelpCircleOutline size={15} color={colors.statusColor0ff} />{" "}
-              กรณีรอหมายเลขครุภัณฑ์กรุณาใส่ " - " , " ไม่มี "
-              หรือใส่ไม่เกิน9คำ)
+              กรณีรอหมายเลขครุภัณฑ์กรุณาใส่ " - " , " ไม่มี " หรือใส่ไม่เกิน9คำ)
             </span>
           </Form.Label>
           <Form.Control
@@ -415,6 +414,7 @@ function FormAddItem(props: any) {
         <Form.Group className="mb-3" controlId="formFaculty">
           <Form.Label>เลือกคณะ</Form.Label>
           <Form.Select
+            value={idFty}
             onChange={(event: any) => {
               handleChangeFty(event);
             }}
@@ -447,6 +447,8 @@ function FormAddItem(props: any) {
         <Form.Group className="mb-3" controlId="formDepartment">
           <Form.Label>เลือกสาขา</Form.Label>
           <Form.Select
+            value={idDpm}
+            disabled={idFty == 0 ? true : false}
             style={{ backgroundColor: idFty != 0 ? "" : "#DCDCDC" }}
             onChange={(event: any) => {
               handleChangeDpm(event);
@@ -495,6 +497,8 @@ function FormAddItem(props: any) {
         <Form.Group className="mb-3" controlId="formBuilding">
           <Form.Label>เลือกอาคาร</Form.Label>
           <Form.Select
+            value={IdBud}
+            disabled={idDpm == 0 ? true : false}
             style={{ backgroundColor: idDpm != 0 ? "" : "#DCDCDC" }}
             onChange={(event: any) => {
               handleChangeBud(event);
@@ -522,6 +526,8 @@ function FormAddItem(props: any) {
         <Form.Group className="mb-3" controlId="formLocation">
           <Form.Label>เลือกสถานที่</Form.Label>
           <Form.Select
+            value={idLocat}
+            disabled={IdBud == 0 ? true : false}
             style={{ backgroundColor: IdBud != 0 ? "" : "#DCDCDC" }}
             onChange={(event: any) => {
               handleChangeLocat(event);

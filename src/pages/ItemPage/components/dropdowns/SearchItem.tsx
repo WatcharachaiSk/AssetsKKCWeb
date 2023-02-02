@@ -234,6 +234,7 @@ function SearchItem(props: any) {
           >
             รอหมายเลขครุภัณฑ์
           </Button>
+          {/*  */}
         </BoxFlex>
         {/*  */}
         <OverlayTrigger

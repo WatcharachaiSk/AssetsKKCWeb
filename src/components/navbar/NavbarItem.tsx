@@ -67,8 +67,8 @@ function NavbarItem(props: any) {
         <Navbar.Collapse id="responsive-navbar-nav">
           {/*  */}
           <Nav
-            className="me-auto my-2 my-lg-0"
-            style={{ maxHeight: "100px" }}
+            className=""
+            // style={{ maxHeight: "100px" }}
             navbarScroll
           >
             <Nav.Link
@@ -81,6 +81,21 @@ function NavbarItem(props: any) {
             </Nav.Link>
             {/*  */}
             {/*  */}
+
+            {/*  */}
+
+            {/*  */}
+            {/* <Nav.Link
+              onClick={() => {
+                navigatePage("/items");
+              }}
+              style={styles.fontNavLink}
+            >
+              <TitleItem color={clickPage}>รายการครุภัณฑ์ทั้งหมด</TitleItem>
+            </Nav.Link> */}
+            {/*  */}
+          </Nav>
+          <Nav>
             <NavDropdown
               style={styles.fontNavDropdown}
               title={<TitleItem color={clickPage}>ครุภัณฑ์</TitleItem>}
@@ -114,7 +129,9 @@ function NavbarItem(props: any) {
                 ชนิดครุภัณฑ์
               </NavDropdown.Item>
             </NavDropdown>
-            {/*  */}
+          </Nav>
+          {/*  */}
+          <Nav className="me-auto">
             <NavDropdown
               style={styles.fontNavDropdown}
               title={
@@ -174,7 +191,6 @@ function NavbarItem(props: any) {
                 ชนิดครุภัณฑ์
               </NavDropdown.Item>
             </NavDropdown>
-            {/*  */}
             {getUserAdmin && (
               <Nav.Link
                 onClick={() => {
@@ -185,17 +201,6 @@ function NavbarItem(props: any) {
                 <EditUser color={clickPage}>จัดการผู้ใช้งาน</EditUser>
               </Nav.Link>
             )}
-
-            {/*  */}
-            {/* <Nav.Link
-              onClick={() => {
-                navigatePage("/items");
-              }}
-              style={styles.fontNavLink}
-            >
-              <TitleItem color={clickPage}>รายการครุภัณฑ์ทั้งหมด</TitleItem>
-            </Nav.Link> */}
-            {/*  */}
           </Nav>
           <Nav>
             <Nav.Link

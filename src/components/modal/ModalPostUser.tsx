@@ -1,4 +1,5 @@
 import { Button, Table, Modal } from "react-bootstrap";
+import { GetKanitFont } from "../../config/fonts";
 
 function ModalPostUser(props: any) {
   const { modalShow, onSubmitFn, chackData, title, isPage } = props;
@@ -6,6 +7,7 @@ function ModalPostUser(props: any) {
 
   return (
     <Modal
+      style={{ ...GetKanitFont("KanitLight") }}
       show={modalShow}
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"

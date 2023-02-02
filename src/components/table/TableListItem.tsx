@@ -25,7 +25,7 @@ import { BsClipboard } from "react-icons/bs";
 import {
   chackStatusItem,
   chackStatusItemColor,
-  chackCodeStatus,
+  // chackCodeStatus,
   chackCodeStatusColor,
   chackCodeStatusCo,
 } from "../../config/chackStatusItem";
@@ -55,10 +55,16 @@ function TableListItem(props: any) {
   const [paginationCount, setPaginationCount] = useState<any>();
   const [itemListPaninat, setItemListPaninat] = useState<any>(itemList);
   // console.log(itemListPaninat);
+  // console.log(paginationCount);
 
   // Todo
   const [dataItem, setDataItem] = useState<any>();
   // console.log("dataItem = ", dataItem);
+  const isListPage: any = localStorage.getItem("paginationItem");
+  // console.log(isListPage);
+  useEffect(() => {
+    setSelectItemAll(undefined);
+  }, [isListPage]);
 
   useEffect(() => {
     let countPage = [];
@@ -308,6 +314,12 @@ function TableListItem(props: any) {
                     <Form.Group className="mb-3">
                       <Form.Check
                         // checked={checkedAll ? true : false}
+                        color="red"
+                        style={{
+                          borderWidth: 1,
+                          borderColor: selectItemAll ? "red" : "",
+                          backgroundColor: selectItemAll ? "#0d6efd" : "",
+                        }}
                         disabled={selectItemAll ? true : false}
                         value={item?.item_id}
                         onChange={(event: any) => {
@@ -325,7 +337,6 @@ function TableListItem(props: any) {
 
                             setSelectItem(arrPut);
                           }
-                          // console.log("arrPut = ", arrPut);
                         }}
                       />
                     </Form.Group>
@@ -438,33 +449,39 @@ function TableListItem(props: any) {
           setModalShowAll(true);
         }}
       >
-        สั่งพิมพ์ที่เลือก
+        สั่งพิมพ์
       </Button>
       {dataItem && itemList && (
-        <Button
-          className="m-2"
-          size="lg"
-          variant={"outline-success"}
-          onClick={() => {}}
+        <OverlayTrigger
+          overlay={
+            <Tooltip id="tooltip-disabled">ส่งออก(.csv)ครุภัณฑ์ทั้งหมด</Tooltip>
+          }
         >
-          <CSVLink
-            style={{ textDecoration: "none", color: "#000000" }}
-            filename={`${moment().format("DD_MM_YYYY-HH:mm")}_Assets_KKC.csv`}
-            headers={headers}
-            data={dataItem}
-            target="_blank"
-            onClick={(event: any) => {
-              // console.log("You click the link");
-              setModalShowModalDownload(true);
-              setTimeout(() => {
-                setModalShowModalDownload(false);
-              }, 10000);
-              return true; // 👍🏻 You are stopping the handling of component
-            }}
+          <Button
+            className="m-2"
+            size="lg"
+            variant={"outline-success"}
+            onClick={() => {}}
           >
-            <SiMicrosoftexcel size={23} /> ดาวน์โหลดไฟล์ .csv
-          </CSVLink>
-        </Button>
+            <CSVLink
+              style={{ textDecoration: "none", color: "#000000" }}
+              filename={`${moment().format("DD_MM_YYYY-HH:mm")}_Assets_KKC.csv`}
+              headers={headers}
+              data={dataItem}
+              target="_blank"
+              onClick={(event: any) => {
+                // console.log("You click the link");
+                setModalShowModalDownload(true);
+                setTimeout(() => {
+                  setModalShowModalDownload(false);
+                }, 10000);
+                return true; // 👍🏻 You are stopping the handling of component
+              }}
+            >
+              <SiMicrosoftexcel size={23} /> ส่งออก(.csv)
+            </CSVLink>
+          </Button>
+        </OverlayTrigger>
       )}
 
       <div className="d-flex justify-content-center">
