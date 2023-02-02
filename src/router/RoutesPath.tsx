@@ -43,7 +43,7 @@ import Dashboard from "../pages/Dashboard/Dashboard";
 import ApplicationDownload from "../pages/ApplicationDownload/ApplicationDownload";
 
 //test
-import UpTestt from "../pages/upTest/UpTestt";
+// import UpTestt from "../pages/upTest/UpTestt";
 
 function RoutesPath() {
   return (
@@ -51,7 +51,7 @@ function RoutesPath() {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/test_Up" element={<UpTestt />} />
+        {/* <Route path="/test_Up" element={<UpTestt />} /> */}
         <Route path="/application_download" element={<ApplicationDownload />} />
 
         {/* Home */}
