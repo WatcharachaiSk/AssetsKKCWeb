@@ -338,7 +338,7 @@ function FormAddItem(props: any) {
             รหัสครุภัณฑ์{" "}
             <span style={{ color: colors.statusColor0ff }}>
               (<IoMdHelpCircleOutline size={15} color={colors.statusColor0ff} />{" "}
-              กรณีรอหมายเลขครุภัณฑ์กรุณาใส่ " - " , " ไม่มี " หรือใส่ไม่เกิน9คำ)
+              กรณีรอหมายเลขครุภัณฑ์กรุณาใส่ " - " , " ไม่มี " หรือใส่ไม่เกิน9ตัวอักษร)
             </span>
           </Form.Label>
           <Form.Control

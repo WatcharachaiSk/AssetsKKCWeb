@@ -7,6 +7,7 @@ import getBase64 from "../../../config/getBase64";
 import images from "../../../config/index.images";
 import { sweet_basic } from "../../sweetalert2/sweet";
 import checkStatus from "../../../config/checkStatus";
+import { GetKanitFont } from "../../../config/fonts";
 function UpdateImgProfile(props: any) {
   const { getProfile, switchData } = props;
   const [showFile, setShowFile] = useState<any>();
@@ -32,6 +33,7 @@ function UpdateImgProfile(props: any) {
   };
   return (
     <Modal
+    style={{ ...GetKanitFont("KanitLight") }}
       {...props}
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"

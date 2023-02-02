@@ -60,7 +60,7 @@ function Login() {
       <Container style={{ ...GetKanitFont("KanitLight") }}>
         <div className="d-flex justify-content-center flex-column align-items-center mb-3">
           <div>
-            <h2 className="mt-3">Asset Management System RMUTI KKC</h2>
+            <h2 className="mt-3">Assets Management System RMUTI KKC</h2>
           </div>
           <div>
             <span>

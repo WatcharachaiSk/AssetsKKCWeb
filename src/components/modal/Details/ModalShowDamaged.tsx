@@ -1,6 +1,7 @@
 import React from "react";
 
 import { Button, Modal } from "react-bootstrap";
+import { GetKanitFont } from "../../../config/fonts";
 import images from "../../../config/index.images";
 import { setURLItemDamaged } from "../../../config/setURL_image";
 
@@ -15,6 +16,7 @@ function ModalShowDamaged(props: any) {
   return (
     <>
       <Modal
+        style={{ ...GetKanitFont("KanitLight") }}
         {...props}
         size="lg"
         aria-labelledby="contained-modal-title-vcenter"

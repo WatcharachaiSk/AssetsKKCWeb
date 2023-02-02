@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
+import { GetKanitFont } from "../../../config/fonts";
 
 import images from "../../../config/index.images";
 import { setURLProfile } from "../../../config/setURL_image";
@@ -18,6 +19,7 @@ function ModalShowImgProfile(props: any) {
   }, [getProfile]);
   return (
     <Modal
+      style={{ ...GetKanitFont("KanitLight") }}
       {...props}
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"

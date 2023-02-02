@@ -97,7 +97,7 @@ function ApplicationDownload() {
                     textAlign: "center",
                   }}
                 >
-                  Application Asset Management System RMUTI KKC
+                  Application Assets Management System RMUTI KKC
                 </div>
                 <div className="d-flex justify-content-center mt-5">
                   <Button

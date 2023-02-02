@@ -1,4 +1,5 @@
 import { Button, Table, Modal } from "react-bootstrap";
+import { GetKanitFont } from "../../config/fonts";
 
 function ModalPostLocate(props: any) {
   const {
@@ -12,6 +13,7 @@ function ModalPostLocate(props: any) {
 
   return (
     <Modal
+      style={{ ...GetKanitFont("KanitLight") }}
       show={modalShowCheckLocate}
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"

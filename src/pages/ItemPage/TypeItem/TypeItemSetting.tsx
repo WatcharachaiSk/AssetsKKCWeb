@@ -28,8 +28,8 @@ function TypeItemSetting() {
   }, []);
   return (
     <div style={{ ...GetKanitFont("KanitLight") }}>
-      <NavbarTop clickPage={"setting"} />
-      <NavbarItem clickPage={"setting"} />
+      <NavbarTop clickPage={"items"} />
+      <NavbarItem clickPage={"items"} />
       <div className="d-flex justify-content-center mt-5 mb-2">
         <h3>ชนิดครุภัณฑ์</h3>
       </div>

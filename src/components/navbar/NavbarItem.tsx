@@ -128,6 +128,23 @@ function NavbarItem(props: any) {
               >
                 ชนิดครุภัณฑ์
               </NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item
+                style={styles.fontNavLink}
+                onClick={() => {
+                  navigatePage(pathRoutesPage.CategorySetting);
+                }}
+              >
+                จัดการหมวดหมู่ครุภัณฑ์
+              </NavDropdown.Item>
+              <NavDropdown.Item
+                style={styles.fontNavLink}
+                onClick={() => {
+                  navigatePage(pathRoutesPage.TypeItemSetting);
+                }}
+              >
+                จัดการชนิดครุภัณฑ์
+              </NavDropdown.Item>
             </NavDropdown>
           </Nav>
           {/*  */}
@@ -173,22 +190,6 @@ function NavbarItem(props: any) {
                 }}
               >
                 สถานที่
-              </NavDropdown.Item>
-              <NavDropdown.Item
-                style={styles.fontNavLink}
-                onClick={() => {
-                  navigatePage(pathRoutesPage.CategorySetting);
-                }}
-              >
-                หมวดหมู่ครุภัณฑ์
-              </NavDropdown.Item>
-              <NavDropdown.Item
-                style={styles.fontNavLink}
-                onClick={() => {
-                  navigatePage(pathRoutesPage.TypeItemSetting);
-                }}
-              >
-                ชนิดครุภัณฑ์
               </NavDropdown.Item>
             </NavDropdown>
             {getUserAdmin && (
