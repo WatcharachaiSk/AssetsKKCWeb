@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { GetKanitFont } from "../../../config/fonts";
@@ -57,6 +57,10 @@ function Login() {
   //   /* width: auto; */
   //   /* height: 50vh; */
   // `;
+  const [index, setIndex] = useState(0);
+  const handleSelect = (selectedIndex: any, e: any) => {
+    setIndex(selectedIndex);
+  };
   return (
     <>
       <NavbarTopLogin />
@@ -74,14 +78,14 @@ function Login() {
         </div>
         <Row>
           <Col sm={8} style={{ backgroundColor: "#fcfcfc" }}>
-            <Carousel fade>
+            <Carousel activeIndex={index} onSelect={handleSelect}>
               {_.map(imgPage, (item, idx) => {
                 return (
                   <Carousel.Item key={idx}>
                     <img
                       className="d-block w-100 h-100"
                       src={item}
-                      alt="First slide"
+                      alt="Second slide"
                     />
                   </Carousel.Item>
                 );

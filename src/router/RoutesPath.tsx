@@ -51,7 +51,7 @@ function RoutesPath() {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/login" element={<Login />} />
-        {/* <Route path="/test_Up" element={<UpTestt />} /> */}
+        <Route path="/test_Up" element={<UpTestt />} />
         <Route path="/application_download" element={<ApplicationDownload />} />
 
         {/* Home */}

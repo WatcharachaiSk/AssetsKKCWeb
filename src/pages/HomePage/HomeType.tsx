@@ -23,6 +23,7 @@ function HomeType() {
       try {
         const resType = await axios(configAxios("get", API.getTypeItem));
         setGetTypeItem(resType.data);
+        localStorage.setItem("paginationItem", "1");
       } catch (error: any) {
         // console.log("err = ", error.request.status);
         checkToken(error.response.data.status, error.request.status, navigate);

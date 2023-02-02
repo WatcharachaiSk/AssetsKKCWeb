@@ -14,7 +14,7 @@ import { GetKanitFont } from "../../config/fonts";
 import SearchItem from "../ItemPage/components/dropdowns/SearchItem";
 import NavbarItem from "../../components/navbar/NavbarItem";
 import { Button } from "react-bootstrap";
-// import LoaderTable from "../../components/lottiefiles/LoaderTable";
+import LoaderTable from "../../components/lottiefiles/LoaderTable";
 
 function TypeItems() {
   // const { state } = useLocation();
@@ -67,7 +67,7 @@ function TypeItems() {
             <Button variant="danger">ลบชนิดครุภัณฑ์</Button>
           </div> */}
 
-          {/* <LoaderTable /> */}
+          <LoaderTable />
         </>
       )}
     </div>

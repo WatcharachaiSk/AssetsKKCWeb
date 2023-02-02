@@ -7,6 +7,7 @@ import checkToken from "../../config/checkToken";
 import { useNavigate } from "react-router-dom";
 import { chackStatusItem } from "../../config/chackStatusItem";
 import moment from "moment";
+import ReactPaginate from "react-paginate";
 // interface LineProps {
 //   options: ChartOptions<"line">;
 //   data: ChartData<"line">;
@@ -107,6 +108,22 @@ function UpTestt() {
     ["Raed", "Labes", "rl@smthing.co.com"],
     ["Yezzi", "Min l3b", "ymin@cocococo.com"],
   ];
+  //
+  const items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
+  const [itemOffset, setItemOffset] = useState(0);
+  const endOffset = itemOffset + getItems;
+  console.log(`Loading items from ${itemOffset} to ${endOffset}`);
+  const currentItems = items.slice(itemOffset, endOffset);
+  const pageCount = Math.ceil(items.length / getItems);
+
+  // Invoke when user click to request another page.
+  const handlePageClick = (event: any) => {
+    const newOffset = (event.selected * getItems) % items.length;
+    console.log(
+      `User requested page number ${event.selected}, which is offset ${newOffset}`
+    );
+  };
+
   return (
     <>
       {getItems && dataItem && (
@@ -119,6 +136,15 @@ function UpTestt() {
           >
             Download me
           </CSVLink>
+          <ReactPaginate
+            breakLabel="..."
+            nextLabel="next >"
+            onPageChange={handlePageClick}
+            pageRangeDisplayed={5}
+            pageCount={pageCount}
+            previousLabel="< previous"
+            // renderOnZeroPageCount={null}
+          />
         </>
       )}
     </>

@@ -24,6 +24,7 @@ function HomeCate() {
     try {
       const res = await axios(configAxios("get", API.getCategory));
       setGetCategory(res.data);
+      localStorage.setItem("paginationItem", "1");
     } catch (error: any) {
       // console.log("err = ", error.request.status);
       checkToken(error.response.data.status, error.request.status, navigate);

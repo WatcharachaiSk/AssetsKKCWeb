@@ -123,11 +123,6 @@ function TableListItem(props: any) {
     } else {
       max = max - 1;
     }
-
-    // console.log(paginationCount.length);
-
-    // console.log("min = " + min + ", max = " + max);
-
     const itemListPT = _.filter(itemList, (item: any, idx: any) => {
       return idx >= min && idx <= max;
     });
@@ -435,9 +430,12 @@ function TableListItem(props: any) {
           {/*  */}
         </Table>
         <Card.Footer>
-          <div className="d-flex justify-content-end">
-            {itemListPaninat.length} / {itemList.length}
-          </div>
+          {paginationCount && (
+            <div className="d-flex justify-content-end">
+              {paginationCount[Number(isListPage) - 1]} / {itemList.length} (
+              {paginationCount.length} หน้า)
+            </div>
+          )}
         </Card.Footer>
       </Card>
       <Button
@@ -484,7 +482,15 @@ function TableListItem(props: any) {
         </OverlayTrigger>
       )}
 
-      <div className="d-flex justify-content-center">
+      <div
+        style={{
+          width: "100%",
+          // height: 350,
+          display: "flex",
+          overflow: "auto",
+        }}
+        className="d-flex justify-content-center flex-wrap"
+      >
         {paginationCount && (
           <PaginationItem
             paginationCount={paginationCount}
