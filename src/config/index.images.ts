@@ -10,6 +10,9 @@ const images = {
   mobileStatus: require("../assets/images/mobile/Status.png"),
   mobileLocate: require("../assets/images/mobile/locate.png"),
   mobileScss: require("../assets/images/mobile/scss.png"),
+
+  loginPage1: require("../assets/images/login/1_login.png"),
+  loginPage2: require("../assets/images/login/2_login.png"),
 };
 
 export default images;

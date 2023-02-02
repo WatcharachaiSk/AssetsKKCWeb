@@ -13,7 +13,8 @@ import axios from "axios";
 import configAxios from "../../../axios/configAxios";
 // import checkToken from "../../../config/checkToken";
 import { API } from "../../../axios/swr/endpoint";
-
+import images from "../../../config/index.images";
+import _ from "lodash";
 function Login() {
   const navigate = useNavigate();
 
@@ -46,6 +47,8 @@ function Login() {
     } else {
     }
   }, []);
+  const imgPage = [images.loginPage1, images.loginPage2];
+
   // const Fullscreen = styled.div`
   //   /* display: flex; */
   //   /* background: #fdfd no-repeat; */
@@ -72,14 +75,17 @@ function Login() {
         <Row>
           <Col sm={8} style={{ backgroundColor: "#fcfcfc" }}>
             <Carousel fade>
-              <Carousel.Item>
-                <img
-                  className="d-block w-100"
-                  src="https://uploads-ssl.webflow.com/60edc0a8835d5b38bf11f03f/61cf04e57e4e9122241998dc_Why-business-needs-an-Asset-Management-System.png"
-                  alt="First slide"
-                />
-                <Carousel.Caption></Carousel.Caption>
-              </Carousel.Item>
+              {_.map(imgPage, (item, idx) => {
+                return (
+                  <Carousel.Item key={idx}>
+                    <img
+                      className="d-block w-100 h-100"
+                      src={item}
+                      alt="First slide"
+                    />
+                  </Carousel.Item>
+                );
+              })}
             </Carousel>
           </Col>
           <Col sm={4} className="">
