@@ -34,7 +34,8 @@ function ModalBlockUser(props: any) {
         <Form.Group className="mb-2">
           <Form.Label>
             กรุณากรอกชื่อ ({pickUser?.firstname}){" "}
-            ให้ตรงกันเพื่อเปลี่ยนสถานะผู้ใช้งาน ({pickUser?.firstname})
+            ให้ตรงกันเพื่อเปลี่ยนสถานะผู้ใช้งาน (
+            <span style={{ color: "red" }}>{pickUser?.firstname}</span>)
           </Form.Label>
           <Form.Control
             size="lg"

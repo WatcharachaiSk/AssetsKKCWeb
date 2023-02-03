@@ -129,14 +129,14 @@ function FormInput(props: any) {
                     sweet_basic(
                       "warning",
                       "ข้อมูลไม่ครบ",
-                      `กรุณากรอกข้อมูลให้เรียบร้อย`
+                      `กรุณากรอก Username และ Password ให้เรียบร้อย`
                     );
                   }
                 }}
               >
                 {inputs?.username && inputs?.password
-                  ? "เข้าสู่ระบบ"
-                  : "ข้อมูลยังไม่ครบ"}
+                  ? "ลงชื่อเข้าใช้งาน"
+                  : "ลงชื่อเข้าใช้งาน"}
               </Button>
             </div>
           </Container>

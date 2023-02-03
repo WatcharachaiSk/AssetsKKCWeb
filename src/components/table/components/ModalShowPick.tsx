@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { GetKanitFont } from "../../../config/fonts";
 import pathRoutesPage from "../../../router/pathPage";
 
 function ModalShowPick(props: any) {
@@ -14,6 +15,7 @@ function ModalShowPick(props: any) {
   };
   return (
     <Modal
+      style={{ ...GetKanitFont("KanitLight") }}
       {...props}
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
