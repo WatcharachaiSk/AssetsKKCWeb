@@ -9,15 +9,20 @@ function ModalSelectQr(props: any) {
   const { idItems, items } = props;
 
   const [getItem, setGetItem] = useState();
+  // console.log(getItem);
   const [sizeQR, SetsizeQR] = useState<number>(120);
   const [sizeFont, SetSizeFont] = useState<number>(11);
   useEffect(() => {
+    let itemTrue = _.filter(idItems, (item: any) => {
+      return item.click == true;
+    });
+    // console.log(itemTrue);
     let itemsMap: any = [];
-    _.map(idItems, (value, key) => {
+    _.map(itemTrue, (value, key) => {
       // console.log(value);
       // console.log(key);
       let itemFiter = _.filter(items, (item: any) => {
-        return item.item_id == value;
+        return item.item_id == value.id;
       });
       itemsMap.push(itemFiter[0]);
       // console.log("itemFiter = ");
@@ -76,7 +81,7 @@ function ModalSelectQr(props: any) {
               <Form.Range
                 value={sizeFont}
                 min="6"
-                max="40"
+                max="20"
                 onChange={(event) => {
                   // console.log(event.target.value);
                   let range: any = Number(event.target.value);

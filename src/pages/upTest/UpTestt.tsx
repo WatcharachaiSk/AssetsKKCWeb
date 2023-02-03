@@ -1,5 +1,5 @@
 import { CSVLink, CSVDownload } from "react-csv";
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, useReducer } from "react";
 import axios from "axios";
 import configAxios from "../../axios/configAxios";
 import { API } from "../../axios/swr/endpoint";
@@ -8,143 +8,161 @@ import { useNavigate } from "react-router-dom";
 import { chackStatusItem } from "../../config/chackStatusItem";
 import moment from "moment";
 import ReactPaginate from "react-paginate";
+import _ from "lodash";
+import {
+  Table,
+  Button,
+  Form,
+  OverlayTrigger,
+  Tooltip,
+  Card,
+  Overlay,
+  Popover,
+} from "react-bootstrap";
 // interface LineProps {
 //   options: ChartOptions<"line">;
 //   data: ChartData<"line">;
 // }
-
+import { BiCheckboxChecked, BiCheckbox } from "react-icons/bi";
+import Checkbox from "../../components/Checkbox";
 function UpTestt() {
   const navigate = useNavigate();
-  const [getItems, setGetItems] = useState<any>();
-  // console.log("getItems = ", getItems);
-  const [dataItem, setDataItem] = useState<any>();
 
-  // console.log(moment().format("DD_MM_YYYY-HH:mm"));
+  // const [checkeds, setShecked] = useState<any>();
+  // const [reset, setReset] = useState<any>();
+  // //
+  // const getCheack = localStorage.getItem("arrClicked");
+  // console.log(reset);
+  // useEffect(() => {
+  //   console.log("getCheack = ", getCheack);
+  //   setReset(getCheack);
+  // }, [getCheack]);
+
+  // useMemo(() => {
+  //   let arrClicked = [];
+  //   for (let i = 0; i < items.length; i++) {
+  //     arrClicked.push(false);
+  //   }
+  //   // console.log(arrClicked);
+  //   setShecked(arrClicked);
+  // }, []);
+  const [getItems, setGetItems] = useState<{}>();
   useMemo(async () => {
     try {
-      const res: any = await axios(configAxios("get", API.getItem));
+      const res = await axios(configAxios("get", API.getItem));
       setGetItems(res.data);
-      let arrData = [];
-      for (let i = 0; i < res?.data.length; i++) {
-        arrData.push({
-          code: res?.data[i]?.code,
-          name: res?.data[i]?.name,
-          price: res?.data[i]?.price,
-          category: res?.data[i]?.category?.name,
-          typeitem: res?.data[i]?.typeitem?.name,
-          status_item: chackStatusItem(res?.data[i]?.status_item),
-          faculty: res?.data[i]?.faculty?.nameTH,
-          department: res?.data[i]?.department?.nameTH,
-          building: res?.data[i]?.building?.nameTH,
-          location: res?.data[i]?.location?.nameTH,
-          floor: res?.data[i]?.location?.floor,
-          purchase_date: moment(res?.data[i]?.typeitem?.purchase_date).format(
-            "DD/MM/YYYY"
-          ),
+
+      let arrCl: any = [];
+      {
+        _.map(res.data, (item: any, idx) => {
+          arrCl.push({ id: item.item_id, click: false });
         });
       }
-      // console.log(arrData);
-      setDataItem(arrData);
+      // console.log(arrCl);
+      setCheckeds(arrCl);
     } catch (error: any) {
       // console.log("err = ", error.request.status);
       checkToken(error.response.data.status, error.request.status, navigate);
     }
   }, []);
+  const initialState = {
+    click: false,
+    Change: false,
+  };
+  //
 
+  //
+  const reducer = (state: any, action: any) => ({ ...state, ...action });
+  const [state, setState] = useReducer(reducer, initialState);
+  const clearFilter = () => setState(initialState);
+
+  const [checkeds, setCheckeds] = useState<any>();
+
+  const [test, settest] = useState<boolean>(true);
+  // console.log("test", test);
   // useEffect(() => {
-  //   if (getItems) {
-  //     for (let i = 0; i < getItems.length; i++) {
-  //       arrData.push({
-  //         code: getItems[i]?.code,
-  //         name: getItems[i]?.name,
-  //         price: getItems[i]?.price,
-  //         category: getItems[i]?.category?.name,
-  //         typeitem: getItems[i]?.typeitem?.name,
-  //         status_item: chackStatusItem(getItems[i]?.status_item),
-  //         faculty: getItems[i]?.faculty?.nameTH,
-  //         department: getItems[i]?.department?.nameTH,
-  //         building: getItems[i]?.building?.nameTH,
-  //         location: getItems[i]?.location?.nameTH,
-  //         floor: getItems[i]?.location?.floor,
+  //   if (!getItems) {
+  //     let arrCl: any = [];
+  //     {
+  //       _.map(getItems, (item: any, idx) => {
+  //         arrCl.push({ id: item.item_id, click: false });
   //       });
   //     }
+  //     console.log(arrCl);
+  //     setCheckeds(arrCl);
   //   }
   // }, [getItems]);
-  // console.log("dataItem = ", dataItem);
-
-  const headers = [
-    { label: "หมายเลขครุภัณฑ์", key: "code" },
-    { label: "ชื่อครุภัณฑ์", key: "name" },
-    { label: "ราคาครุภัณฑ์", key: "price" },
-    { label: "หมวดหมู่ครุภัณฑ์", key: "category" },
-    { label: "ชนิดครุภัณฑ์", key: "typeitem" },
-    { label: "สถานะครุภัณฑ์", key: "status_item" },
-    { label: "คณะ", key: "faculty" },
-    { label: "สาขา", key: "department" },
-    { label: "อาคาร", key: "building" },
-    { label: "สถานที่", key: "location" },
-    { label: "ชั้น", key: "floor" },
-    { label: "วันที่ซื้อ", key: "purchase_date" },
-  ];
-
-  // const data = [
-  //   {
-  //     code: "",
-  //     name: "",
-  //     price: "",
-  //     category: "",
-  //     typeitem: "",
-  //     status_item: "",
-  //     faculty: "",
-  //     department: "",
-  //     building: "",
-  //     location: "",
-  //     floor: "",
-  //   },
-  // ];
-  const csvData = [
-    ["firstname", "lastname", "email"],
-    ["Ahmed", "Tomi", "ah@smthing.co.com"],
-    ["Raed", "Labes", "rl@smthing.co.com"],
-    ["Yezzi", "Min l3b", "ymin@cocococo.com"],
-  ];
-  //
-  const items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
-  const [itemOffset, setItemOffset] = useState(0);
-  const endOffset = itemOffset + getItems;
-  console.log(`Loading items from ${itemOffset} to ${endOffset}`);
-  const currentItems = items.slice(itemOffset, endOffset);
-  const pageCount = Math.ceil(items.length / getItems);
-
-  // Invoke when user click to request another page.
-  const handlePageClick = (event: any) => {
-    const newOffset = (event.selected * getItems) % items.length;
-    console.log(
-      `User requested page number ${event.selected}, which is offset ${newOffset}`
-    );
-  };
-
+  // console.log(checkeds);
+  // console.log(state);
   return (
     <>
-      {getItems && dataItem && (
+      <input
+        type="checkbox"
+        name="check"
+        id="check"
+        value="check"
+        onChange={(event: any) => {
+          console.log(event.target.checked);
+
+          let arrCl: any = [];
+          if (event.target.checked) {
+            {
+              _.map(getItems, (item: any, idx) => {
+                arrCl.push({ id: item.item_id, click: true });
+              });
+            }
+          } else {
+            {
+              _.map(getItems, (item: any, idx) => {
+                arrCl.push({ id: item.item_id, click: false });
+              });
+            }
+          }
+          setCheckeds(arrCl);
+        }}
+        // checkeds={checkeds["check"]}
+      />
+      {/* <button onClick={() => clearFilter()}>Limpiar</button> */}
+      <br />
+      <Checkbox
+        title="Click"
+        fnClick={(v: any) => setState({ click: v })}
+        checked={state.click}
+      />
+      <br />
+      <Checkbox
+        title="Change"
+        fnChange={(v: any) => setState({ change: v })}
+        checked={state.change}
+      />
+      <br />
+      click: {state.click ? "true" : "false"}
+      <br />
+      change: {state.change ? "true" : "false"}
+      <div>...........</div>
+      {getItems && (
         <>
-          {" "}
-          <CSVLink
-            filename={`${moment().format("DD_MM_YYYY-HH:mm")}_Assets_KKC.csv`}
-            headers={headers}
-            data={dataItem}
-          >
-            Download me
-          </CSVLink>
-          <ReactPaginate
-            breakLabel="..."
-            nextLabel="next >"
-            onPageChange={handlePageClick}
-            pageRangeDisplayed={5}
-            pageCount={pageCount}
-            previousLabel="< previous"
-            // renderOnZeroPageCount={null}
-          />
+          {_.map(getItems, (item: any, idx: any) => {
+            return (
+              <>
+                <div className="d-flex justify-content-center">
+                  <Checkbox
+                    // title="Change"
+                    fnChange={(v: any) => {
+                      // setState({ change: v })
+                      settest(!test);
+                      let arrClicked = checkeds;
+                      arrClicked[idx] = { id: arrClicked[idx].id, click: v };
+                      console.log(arrClicked);
+
+                      setCheckeds(arrClicked);
+                    }}
+                    checked={checkeds[idx].click}
+                  />
+                </div>
+              </>
+            );
+          })}
         </>
       )}
     </>
@@ -152,3 +170,70 @@ function UpTestt() {
 }
 
 export default UpTestt;
+/*
+
+      .....
+      <div>
+        <input
+          type="checkbox"
+          name="check"
+          id="check"
+          value="check"
+          onChange={(event: any) => {
+            let arrClicked = [];
+            if (event.target.checked) {
+              for (let i = 0; i < items.length; i++) {
+                arrClicked.push(true);
+              }
+            } else {
+              for (let i = 0; i < items.length; i++) {
+                arrClicked.push(false);
+              }
+            }
+            let arrString = arrClicked.toString();
+            localStorage.setItem("arrClicked", arrString);
+            setShecked(arrClicked);
+          }}
+          // checkeds={checkeds["check"]}
+        />
+        <label>check</label>
+      </div>
+
+      {checkeds && (
+        <>
+          {_.map(checkeds, (item: any, idx: any) => {
+            return (
+              <>
+                <div key={idx}>
+                  <Button
+                    style={{ width: 50, height: 50 }}
+                    value={idx}
+                    onClick={() => {
+                      // console.log("testClick");
+                      let arrClicked = checkeds;
+                      arrClicked[idx] = !arrClicked[idx];
+                      let arrString = arrClicked.toString();
+                      console.log("arrClicked " + arrString);
+                      localStorage.setItem("arrClicked", arrString);
+                      // setReset(arrClicked);
+                      // setTimeout(() => {
+                      //   setReset(idx);
+                      // }, 100);
+                    }}
+                  >
+                    <div className="d-flex justify-content-center">
+                      {item ? (
+                        <BiCheckboxChecked size={30} />
+                      ) : (
+                        <BiCheckbox size={30} />
+                      )}
+                    </div>
+                  </Button>
+                  <label>test{idx}</label>
+                </div>
+              </>
+            );
+          })}
+        </>
+      )}
+*/

@@ -4,7 +4,7 @@ import _ from "lodash";
 
 // import React from 'react'
 function PaginationItem(props: any) {
-  const { paginationCount, setItemList } = props;
+  const { paginationCount, setItemList, setCheckeds } = props;
 
   const [cilckActive, setCilckActive] = useState<any>(1);
   useEffect(() => {
@@ -23,7 +23,7 @@ function PaginationItem(props: any) {
   const setActivePage = (page: any, idx?: any, item?: any) => {
     // console.log("page: " + page + " idx: " + idx + " item: " + item);
     // console.log(page);
-
+    setCheckeds(undefined)
     localStorage.setItem("paginationItem", page);
     setCilckActive(page);
     setItemList(page);

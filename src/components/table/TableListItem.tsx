@@ -38,6 +38,7 @@ import moment from "moment";
 import { CSVLink } from "react-csv";
 import { SiMicrosoftexcel } from "react-icons/si";
 import ModalDownload from "../../pages/ApplicationDownload/components/ModalDownload";
+import Checkbox from "../Checkbox";
 function TableListItem(props: any) {
   const { itemList, editPage, isPage } = props;
 
@@ -62,8 +63,26 @@ function TableListItem(props: any) {
   // console.log("dataItem = ", dataItem);
   const isListPage: any = localStorage.getItem("paginationItem");
   // console.log(isListPage);
+
+  // console.log(itemList)
+  const [checkeds, setCheckeds] = useState<any>();
+  const [checkedsAll, setCheckedsAll] = useState<boolean>(false);
+  // console.log("isListPage = " + isListPage, " checkeds", checkeds);
+  const [checkReset, setCheckReset] = useState<boolean>(true);
   useEffect(() => {
-    setSelectItemAll(undefined);
+    setCheckedsAll(false);
+    setCheckeds(undefined);
+    // setSelectItemAll(undefined);
+    // setSelectItem([])
+    // todo
+    let arrCl: any = [];
+    {
+      _.map(itemListPaninat, (item: any, idx) => {
+        arrCl.push({ id: item.item_id, click: false });
+      });
+    }
+    // console.log(arrCl);
+    setCheckeds(arrCl);
   }, [isListPage]);
 
   useEffect(() => {
@@ -113,6 +132,16 @@ function TableListItem(props: any) {
     // console.log("2 =  " + chackCodeStatus("3156-3333"));
     // console.log("3 =  " + chackCodeStatus("-"));
     // console.log("4 =  " + chackCodeStatus("ไม่มี"));
+
+    // todo
+    let arrCl: any = [];
+    {
+      _.map(itemListPT, (item: any, idx) => {
+        arrCl.push({ id: item.item_id, click: false });
+      });
+    }
+    // console.log(arrCl);
+    setCheckeds(arrCl);
   }, [itemList]);
 
   const setItemList = (page: number) => {
@@ -126,6 +155,18 @@ function TableListItem(props: any) {
     const itemListPT = _.filter(itemList, (item: any, idx: any) => {
       return idx >= min && idx <= max;
     });
+    // console.log(itemListPT);
+
+    // Todo
+    // let arrCl: any = [];
+    // {
+    //   _.map(itemListPT, (item: any, idx) => {
+    //     arrCl.push({ id: item.item_id, click: false });
+    //   });
+    // }
+    // // console.log(arrCl);
+    // setCheckeds(arrCl);
+
     setItemListPaninat(itemListPT);
   };
 
@@ -200,7 +241,7 @@ function TableListItem(props: any) {
           show={modalShowAll}
           onHide={() => setModalShowAll(false)}
           items={itemList}
-          idItems={selectItemAll ? selectItemAll : selectItem}
+          idItems={checkeds}
         />
       )}
       {modalShowDetalis && (
@@ -246,26 +287,27 @@ function TableListItem(props: any) {
             <tr>
               <th>
                 เลือก
-                <Form.Group className="mb-3">
-                  <Form.Check
-                    // checked
-                    onChange={(event: any) => {
-                      // console.log(event.target.checked);
-                      let arrPut: any = [];
-                      // console.log("arrPut = ", arrPut);
-
-                      if (event.target.checked) {
-                        for (let i = 0; i < itemListPaninat.length; i++) {
-                          arrPut.push(itemListPaninat[i].item_id);
-                        }
-                      } else {
-                        arrPut = undefined;
-                      }
-                      setSelectItemAll(arrPut);
-                      // setSelectItem(arrPut);
-                    }}
-                  />
-                </Form.Group>
+                {itemListPaninat && (
+                  <Form.Group className="mb-3">
+                    <input
+                      style={{ width: 20, height: 20 }}
+                      type="checkbox"
+                      checked={checkedsAll}
+                      onChange={(event: any) => {
+                        setCheckedsAll(event.target.checked);
+                        let arrCl: any = [];
+                        _.map(itemListPaninat, (item: any, idx) => {
+                          arrCl.push({
+                            id: item.item_id,
+                            click: event.target.checked,
+                          });
+                        });
+                        // setSelectItemAll(arrPut);
+                        setCheckeds(arrCl);
+                      }}
+                    />
+                  </Form.Group>
+                )}
               </th>
               {/* <th>ลำดับ</th> */}
               <th>รายละเอียด</th>
@@ -295,137 +337,137 @@ function TableListItem(props: any) {
           </thead>
           {/*  */}
           <tbody>
-            {_.map(itemListPaninat, (item, idx: string) => {
-              return (
-                <tr
-                  key={idx}
-                  style={{
-                    fontSize: 18,
-                    height: "5rem",
-                    ...GetKanitFont("KanitLight"),
-                  }}
-                >
-                  <td>
-                    <Form.Group className="mb-3">
-                      <Form.Check
-                        // checked={checkedAll ? true : false}
-                        color="red"
+            {checkeds && (
+              <>
+                {_.map(itemListPaninat, (item, idx: string) => {
+                  return (
+                    <tr
+                      key={idx}
+                      style={{
+                        fontSize: 18,
+                        height: "5rem",
+                        ...GetKanitFont("KanitLight"),
+                      }}
+                    >
+                      <td>
+                        <Form.Group className="mb-3">
+                          {checkeds && (
+                            <Checkbox
+                              fnChange={(v: any) => {
+                                // setState({ change: v })
+                                setCheckReset(!checkReset);
+                                let arrClicked = checkeds;
+                                arrClicked[idx] = {
+                                  id: arrClicked[idx].id,
+                                  click: v,
+                                };
+                                //  console.log(arrClicked);
+
+                                setCheckeds(arrClicked);
+                              }}
+                              checked={checkeds[idx].click}
+                            />
+                          )}
+                        </Form.Group>
+                      </td>
+                      {/* <td>{idx + 1}</td> */}
+                      {/*  */}
+
+                      <OverlayTrigger
+                        overlay={
+                          <Tooltip id="tooltip-disabled">
+                            ดูรายละเอียดครุภัณฑ์
+                          </Tooltip>
+                        }
+                      >
+                        <td>
+                          <Button
+                            size="lg"
+                            variant="outline-dark"
+                            onClick={() => {
+                              setGetItem(item);
+                              setModalShowDetalis(true);
+                            }}
+                          >
+                            <BsClipboard color={colors.black} size={20} />
+                          </Button>
+                        </td>
+                      </OverlayTrigger>
+
+                      {/*  */}
+                      <td>
+                        <Button
+                          size="lg"
+                          variant="warning"
+                          onClick={(event: any) => {
+                            setPickItem(item);
+                            localStorage.setItem("itemItemEdit", item?.item_id);
+                            setModalShowPick(true);
+                          }}
+                        >
+                          <AiFillEdit color={colors.black} size={20} />
+                        </Button>
+                      </td>
+                      <td>
+                        <Button
+                          size="lg"
+                          variant="outline-dark"
+                          onClick={() => {
+                            setGetItem(item);
+                            setModalShowOne(true);
+                          }}
+                        >
+                          <IoQrCodeSharp color={colors.black} size={20} />
+                        </Button>
+                      </td>
+                      {/*  */}
+
+                      <td style={{ color: chackCodeStatusColor(item?.code) }}>
+                        {item?.code}{" "}
+                        <span style={{ color: colors.statusColor4 }}>
+                          {chackCodeStatusCo(item?.code)}
+                        </span>
+                      </td>
+                      <td> {item?.name}</td>
+
+                      {isPage != "category_item" && (
+                        <td>{item?.category?.name}</td>
+                      )}
+
+                      <td>{toLocaleStringEn(item?.price)}</td>
+                      <td
                         style={{
-                          borderWidth: 1,
-                          borderColor: selectItemAll ? "red" : "",
-                          backgroundColor: selectItemAll ? "#0d6efd" : "",
-                        }}
-                        disabled={selectItemAll ? true : false}
-                        value={item?.item_id}
-                        onChange={(event: any) => {
-                          // console.log(event.target.checked);
-                          let arrPut: any = selectItem ? selectItem : [];
-                          if (event.target.checked) {
-                            arrPut.push(event.target.value);
-                            setSelectItem(arrPut);
-                          } else {
-                            for (var i = 0; i < arrPut.length; i++) {
-                              if (arrPut[i] == event.target.value) {
-                                arrPut.splice(i, 1);
-                              }
-                            }
-
-                            setSelectItem(arrPut);
-                          }
-                        }}
-                      />
-                    </Form.Group>
-                  </td>
-                  {/* <td>{idx + 1}</td> */}
-                  {/*  */}
-
-                  <OverlayTrigger
-                    overlay={
-                      <Tooltip id="tooltip-disabled">
-                        ดูรายละเอียดครุภัณฑ์
-                      </Tooltip>
-                    }
-                  >
-                    <td>
-                      <Button
-                        size="lg"
-                        variant="outline-dark"
-                        onClick={() => {
-                          setGetItem(item);
-                          setModalShowDetalis(true);
+                          color: chackStatusItemColor(item?.status_item),
                         }}
                       >
-                        <BsClipboard color={colors.black} size={20} />
-                      </Button>
-                    </td>
-                  </OverlayTrigger>
+                        {/* {item?.status_item ? "ปกติ" : "ชำรุด"} */}
+                        {chackStatusItem(item?.status_item)}
+                      </td>
+                      {getUserAdmin ? (
+                        <>
+                          <td>{item?.faculty?.nameTH}</td>
+                          <td>{item?.department?.nameTH}</td>
+                        </>
+                      ) : (
+                        <></>
+                      )}
 
-                  {/*  */}
-                  <td>
-                    <Button
-                      size="lg"
-                      variant="warning"
-                      onClick={(event: any) => {
-                        setPickItem(item);
-                        localStorage.setItem("itemItemEdit", item?.item_id);
-                        setModalShowPick(true);
-                      }}
-                    >
-                      <AiFillEdit color={colors.black} size={20} />
-                    </Button>
-                  </td>
-                  <td>
-                    <Button
-                      size="lg"
-                      variant="outline-dark"
-                      onClick={() => {
-                        setGetItem(item);
-                        setModalShowOne(true);
-                      }}
-                    >
-                      <IoQrCodeSharp color={colors.black} size={20} />
-                    </Button>
-                  </td>
-                  {/*  */}
-
-                  <td style={{ color: chackCodeStatusColor(item?.code) }}>
-                    {item?.code}{" "}
-                    <span style={{ color: colors.statusColor4 }}>
-                      {chackCodeStatusCo(item?.code)}
-                    </span>
-                  </td>
-                  <td> {item?.name}</td>
-
-                  {isPage != "category_item" && <td>{item?.category?.name}</td>}
-
-                  <td>{toLocaleStringEn(item?.price)}</td>
-                  <td
-                    style={{ color: chackStatusItemColor(item?.status_item) }}
-                  >
-                    {/* {item?.status_item ? "ปกติ" : "ชำรุด"} */}
-                    {chackStatusItem(item?.status_item)}
-                  </td>
-                  {getUserAdmin ? (
-                    <>
-                      <td>{item?.faculty?.nameTH}</td>
-                      <td>{item?.department?.nameTH}</td>
-                    </>
-                  ) : (
-                    <></>
-                  )}
-
-                  <td>{item?.building?.nameTH}</td>
-                  <td>{item?.location.floor}</td>
-                  <td>{item?.location?.nameTH}</td>
-                  <td>
-                    {item?.profile?.firstname + " " + item?.profile?.lastname}
-                  </td>
-                  <td>
-                    <Moment format="DD/MM/YYYY">{item?.createdAt}</Moment>
-                  </td>
-                </tr>
-              );
-            })}
+                      <td>{item?.building?.nameTH}</td>
+                      <td>{item?.location.floor}</td>
+                      <td>{item?.location?.nameTH}</td>
+                      <td>
+                        {item?.profile?.firstname +
+                          " " +
+                          item?.profile?.lastname}
+                      </td>
+                      <td>
+                        <Moment format="DD/MM/YYYY">{item?.createdAt}</Moment>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </>
+            )}
           </tbody>
           {/*  */}
         </Table>
@@ -493,6 +535,7 @@ function TableListItem(props: any) {
       >
         {paginationCount && (
           <PaginationItem
+            setCheckeds={setCheckeds}
             paginationCount={paginationCount}
             setItemList={setItemList}
           />
