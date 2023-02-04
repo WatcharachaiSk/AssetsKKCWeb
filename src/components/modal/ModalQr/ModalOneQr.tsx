@@ -55,7 +55,7 @@ function ModalOneQr(props: any) {
               <Form.Range
                 value={sizeFont}
                 min="6"
-                max="40"
+                max="20"
                 onChange={(event: any) => {
                   // console.log(event.target.value);
                   let range: any = Number(event.target.value);
