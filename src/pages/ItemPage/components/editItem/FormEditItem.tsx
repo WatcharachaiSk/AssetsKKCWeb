@@ -382,7 +382,7 @@ function FormEditItem(props: any) {
             รหัสครุภัณฑ์{" "}
             <span style={{ color: colors.statusColor0ff }}>
               (<IoMdHelpCircleOutline size={15} color={colors.statusColor0ff} />{" "}
-              กรณีรอหมายเลขครุภัณฑ์กรุณาใส่ " - " , " ไม่มี " หรือใส่ไม่เกิน9ตัวอักษร)
+              กรณีรอหมายเลขครุภัณฑ์กรุณาใส่ " - " , " ไม่มี ")
             </span>
           </Form.Label>
           <Form.Control
@@ -471,7 +471,7 @@ function FormEditItem(props: any) {
             }}
             size="lg"
           >
-            <option value={0}>เลือกคณะ</option>
+            <option value={0}>คณะ</option>
 
             {_.map(getFaculty, (item: any) => {
               return (
@@ -487,7 +487,7 @@ function FormEditItem(props: any) {
         {/*  */}
         <Form.Group className="mb-3">
           <Form.Label>
-            เลือกสาขา ตอนนี้อยู่{" "}
+            สาขา ตอนนี้อยู่{" "}
             <span style={{ color: "#4c00ff", fontSize: 18 }}>
               ({department_Old?.nameTH + " " + department_Old?.nameEN})
             </span>
@@ -522,7 +522,7 @@ function FormEditItem(props: any) {
         {/*  */}
         <Form.Group className="mb-3">
           <Form.Label>
-            เลือกอาคาร ตอนนี้อยู่{" "}
+            อาคาร ตอนนี้อยู่{" "}
             <span style={{ color: "#4c00ff", fontSize: 18 }}>
               ({building_Old?.nameTH + " " + building_Old?.nameEN})
             </span>
@@ -551,7 +551,7 @@ function FormEditItem(props: any) {
         </Form.Group>
         <Form.Group className="mb-3" controlId="formFaculty">
           <Form.Label>
-            เลือกชนิดครุภัณฑ์ ตอนนี้อยู่{" "}
+            ชนิดครุภัณฑ์ ตอนนี้อยู่{" "}
             <span style={{ color: "#4c00ff", fontSize: 18 }}>
               ({typeItem_Old?.name})
             </span>

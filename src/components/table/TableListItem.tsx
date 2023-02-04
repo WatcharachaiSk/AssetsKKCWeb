@@ -7,8 +7,8 @@ import {
   OverlayTrigger,
   Tooltip,
   Card,
-  Overlay,
-  Popover,
+  // Overlay,
+  // Popover,
 } from "react-bootstrap";
 import { AiFillEdit } from "react-icons/ai";
 import { GetKanitFont } from "../../config/fonts";

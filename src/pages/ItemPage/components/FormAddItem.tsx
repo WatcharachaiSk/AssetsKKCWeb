@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState, useMemo, useEffect } from "react";
-import { Button, Form, Container } from "react-bootstrap";
+import { Button, Form, Container, Toast } from "react-bootstrap";
 import configAxios from "../../../axios/configAxios";
 import { API } from "../../../axios/swr/endpoint";
 import checkToken from "../../../config/checkToken";
@@ -282,6 +282,9 @@ function FormAddItem(props: any) {
     }
   }, []);
 
+  const [showA, setShowA] = useState(false);
+  const toggleShowA = () => setShowA(!showA);
+
   return (
     <Container style={{ borderRadius: 15, width: "100%", height: "100%" }}>
       {/*  */}
@@ -338,10 +341,11 @@ function FormAddItem(props: any) {
             รหัสครุภัณฑ์{" "}
             <span style={{ color: colors.statusColor0ff }}>
               (<IoMdHelpCircleOutline size={15} color={colors.statusColor0ff} />{" "}
-              กรณีรอหมายเลขครุภัณฑ์กรุณาใส่ " - " , " ไม่มี " หรือใส่ไม่เกิน9ตัวอักษร)
+              กรณีรอหมายเลขครุภัณฑ์กรุณาใส่ " - " , " ไม่มี ")
             </span>
           </Form.Label>
           <Form.Control
+            onClick={toggleShowA}
             size="lg"
             // style={{ height: "3rem" }}
             type="text"
@@ -350,6 +354,43 @@ function FormAddItem(props: any) {
             onChange={handleChangeCode}
           />
         </Form.Group>
+        <Toast show={showA} onClose={toggleShowA}>
+          <Toast.Header>
+            <strong className="me-auto">คำอัตโนมัติ</strong>
+          </Toast.Header>
+          <Toast.Body>
+            <div className="d-flex justify-content-center flex-wrap">
+              <Button
+                onClick={() => {
+                  setCodeItem("--");
+                  toggleShowA();
+                }}
+                variant="outline-primary"
+              >
+                --
+              </Button>{" "}
+              <Button
+                onClick={() => {
+                  setCodeItem("ไม่มี");
+                  toggleShowA();
+                }}
+                className="mx-2"
+                variant="outline-primary"
+              >
+                ไม่มี
+              </Button>{" "}
+              <Button
+                onClick={() => {
+                  setCodeItem("รอหมายเลข");
+                  toggleShowA();
+                }}
+                variant="outline-primary"
+              >
+                รอหมายเลข
+              </Button>
+            </div>
+          </Toast.Body>
+        </Toast>
         {/*  */}
         <Form.Group className="mb-3" controlId="formStatusItem">
           <Form.Label>สภานะครุภัณฑ์</Form.Label>
@@ -412,7 +453,7 @@ function FormAddItem(props: any) {
 
         {/*  */}
         <Form.Group className="mb-3" controlId="formFaculty">
-          <Form.Label>เลือกคณะ</Form.Label>
+          <Form.Label>คณะ</Form.Label>
           <Form.Select
             value={idFty}
             onChange={(event: any) => {
@@ -445,7 +486,7 @@ function FormAddItem(props: any) {
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formDepartment">
-          <Form.Label>เลือกสาขา</Form.Label>
+          <Form.Label>สาขา</Form.Label>
           <Form.Select
             value={idDpm}
             disabled={idFty == 0 ? true : false}
@@ -495,7 +536,7 @@ function FormAddItem(props: any) {
         {/*  */}
 
         <Form.Group className="mb-3" controlId="formBuilding">
-          <Form.Label>เลือกอาคาร</Form.Label>
+          <Form.Label>อาคาร</Form.Label>
           <Form.Select
             value={IdBud}
             disabled={idDpm == 0 ? true : false}
@@ -524,7 +565,7 @@ function FormAddItem(props: any) {
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formLocation">
-          <Form.Label>เลือกสถานที่</Form.Label>
+          <Form.Label>สถานที่</Form.Label>
           <Form.Select
             value={idLocat}
             disabled={IdBud == 0 ? true : false}
@@ -537,7 +578,7 @@ function FormAddItem(props: any) {
             {IdBud != 0 ? (
               <option value={0}>กรุณาเลือกสถานที่</option>
             ) : (
-              <option value={0}>กรุณาเลือกตึก</option>
+              <option value={0}>กรุณาเลือกอาคาร</option>
             )}
 
             {_.map(getLocation, (item: any, idx) => {
@@ -553,7 +594,7 @@ function FormAddItem(props: any) {
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formFaculty">
-          <Form.Label>เลือกชนิดครุภัณฑ์</Form.Label>
+          <Form.Label>ชนิดครุภัณฑ์</Form.Label>
           <Form.Select
             onChange={(event: any) => {
               handleChangeType(event);
