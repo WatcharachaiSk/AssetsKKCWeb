@@ -144,7 +144,7 @@ function FormInputLocation(props: any) {
           <Form.Label>ชั้นที่</Form.Label>
           <Form.Control
             size="lg"
-            type="text"
+            type="number"
             placeholder="ระบุชั้น"
             value={floor}
             onChange={(event) => {
@@ -155,7 +155,7 @@ function FormInputLocation(props: any) {
         </Form.Group>
         {/*  */}
         <Form.Group className="mb-3" controlId="formFaculty">
-          <Form.Label>เลือกคณะ</Form.Label>
+          <Form.Label>คณะ</Form.Label>
           <Form.Select
             onChange={(event: any) => {
               const value = event.target.value;
@@ -192,7 +192,7 @@ function FormInputLocation(props: any) {
         </Form.Group>
         {/*  */}
         <Form.Group className="mb-3" controlId="formDepartment">
-          <Form.Label>เลือกสาขา</Form.Label>
+          <Form.Label>สาขา</Form.Label>
           <Form.Select
             disabled={facultyFId == 0 ? true : false}
             onChange={(event: any) => {
@@ -239,7 +239,7 @@ function FormInputLocation(props: any) {
         </Form.Group>
         {/*  */}
         <Form.Group className="mb-3" controlId="formDepartment">
-          <Form.Label>เลือกอาคาร</Form.Label>
+          <Form.Label>อาคาร</Form.Label>
           <Form.Select
             disabled={departmentDId == 0 ? true : false}
             onChange={(event: any) => {

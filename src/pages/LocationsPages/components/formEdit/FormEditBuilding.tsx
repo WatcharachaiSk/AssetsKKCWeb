@@ -164,7 +164,7 @@ function FormEditBuilding(props: any) {
       <Form>
         {/* nameTH */}
         <Form.Group className="mb-2">
-          <Form.Label style={{ fontSize: 22 }}>ชื่อ(ไทย)</Form.Label>
+          <Form.Label>ชื่อ(ไทย)</Form.Label>
           <Form.Control
             size="lg"
             style={{
@@ -181,7 +181,7 @@ function FormEditBuilding(props: any) {
           />
         </Form.Group>
         <Form.Group className="mb-2">
-          <Form.Label style={{ fontSize: 22 }}>ชื่อ(อังกฤษ)</Form.Label>
+          <Form.Label>ชื่อ(อังกฤษ)</Form.Label>
           <Form.Control
             size="lg"
             style={{
@@ -199,8 +199,8 @@ function FormEditBuilding(props: any) {
         </Form.Group>
         {/*  */}
         <Form.Group className="mb-3" controlId="formFaculty">
-          <Form.Label style={{ fontSize: 22 }}>
-            เลือกคณะ ตอนนี้อยู่{" "}
+          <Form.Label>
+            คณะ ตอนนี้อยู่{" "}
             <span style={{ color: "#4c00ff", fontSize: 18 }}>
               ({faculty_Old?.nameTH + " " + faculty_Old?.nameEN})
             </span>
@@ -220,7 +220,7 @@ function FormEditBuilding(props: any) {
             }}
             size="lg"
           >
-            <option value={0}>เลือกเปลี่ยนคณะ</option>
+            <option value={0}>กรุณาเลือกคณะ</option>
 
             {_.map(getFaculty, (item: any) => {
               return (
@@ -235,8 +235,8 @@ function FormEditBuilding(props: any) {
         </Form.Group>
         {/*  */}
         <Form.Group className="mb-3" controlId="formFaculty">
-          <Form.Label style={{ fontSize: 22 }}>
-            เลือกสาขา ตอนนี้อยู่{" "}
+          <Form.Label>
+            สาขา ตอนนี้อยู่{" "}
             <span style={{ color: "#4c00ff", fontSize: 18 }}>
               ({department_Old?.nameTH + " " + department_Old?.nameEN})
             </span>
@@ -256,7 +256,7 @@ function FormEditBuilding(props: any) {
             }}
             size="lg"
           >
-            <option value={0}>เลือกเปลี่ยนสาขา</option>
+            <option value={0}>กรุณาเลือกสาขา</option>
 
             {_.map(getDepartment, (item: any) => {
               return (

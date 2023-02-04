@@ -504,7 +504,7 @@ function FormEditTypeItem(props: any) {
         {/* Department */}
         <Form.Group className="mb-2" controlId="formFaculty">
           <Form.Label>
-            เลือกสาขา ตอนนี้อยู่{" "}
+            สาขา ตอนนี้อยู่{" "}
             <span style={{ color: "#4c00ff", fontSize: 18 }}>
               (
               {typeItem_Old?.department?.nameTH +
@@ -540,7 +540,7 @@ function FormEditTypeItem(props: any) {
         {/* Category */}
         <Form.Group className="mb-2" controlId="formFaculty">
           <Form.Label>
-            เลือกหมวดหมู่ครุภัณฑ์ ตอนนี้อยู่{" "}
+            หมวดหมู่ครุภัณฑ์ ตอนนี้อยู่{" "}
             <span style={{ color: "#4c00ff", fontSize: 18 }}>
               ({typeItem_Old?.category?.name})
             </span>

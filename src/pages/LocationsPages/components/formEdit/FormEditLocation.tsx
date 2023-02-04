@@ -209,7 +209,7 @@ function FormEditLocation(props: any) {
       <Form>
         {/* nameTH */}
         <Form.Group className="mb-2">
-          <Form.Label style={{ fontSize: 22 }}>ชื่อ(ไทย)</Form.Label>
+          <Form.Label>ชื่อ(ไทย)</Form.Label>
           <Form.Control
             size="lg"
             style={{
@@ -227,7 +227,7 @@ function FormEditLocation(props: any) {
         </Form.Group>
         {/*  */}
         <Form.Group className="mb-2">
-          <Form.Label style={{ fontSize: 22 }}>ชื่อ(อังกฤษ)</Form.Label>
+          <Form.Label>ชื่อ(อังกฤษ)</Form.Label>
           <Form.Control
             size="lg"
             style={{
@@ -245,14 +245,14 @@ function FormEditLocation(props: any) {
         </Form.Group>
         {/*  */}
         <Form.Group className="mb-2">
-          <Form.Label style={{ fontSize: 22 }}>ชั้นที่</Form.Label>
+          <Form.Label>ชั้นที่</Form.Label>
           <Form.Control
             size="lg"
             style={{
               borderColor:
                 floor !== floor_Old && floor ? colors.borderColorEdit : "",
             }}
-            type="text"
+            type="number"
             placeholder="ชื่อ(อังกฤษ)"
             value={floor == floor_Old ? floor_Old : floor}
             onChange={(event: any) => {
@@ -263,8 +263,8 @@ function FormEditLocation(props: any) {
         </Form.Group>
         {/*  */}
         <Form.Group className="mb-3" controlId="formFaculty">
-          <Form.Label style={{ fontSize: 22 }}>
-            เลือกคณะ ตอนนี้อยู่{" "}
+          <Form.Label>
+            คณะ ตอนนี้อยู่{" "}
             <span style={{ color: "#4c00ff", fontSize: 18 }}>
               ({faculty_Old?.nameTH + " " + faculty_Old?.nameEN})
             </span>
@@ -309,8 +309,8 @@ function FormEditLocation(props: any) {
         </Form.Group>
         {/*  */}
         <Form.Group className="mb-3" controlId="formFaculty">
-          <Form.Label style={{ fontSize: 22 }}>
-            เลือกสาขา ตอนนี้อยู่{" "}
+          <Form.Label>
+            สาขา ตอนนี้อยู่{" "}
             <span style={{ color: "#4c00ff", fontSize: 18 }}>
               ({department_Old?.nameTH + " " + department_Old?.nameEN})
             </span>
@@ -331,7 +331,7 @@ function FormEditLocation(props: any) {
             }}
             size="lg"
           >
-               {getUserAdmin ? (
+            {getUserAdmin ? (
               <>
                 {facultyFId != 0 ? (
                   <option value={0}>กรุณาเลือกสาขา</option>
@@ -366,8 +366,8 @@ function FormEditLocation(props: any) {
         </Form.Group>
         {/*  */}
         <Form.Group className="mb-3" controlId="formFaculty">
-          <Form.Label style={{ fontSize: 22 }}>
-            เลือกอาคาร ตอนนี้อยู่{" "}
+          <Form.Label>
+            อาคาร ตอนนี้อยู่{" "}
             <span style={{ color: "#4c00ff", fontSize: 18 }}>
               ({building_Old?.nameTH + " " + building_Old?.nameEN})
             </span>

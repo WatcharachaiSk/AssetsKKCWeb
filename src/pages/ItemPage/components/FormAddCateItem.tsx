@@ -64,7 +64,7 @@ function FormAddCateItem(props: any) {
         </Form.Group>
         {/* Department */}
         <Form.Group className="mb-2" controlId="formFaculty">
-          <Form.Label>เลือกสาขา</Form.Label>
+          <Form.Label>สาขา</Form.Label>
           <Form.Select
             onChange={(event: any) => {
               const value = event.target.value;

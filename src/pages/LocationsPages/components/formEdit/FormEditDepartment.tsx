@@ -121,7 +121,7 @@ function FormEditDepartment(props: any) {
         {/*  */}
         <Form.Group className="mb-3" controlId="formFaculty">
           <Form.Label style={{ fontSize: 22 }}>
-            เลือกคณะ ตอนนี้อยู่{" "}
+            คณะ ตอนนี้อยู่{" "}
             <span style={{ color: "#4c00ff", fontSize: 18 }}>
               ({faculty_Old?.nameTH + " " + faculty_Old?.nameEN})
             </span>
@@ -140,7 +140,7 @@ function FormEditDepartment(props: any) {
             }}
             size="lg"
           >
-            <option value={0}>เลือกเปลี่ยนคณะ</option>
+            <option value={0}>กรุณาเลือกคณะ</option>
 
             {_.map(getFaculty, (item: any) => {
               return (

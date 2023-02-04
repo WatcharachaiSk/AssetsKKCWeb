@@ -119,7 +119,7 @@ function FormInputBuilding(props: any) {
         </Form.Group>
         {/*  */}
         <Form.Group className="mb-3" controlId="formFaculty">
-          <Form.Label>เลือกคณะ</Form.Label>
+          <Form.Label>คณะ</Form.Label>
           <Form.Select
             onChange={(event: any) => {
               const value = event.target.value;
@@ -155,7 +155,7 @@ function FormInputBuilding(props: any) {
         </Form.Group>
         {/*  */}
         <Form.Group className="mb-3" controlId="formDepartment">
-          <Form.Label>เลือกสาขา</Form.Label>
+          <Form.Label>สาขา</Form.Label>
           <Form.Select
             disabled={facultyFId == 0 ? true : false}
             onChange={(event: any) => {

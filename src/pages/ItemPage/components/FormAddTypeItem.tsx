@@ -277,7 +277,7 @@ function FormAddTypeItem(props: any) {
 
         {/* Department */}
         <Form.Group className="mb-2" controlId="formFaculty">
-          <Form.Label>เลือกสาขา</Form.Label>
+          <Form.Label>สาขา</Form.Label>
           <Form.Select
             onChange={(event: any) => {
               const value = event.target.value;
@@ -300,7 +300,7 @@ function FormAddTypeItem(props: any) {
 
         {/* Category */}
         <Form.Group className="mb-2" controlId="formFaculty">
-          <Form.Label>เลือกหมวดหมู่ครุภัณฑ์</Form.Label>
+          <Form.Label>หมวดหมู่ครุภัณฑ์</Form.Label>
           <Form.Select
             onChange={(event: any) => {
               const value = event.target.value;

@@ -118,7 +118,7 @@ function FormEditCategory(props: any) {
         {/* Department */}
         <Form.Group className="mb-2" controlId="formFaculty">
           <Form.Label>
-            เลือกสาขา ตอนนี้อยู่{" "}
+            สาขา ตอนนี้อยู่{" "}
             <span style={{ color: "#4c00ff", fontSize: 18 }}>
               ({department_Old?.nameTH + " " + department_Old?.nameEN})
             </span>

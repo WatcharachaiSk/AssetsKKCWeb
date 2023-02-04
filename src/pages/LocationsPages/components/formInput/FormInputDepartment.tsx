@@ -85,7 +85,7 @@ function FormInputDepartment(props: any) {
         </Form.Group>
         {/*  */}
         <Form.Group className="mb-3" controlId="formFaculty">
-          <Form.Label>เลือกคณะ</Form.Label>
+          <Form.Label>คณะ</Form.Label>
           <Form.Select
             onChange={(event: any) => {
               const value = event.target.value;
