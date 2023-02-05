@@ -60,7 +60,7 @@ function HistoryItem(props: any) {
         />
       )}
       <Form.Label style={{ fontSize: 22 }}>
-        ย้ายสถานที่หรือเปลี่ยนสถานะครุภัณฑ์ (ย้อนหลัง)
+      ประวัติการแก้ไข (ย้อนหลัง)
       </Form.Label>
       <Table
         style={{
