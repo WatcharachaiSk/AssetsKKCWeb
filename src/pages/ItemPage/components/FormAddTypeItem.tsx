@@ -347,7 +347,7 @@ function FormAddTypeItem(props: any) {
           <Form.Group as={Col} className="mb-2 mt-2" controlId="formFaculty">
             <Form.Label></Form.Label>
             <Form.Control
-              placeholder="MM/DD/YYYY"
+              placeholder=""
               size="lg"
               type="text"
               disabled

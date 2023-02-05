@@ -606,7 +606,7 @@ function FormEditTypeItem(props: any) {
           <Form.Group as={Col} className="mb-2" controlId="formFaculty">
             <Form.Label style={{ color: "#4c00ff" }}>วันที่ซื้อเดิม</Form.Label>
             <Form.Control
-              placeholder="MM/DD/YYYY"
+              placeholder=""
               size="lg"
               type="text"
               value={dateFormat(typeItem_Old?.purchase_date, "dd/mm/yyyy")}
