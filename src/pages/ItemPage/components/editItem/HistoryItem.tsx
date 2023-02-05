@@ -17,7 +17,11 @@ import {
 } from "../../../../config/chackStatusItem";
 function HistoryItem(props: any) {
   const navigate = useNavigate();
-  const { getItems } = props;
+  const { getItems, resetItem } = props;
+
+  const fnDelImg = () => {
+    resetItem();
+  };
 
   const [modalShowDamaged, setModalShowDamaged] = useState(false);
   const [name_image_damaged, setName_image_damaged] = useState();
@@ -52,6 +56,7 @@ function HistoryItem(props: any) {
           show={modalShowDamaged}
           onHide={() => setModalShowDamaged(false)}
           name_image_damaged={name_image_damaged}
+          fnDelImg={fnDelImg}
         />
       )}
       <Form.Label style={{ fontSize: 22 }}>

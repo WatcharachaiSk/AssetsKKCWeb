@@ -112,6 +112,9 @@ function EditItem() {
   // const onSubmitFnDeletel = async (status: number) => {
   //   setModalShowDeletel(false);
   // };
+  const resetItem = () => {
+    setedit_updateEn(!edit_updateEn);
+  };
   const clickPage = "items";
   return (
     <div style={{ ...GetKanitFont("KanitLight") }}>
@@ -212,7 +215,7 @@ function EditItem() {
 
       <div className="mt-5">
         {isEdit === isPageEdit.status && getItems && (
-          <HistoryItem getItems={getItems} />
+          <HistoryItem getItems={getItems} resetItem={resetItem} />
         )}
       </div>
     </div>
