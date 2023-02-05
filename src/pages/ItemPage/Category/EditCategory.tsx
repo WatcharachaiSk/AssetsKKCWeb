@@ -37,7 +37,7 @@ function EditCategory() {
       }
     }
   };
-  const clickPage = "setting";
+  const clickPage = "items";
   return (
     <div style={{ ...GetKanitFont("KanitLight") }}>
       <NavbarTop clickPage={clickPage} />

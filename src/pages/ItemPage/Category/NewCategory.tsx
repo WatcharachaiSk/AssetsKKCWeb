@@ -32,7 +32,7 @@ function NewCateItem() {
       }
     }
   };
-  const clickPage = "setting";
+  const clickPage = "items";
   return (
     <div style={{ ...GetKanitFont("KanitLight") }}>
       <NavbarTop />

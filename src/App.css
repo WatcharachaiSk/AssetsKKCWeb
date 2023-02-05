@@ -17,7 +17,7 @@
   background-color: #f1f1f1;
 }
 
-.flex-container>div {
+.flex-container > div {
   background-color: DodgerBlue;
   color: white;
   width: 100px;
@@ -44,6 +44,9 @@
   text-align: center;
 }
 
+.swal2-popup {
+  font-family: KanitLight !important;
+}
 @media (max-width: 800px) {
   .heading {
     margin: 15px 0;
