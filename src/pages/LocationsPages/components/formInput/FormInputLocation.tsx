@@ -18,7 +18,7 @@ function FormInputLocation(props: any) {
 
   const [nameLocationTH, setNameLocationTH] = useState<string>();
   const [nameLocationEN, setNameLocationEN] = useState<string>();
-  const [floor, setFloor] = useState<string>();
+  const [floor, setFloor] = useState<any>();
 
   const [facultyFId, setFacultyFId] = useState<number>(0);
   const [departmentDId, setDepartmentDId] = useState<number>(0);
@@ -143,6 +143,7 @@ function FormInputLocation(props: any) {
         <Form.Group controlId="formFloor">
           <Form.Label>ชั้นที่</Form.Label>
           <Form.Control
+            min={"0"}
             size="lg"
             type="number"
             placeholder="ระบุชั้น"
@@ -167,7 +168,7 @@ function FormInputLocation(props: any) {
             }}
             size="lg"
           >
-          {getUserAdmin ? (
+            {getUserAdmin ? (
               <>
                 <option value={0}>กรุณาเลือกคณะ</option>
                 {_.map(getFaculty, (item: any, idx) => {
@@ -204,7 +205,7 @@ function FormInputLocation(props: any) {
             }}
             size="lg"
           >
-              {getUserAdmin ? (
+            {getUserAdmin ? (
               <>
                 {facultyFId != 0 ? (
                   <option value={0}>กรุณาเลือกสาขา</option>
@@ -274,7 +275,8 @@ function FormInputLocation(props: any) {
                 nameLocationEN &&
                 facultyFId != 0 &&
                 departmentDId != 0 &&
-                buildingBId != 0
+                buildingBId != 0 &&
+                floor >= 0 && floor
               ) {
                 onSubmit(event);
               } else {
@@ -288,7 +290,8 @@ function FormInputLocation(props: any) {
               nameLocationEN &&
               facultyFId != 0 &&
               departmentDId != 0 &&
-              buildingBId != 0
+              buildingBId != 0 &&
+              floor >= 0 &&  floor
                 ? "success"
                 : "secondary"
             }
@@ -299,7 +302,8 @@ function FormInputLocation(props: any) {
             nameLocationEN &&
             facultyFId != 0 &&
             departmentDId != 0 &&
-            buildingBId != 0
+            buildingBId != 0 &&
+            floor >= 0 && floor
               ? "บันทึก"
               : "กรุณากรอกข้อมูลให้ครบ"}
           </Button>

@@ -32,7 +32,7 @@ function FormEditLocation(props: any) {
 
   const [nameTH, setnameTH] = useState<string>(nameTH_Old);
   const [nameEN, setnameEN] = useState<string>(nameEN_Old);
-  const [floor, setFloor] = useState<string>(floor_Old);
+  const [floor, setFloor] = useState<any>(floor_Old);
 
   //
   const [facultyFId, setFacultyFId] = useState<number>(0);
@@ -48,7 +48,7 @@ function FormEditLocation(props: any) {
     if (
       (nameTH !== nameTH_Old && nameTH) ||
       (nameEN !== nameEN_Old && nameEN) ||
-      (floor !== floor_Old && floor)
+      (floor !== floor_Old && floor && floor >= 0)
     ) {
       arrCheck.push(true);
     } else {
@@ -247,6 +247,7 @@ function FormEditLocation(props: any) {
         <Form.Group className="mb-2">
           <Form.Label>ชั้นที่</Form.Label>
           <Form.Control
+            min={"0"}
             size="lg"
             style={{
               borderColor:
@@ -404,7 +405,7 @@ function FormEditLocation(props: any) {
           <Button
             // style={{}}
             onClick={(event) => {
-              if (boxCheck) {
+              if (boxCheck && floor >= 0 && floor) {
                 onSubmit(event);
               } else {
                 event.preventDefault();
@@ -416,11 +417,11 @@ function FormEditLocation(props: any) {
               }
             }}
             className="mb-3 mt-3 p-2"
-            variant={boxCheck ? "success" : "secondary"}
+            variant={boxCheck && floor >= 0 && floor ? "success" : "secondary"}
             type="submit"
             size="lg"
           >
-            {boxCheck ? "บันทึก" : "ยังไม่มีข้อมูลเปลี่ยนแปลง"}
+            {boxCheck && floor >= 0 && floor ? "บันทึก" : "ยังไม่มีข้อมูลเปลี่ยนแปลง"}
           </Button>
         </div>
       </Form>
