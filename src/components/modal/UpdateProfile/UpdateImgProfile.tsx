@@ -24,7 +24,7 @@ function UpdateImgProfile(props: any) {
       data.append("images", selectedFile);
 
       const res = await axios(configAxios("post", API.updateUserProfile, data));
-      checkStatus(res, `อัพเดตรูปโปรไฟล์เสร็จสิ้น`);
+      checkStatus(res, `อัปเดตรูปโปรไฟล์เสร็จสิ้น`);
       switchData();
       props.onHide();
     } catch (error: any) {
@@ -42,7 +42,7 @@ function UpdateImgProfile(props: any) {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          อัพเดตรูปโปรไฟล์
+          อัปเดตรูปโปรไฟล์
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -62,7 +62,7 @@ function UpdateImgProfile(props: any) {
           />
         </div>
         <Form.Group controlId="formFile" className="">
-          <Form.Label>อัพโหลดรูปภาพ</Form.Label>
+          <Form.Label>อัปโหลดรูปภาพ</Form.Label>
           <Form.Control
             // value={}
             accept="image/png,image/jpeg,image/jpg"
@@ -90,8 +90,8 @@ function UpdateImgProfile(props: any) {
             } else {
               sweet_basic(
                 "warning",
-                "ยังไม่ได้อัพโหลดรูปภาพ",
-                `กรุณาอัพโหลดรูปภาพให้เรียบร้อย`
+                "ยังไม่ได้อัปโหลดรูปภาพ",
+                `กรุณาอัปโหลดรูปภาพให้เรียบร้อย`
               );
             }
           }}

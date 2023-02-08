@@ -18,6 +18,7 @@ import FormEditImgItem from "./components/editItem/FormEditImgItem";
 import ModalUpImgItem from "../../components/modal/ModalUpImgItem";
 import isPageEdit from "../../config/editpage/isPageEdit";
 import NavbarItem from "../../components/navbar/NavbarItem";
+import ModalDownloadSwap from "../../components/download/ModalDownloadSwap";
 function EditItem() {
   const navigate = useNavigate();
   // const { state } = useLocation();
@@ -90,14 +91,18 @@ function EditItem() {
   const [postEditImgItemCheck, setPostEditImgItemCheck] = useState<object>();
   const [postEditImgItem, setPostEditImgItem] = useState<FormData>();
   const [postEditImgItemFn, setPostEditImgItemFn] = useState<boolean>(false);
+  const [lodingSwap, setLodingSwap] = useState<boolean>(false);
+  //
   const onSubmitFnImgItem = async (status: number) => {
     setModalShowCheckUpImgItem(false);
 
     if (status == 1) {
+      setLodingSwap(true);
       try {
         const res = await axios(
           configAxios("post", API.createImgItems, postEditImgItem)
         );
+        setLodingSwap(false);
         checkStatus(res, "เพิ่มรูปครุภัณฑ์เสร็จสิ้น");
         setedit_updateEn(!edit_updateEn);
         setPostEditImgItemFn(!postEditImgItemFn);
@@ -145,7 +150,12 @@ function EditItem() {
           </div>
         </div>
       )}
-
+      {lodingSwap && (
+        <ModalDownloadSwap
+          show={lodingSwap}
+          onHide={() => setLodingSwap(false)}
+        />
+      )}
       {modalShowCheckUpImgItem && (
         <ModalUpImgItem
           onSubmitFnImgItem={onSubmitFnImgItem}

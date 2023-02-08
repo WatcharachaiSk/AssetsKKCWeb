@@ -73,27 +73,37 @@ function SearchItem(props: any) {
       const dataItemFac = _.filter(getItems, (item: any) => {
         return item?.faculty?.nameTH === selected?.value;
       });
+
       setDataFilter(dataItemFac);
+      // localStorage.setItem("paginationItem", "1");
     } else if (selected?.filter === "department") {
       const dataItemDpm = _.filter(getItems, (item: any) => {
         return item?.department?.nameTH === selected?.value;
       });
+
       setDataFilter(dataItemDpm);
+      // localStorage.setItem("paginationItem", "1");
     } else if (selected?.filter === "building") {
       const dataItemBud = _.filter(getItems, (item: any) => {
         return item?.building?.nameTH === selected?.value;
       });
+
       setDataFilter(dataItemBud);
+      // localStorage.setItem("paginationItem", "1");
     } else if (selected?.filter === "location") {
       const dataItemLocate = _.filter(getItems, (item: any) => {
         return item?.location?.nameTH === selected?.value;
       });
+
       setDataFilter(dataItemLocate);
+      // localStorage.setItem("paginationItem", "1");
     } else if (selected?.filter === "location") {
       const dataItemLocate = _.filter(getItems, (item: any) => {
         return item?.location?.nameTH === selected?.value;
       });
+
       setDataFilter(dataItemLocate);
+      // localStorage.setItem("paginationItem", "1");
     } else if (selected?.filter === "status_item") {
       let status_item: any;
       if (selected?.value == "true" || selected?.value == "false") {
@@ -105,12 +115,16 @@ function SearchItem(props: any) {
       const dataItemLocate = _.filter(getItems, (item: any) => {
         return item?.status_item == status_item;
       });
+
       setDataFilter(dataItemLocate);
+      // localStorage.setItem("paginationItem", "1");
     } else if (selected?.filter === "underrated") {
       const dataItemLocate = _.filter(getItems, (item: any) => {
         return item?.price < 5000;
       });
+
       setDataFilter(dataItemLocate);
+      // localStorage.setItem("paginationItem", "1");
     } else if (selected?.filter === "WaitNumbe") {
       const dataItemLocate = _.filter(getItems, (item: any) => {
         return (
@@ -119,9 +133,14 @@ function SearchItem(props: any) {
           item?.code.length == "ไม่มี"
         );
       });
+
       setDataFilter(dataItemLocate);
+      // localStorage.setItem("paginationItem", "1");
     } else {
       setDataFilter(undefined);
+
+      let getPagination: any = localStorage.getItem("paginationItem");
+      localStorage.setItem("paginationItem", getPagination);
     }
 
     // console.log(selected);

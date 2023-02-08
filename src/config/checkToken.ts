@@ -6,7 +6,7 @@ const checkToken = (isWant: string, status: number, navigate?: any) => {
   } else if (status >= 500 && status < 600) {
     sweet_basic("error", "Server Error", "มีบางอย่างผิดพลาด");
   } else {
-    sweet_basic("error", "Server Error", "มีบางอย่างผิดปกติ");
+    sweet_basic("error", "Server Error", "มีบางอย่างผิดปกติลองใหม่อีกครั้ง");
   }
 };
 
