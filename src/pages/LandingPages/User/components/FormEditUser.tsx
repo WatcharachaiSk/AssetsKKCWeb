@@ -18,6 +18,7 @@ import { sweet_basic } from "../../../../components/sweetalert2/sweet";
 import images from "../../../../config/index.images";
 import { setURLProfile } from "../../../../config/setURL_image";
 import getBase64 from "../../../../config/getBase64";
+import { AnyARecord } from "dns";
 
 function FormEditUser(props: any) {
   const {
@@ -161,12 +162,24 @@ function FormEditUser(props: any) {
     dataform.append("departmentDId", departmentDId);
     dataform.append("nameImage_delete", nameImage_delete);
     dataform.append("images", selectedFile);
-    // 
+    //
     setPostUserCheck(obj);
     setuserUrl(selectedFile ? true : false);
     setPostUser(selectedFile ? dataform : data);
     setModalShowCheckUser(true);
   };
+
+  const [getProfile, setGetProfile] = useState<any>();
+  useEffect(() => {
+    let userAdmin: any = localStorage.getItem("UserAdmin");
+    let profile: any = localStorage.getItem("Profile");
+    profile = JSON.parse(profile);
+
+    if (profile) {
+      setGetProfile(profile.user.username);
+    }
+  }, []);
+  // console.log(getProfile);
 
   return (
     <>
@@ -340,6 +353,7 @@ function FormEditUser(props: any) {
           <ButtonGroup className="mb-2">
             {radios.map((radio, idx) => (
               <ToggleButton
+                disabled={getProfile == username_Old ? true : false}
                 size="lg"
                 key={idx}
                 id={`radio-${idx}`}
