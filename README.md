@@ -7,11 +7,9 @@
 พัฒนาโดยใช้ React
 
 <p align="center">
-  <a target="blank"><img src="https://sv1.picz.in.th/images/2023/02/16/L81w2v.png" width="500" height: "100%" alt="WebLogo" /></a>
-</p>
-
-<p align="center">
+  
   <a target="blank"><img src="https://sv1.picz.in.th/images/2023/02/16/L81mIv.png" width="500" height: "100%" alt="MobileLogo" /></a>
+  
 </p>
 
 # Getting Started with Create React App
