@@ -48,7 +48,8 @@
 ## ถ้าหากว่า path ของระบบ Backend เปลี่ยน
 - แก้ไขในไฟล์ **.env** ในตัวแปล <*APP_API_URL_PROD*>
 	 > APP_API_URL_PROD = "new path"
-	 >ทำการ **npm start** อีกรอบ
+	 > 
+	 > ทำการ **npm start** อีกรอบ
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
