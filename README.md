@@ -5,8 +5,50 @@
 จากการพัฒนาระบบตามขอบเขตและแผนการปฏิบัติงาน จะได้เว็บไซต์การจัดการข้อมูลครุภัณฑ์ที่มีการจัดเก็บรายละเอียดละข้อมูลของครุภัณฑ์ และนำข้อมูลของครุภัณฑ์มาสร้างเป็นคิวอาร์โค้ดหรือบาร์โค้ด 2 มิติ และได้แอปพลิเคชันที่ใช้งานบนระบบปฏิบัติการแอนดรอยด์ ที่สามารถดูรายละเอียดของครุภัณฑ์ ตาม หมวดหมู่ และสถานะของครุภัณฑ์ รวมไปถึงการอัปเดตสถานะ และเปลี่ยนสถานที่ตั้งของครุภัณฑ์ได้ผ่านการสแกนคิวอาร์โค้ด
 
 พัฒนาโดยใช้ React
+# คู่มือการติดตั้ง
+- พัฒนาบน Node Version: **16.13.0**  
+- React Version: **18.02.0**  
 
-
+## ติดตั้ง Environment (Development)
+#### Installing Node.js® and NPM on Windows
+ > 1. Download Node.js Installer: [Download | Node.js (nodejs.org)](https://nodejs.org/en/download/)
+ > 2. Install Node.js and NPM from Browser
+ > 
+	1) Once the installer finishes downloading, launch it. Open the  **downloads**  link in your browser and click the file. Or, browse to the location where you have saved the file and double-click it to launch.
+	2) The system will ask if you want to run the software – click  **Run**.
+	3) You will be welcomed to the Node.js Setup Wizard – click  **Next**.
+	4) On the next screen, review the license agreement. Click  **Next**  if you agree to the terms and install the software.
+	5) The installer will prompt you for the installation location. Leave the default location, unless you have a specific need to install it somewhere else – then click  **Next**.
+	6) The wizard will let you select components to include or remove from the installation. Again, unless you have a specific need, accept the defaults by clicking  **Next**.
+	7) Finally, click the  **Install**  button to run the installer. When it finishes, click  **Finish**.
+>3. Verify Installation 
+	>node -v
+		npm -v
+		-> Output 
+			node: v16.10.0
+			npm: v1.5.0	
+>4. อ้างอิง [How to Install Node.js and NPM on Your Windows System](https://phoenixnap.com/kb/install-node-js-npm-on-windows)
+  #### git clone โปรแกรม
+ - โดยมีเครื่องมือต่างๆรองรับ เช่น **git desktop**, **sourcetree**
+ >1. git clone <*repository*>
+	 <*repository*> คือ URL ของ repository ที่เราต้องการจะ clone ตัวอย่างถ้าเราต้องการจะ Clone จาก github เราก็สามารถไป Copy URL จาก github ได้เลย
+	 
+##  เมื่อติดตั้ง Environment (Development) เสร็จ
+- ทำการใช้ **git clone** โปรแกรม
+	 >clone https://github.../.../BE_Qr.git
+ - เปิดโฟลเดอร์ที่ได้ Clone โปรแกรม
+- ให้ทำการติดตั้ง **Package** ของโปรแกรม
+	 >  npm install หรือ yarn install
+	 > ทดสอบ **Start** ระบบด้วย
+	 > **npm start**
+##  เมื่อต้องการ Build 
+- ใช้คำสั่ง 
+	 >**npm build** หรือ **yarn build**
+##### ***ถ้าหากว่า path ของระบบ Backend เปลี่ยนจะส่งผลต่อระบบ  Frontend และ Application ไปด้วยในการรับส่งข้อมูล**	
+## ถ้าหากว่า path ของระบบ Backend เปลี่ยน
+- แก้ไขในไฟล์ **.env** ในตัวแปล <*APP_API_URL_PROD*>
+	 > APP_API_URL_PROD = "new path"
+	 >ทำการ **npm start** อีกรอบ
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -53,3 +95,6 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+
+#### *สงวนลิขสิทธิ์ ใช้ภายใน มหาวิทยาลัยเทคโนโลยี ราชมงคลอีสานวิทยาเขต ขอนแก่น.
