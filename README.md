@@ -8,7 +8,6 @@
 #### Watcharachai Samkhan
 #### Isariya Roopkhan
 
-พัฒนาโดยใช้ React
 # คู่มือการติดตั้ง
 - พัฒนาบน Node Version: **16.13.0**  
 - React Version: **18.02.0**  
