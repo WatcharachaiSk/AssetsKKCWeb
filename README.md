@@ -49,6 +49,7 @@
 - ใช้คำสั่ง 
 	 >**npm build** หรือ **yarn build**
 ##### ***ถ้าหากว่า path ของระบบ Backend เปลี่ยนจะส่งผลต่อระบบ  Frontend และ Application ไปด้วยในการรับส่งข้อมูล**	
+##### ***ถ้าหากว่ามีการ build ใหม่ ให้นำไฟล์ที่ build ขึ้นมา copy ไปไว้ใน back-end**	
 ## ถ้าหากว่า path ของระบบ Backend เปลี่ยน
 - แก้ไขในไฟล์ **.env** ในตัวแปล <*APP_API_URL_PROD*>
 	 > APP_API_URL_PROD = "new path"
